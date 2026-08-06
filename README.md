@@ -9,7 +9,9 @@ reading two JSON files, hosted free on GitHub Pages.
 - `data/history.json` - actual performance data (source: `scripts/parse_garmin.py`)
 - `scripts/build_plan.py` - regenerates `plan.json`. Edit this file when the plan changes.
 - `scripts/parse_garmin.py` - ingests new Garmin exports into `history.json`. Never edit `history.json` by hand.
-- `data/raw/` - archive of every raw file that's been fed in, in case anything needs reprocessing.
+- `data/raw/` - archive of every raw file that's been fed in, organized into `data/raw/<monday-date>/`
+  subfolders by the week the activity/export falls in (Monday-Sunday, matching the plan's week
+  boundaries), in case anything needs reprocessing.
 
 ## Viewing it locally
 

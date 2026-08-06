@@ -147,9 +147,26 @@ def upsert_activity(activities, new_activity):
     return True
 
 
-def archive_raw(path: Path):
-    RAW_DIR.mkdir(parents=True, exist_ok=True)
-    dest = RAW_DIR / path.name
+def week_folder(date_str):
+    """Monday-of-week folder name (YYYY-MM-DD) for a given ISO date string.
+
+    Weeks run Monday-Sunday, matching the START_MONDAY convention in
+    scripts/build_plan.py. Falls back to "unsorted" if no date is known.
+    """
+    if not date_str:
+        return "unsorted"
+    try:
+        d = dt.date.fromisoformat(date_str[:10])
+    except ValueError:
+        return "unsorted"
+    monday = d - dt.timedelta(days=d.weekday())
+    return monday.isoformat()
+
+
+def archive_raw(path: Path, date_str=None):
+    week_dir = RAW_DIR / week_folder(date_str)
+    week_dir.mkdir(parents=True, exist_ok=True)
+    dest = week_dir / path.name
     if not dest.exists():
         try:
             shutil.copy2(path, dest)
@@ -178,7 +195,7 @@ def main(argv):
                 print(f"  -> {activity['date']}  {activity['distance_mi']}mi  "
                       f"{activity['avg_pace_per_mi']}/mi  HR {activity['avg_hr']}  "
                       f"({'updated' if not added else 'added'})")
-            archive_raw(path)
+            archive_raw(path, activity["date"] if activity else None)
 
         elif path.suffix.lower() == ".json":
             print(f"Parsing coach/health export: {path.name}")
@@ -199,7 +216,7 @@ def main(argv):
 
             print(f"  -> readiness/load snapshot for {readiness_entry['date']}, "
                   f"{len(trends)} trend points folded in")
-            archive_raw(path)
+            archive_raw(path, readiness_entry["date"])
 
         else:
             print(f"  ! unrecognized file type, skipping: {path.name}")

@@ -70,8 +70,9 @@ function renderKPIs(plan, history) {
   const pool = buildActivityPool(history);
   const weekActualMi = sumWeekActualMiles(currentWeek, pool);
 
+  const snapshot = history.athlete_snapshot || {};
   const latestReadiness = (history.readiness_history || [])
-    .filter(r => r.training_readiness_score !== undefined)
+    .filter(r => r.resting_hr !== undefined)
     .sort((a, b) => a.date.localeCompare(b.date)).slice(-1)[0];
   const latestLoad = (history.load_history || []).slice(-1)[0];
 
@@ -99,17 +100,68 @@ function renderKPIs(plan, history) {
       <span class="kpi-flag good">${capitalize(currentWeek.block)} phase</span>
     </div>`);
 
-  if (latestReadiness) {
-    const score = latestReadiness.training_readiness_score;
-    const level = latestReadiness.training_readiness_level || "";
-    const flagClass = score >= 60 ? "good" : score >= 40 ? "warn" : "bad";
+  // VO2max
+  if (snapshot.vo2max) {
     cards.push(`
       <div class="kpi-card">
-        <div class="kpi-value">${score}<small> /100</small></div>
-        <div class="kpi-label">Training readiness (${latestReadiness.date})</div>
-        <span class="kpi-flag ${flagClass}">${level}${latestLoad ? " &middot; ACWR " + latestLoad.acwr : ""}</span>
+        <div class="kpi-value">${snapshot.vo2max}</div>
+        <div class="kpi-label">VO2 max</div>
+        <span class="kpi-flag good">Garmin estimate</span>
       </div>`);
-  } else {
+  }
+
+  // Resting HR - latest reading
+  if (latestReadiness) {
+    cards.push(`
+      <div class="kpi-card">
+        <div class="kpi-value">${latestReadiness.resting_hr}<small> bpm</small></div>
+        <div class="kpi-label">Resting HR</div>
+        <span class="kpi-flag good">${fmtDateShort(latestReadiness.date)}</span>
+      </div>`);
+  }
+
+  // Lactate threshold - HR from Garmin snapshot, pace estimated from the plan's
+  // threshold pace zone unless a direct value shows up in a future Garmin export.
+  if (snapshot.lthr) {
+    const thresholdZone = (plan.athlete.pace_zones || []).find(z => z.name === "Tempo / Threshold");
+    cards.push(`
+      <div class="kpi-card">
+        <div class="kpi-value">${snapshot.lthr}<small> bpm</small></div>
+        <div class="kpi-label">Lactate threshold</div>
+        <span class="kpi-flag good">${thresholdZone ? thresholdZone.pace_per_mi + "/mi (est.)" : "HR only"}</span>
+      </div>`);
+  }
+
+  // Load tolerance - ACWR is the standard "is your current load safe" metric
+  if (latestLoad && latestLoad.acwr !== undefined) {
+    const acwr = latestLoad.acwr;
+    let flagClass = "good", label = "safe range";
+    if (acwr > 1.5) { flagClass = "bad"; label = "high risk"; }
+    else if (acwr > 1.3) { flagClass = "warn"; label = "caution"; }
+    else if (acwr < 0.8) { flagClass = "warn"; label = "detraining"; }
+    cards.push(`
+      <div class="kpi-card">
+        <div class="kpi-value">${acwr}</div>
+        <div class="kpi-label">Load tolerance (ACWR)</div>
+        <span class="kpi-flag ${flagClass}">${label}</span>
+      </div>`);
+  }
+
+  // Training status - Garmin's own read on whether recent training is working
+  if (latestLoad && latestLoad.training_status) {
+    const status = latestLoad.training_status;
+    const goodStatuses = ["productive", "peaking", "maintaining"];
+    const badStatuses = ["overreaching", "detraining", "unproductive"];
+    const flagClass = goodStatuses.includes(status) ? "good" : badStatuses.includes(status) ? "bad" : "warn";
+    cards.push(`
+      <div class="kpi-card">
+        <div class="kpi-value" style="font-size:16px; text-transform:capitalize;">${status}</div>
+        <div class="kpi-label">Training status</div>
+        <span class="kpi-flag ${flagClass}">${fmtDateShort(latestLoad.date)}</span>
+      </div>`);
+  }
+
+  if (!latestReadiness && !latestLoad) {
     cards.push(`
       <div class="kpi-card">
         <div class="kpi-value">&mdash;</div>
@@ -167,15 +219,23 @@ function sessionKindLabel(s) {
 
 function renderSession(session, dateISO, pool) {
   const isRun = session.type === "run";
-  let done = false, actualHtml = "", checkClass = "";
+  const isRest = session.type === "rest";
+  let done = false, actualHtml = "", checkClass = "", autoMatched = false;
 
   if (isRun) {
     const match = matchSessionToActivity(pool, dateISO);
     if (match) {
       done = true;
+      autoMatched = true;
       checkClass = "done auto";
       actualHtml = `<div class="session-actual">&#10003; Actual: ${match.distance_mi} mi @ ${match.avg_pace_per_mi || "?"}/mi
         ${match.avg_hr ? ", HR " + match.avg_hr + " avg" : ""}${match.race ? " &mdash; " + (match.note || "") : ""}</div>`;
+    } else {
+      // No Garmin activity matched yet - let it be manually self-reported until
+      // the weekly upload confirms it (at which point the auto-match takes over).
+      const key = localKey(dateISO, session.title);
+      done = localStorage.getItem(key) === "1";
+      checkClass = done ? "done checkable" : "checkable";
     }
   } else if (session.type === "strength" || session.type === "core" || session.type === "pt") {
     const key = localKey(dateISO, session.title);
@@ -184,7 +244,7 @@ function renderSession(session, dateISO, pool) {
   }
 
   const checkMark = done ? "&#10003;" : "";
-  const checkAttrs = (session.type === "strength" || session.type === "core" || session.type === "pt")
+  const checkAttrs = (!autoMatched && !isRest && (session.type === "strength" || session.type === "core" || session.type === "pt" || isRun))
     ? `data-toggle-key="${localKey(dateISO, session.title)}"` : "";
 
   let exerciseHtml = "";
@@ -200,9 +260,13 @@ function renderSession(session, dateISO, pool) {
   if (session.pace) metaParts.push(session.pace);
   if (session.hr_zone !== undefined && session.hr_zone !== null) metaParts.push(`HR Z${session.hr_zone}`);
 
+  const checkHtml = isRest
+    ? `<div class="session-no-check"></div>`
+    : `<div class="session-check ${checkClass}" ${checkAttrs}>${checkMark}</div>`;
+
   return `
     <div class="session">
-      <div class="session-check ${checkClass}" ${checkAttrs}>${checkMark}</div>
+      ${checkHtml}
       <div class="session-body">
         <div class="session-title-row">
           <span class="session-title">${session.title}</span>
@@ -452,6 +516,33 @@ function renderPaceZones(plan) {
 }
 
 // ---------------------------------------------------------------------
+// Theme toggle (dark "maroon dark" / light "trackside cream")
+// ---------------------------------------------------------------------
+function initThemeToggle() {
+  const el = document.getElementById("theme-toggle");
+  if (!el) return;
+
+  function applyTheme(theme) {
+    if (theme === "light") {
+      document.documentElement.setAttribute("data-theme", "light");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+    localStorage.setItem("td:theme", theme);
+    el.querySelectorAll("button").forEach(b => {
+      b.classList.toggle("active", b.dataset.themeChoice === theme);
+    });
+  }
+
+  const current = localStorage.getItem("td:theme") === "light" ? "light" : "dark";
+  applyTheme(current);
+
+  el.querySelectorAll("button").forEach(b => {
+    b.addEventListener("click", () => applyTheme(b.dataset.themeChoice));
+  });
+}
+
+// ---------------------------------------------------------------------
 // Header
 // ---------------------------------------------------------------------
 function renderHeader(plan) {
@@ -474,6 +565,7 @@ function renderAll() {
 }
 
 async function init() {
+  initThemeToggle();
   try {
     const [plan, history] = await Promise.all([
       loadJSON("data/plan.json"),

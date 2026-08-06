@@ -7,12 +7,24 @@
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<script>
+(function () {
+  var saved = localStorage.getItem("td:theme");
+  if (saved === "light") document.documentElement.setAttribute("data-theme", "light");
+})();
+</script>
 <div class="wrap">
 
   <header class="page-header">
-    <div class="eyebrow" id="eyebrow">LOADING</div>
-    <h1 id="page-title">Training Dashboard</h1>
-    <div class="header-meta" id="header-meta"></div>
+    <div class="page-header-text">
+      <div class="eyebrow" id="eyebrow">LOADING</div>
+      <h1 id="page-title">Training Dashboard</h1>
+      <div class="header-meta" id="header-meta"></div>
+    </div>
+    <div class="theme-toggle" id="theme-toggle">
+      <button type="button" data-theme-choice="dark">Dark</button>
+      <button type="button" data-theme-choice="light">Light</button>
+    </div>
   </header>
 
   <section class="kpi-strip" id="kpi-strip"></section>
