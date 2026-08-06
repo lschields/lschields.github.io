@@ -1,0 +1,187 @@
+{
+  "generated_at": "2026-08-06T01:25:24.695964Z",
+  "athlete_snapshot": {
+    "ftp": 230,
+    "vo2max": 53,
+    "weight_kg": 72.1,
+    "lthr": 169,
+    "zones": {
+      "power": [
+        {
+          "zone": 1,
+          "floor_w": 0
+        },
+        {
+          "zone": 2,
+          "floor_w": 129
+        },
+        {
+          "zone": 3,
+          "floor_w": 175
+        },
+        {
+          "zone": 4,
+          "floor_w": 209
+        },
+        {
+          "zone": 5,
+          "floor_w": 244
+        },
+        {
+          "zone": 6,
+          "floor_w": 278
+        },
+        {
+          "zone": 7,
+          "floor_w": 347
+        }
+      ],
+      "hr": [
+        {
+          "zone": 1,
+          "floor_bpm": 107
+        },
+        {
+          "zone": 2,
+          "floor_bpm": 131
+        },
+        {
+          "zone": 3,
+          "floor_bpm": 145
+        },
+        {
+          "zone": 4,
+          "floor_bpm": 156
+        },
+        {
+          "zone": 5,
+          "floor_bpm": 164
+        }
+      ]
+    }
+  },
+  "readiness_history": [
+    {
+      "date": "2026-07-29",
+      "hrv": 41,
+      "resting_hr": 50
+    },
+    {
+      "date": "2026-07-30",
+      "hrv": 35,
+      "resting_hr": 54
+    },
+    {
+      "date": "2026-07-31",
+      "hrv": 51,
+      "resting_hr": 49
+    },
+    {
+      "date": "2026-08-01",
+      "hrv": 54,
+      "resting_hr": 46
+    },
+    {
+      "date": "2026-08-02",
+      "hrv": 49,
+      "resting_hr": 49
+    },
+    {
+      "date": "2026-08-03",
+      "hrv": 53,
+      "resting_hr": 48
+    },
+    {
+      "date": "2026-08-04",
+      "hrv": 67,
+      "resting_hr": 46
+    },
+    {
+      "date": "2026-08-05",
+      "hrv": 56,
+      "resting_hr": 46
+    },
+    {
+      "date": "2026-08-06",
+      "hrv_status": "balanced",
+      "hrv_last_night_avg": 56,
+      "hrv_7day_avg": 51,
+      "training_readiness_score": 41,
+      "training_readiness_level": "low",
+      "body_battery_high": 79,
+      "resting_hr": 46,
+      "resting_hr_7day_avg": 48,
+      "avg_stress_level": 13,
+      "sleep_score": 80,
+      "sleep_total_hours": 7.6,
+      "sleep_deep_pct": 15,
+      "sleep_rem_pct": 21,
+      "sleep_light_pct": 64,
+      "sleep_feedback": "positive_long_and_refreshing"
+    }
+  ],
+  "load_history": [
+    {
+      "date": "2026-08-06",
+      "atl": 335,
+      "ctl": 219,
+      "acwr": 1.5,
+      "training_status": "unproductive",
+      "recovery_time_hours": 30.1
+    }
+  ],
+  "activities": [
+    {
+      "source_file": "23319786401_ACTIVITY.fit",
+      "date": "2026-06-20",
+      "start_time": "2026-06-20T12:49:20",
+      "sport": "running",
+      "distance_mi": 26.39,
+      "duration_sec": 13549.3,
+      "avg_pace_per_mi": "8:33",
+      "avg_pace_sec_per_mi": 513.5,
+      "avg_hr": 147,
+      "max_hr": 155,
+      "avg_power": 325,
+      "avg_cadence_spm": 160,
+      "avg_vertical_oscillation_mm": 95.5,
+      "avg_stance_time_ms": 268.7,
+      "avg_stance_time_balance_pct": 50.09,
+      "total_ascent_m": 164,
+      "total_calories": 2850,
+      "total_training_effect": 5.0,
+      "title": "Grandma's Marathon",
+      "race": true,
+      "note": "GI distress during the race; not representative of true fitness."
+    }
+  ],
+  "races": [
+    {
+      "name": "Half marathon PR",
+      "date": null,
+      "date_note": "exact date unknown - tell Claude if you want this precise",
+      "distance_mi": 13.10938,
+      "time_sec": 5400,
+      "time_display": "1:30:00",
+      "notes": "Personal best, prior to this cycle."
+    },
+    {
+      "name": "Cambridge Half Marathon 2025",
+      "date": "2025-11-02",
+      "date_note": "approximate - Cambridge Half Marathon weekend, same course as the 2026 goal race",
+      "distance_mi": 13.10938,
+      "time_sec": 5700,
+      "time_display": "1:35:00",
+      "notes": "Same course as the 2026 goal race - most directly comparable data point."
+    },
+    {
+      "name": "Grandma's Marathon 2026",
+      "date": "2026-06-20",
+      "distance_mi": 26.2188,
+      "time_sec": 13549.346,
+      "time_display": "3:45:49",
+      "notes": "GI distress during the race derailed pacing. Pre-race training projection was ~3:28. Not a reliable fitness indicator for this cycle - kept here for the training log, not for pace-setting.",
+      "pre_race_projection_display": "3:28:00"
+    }
+  ]
+}

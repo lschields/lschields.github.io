@@ -1,0 +1,2445 @@
+{
+  "generated_at": "2026-08-06T01:24:06.885766Z",
+  "athlete": {
+    "name": "Luke",
+    "race": {
+      "name": "Cambridge Half Marathon",
+      "date": "2026-11-01",
+      "distance_mi": 13.10938,
+      "goal_time_sec": 5280,
+      "goal_time_display": "1:28:00",
+      "goal_pace_per_mi": "6:43",
+      "goal_pace_per_km": "4:10"
+    },
+    "context": [
+      "Ran Grandma's Marathon 6/20/2026 in 3:45:49 - GI distress during the race; pre-race training projection was ~3:28.",
+      "3-4 week layoff after Grandma's for illness + sore Achilles.",
+      "Half marathon PR: 1:30. Ran this exact Cambridge course in 11/2025 in 1:35.",
+      "Goal of 1:28 is a real but ambitious target given demonstrated sub-1:30 fitness - not supported by the marathon-day result alone (GI issues), so paces below are set from the PR/Cambridge-2025 evidence and will be recalibrated after the Week 8 time trial."
+    ],
+    "hr_zones": [
+      {
+        "zone": 1,
+        "name": "Recovery",
+        "floor_bpm": 107,
+        "ceil_bpm": 130
+      },
+      {
+        "zone": 2,
+        "name": "Easy / Aerobic",
+        "floor_bpm": 131,
+        "ceil_bpm": 144
+      },
+      {
+        "zone": 3,
+        "name": "Steady / Tempo",
+        "floor_bpm": 145,
+        "ceil_bpm": 155
+      },
+      {
+        "zone": 4,
+        "name": "Threshold",
+        "floor_bpm": 156,
+        "ceil_bpm": 163
+      },
+      {
+        "zone": 5,
+        "name": "VO2max+",
+        "floor_bpm": 164,
+        "ceil_bpm": 190
+      }
+    ],
+    "lthr_bpm": 169,
+    "pace_zones": [
+      {
+        "name": "Recovery",
+        "pace_per_mi": "8:30-9:00",
+        "hr_zone": 1
+      },
+      {
+        "name": "Easy",
+        "pace_per_mi": "7:50-8:20",
+        "hr_zone": 2
+      },
+      {
+        "name": "Long run",
+        "pace_per_mi": "7:30-8:00",
+        "hr_zone": 2
+      },
+      {
+        "name": "Steady / MP-effort",
+        "pace_per_mi": "7:00-7:15",
+        "hr_zone": 3
+      },
+      {
+        "name": "Tempo / Threshold",
+        "pace_per_mi": "6:35-6:45",
+        "hr_zone": "3-4"
+      },
+      {
+        "name": "Goal HM pace",
+        "pace_per_mi": "6:43",
+        "hr_zone": "3-4"
+      },
+      {
+        "name": "VO2max intervals",
+        "pace_per_mi": "6:00-6:15",
+        "hr_zone": "4-5"
+      },
+      {
+        "name": "Strides",
+        "pace_per_mi": "5:30-5:45 (relaxed, not max effort)",
+        "hr_zone": "n/a"
+      }
+    ]
+  },
+  "weeks": [
+    {
+      "week_num": 1,
+      "block": "rebuild",
+      "block_label": "Rebuild - Weeks 1-2",
+      "start_date": "2026-08-03",
+      "end_date": "2026-08-09",
+      "focus": "Return to running, calm the Achilles down, no pace targets",
+      "target_miles": 14,
+      "coach_notes": [
+        "Your ACWR is sitting at 1.5 and training status read 'unproductive' the week I pulled your Garmin data - that's the load spiking faster than your body is absorbing it. This week undoes that: everything is capped at conversational effort and the Achilles work is daily, not optional.",
+        "No paces this week on purpose. Run by feel and heart rate (stay in Zone 1-2, 107-144bpm). If the Achilles is more than mildly achy the next morning, swap that day's run for the bike or rest."
+      ],
+      "days": [
+        {
+          "date": "2026-08-03",
+          "day_name": "Mon",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "recovery",
+              "title": "Easy shakeout",
+              "distance_mi": 3,
+              "duration_min": null,
+              "pace": null,
+              "hr_zone": 1,
+              "details": "Flat ground if you have it. Walk breaks anytime.",
+              "note": ""
+            },
+            {
+              "type": "pt",
+              "title": "Daily Achilles work",
+              "exercises": [
+                {
+                  "name": "Eccentric heel drop (Alfredson protocol)",
+                  "prescription": "3 x 15 straight-leg + 3 x 15 bent-knee, both legs, daily",
+                  "cue": "Slow 3-count lower off a step, use the good leg (or hands) to reset up. Mild ache is fine, sharp pain is not."
+                }
+              ],
+              "note": "Do this every day this week, not just on strength days."
+            }
+          ]
+        },
+        {
+          "date": "2026-08-04",
+          "day_name": "Tue",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength A - Prehab focus (Achilles/hip)",
+              "exercises": [
+                {
+                  "name": "Achilles isometric calf hold",
+                  "prescription": "3 x 30-45s hold, straight leg, mid-range",
+                  "cue": "Pain during the hold should stay <=3/10. Stop the exercise, not the plan, if it spikes."
+                },
+                {
+                  "name": "Eccentric heel drop (Alfredson protocol)",
+                  "prescription": "3 x 15 straight-leg + 3 x 15 bent-knee, both legs, daily",
+                  "cue": "Slow 3-count lower off a step, use the good leg (or hands) to reset up. Mild ache is fine, sharp pain is not."
+                },
+                {
+                  "name": "Tibialis raise",
+                  "prescription": "3 x 15-20, heels on a small plate or wall lean",
+                  "cue": "Builds shin/ankle strength that protects the Achilles as load climbs."
+                },
+                {
+                  "name": "Banded clamshell",
+                  "prescription": "3 x 15-20/side",
+                  "cue": "Hip stability - keeps the knee tracking straight under fatigue."
+                },
+                {
+                  "name": "Banded monster walk",
+                  "prescription": "3 x 10 steps/direction",
+                  "cue": ""
+                },
+                {
+                  "name": "Single-leg balance reach",
+                  "prescription": "3 x 8 reaches/side",
+                  "cue": "Cheap injury insurance - do it in socks on a hard floor."
+                }
+              ],
+              "note": "This block's real job is the Achilles and hips, not the barbell. Keep everything else light."
+            }
+          ]
+        },
+        {
+          "date": "2026-08-05",
+          "day_name": "Wed",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy run",
+              "distance_mi": 3.5,
+              "duration_min": null,
+              "pace": null,
+              "hr_zone": 2,
+              "details": "First few minutes should feel almost too easy.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-06",
+          "day_name": "Thu",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength B - Prehab focus (knee/core)",
+              "exercises": [
+                {
+                  "name": "Eccentric heel drop (Alfredson protocol)",
+                  "prescription": "3 x 15 straight-leg + 3 x 15 bent-knee, both legs, daily",
+                  "cue": "Slow 3-count lower off a step, use the good leg (or hands) to reset up. Mild ache is fine, sharp pain is not."
+                },
+                {
+                  "name": "Slow step-down",
+                  "prescription": "3 x 8/side",
+                  "cue": "Eccentric knee control - the single best exercise for runner's knee prevention."
+                },
+                {
+                  "name": "Copenhagen plank (knee-supported)",
+                  "prescription": "3 x 20-30s/side",
+                  "cue": "Adductor strength - commonly the missing piece behind hip and knee niggles."
+                },
+                {
+                  "name": "Dead bug",
+                  "prescription": "3 x 10/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Side plank w/ hip abduction",
+                  "prescription": "3 x 30-45s/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Goblet squat",
+                  "prescription": "3 x 10-12",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-07",
+          "day_name": "Fri",
+          "sessions": [
+            {
+              "type": "rest",
+              "title": "Rest",
+              "note": "Full rest, or 20-30min easy walk/spin if you feel restless."
+            }
+          ]
+        },
+        {
+          "date": "2026-08-08",
+          "day_name": "Sat",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy run + strides",
+              "distance_mi": 4,
+              "duration_min": null,
+              "pace": null,
+              "hr_zone": 2,
+              "details": "Last 10 min: 4 x 20s relaxed strides, full recovery walk between.",
+              "note": "Strides are about leg speed/turnover, not effort - stay smooth."
+            }
+          ]
+        },
+        {
+          "date": "2026-08-09",
+          "day_name": "Sun",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "long",
+              "title": "Long run (easy)",
+              "distance_mi": 5,
+              "duration_min": null,
+              "pace": null,
+              "hr_zone": 2,
+              "details": "No pace target. This is a time-on-feet run to remind your body what mileage feels like.",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "week_num": 2,
+      "block": "rebuild",
+      "block_label": "Rebuild - Weeks 1-2",
+      "start_date": "2026-08-10",
+      "end_date": "2026-08-16",
+      "focus": "Same shape, a bit more volume - watch the Achilles trend",
+      "target_miles": 18,
+      "coach_notes": [
+        "If Week 1 went cleanly (no Achilles flare, HRV/RHR trending back to your baseline), we add modest volume. If it didn't go cleanly, repeat Week 1's mileage instead - tell me and I'll adjust the plan rather than push through."
+      ],
+      "days": [
+        {
+          "date": "2026-08-10",
+          "day_name": "Mon",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "recovery",
+              "title": "Easy shakeout",
+              "distance_mi": 3.5,
+              "duration_min": null,
+              "pace": null,
+              "hr_zone": 1,
+              "details": "",
+              "note": ""
+            },
+            {
+              "type": "pt",
+              "title": "Daily Achilles work",
+              "exercises": [
+                {
+                  "name": "Eccentric heel drop (Alfredson protocol)",
+                  "prescription": "3 x 15 straight-leg + 3 x 15 bent-knee, both legs, daily",
+                  "cue": "Slow 3-count lower off a step, use the good leg (or hands) to reset up. Mild ache is fine, sharp pain is not."
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-11",
+          "day_name": "Tue",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength A - Prehab focus (Achilles/hip)",
+              "exercises": [
+                {
+                  "name": "Achilles isometric calf hold",
+                  "prescription": "3 x 30-45s hold, straight leg, mid-range",
+                  "cue": "Pain during the hold should stay <=3/10. Stop the exercise, not the plan, if it spikes."
+                },
+                {
+                  "name": "Eccentric heel drop (Alfredson protocol)",
+                  "prescription": "3 x 15 straight-leg + 3 x 15 bent-knee, both legs, daily",
+                  "cue": "Slow 3-count lower off a step, use the good leg (or hands) to reset up. Mild ache is fine, sharp pain is not."
+                },
+                {
+                  "name": "Tibialis raise",
+                  "prescription": "3 x 15-20, heels on a small plate or wall lean",
+                  "cue": "Builds shin/ankle strength that protects the Achilles as load climbs."
+                },
+                {
+                  "name": "Banded clamshell",
+                  "prescription": "3 x 15-20/side",
+                  "cue": "Hip stability - keeps the knee tracking straight under fatigue."
+                },
+                {
+                  "name": "Banded monster walk",
+                  "prescription": "3 x 10 steps/direction",
+                  "cue": ""
+                },
+                {
+                  "name": "Single-leg balance reach",
+                  "prescription": "3 x 8 reaches/side",
+                  "cue": "Cheap injury insurance - do it in socks on a hard floor."
+                }
+              ],
+              "note": "This block's real job is the Achilles and hips, not the barbell. Keep everything else light."
+            }
+          ]
+        },
+        {
+          "date": "2026-08-12",
+          "day_name": "Wed",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy run",
+              "distance_mi": 4,
+              "duration_min": null,
+              "pace": null,
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-13",
+          "day_name": "Thu",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength B - Prehab focus (knee/core)",
+              "exercises": [
+                {
+                  "name": "Eccentric heel drop (Alfredson protocol)",
+                  "prescription": "3 x 15 straight-leg + 3 x 15 bent-knee, both legs, daily",
+                  "cue": "Slow 3-count lower off a step, use the good leg (or hands) to reset up. Mild ache is fine, sharp pain is not."
+                },
+                {
+                  "name": "Slow step-down",
+                  "prescription": "3 x 8/side",
+                  "cue": "Eccentric knee control - the single best exercise for runner's knee prevention."
+                },
+                {
+                  "name": "Copenhagen plank (knee-supported)",
+                  "prescription": "3 x 20-30s/side",
+                  "cue": "Adductor strength - commonly the missing piece behind hip and knee niggles."
+                },
+                {
+                  "name": "Dead bug",
+                  "prescription": "3 x 10/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Side plank w/ hip abduction",
+                  "prescription": "3 x 30-45s/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Goblet squat",
+                  "prescription": "3 x 10-12",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-14",
+          "day_name": "Fri",
+          "sessions": [
+            {
+              "type": "rest",
+              "title": "Rest",
+              "note": "Full rest, or 20-30min easy walk/spin if you feel restless."
+            }
+          ]
+        },
+        {
+          "date": "2026-08-15",
+          "day_name": "Sat",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy run + strides",
+              "distance_mi": 4.5,
+              "duration_min": null,
+              "pace": null,
+              "hr_zone": 2,
+              "details": "Last 10 min: 6 x 20s relaxed strides.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-16",
+          "day_name": "Sun",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "long",
+              "title": "Long run (easy)",
+              "distance_mi": 6,
+              "duration_min": null,
+              "pace": null,
+              "hr_zone": 2,
+              "details": "Still no pace target - effort should stay conversational the entire way.",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "week_num": 3,
+      "block": "base",
+      "block_label": "Base - Weeks 3-4",
+      "start_date": "2026-08-17",
+      "end_date": "2026-08-23",
+      "focus": "Back to structured paces, aerobic volume climbs",
+      "target_miles": 21,
+      "coach_notes": [
+        "First week back on actual pace targets. Easy pace zone is 7:50-8:20/mi - resist the urge to run these faster just because it feels easy; the base phase is won on volume, not speed."
+      ],
+      "days": [
+        {
+          "date": "2026-08-17",
+          "day_name": "Mon",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "recovery",
+              "title": "Recovery run",
+              "distance_mi": 3,
+              "duration_min": null,
+              "pace": "8:30-9:00",
+              "hr_zone": 1,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-18",
+          "day_name": "Tue",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength A - Lower body",
+              "exercises": [
+                {
+                  "name": "Goblet squat",
+                  "prescription": "3 x 10-12",
+                  "cue": ""
+                },
+                {
+                  "name": "Single-leg RDL",
+                  "prescription": "3 x 8-10/side",
+                  "cue": "Slow and controlled - this is a hip/hamstring + balance exercise, not a load exercise."
+                },
+                {
+                  "name": "Bulgarian split squat",
+                  "prescription": "3 x 8-10/side",
+                  "cue": "Progress load week to week once form is clean."
+                },
+                {
+                  "name": "Standing calf raise (straight leg)",
+                  "prescription": "4 x 12-15, add load once bodyweight is easy",
+                  "cue": ""
+                },
+                {
+                  "name": "Banded clamshell",
+                  "prescription": "3 x 15-20/side",
+                  "cue": "Hip stability - keeps the knee tracking straight under fatigue."
+                },
+                {
+                  "name": "Front plank",
+                  "prescription": "3 x 45-60s",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            },
+            {
+              "type": "core",
+              "title": "Core",
+              "exercises": [
+                {
+                  "name": "Dead bug",
+                  "prescription": "3 x 10/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Side plank w/ hip abduction",
+                  "prescription": "3 x 30-45s/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Front plank",
+                  "prescription": "3 x 45-60s",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-19",
+          "day_name": "Wed",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy run",
+              "distance_mi": 4.5,
+              "duration_min": null,
+              "pace": "7:50-8:20",
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-20",
+          "day_name": "Thu",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength B - Posterior chain",
+              "exercises": [
+                {
+                  "name": "Barbell/DB hip thrust",
+                  "prescription": "3 x 8-12",
+                  "cue": "Glute drive - directly supports late-race form when hip extensors fatigue."
+                },
+                {
+                  "name": "Slow step-down",
+                  "prescription": "3 x 8/side",
+                  "cue": "Eccentric knee control - the single best exercise for runner's knee prevention."
+                },
+                {
+                  "name": "Seated calf raise (bent knee)",
+                  "prescription": "3 x 15",
+                  "cue": "Targets soleus - the muscle that matters most late in a half marathon."
+                },
+                {
+                  "name": "Copenhagen plank (knee-supported)",
+                  "prescription": "3 x 20-30s/side",
+                  "cue": "Adductor strength - commonly the missing piece behind hip and knee niggles."
+                },
+                {
+                  "name": "Banded monster walk",
+                  "prescription": "3 x 10 steps/direction",
+                  "cue": ""
+                },
+                {
+                  "name": "Pallof press",
+                  "prescription": "3 x 12/side",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-21",
+          "day_name": "Fri",
+          "sessions": [
+            {
+              "type": "rest",
+              "title": "Rest",
+              "note": "Full rest, or 20-30min easy walk/spin if you feel restless."
+            }
+          ]
+        },
+        {
+          "date": "2026-08-22",
+          "day_name": "Sat",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy run + strides",
+              "distance_mi": 5,
+              "duration_min": null,
+              "pace": "7:50-8:20",
+              "hr_zone": 2,
+              "details": "6 x 20s strides after.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-23",
+          "day_name": "Sun",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "long",
+              "title": "Long run",
+              "distance_mi": 7.5,
+              "duration_min": null,
+              "pace": "7:30-8:00",
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "week_num": 4,
+      "block": "base",
+      "block_label": "Base - Weeks 3-4",
+      "start_date": "2026-08-24",
+      "end_date": "2026-08-30",
+      "focus": "Aerobic volume peaks for this block, first taste of steady effort",
+      "target_miles": 24,
+      "coach_notes": [
+        "One new thing this week: a steady/MP-effort finish on Thursday. This is your first pace-aware quality work since the marathon - keep it controlled, this is a toe in the water, not a test."
+      ],
+      "days": [
+        {
+          "date": "2026-08-24",
+          "day_name": "Mon",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "recovery",
+              "title": "Recovery run",
+              "distance_mi": 3,
+              "duration_min": null,
+              "pace": "8:30-9:00",
+              "hr_zone": 1,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-25",
+          "day_name": "Tue",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength A - Lower body",
+              "exercises": [
+                {
+                  "name": "Goblet squat",
+                  "prescription": "3 x 10-12",
+                  "cue": ""
+                },
+                {
+                  "name": "Single-leg RDL",
+                  "prescription": "3 x 8-10/side",
+                  "cue": "Slow and controlled - this is a hip/hamstring + balance exercise, not a load exercise."
+                },
+                {
+                  "name": "Bulgarian split squat",
+                  "prescription": "3 x 8-10/side",
+                  "cue": "Progress load week to week once form is clean."
+                },
+                {
+                  "name": "Standing calf raise (straight leg)",
+                  "prescription": "4 x 12-15, add load once bodyweight is easy",
+                  "cue": ""
+                },
+                {
+                  "name": "Banded clamshell",
+                  "prescription": "3 x 15-20/side",
+                  "cue": "Hip stability - keeps the knee tracking straight under fatigue."
+                },
+                {
+                  "name": "Front plank",
+                  "prescription": "3 x 45-60s",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            },
+            {
+              "type": "core",
+              "title": "Core",
+              "exercises": [
+                {
+                  "name": "Dead bug",
+                  "prescription": "3 x 10/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Side plank w/ hip abduction",
+                  "prescription": "3 x 30-45s/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Front plank",
+                  "prescription": "3 x 45-60s",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-26",
+          "day_name": "Wed",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy run",
+              "distance_mi": 5,
+              "duration_min": null,
+              "pace": "7:50-8:20",
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-27",
+          "day_name": "Thu",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength B - Posterior chain",
+              "exercises": [
+                {
+                  "name": "Barbell/DB hip thrust",
+                  "prescription": "3 x 8-12",
+                  "cue": "Glute drive - directly supports late-race form when hip extensors fatigue."
+                },
+                {
+                  "name": "Slow step-down",
+                  "prescription": "3 x 8/side",
+                  "cue": "Eccentric knee control - the single best exercise for runner's knee prevention."
+                },
+                {
+                  "name": "Seated calf raise (bent knee)",
+                  "prescription": "3 x 15",
+                  "cue": "Targets soleus - the muscle that matters most late in a half marathon."
+                },
+                {
+                  "name": "Copenhagen plank (knee-supported)",
+                  "prescription": "3 x 20-30s/side",
+                  "cue": "Adductor strength - commonly the missing piece behind hip and knee niggles."
+                },
+                {
+                  "name": "Banded monster walk",
+                  "prescription": "3 x 10 steps/direction",
+                  "cue": ""
+                },
+                {
+                  "name": "Pallof press",
+                  "prescription": "3 x 12/side",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-28",
+          "day_name": "Fri",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "steady",
+              "title": "Easy + steady finish",
+              "distance_mi": 5,
+              "duration_min": null,
+              "pace": "Easy 7:50-8:20, last 1.5mi @ 7:00-7:15",
+              "hr_zone": 3,
+              "details": "Negative-split feel: build into the steady pace, don't jump into it.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-29",
+          "day_name": "Sat",
+          "sessions": [
+            {
+              "type": "rest",
+              "title": "Rest",
+              "note": "Full rest, or 20-30min easy walk/spin if you feel restless."
+            }
+          ]
+        },
+        {
+          "date": "2026-08-30",
+          "day_name": "Sun",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "long",
+              "title": "Long run",
+              "distance_mi": 8.5,
+              "duration_min": null,
+              "pace": "7:30-8:00",
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "week_num": 5,
+      "block": "build",
+      "block_label": "Build - Weeks 5-8",
+      "start_date": "2026-08-31",
+      "end_date": "2026-09-06",
+      "focus": "Threshold work begins",
+      "target_miles": 27,
+      "coach_notes": [
+        "Welcome to the build phase. Wednesdays are now your quality day (tempo/threshold), Sundays stay aerobic but get longer. This is where the fitness for 1:28 actually gets made."
+      ],
+      "days": [
+        {
+          "date": "2026-08-31",
+          "day_name": "Mon",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "recovery",
+              "title": "Recovery run",
+              "distance_mi": 3.5,
+              "duration_min": null,
+              "pace": "8:30-9:00",
+              "hr_zone": 1,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-01",
+          "day_name": "Tue",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength A - Lower body",
+              "exercises": [
+                {
+                  "name": "Goblet squat",
+                  "prescription": "3 x 10-12",
+                  "cue": ""
+                },
+                {
+                  "name": "Single-leg RDL",
+                  "prescription": "3 x 8-10/side",
+                  "cue": "Slow and controlled - this is a hip/hamstring + balance exercise, not a load exercise."
+                },
+                {
+                  "name": "Bulgarian split squat",
+                  "prescription": "3 x 8-10/side",
+                  "cue": "Progress load week to week once form is clean."
+                },
+                {
+                  "name": "Standing calf raise (straight leg)",
+                  "prescription": "4 x 12-15, add load once bodyweight is easy",
+                  "cue": ""
+                },
+                {
+                  "name": "Banded clamshell",
+                  "prescription": "3 x 15-20/side",
+                  "cue": "Hip stability - keeps the knee tracking straight under fatigue."
+                },
+                {
+                  "name": "Front plank",
+                  "prescription": "3 x 45-60s",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            },
+            {
+              "type": "core",
+              "title": "Core",
+              "exercises": [
+                {
+                  "name": "Front plank",
+                  "prescription": "3 x 45-60s",
+                  "cue": ""
+                },
+                {
+                  "name": "Dead bug",
+                  "prescription": "3 x 10/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Pallof press",
+                  "prescription": "3 x 12/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Side plank w/ hip abduction",
+                  "prescription": "3 x 30-45s/side",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-02",
+          "day_name": "Wed",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "tempo",
+              "title": "Tempo run",
+              "distance_mi": 6,
+              "duration_min": null,
+              "pace": "1mi warmup, 3mi @ 6:40-6:45, 1mi cooldown",
+              "hr_zone": 4,
+              "details": "3 continuous miles at threshold - controlled hard, should feel like you could hold it 20 more minutes if you had to.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-03",
+          "day_name": "Thu",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength B - Posterior chain",
+              "exercises": [
+                {
+                  "name": "Barbell/DB hip thrust",
+                  "prescription": "3 x 8-12",
+                  "cue": "Glute drive - directly supports late-race form when hip extensors fatigue."
+                },
+                {
+                  "name": "Slow step-down",
+                  "prescription": "3 x 8/side",
+                  "cue": "Eccentric knee control - the single best exercise for runner's knee prevention."
+                },
+                {
+                  "name": "Seated calf raise (bent knee)",
+                  "prescription": "3 x 15",
+                  "cue": "Targets soleus - the muscle that matters most late in a half marathon."
+                },
+                {
+                  "name": "Copenhagen plank (knee-supported)",
+                  "prescription": "3 x 20-30s/side",
+                  "cue": "Adductor strength - commonly the missing piece behind hip and knee niggles."
+                },
+                {
+                  "name": "Banded monster walk",
+                  "prescription": "3 x 10 steps/direction",
+                  "cue": ""
+                },
+                {
+                  "name": "Pallof press",
+                  "prescription": "3 x 12/side",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-04",
+          "day_name": "Fri",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy run",
+              "distance_mi": 4.5,
+              "duration_min": null,
+              "pace": "7:50-8:20",
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-05",
+          "day_name": "Sat",
+          "sessions": [
+            {
+              "type": "rest",
+              "title": "Rest",
+              "note": "Full rest, or 20-30min easy walk/spin if you feel restless."
+            }
+          ]
+        },
+        {
+          "date": "2026-09-06",
+          "day_name": "Sun",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "long",
+              "title": "Long run",
+              "distance_mi": 9,
+              "duration_min": null,
+              "pace": "7:30-8:00",
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "week_num": 6,
+      "block": "build",
+      "block_label": "Build - Weeks 5-8",
+      "start_date": "2026-09-07",
+      "end_date": "2026-09-13",
+      "focus": "VO2max intervals introduced",
+      "target_miles": 30,
+      "coach_notes": [
+        "Intervals replace tempo this week - the two quality types will alternate through the build phase so you get both the threshold and top-end stimulus without stacking them in the same week."
+      ],
+      "days": [
+        {
+          "date": "2026-09-07",
+          "day_name": "Mon",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "recovery",
+              "title": "Recovery run",
+              "distance_mi": 3.5,
+              "duration_min": null,
+              "pace": "8:30-9:00",
+              "hr_zone": 1,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-08",
+          "day_name": "Tue",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength A - Lower body",
+              "exercises": [
+                {
+                  "name": "Goblet squat",
+                  "prescription": "3 x 10-12",
+                  "cue": ""
+                },
+                {
+                  "name": "Single-leg RDL",
+                  "prescription": "3 x 8-10/side",
+                  "cue": "Slow and controlled - this is a hip/hamstring + balance exercise, not a load exercise."
+                },
+                {
+                  "name": "Bulgarian split squat",
+                  "prescription": "3 x 8-10/side",
+                  "cue": "Progress load week to week once form is clean."
+                },
+                {
+                  "name": "Standing calf raise (straight leg)",
+                  "prescription": "4 x 12-15, add load once bodyweight is easy",
+                  "cue": ""
+                },
+                {
+                  "name": "Banded clamshell",
+                  "prescription": "3 x 15-20/side",
+                  "cue": "Hip stability - keeps the knee tracking straight under fatigue."
+                },
+                {
+                  "name": "Front plank",
+                  "prescription": "3 x 45-60s",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            },
+            {
+              "type": "core",
+              "title": "Core",
+              "exercises": [
+                {
+                  "name": "Front plank",
+                  "prescription": "3 x 45-60s",
+                  "cue": ""
+                },
+                {
+                  "name": "Dead bug",
+                  "prescription": "3 x 10/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Pallof press",
+                  "prescription": "3 x 12/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Side plank w/ hip abduction",
+                  "prescription": "3 x 30-45s/side",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-09",
+          "day_name": "Wed",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "intervals",
+              "title": "VO2max intervals",
+              "distance_mi": 6.5,
+              "duration_min": null,
+              "pace": "1.5mi warmup, 6 x 800m @ 6:00-6:10/mi pace w/ 400m easy jog recovery, 1mi cooldown",
+              "hr_zone": 5,
+              "details": "Effort should be hard but repeatable - if rep 6 falls apart, ease off rep 5 next time.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-10",
+          "day_name": "Thu",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength B - Posterior chain",
+              "exercises": [
+                {
+                  "name": "Barbell/DB hip thrust",
+                  "prescription": "3 x 8-12",
+                  "cue": "Glute drive - directly supports late-race form when hip extensors fatigue."
+                },
+                {
+                  "name": "Slow step-down",
+                  "prescription": "3 x 8/side",
+                  "cue": "Eccentric knee control - the single best exercise for runner's knee prevention."
+                },
+                {
+                  "name": "Seated calf raise (bent knee)",
+                  "prescription": "3 x 15",
+                  "cue": "Targets soleus - the muscle that matters most late in a half marathon."
+                },
+                {
+                  "name": "Copenhagen plank (knee-supported)",
+                  "prescription": "3 x 20-30s/side",
+                  "cue": "Adductor strength - commonly the missing piece behind hip and knee niggles."
+                },
+                {
+                  "name": "Banded monster walk",
+                  "prescription": "3 x 10 steps/direction",
+                  "cue": ""
+                },
+                {
+                  "name": "Pallof press",
+                  "prescription": "3 x 12/side",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-11",
+          "day_name": "Fri",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy run",
+              "distance_mi": 5,
+              "duration_min": null,
+              "pace": "7:50-8:20",
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-12",
+          "day_name": "Sat",
+          "sessions": [
+            {
+              "type": "rest",
+              "title": "Rest",
+              "note": "Full rest, or 20-30min easy walk/spin if you feel restless."
+            }
+          ]
+        },
+        {
+          "date": "2026-09-13",
+          "day_name": "Sun",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "long",
+              "title": "Long run",
+              "distance_mi": 10,
+              "duration_min": null,
+              "pace": "7:30-8:00",
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "week_num": 7,
+      "block": "build",
+      "block_label": "Build - Weeks 5-8",
+      "start_date": "2026-09-14",
+      "end_date": "2026-09-20",
+      "focus": "Cutback week - absorb the load before the next push",
+      "target_miles": 23,
+      "coach_notes": [
+        "Planned step-back week: volume drops ~25% and the quality session is shorter. This isn't a rest week, just a lighter one - the adaptation from Weeks 5-6 happens now, while you're recovering, not while you're grinding."
+      ],
+      "days": [
+        {
+          "date": "2026-09-14",
+          "day_name": "Mon",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "recovery",
+              "title": "Recovery run",
+              "distance_mi": 3,
+              "duration_min": null,
+              "pace": "8:30-9:00",
+              "hr_zone": 1,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-15",
+          "day_name": "Tue",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength A - Lower body",
+              "exercises": [
+                {
+                  "name": "Goblet squat",
+                  "prescription": "3 x 10-12",
+                  "cue": ""
+                },
+                {
+                  "name": "Single-leg RDL",
+                  "prescription": "3 x 8-10/side",
+                  "cue": "Slow and controlled - this is a hip/hamstring + balance exercise, not a load exercise."
+                },
+                {
+                  "name": "Bulgarian split squat",
+                  "prescription": "3 x 8-10/side",
+                  "cue": "Progress load week to week once form is clean."
+                },
+                {
+                  "name": "Standing calf raise (straight leg)",
+                  "prescription": "4 x 12-15, add load once bodyweight is easy",
+                  "cue": ""
+                },
+                {
+                  "name": "Banded clamshell",
+                  "prescription": "3 x 15-20/side",
+                  "cue": "Hip stability - keeps the knee tracking straight under fatigue."
+                },
+                {
+                  "name": "Front plank",
+                  "prescription": "3 x 45-60s",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            },
+            {
+              "type": "core",
+              "title": "Core",
+              "exercises": [
+                {
+                  "name": "Dead bug",
+                  "prescription": "3 x 10/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Side plank w/ hip abduction",
+                  "prescription": "3 x 30-45s/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Front plank",
+                  "prescription": "3 x 45-60s",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-16",
+          "day_name": "Wed",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "tempo",
+              "title": "Tempo run (short)",
+              "distance_mi": 5,
+              "duration_min": null,
+              "pace": "1mi warmup, 2mi @ 6:40-6:45, 1mi cooldown",
+              "hr_zone": 4,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-17",
+          "day_name": "Thu",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength B - Posterior chain",
+              "exercises": [
+                {
+                  "name": "Barbell/DB hip thrust",
+                  "prescription": "3 x 8-12",
+                  "cue": "Glute drive - directly supports late-race form when hip extensors fatigue."
+                },
+                {
+                  "name": "Slow step-down",
+                  "prescription": "3 x 8/side",
+                  "cue": "Eccentric knee control - the single best exercise for runner's knee prevention."
+                },
+                {
+                  "name": "Seated calf raise (bent knee)",
+                  "prescription": "3 x 15",
+                  "cue": "Targets soleus - the muscle that matters most late in a half marathon."
+                },
+                {
+                  "name": "Copenhagen plank (knee-supported)",
+                  "prescription": "3 x 20-30s/side",
+                  "cue": "Adductor strength - commonly the missing piece behind hip and knee niggles."
+                },
+                {
+                  "name": "Banded monster walk",
+                  "prescription": "3 x 10 steps/direction",
+                  "cue": ""
+                },
+                {
+                  "name": "Pallof press",
+                  "prescription": "3 x 12/side",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-18",
+          "day_name": "Fri",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy run",
+              "distance_mi": 4,
+              "duration_min": null,
+              "pace": "7:50-8:20",
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-19",
+          "day_name": "Sat",
+          "sessions": [
+            {
+              "type": "rest",
+              "title": "Rest",
+              "note": "Full rest, or 20-30min easy walk/spin if you feel restless."
+            }
+          ]
+        },
+        {
+          "date": "2026-09-20",
+          "day_name": "Sun",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "long",
+              "title": "Long run (easy)",
+              "distance_mi": 7,
+              "duration_min": null,
+              "pace": "7:30-8:00",
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "week_num": 8,
+      "block": "build",
+      "block_label": "Build - Weeks 5-8",
+      "start_date": "2026-09-21",
+      "end_date": "2026-09-27",
+      "focus": "Calibration week - 10K time trial",
+      "target_miles": 28,
+      "coach_notes": [
+        "This is the week we stop guessing. Race or time-trial a 10K on Saturday, fully rested for it. Whatever that number is, I'll use it (not the marathon result) to set your final goal pace and the Peak-block paces below - upload the file afterward and we'll recalibrate together."
+      ],
+      "days": [
+        {
+          "date": "2026-09-21",
+          "day_name": "Mon",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "recovery",
+              "title": "Recovery run",
+              "distance_mi": 3,
+              "duration_min": null,
+              "pace": "8:30-9:00",
+              "hr_zone": 1,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-22",
+          "day_name": "Tue",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength A - Lower body",
+              "exercises": [
+                {
+                  "name": "Goblet squat",
+                  "prescription": "3 x 10-12",
+                  "cue": ""
+                },
+                {
+                  "name": "Single-leg RDL",
+                  "prescription": "3 x 8-10/side",
+                  "cue": "Slow and controlled - this is a hip/hamstring + balance exercise, not a load exercise."
+                },
+                {
+                  "name": "Bulgarian split squat",
+                  "prescription": "3 x 8-10/side",
+                  "cue": "Progress load week to week once form is clean."
+                },
+                {
+                  "name": "Standing calf raise (straight leg)",
+                  "prescription": "4 x 12-15, add load once bodyweight is easy",
+                  "cue": ""
+                },
+                {
+                  "name": "Banded clamshell",
+                  "prescription": "3 x 15-20/side",
+                  "cue": "Hip stability - keeps the knee tracking straight under fatigue."
+                },
+                {
+                  "name": "Front plank",
+                  "prescription": "3 x 45-60s",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            },
+            {
+              "type": "core",
+              "title": "Core",
+              "exercises": [
+                {
+                  "name": "Dead bug",
+                  "prescription": "3 x 10/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Side plank w/ hip abduction",
+                  "prescription": "3 x 30-45s/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Front plank",
+                  "prescription": "3 x 45-60s",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-23",
+          "day_name": "Wed",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy + strides",
+              "distance_mi": 4,
+              "duration_min": null,
+              "pace": "7:50-8:20",
+              "hr_zone": 2,
+              "details": "4 x 20s strides, keep everything easy 2 days out from the time trial.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-24",
+          "day_name": "Thu",
+          "sessions": [
+            {
+              "type": "rest",
+              "title": "Rest",
+              "note": "Full rest, or 20-30min easy walk/spin if you feel restless."
+            }
+          ]
+        },
+        {
+          "date": "2026-09-25",
+          "day_name": "Fri",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "shakeout",
+              "title": "Pre-TT shakeout",
+              "distance_mi": 2.5,
+              "duration_min": null,
+              "pace": "Easy, 3 x 15s strides",
+              "hr_zone": null,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-26",
+          "day_name": "Sat",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "race",
+              "title": "10K time trial",
+              "distance_mi": 6.2,
+              "duration_min": null,
+              "pace": null,
+              "hr_zone": null,
+              "details": "Race effort, ideally an actual local 10K. Warm up 1.5-2mi, cool down 1mi (not counted).",
+              "note": "This number recalibrates everything from here to race day."
+            }
+          ]
+        },
+        {
+          "date": "2026-09-27",
+          "day_name": "Sun",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "long",
+              "title": "Long run (easy)",
+              "distance_mi": 8,
+              "duration_min": null,
+              "pace": "7:30-8:00",
+              "hr_zone": 2,
+              "details": "Easy - legs will still have Saturday in them.",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "week_num": 9,
+      "block": "peak",
+      "block_label": "Peak - Weeks 9-11",
+      "start_date": "2026-09-28",
+      "end_date": "2026-10-04",
+      "focus": "Race-pace work begins",
+      "target_miles": 32,
+      "coach_notes": [
+        "Peak phase: this is where goal-pace running shows up directly in the sessions. Paces below assume the Week 8 time trial confirmed 1:28 pace is on - update this week's session if it didn't."
+      ],
+      "days": [
+        {
+          "date": "2026-09-28",
+          "day_name": "Mon",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "recovery",
+              "title": "Recovery run",
+              "distance_mi": 3.5,
+              "duration_min": null,
+              "pace": "8:30-9:00",
+              "hr_zone": 1,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-29",
+          "day_name": "Tue",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength A - Lower body (heavier, lower volume)",
+              "exercises": [
+                {
+                  "name": "Goblet squat",
+                  "prescription": "3 x 10-12",
+                  "cue": ""
+                },
+                {
+                  "name": "Single-leg RDL",
+                  "prescription": "3 x 8-10/side",
+                  "cue": "Slow and controlled - this is a hip/hamstring + balance exercise, not a load exercise."
+                },
+                {
+                  "name": "Bulgarian split squat",
+                  "prescription": "3 x 8-10/side",
+                  "cue": "Progress load week to week once form is clean."
+                },
+                {
+                  "name": "Standing calf raise (straight leg)",
+                  "prescription": "4 x 12-15, add load once bodyweight is easy",
+                  "cue": ""
+                }
+              ],
+              "note": "Cut volume, keep intensity - legs need to be fresh for quality running now."
+            },
+            {
+              "type": "core",
+              "title": "Core",
+              "exercises": [
+                {
+                  "name": "Pallof press",
+                  "prescription": "3 x 12/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Side plank w/ hip abduction",
+                  "prescription": "3 x 30-45s/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Dead bug",
+                  "prescription": "3 x 10/side",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-09-30",
+          "day_name": "Wed",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "tempo",
+              "title": "Race-pace intervals",
+              "distance_mi": 7,
+              "duration_min": null,
+              "pace": "1.5mi warmup, 3 x 1mi @ 6:43 w/ 3min jog recovery, 1mi cooldown",
+              "hr_zone": 4,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-10-01",
+          "day_name": "Thu",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength B - Maintenance",
+              "exercises": [
+                {
+                  "name": "Barbell/DB hip thrust",
+                  "prescription": "3 x 8-12",
+                  "cue": "Glute drive - directly supports late-race form when hip extensors fatigue."
+                },
+                {
+                  "name": "Slow step-down",
+                  "prescription": "3 x 8/side",
+                  "cue": "Eccentric knee control - the single best exercise for runner's knee prevention."
+                },
+                {
+                  "name": "Banded clamshell",
+                  "prescription": "3 x 15-20/side",
+                  "cue": "Hip stability - keeps the knee tracking straight under fatigue."
+                },
+                {
+                  "name": "Seated calf raise (bent knee)",
+                  "prescription": "3 x 15",
+                  "cue": "Targets soleus - the muscle that matters most late in a half marathon."
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-10-02",
+          "day_name": "Fri",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy run",
+              "distance_mi": 5,
+              "duration_min": null,
+              "pace": "7:50-8:20",
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-10-03",
+          "day_name": "Sat",
+          "sessions": [
+            {
+              "type": "rest",
+              "title": "Rest",
+              "note": "Full rest, or 20-30min easy walk/spin if you feel restless."
+            }
+          ]
+        },
+        {
+          "date": "2026-10-04",
+          "day_name": "Sun",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "long",
+              "title": "Long run w/ goal-pace finish",
+              "distance_mi": 11,
+              "duration_min": null,
+              "pace": "Easy 7:30-8:00, last 2mi @ goal pace 6:43",
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "week_num": 10,
+      "block": "peak",
+      "block_label": "Peak - Weeks 9-11",
+      "start_date": "2026-10-05",
+      "end_date": "2026-10-11",
+      "focus": "Longest long run, highest volume of the cycle",
+      "target_miles": 34,
+      "coach_notes": [
+        "Highest-mileage week of the plan. The Sunday long run is the single most important session left - 13 miles with real goal-pace running inside it is as close as you get to a rehearsal."
+      ],
+      "days": [
+        {
+          "date": "2026-10-05",
+          "day_name": "Mon",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "recovery",
+              "title": "Recovery run",
+              "distance_mi": 3.5,
+              "duration_min": null,
+              "pace": "8:30-9:00",
+              "hr_zone": 1,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-10-06",
+          "day_name": "Tue",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength A - Lower body (heavier, lower volume)",
+              "exercises": [
+                {
+                  "name": "Goblet squat",
+                  "prescription": "3 x 10-12",
+                  "cue": ""
+                },
+                {
+                  "name": "Single-leg RDL",
+                  "prescription": "3 x 8-10/side",
+                  "cue": "Slow and controlled - this is a hip/hamstring + balance exercise, not a load exercise."
+                },
+                {
+                  "name": "Bulgarian split squat",
+                  "prescription": "3 x 8-10/side",
+                  "cue": "Progress load week to week once form is clean."
+                },
+                {
+                  "name": "Standing calf raise (straight leg)",
+                  "prescription": "4 x 12-15, add load once bodyweight is easy",
+                  "cue": ""
+                }
+              ],
+              "note": "Cut volume, keep intensity - legs need to be fresh for quality running now."
+            },
+            {
+              "type": "core",
+              "title": "Core",
+              "exercises": [
+                {
+                  "name": "Pallof press",
+                  "prescription": "3 x 12/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Side plank w/ hip abduction",
+                  "prescription": "3 x 30-45s/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Dead bug",
+                  "prescription": "3 x 10/side",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-10-07",
+          "day_name": "Wed",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "intervals",
+              "title": "VO2max intervals",
+              "distance_mi": 7,
+              "duration_min": null,
+              "pace": "1.5mi warmup, 5 x 1000m @ 6:05-6:15/mi w/ 400m jog recovery, 1mi cooldown",
+              "hr_zone": 5,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-10-08",
+          "day_name": "Thu",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength B - Maintenance",
+              "exercises": [
+                {
+                  "name": "Barbell/DB hip thrust",
+                  "prescription": "3 x 8-12",
+                  "cue": "Glute drive - directly supports late-race form when hip extensors fatigue."
+                },
+                {
+                  "name": "Slow step-down",
+                  "prescription": "3 x 8/side",
+                  "cue": "Eccentric knee control - the single best exercise for runner's knee prevention."
+                },
+                {
+                  "name": "Banded clamshell",
+                  "prescription": "3 x 15-20/side",
+                  "cue": "Hip stability - keeps the knee tracking straight under fatigue."
+                },
+                {
+                  "name": "Seated calf raise (bent knee)",
+                  "prescription": "3 x 15",
+                  "cue": "Targets soleus - the muscle that matters most late in a half marathon."
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-10-09",
+          "day_name": "Fri",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy run",
+              "distance_mi": 5,
+              "duration_min": null,
+              "pace": "7:50-8:20",
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-10-10",
+          "day_name": "Sat",
+          "sessions": [
+            {
+              "type": "rest",
+              "title": "Rest",
+              "note": "Full rest, or 20-30min easy walk/spin if you feel restless."
+            }
+          ]
+        },
+        {
+          "date": "2026-10-11",
+          "day_name": "Sun",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "long",
+              "title": "Long run w/ goal-pace segment",
+              "distance_mi": 13,
+              "duration_min": null,
+              "pace": "Easy 7:30-8:00, miles 8-11 @ goal pace 6:43, easy cooldown",
+              "hr_zone": 2,
+              "details": "Practice race-day fueling on this run - whatever you plan to use on Nov 1.",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "week_num": 11,
+      "block": "peak",
+      "block_label": "Peak - Weeks 9-11",
+      "start_date": "2026-10-12",
+      "end_date": "2026-10-18",
+      "focus": "Last real quality week, volume starts easing",
+      "target_miles": 27,
+      "coach_notes": [
+        "Last hard week. Sharpen, don't strain - if anything feels off, this is the week to back off, not grind through, since there's no more time to recover a setback before the taper needs to start."
+      ],
+      "days": [
+        {
+          "date": "2026-10-12",
+          "day_name": "Mon",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "recovery",
+              "title": "Recovery run",
+              "distance_mi": 3,
+              "duration_min": null,
+              "pace": "8:30-9:00",
+              "hr_zone": 1,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-10-13",
+          "day_name": "Tue",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength A - Lower body (heavier, lower volume)",
+              "exercises": [
+                {
+                  "name": "Goblet squat",
+                  "prescription": "3 x 10-12",
+                  "cue": ""
+                },
+                {
+                  "name": "Single-leg RDL",
+                  "prescription": "3 x 8-10/side",
+                  "cue": "Slow and controlled - this is a hip/hamstring + balance exercise, not a load exercise."
+                },
+                {
+                  "name": "Bulgarian split squat",
+                  "prescription": "3 x 8-10/side",
+                  "cue": "Progress load week to week once form is clean."
+                },
+                {
+                  "name": "Standing calf raise (straight leg)",
+                  "prescription": "4 x 12-15, add load once bodyweight is easy",
+                  "cue": ""
+                }
+              ],
+              "note": "Cut volume, keep intensity - legs need to be fresh for quality running now."
+            }
+          ]
+        },
+        {
+          "date": "2026-10-14",
+          "day_name": "Wed",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "tempo",
+              "title": "Race-pace intervals",
+              "distance_mi": 6.5,
+              "duration_min": null,
+              "pace": "1.5mi warmup, 2 x 2mi @ 6:43 w/ 3min jog recovery, 1mi cooldown",
+              "hr_zone": 4,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-10-15",
+          "day_name": "Thu",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Strength B - Maintenance",
+              "exercises": [
+                {
+                  "name": "Barbell/DB hip thrust",
+                  "prescription": "3 x 8-12",
+                  "cue": "Glute drive - directly supports late-race form when hip extensors fatigue."
+                },
+                {
+                  "name": "Slow step-down",
+                  "prescription": "3 x 8/side",
+                  "cue": "Eccentric knee control - the single best exercise for runner's knee prevention."
+                },
+                {
+                  "name": "Banded clamshell",
+                  "prescription": "3 x 15-20/side",
+                  "cue": "Hip stability - keeps the knee tracking straight under fatigue."
+                },
+                {
+                  "name": "Seated calf raise (bent knee)",
+                  "prescription": "3 x 15",
+                  "cue": "Targets soleus - the muscle that matters most late in a half marathon."
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-10-16",
+          "day_name": "Fri",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy run",
+              "distance_mi": 4.5,
+              "duration_min": null,
+              "pace": "7:50-8:20",
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-10-17",
+          "day_name": "Sat",
+          "sessions": [
+            {
+              "type": "rest",
+              "title": "Rest",
+              "note": "Full rest, or 20-30min easy walk/spin if you feel restless."
+            }
+          ]
+        },
+        {
+          "date": "2026-10-18",
+          "day_name": "Sun",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "long",
+              "title": "Long run",
+              "distance_mi": 10,
+              "duration_min": null,
+              "pace": "7:30-8:00, last 1mi @ goal pace",
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "week_num": 12,
+      "block": "taper",
+      "block_label": "Taper - Weeks 12-13",
+      "start_date": "2026-10-19",
+      "end_date": "2026-10-25",
+      "focus": "Volume drops ~35%, keep short touches of race pace",
+      "target_miles": 20,
+      "coach_notes": [
+        "Taper starts now. The fitness is already there - this block is about arriving on Nov 1 rested, not about squeezing out more gains. Trust the volume drop."
+      ],
+      "days": [
+        {
+          "date": "2026-10-19",
+          "day_name": "Mon",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "recovery",
+              "title": "Recovery run",
+              "distance_mi": 3,
+              "duration_min": null,
+              "pace": "8:30-9:00",
+              "hr_zone": 1,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-10-20",
+          "day_name": "Tue",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "Activation only",
+              "exercises": [
+                {
+                  "name": "Banded clamshell",
+                  "prescription": "3 x 15-20/side",
+                  "cue": "Hip stability - keeps the knee tracking straight under fatigue."
+                },
+                {
+                  "name": "Banded monster walk",
+                  "prescription": "3 x 10 steps/direction",
+                  "cue": ""
+                },
+                {
+                  "name": "Single-leg balance reach",
+                  "prescription": "3 x 8 reaches/side",
+                  "cue": "Cheap injury insurance - do it in socks on a hard floor."
+                },
+                {
+                  "name": "Tibialis raise",
+                  "prescription": "3 x 15-20, heels on a small plate or wall lean",
+                  "cue": "Builds shin/ankle strength that protects the Achilles as load climbs."
+                }
+              ],
+              "note": "Bodyweight, low reps, zero soreness risk. This is about staying loose, not building anything new."
+            }
+          ]
+        },
+        {
+          "date": "2026-10-21",
+          "day_name": "Wed",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "tempo",
+              "title": "Short race-pace touch",
+              "distance_mi": 5,
+              "duration_min": null,
+              "pace": "1mi warmup, 2mi @ 6:43, 1mi cooldown",
+              "hr_zone": 4,
+              "details": "Short and sharp - the point is confidence, not fitness.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-10-22",
+          "day_name": "Thu",
+          "sessions": [
+            {
+              "type": "rest",
+              "title": "Rest",
+              "note": "Full rest, or 20-30min easy walk/spin if you feel restless."
+            }
+          ]
+        },
+        {
+          "date": "2026-10-23",
+          "day_name": "Fri",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy run + strides",
+              "distance_mi": 4,
+              "duration_min": null,
+              "pace": "7:50-8:20",
+              "hr_zone": 2,
+              "details": "4 x 20s strides.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-10-24",
+          "day_name": "Sat",
+          "sessions": [
+            {
+              "type": "rest",
+              "title": "Rest",
+              "note": "Full rest, or 20-30min easy walk/spin if you feel restless."
+            }
+          ]
+        },
+        {
+          "date": "2026-10-25",
+          "day_name": "Sun",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "long",
+              "title": "Long run (reduced)",
+              "distance_mi": 7,
+              "duration_min": null,
+              "pace": "7:30-8:00",
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "week_num": 13,
+      "block": "taper",
+      "block_label": "Taper - Weeks 12-13",
+      "start_date": "2026-10-26",
+      "end_date": "2026-11-01",
+      "focus": "Race week",
+      "target_miles": 11.1,
+      "coach_notes": [
+        "Race week. Everything here is about staying loose and well-rested, not training. Sleep and easy carb-forward eating matter more this week than any workout does.",
+        "Goal: 1:28:00 (6:43/mi). Go out at or a few seconds slower than goal pace through 5K, settle in through halfway, and only spend what's left in the final 3 miles."
+      ],
+      "days": [
+        {
+          "date": "2026-10-26",
+          "day_name": "Mon",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy run",
+              "distance_mi": 3,
+              "duration_min": null,
+              "pace": "7:50-8:20",
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-10-27",
+          "day_name": "Tue",
+          "sessions": [
+            {
+              "type": "rest",
+              "title": "Rest",
+              "note": "Full rest, or 20-30min easy walk/spin if you feel restless."
+            }
+          ]
+        },
+        {
+          "date": "2026-10-28",
+          "day_name": "Wed",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "shakeout",
+              "title": "Easy + strides",
+              "distance_mi": 3,
+              "duration_min": null,
+              "pace": "Easy, 4 x 20s strides",
+              "hr_zone": 2,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-10-29",
+          "day_name": "Thu",
+          "sessions": [
+            {
+              "type": "rest",
+              "title": "Rest",
+              "note": "Full rest, or 20-30min easy walk/spin if you feel restless."
+            }
+          ]
+        },
+        {
+          "date": "2026-10-30",
+          "day_name": "Fri",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "shakeout",
+              "title": "Shakeout",
+              "distance_mi": 2,
+              "duration_min": null,
+              "pace": "Easy, 3 x 15s strides @ goal pace",
+              "hr_zone": null,
+              "details": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-10-31",
+          "day_name": "Sat",
+          "sessions": [
+            {
+              "type": "rest",
+              "title": "Rest",
+              "note": "Travel/logistics day if needed. Legs up, hydrate, lay out race kit."
+            }
+          ]
+        },
+        {
+          "date": "2026-11-01",
+          "day_name": "Sun",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "race",
+              "title": "CAMBRIDGE HALF MARATHON",
+              "distance_mi": 13.10938,
+              "duration_min": null,
+              "pace": "Goal 6:43/mi (1:28:00)",
+              "hr_zone": null,
+              "details": "You've done the work. Trust the pacing plan and go get it.",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
