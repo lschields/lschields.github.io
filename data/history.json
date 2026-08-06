@@ -127,7 +127,10 @@
       "ctl": 219,
       "acwr": 1.5,
       "training_status": "unproductive",
-      "recovery_time_hours": 30.1
+      "recovery_time_hours": 30.1,
+      "vo2max": 53,
+      "lthr": 169,
+      "weight_kg": 72.1
     }
   ],
   "activities": [

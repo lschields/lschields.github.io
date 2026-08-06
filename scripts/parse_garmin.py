@@ -117,7 +117,16 @@ def parse_coach_json(path: Path):
     athlete = data.get("athlete", {})
 
     readiness_entry = {"date": date, **readiness}
-    load_entry = {"date": date, **load}
+    # Fold a few athlete-level fitness metrics into the dated load entry too, not just
+    # the always-overwritten athlete_snapshot - this is what lets the dashboard draw
+    # sparklines for VO2max/lactate threshold over time instead of a single flat value.
+    load_entry = {
+        "date": date,
+        **load,
+        "vo2max": athlete.get("vo2max"),
+        "lthr": athlete.get("lthr"),
+        "weight_kg": athlete.get("weight_kg"),
+    }
 
     trend_entries = []
     for point in data.get("trends", {}).get("hrv_7d", []):

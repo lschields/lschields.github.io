@@ -58,10 +58,59 @@ function matchSessionToActivity(pool, dateISO) {
 }
 
 // ---------------------------------------------------------------------
-// KPI strip
+// Small inline visuals for the fitness-metric KPI cards
+// ---------------------------------------------------------------------
+function sparklineSVG(values, colorVar) {
+  const w = 60, h = 22;
+  const clean = values.filter(v => v !== undefined && v !== null && !Number.isNaN(v));
+  if (!clean.length) return "";
+  if (clean.length === 1) {
+    return `<svg class="sparkline" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true">
+      <circle cx="${w - 3}" cy="${h / 2}" r="2.5" fill="var(${colorVar})" /></svg>`;
+  }
+  const min = Math.min(...clean), max = Math.max(...clean);
+  const range = max - min || 1;
+  const stepX = w / (clean.length - 1);
+  const pad = 3;
+  const pt = (v, i) => {
+    const x = i * stepX;
+    const y = h - pad - ((v - min) / range) * (h - pad * 2);
+    return [x, y];
+  };
+  const pts = clean.map((v, i) => pt(v, i));
+  const line = pts.map(p => p.join(",")).join(" ");
+  const [lastX, lastY] = pts[pts.length - 1];
+  return `<svg class="sparkline" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true">
+    <polyline points="${line}" fill="none" stroke="var(${colorVar})" stroke-width="1.5"
+      stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="2.2" fill="var(${colorVar})" /></svg>`;
+}
+
+function statusDotsHTML(statuses) {
+  const goodStatuses = ["productive", "peaking", "maintaining"];
+  const badStatuses = ["overreaching", "detraining", "unproductive"];
+  const recent = statuses.slice(-8);
+  if (!recent.length) return "";
+  return `<span class="status-dots">${recent.map(s => {
+    const cls = goodStatuses.includes(s) ? "good" : badStatuses.includes(s) ? "bad" : "warn";
+    return `<span class="status-dot ${cls}" title="${s}"></span>`;
+  }).join("")}</span>`;
+}
+
+function series(records, field) {
+  return records
+    .filter(r => r[field] !== undefined && r[field] !== null)
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .map(r => r[field]);
+}
+
+// ---------------------------------------------------------------------
+// KPI strip - primary row (race countdown, weekly mileage, block/week) and
+// secondary row (the 5 fitness metrics, each with a trend sparkline)
 // ---------------------------------------------------------------------
 function renderKPIs(plan, history) {
-  const el = document.getElementById("kpi-strip");
+  const primaryEl = document.getElementById("kpi-primary");
+  const secondaryEl = document.getElementById("kpi-secondary");
   const t = todayISO();
   const race = plan.athlete.race;
   const daysToRace = daysBetween(t, race.date);
@@ -70,15 +119,17 @@ function renderKPIs(plan, history) {
   const pool = buildActivityPool(history);
   const weekActualMi = sumWeekActualMiles(currentWeek, pool);
 
-  const snapshot = history.athlete_snapshot || {};
-  const latestReadiness = (history.readiness_history || [])
+  const readinessHistory = history.readiness_history || [];
+  const loadHistory = history.load_history || [];
+  const latestReadiness = readinessHistory
     .filter(r => r.resting_hr !== undefined)
     .sort((a, b) => a.date.localeCompare(b.date)).slice(-1)[0];
-  const latestLoad = (history.load_history || []).slice(-1)[0];
+  const latestLoad = loadHistory.slice(-1)[0];
 
-  const cards = [];
+  // --- primary row ---
+  const primary = [];
 
-  cards.push(`
+  primary.push(`
     <div class="kpi-card">
       <div class="kpi-value">${daysToRace >= 0 ? daysToRace : 0}<small> days</small></div>
       <div class="kpi-label">To ${race.name}</div>
@@ -86,83 +137,110 @@ function renderKPIs(plan, history) {
     </div>`);
 
   const pct = currentWeek.target_miles ? Math.round((weekActualMi / currentWeek.target_miles) * 100) : 0;
-  cards.push(`
+  primary.push(`
     <div class="kpi-card">
       <div class="kpi-value">${weekActualMi.toFixed(1)}<small> / ${currentWeek.target_miles} mi</small></div>
       <div class="kpi-label">This week's mileage</div>
       <span class="kpi-flag ${pct >= 90 ? "good" : pct >= 50 ? "warn" : "bad"}">${pct}% of target</span>
     </div>`);
 
-  cards.push(`
+  primary.push(`
     <div class="kpi-card">
       <div class="kpi-value">W${currentWeek.week_num}<small> / ${plan.weeks.length}</small></div>
       <div class="kpi-label">${currentWeek.block_label}</div>
       <span class="kpi-flag good">${capitalize(currentWeek.block)} phase</span>
     </div>`);
 
+  primaryEl.innerHTML = primary.join("");
+
+  // --- secondary row: the 5 fitness metrics, each sized equally with a sparkline ---
+  const secondary = [];
+
   // VO2max
-  if (snapshot.vo2max) {
-    cards.push(`
+  const vo2Series = series(loadHistory, "vo2max");
+  if (vo2Series.length) {
+    secondary.push(`
       <div class="kpi-card">
-        <div class="kpi-value">${snapshot.vo2max}</div>
+        <div class="kpi-value">${vo2Series[vo2Series.length - 1]}</div>
         <div class="kpi-label">VO2 max</div>
-        <span class="kpi-flag good">Garmin estimate</span>
+        <div class="kpi-foot">
+          <span class="kpi-flag good">Garmin est.</span>
+          <span class="kpi-spark">${sparklineSVG(vo2Series, "--good")}</span>
+        </div>
       </div>`);
   }
 
-  // Resting HR - latest reading
-  if (latestReadiness) {
-    cards.push(`
+  // Resting HR
+  const rhrSeries = series(readinessHistory, "resting_hr");
+  if (rhrSeries.length) {
+    secondary.push(`
       <div class="kpi-card">
-        <div class="kpi-value">${latestReadiness.resting_hr}<small> bpm</small></div>
+        <div class="kpi-value">${rhrSeries[rhrSeries.length - 1]}<small> bpm</small></div>
         <div class="kpi-label">Resting HR</div>
-        <span class="kpi-flag good">${fmtDateShort(latestReadiness.date)}</span>
+        <div class="kpi-foot">
+          <span class="kpi-flag good">${fmtDateShort(latestReadiness.date)}</span>
+          <span class="kpi-spark">${sparklineSVG(rhrSeries, "--accent")}</span>
+        </div>
       </div>`);
   }
 
-  // Lactate threshold - HR from Garmin snapshot, pace estimated from the plan's
-  // threshold pace zone unless a direct value shows up in a future Garmin export.
-  if (snapshot.lthr) {
+  // Lactate threshold - HR from Garmin, pace estimated from the plan's threshold zone
+  const lthrSeries = series(loadHistory, "lthr");
+  if (lthrSeries.length) {
     const thresholdZone = (plan.athlete.pace_zones || []).find(z => z.name === "Tempo / Threshold");
-    cards.push(`
+    secondary.push(`
       <div class="kpi-card">
-        <div class="kpi-value">${snapshot.lthr}<small> bpm</small></div>
+        <div class="kpi-value">${lthrSeries[lthrSeries.length - 1]}<small> bpm</small></div>
         <div class="kpi-label">Lactate threshold</div>
-        <span class="kpi-flag good">${thresholdZone ? thresholdZone.pace_per_mi + "/mi (est.)" : "HR only"}</span>
+        <div class="kpi-foot">
+          <span class="kpi-flag good">${thresholdZone ? thresholdZone.pace_per_mi + "/mi est." : "HR only"}</span>
+          <span class="kpi-spark">${sparklineSVG(lthrSeries, "--warn")}</span>
+        </div>
       </div>`);
   }
 
-  // Load tolerance - ACWR is the standard "is your current load safe" metric
-  if (latestLoad && latestLoad.acwr !== undefined) {
-    const acwr = latestLoad.acwr;
-    let flagClass = "good", label = "safe range";
+  // Load tolerance - ACWR
+  const acwrSeries = series(loadHistory, "acwr");
+  if (acwrSeries.length) {
+    const acwr = acwrSeries[acwrSeries.length - 1];
+    let flagClass = "good", label = "safe";
     if (acwr > 1.5) { flagClass = "bad"; label = "high risk"; }
     else if (acwr > 1.3) { flagClass = "warn"; label = "caution"; }
     else if (acwr < 0.8) { flagClass = "warn"; label = "detraining"; }
-    cards.push(`
+    secondary.push(`
       <div class="kpi-card">
         <div class="kpi-value">${acwr}</div>
-        <div class="kpi-label">Load tolerance (ACWR)</div>
-        <span class="kpi-flag ${flagClass}">${label}</span>
+        <div class="kpi-label">Load tolerance</div>
+        <div class="kpi-foot">
+          <span class="kpi-flag ${flagClass}">${label}</span>
+          <span class="kpi-spark">${sparklineSVG(acwrSeries, flagClass === "bad" ? "--bad" : flagClass === "warn" ? "--warn" : "--good")}</span>
+        </div>
       </div>`);
   }
 
-  // Training status - Garmin's own read on whether recent training is working
-  if (latestLoad && latestLoad.training_status) {
-    const status = latestLoad.training_status;
+  // Training status - categorical, shown as a small dot history instead of a sparkline
+  const statusSeries = loadHistory
+    .filter(r => r.training_status)
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .map(r => r.training_status);
+  if (statusSeries.length) {
+    const status = statusSeries[statusSeries.length - 1];
     const goodStatuses = ["productive", "peaking", "maintaining"];
     const badStatuses = ["overreaching", "detraining", "unproductive"];
     const flagClass = goodStatuses.includes(status) ? "good" : badStatuses.includes(status) ? "bad" : "warn";
-    cards.push(`
+    secondary.push(`
       <div class="kpi-card">
-        <div class="kpi-value" style="font-size:16px; text-transform:capitalize;">${status}</div>
+        <div class="kpi-value" style="font-size:14px; text-transform:capitalize;">${status}</div>
         <div class="kpi-label">Training status</div>
-        <span class="kpi-flag ${flagClass}">${fmtDateShort(latestLoad.date)}</span>
+        <div class="kpi-foot">
+          <span class="kpi-flag ${flagClass}">${fmtDateShort(latestLoad.date)}</span>
+          ${statusDotsHTML(statusSeries)}
+        </div>
       </div>`);
   }
 
-  if (!latestReadiness && !latestLoad) {
-    cards.push(`
+  if (!secondary.length) {
+    secondary.push(`
       <div class="kpi-card">
         <div class="kpi-value">&mdash;</div>
         <div class="kpi-label">Training readiness</div>
@@ -170,7 +248,7 @@ function renderKPIs(plan, history) {
       </div>`);
   }
 
-  el.innerHTML = cards.join("");
+  secondaryEl.innerHTML = secondary.join("");
 }
 
 function sumWeekActualMiles(week, pool) {
@@ -264,7 +342,7 @@ function renderSession(session, dateISO, pool) {
     ? `<div class="session-no-check"></div>`
     : `<div class="session-check ${checkClass}" ${checkAttrs}>${checkMark}</div>`;
 
-  return `
+  const html = `
     <div class="session">
       ${checkHtml}
       <div class="session-body">
@@ -279,7 +357,11 @@ function renderSession(session, dateISO, pool) {
         ${actualHtml}
       </div>
     </div>`;
+
+  return { html, done, countsTowardTotal: !isRest };
 }
+
+function collapseKey(dateISO) { return `td:collapsed:${dateISO}`; }
 
 function renderWeekDetail(plan, history) {
   const w = state.selectedWeek;
@@ -290,14 +372,22 @@ function renderWeekDetail(plan, history) {
 
   const days = w.days.map(day => {
     const isToday = day.date === t;
-    const sessionsHtml = day.sessions.map(s => renderSession(s, day.date, pool)).join("");
+    const rendered = day.sessions.map(s => renderSession(s, day.date, pool));
+    const sessionsHtml = rendered.map(r => r.html).join("");
+    const total = rendered.filter(r => r.countsTowardTotal).length;
+    const done = rendered.filter(r => r.countsTowardTotal && r.done).length;
+    const isCollapsed = localStorage.getItem(collapseKey(day.date)) === "1";
+    const summary = total ? `${done}/${total} done` : "";
     return `
-      <div class="day-card ${isToday ? "is-today" : ""}">
-        <div class="day-card-head">
-          <span class="day-name">${day.day_name}</span>
-          <span class="day-date">${fmtDateShort(day.date)}${isToday ? " &middot; today" : ""}</span>
+      <div class="day-card ${isToday ? "is-today" : ""} ${isCollapsed ? "is-collapsed" : ""}" data-date="${day.date}">
+        <div class="day-card-head" data-collapse-toggle="${day.date}">
+          <span class="day-name-group">
+            <span class="day-chevron">&#9660;</span>
+            <span class="day-name">${day.day_name}</span>
+          </span>
+          <span class="day-date">${summary ? `<span class="day-summary">${summary}</span> &middot; ` : ""}${fmtDateShort(day.date)}${isToday ? " &middot; today" : ""}</span>
         </div>
-        ${sessionsHtml}
+        <div class="day-grid-inner">${sessionsHtml}</div>
       </div>`;
   }).join("");
 
@@ -311,8 +401,18 @@ function renderWeekDetail(plan, history) {
     <div class="day-grid">${days}</div>
   `;
 
-  el.querySelectorAll("[data-toggle-key]").forEach(node => {
+  el.querySelectorAll("[data-collapse-toggle]").forEach(node => {
     node.addEventListener("click", () => {
+      const key = collapseKey(node.dataset.collapseToggle);
+      const isCollapsed = localStorage.getItem(key) === "1";
+      if (isCollapsed) { localStorage.removeItem(key); } else { localStorage.setItem(key, "1"); }
+      renderWeekDetail(plan, history);
+    });
+  });
+
+  el.querySelectorAll("[data-toggle-key]").forEach(node => {
+    node.addEventListener("click", (e) => {
+      e.stopPropagation();
       const key = node.dataset.toggleKey;
       const isDone = localStorage.getItem(key) === "1";
       if (isDone) { localStorage.removeItem(key); } else { localStorage.setItem(key, "1"); }
