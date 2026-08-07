@@ -198,6 +198,18 @@ code {
 .kpi-spark { flex: 0 0 auto; line-height: 0; }
 .sparkline { display: block; }
 
+.kpi-pace-range {
+  font-size: 10.5px;
+  color: var(--text-dim);
+  margin-top: 4px;
+  white-space: nowrap;
+}
+
+.kpi-card-gauge { text-align: center; }
+.kpi-gauge { margin: 2px 0 -6px; line-height: 0; }
+.gauge-svg { display: block; width: 100%; height: auto; }
+.kpi-card-gauge .kpi-flag { margin-top: 4px; }
+
 .status-dots { display: flex; gap: 3px; align-items: center; }
 .status-dot {
   width: 7px;

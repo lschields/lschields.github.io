@@ -86,6 +86,47 @@ function sparklineSVG(values, colorVar) {
     <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="2.2" fill="var(${colorVar})" /></svg>`;
 }
 
+// Semicircular "speedometer" gauge - colored range bands (each defined by an
+// upper bound + color) with a needle pointing at the current value.
+function polarPt(cx, cy, r, thetaDeg) {
+  const t = (thetaDeg * Math.PI) / 180;
+  return { x: cx + r * Math.cos(t), y: cy - r * Math.sin(t) };
+}
+function valueToTheta(value, min, max) {
+  const f = Math.min(1, Math.max(0, (value - min) / (max - min)));
+  return 180 - f * 180;
+}
+function bandArcPath(cx, cy, r, theta1, theta2) {
+  const p1 = polarPt(cx, cy, r, theta1), p2 = polarPt(cx, cy, r, theta2);
+  const largeArc = theta1 - theta2 > 180 ? 1 : 0;
+  return `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} A ${r} ${r} 0 ${largeArc} 1 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`;
+}
+function bandFor(value, bands, min) {
+  let lower = min;
+  for (const b of bands) {
+    if (value <= b.upper) return b;
+    lower = b.upper;
+  }
+  return bands[bands.length - 1];
+}
+function gaugeSVG(value, min, max, bands) {
+  const cx = 50, cy = 50, r = 40, strokeW = 9;
+  let lower = min;
+  const arcs = bands.map(b => {
+    const theta1 = valueToTheta(lower, min, max), theta2 = valueToTheta(b.upper, min, max);
+    lower = b.upper;
+    return `<path d="${bandArcPath(cx, cy, r, theta1, theta2)}" stroke="var(${b.colorVar})" stroke-width="${strokeW}" fill="none" />`;
+  }).join("");
+  const needleTheta = valueToTheta(value, min, max);
+  const tip = polarPt(cx, cy, r - 7, needleTheta);
+  const needle = `<line x1="${cx}" y1="${cy}" x2="${tip.x.toFixed(2)}" y2="${tip.y.toFixed(2)}" stroke="var(--text)" stroke-width="2.5" stroke-linecap="round" />
+    <circle cx="${cx}" cy="${cy}" r="3.5" fill="var(--text)" />`;
+  return `<svg viewBox="0 0 100 56" class="gauge-svg" aria-hidden="true">${arcs}${needle}</svg>`;
+}
+function colorVarToFlagClass(colorVar) {
+  return colorVar.replace("--", "");
+}
+
 function statusDotsHTML(statuses) {
   const goodStatuses = ["productive", "peaking", "maintaining"];
   const badStatuses = ["overreaching", "detraining", "unproductive"];
@@ -156,17 +197,22 @@ function renderKPIs(plan, history) {
   // --- secondary row: the 5 fitness metrics, each sized equally with a sparkline ---
   const secondary = [];
 
-  // VO2max
+  // VO2max - speedometer gauge against a general adult-runner range
   const vo2Series = series(loadHistory, "vo2max");
   if (vo2Series.length) {
+    const vo2 = vo2Series[vo2Series.length - 1];
+    const vo2Bands = [
+      { upper: 42, colorVar: "--bad", label: "Below average" },
+      { upper: 52, colorVar: "--warn", label: "Average" },
+      { upper: 70, colorVar: "--good", label: "Above average" },
+    ];
+    const vo2Band = bandFor(vo2, vo2Bands, 30);
     secondary.push(`
-      <div class="kpi-card">
-        <div class="kpi-value">${vo2Series[vo2Series.length - 1]}</div>
+      <div class="kpi-card kpi-card-gauge">
+        <div class="kpi-value">${vo2}</div>
         <div class="kpi-label">VO2 max</div>
-        <div class="kpi-foot">
-          <span class="kpi-flag good">Garmin est.</span>
-          <span class="kpi-spark">${sparklineSVG(vo2Series, "--good")}</span>
-        </div>
+        <div class="kpi-gauge">${gaugeSVG(vo2, 30, 70, vo2Bands)}</div>
+        <span class="kpi-flag ${colorVarToFlagClass(vo2Band.colorVar)}">${vo2Band.label}</span>
       </div>`);
   }
 
@@ -184,7 +230,8 @@ function renderKPIs(plan, history) {
       </div>`);
   }
 
-  // Lactate threshold - HR from Garmin, pace estimated from the plan's threshold zone
+  // Lactate threshold - HR from Garmin, pace estimated from the plan's threshold zone.
+  // No gauge here per Luke's note - just the HR value, a clean one-line pace range, and a trend.
   const lthrSeries = series(loadHistory, "lthr");
   if (lthrSeries.length) {
     const thresholdZone = (plan.athlete.pace_zones || []).find(z => z.name === "Tempo / Threshold");
@@ -192,39 +239,46 @@ function renderKPIs(plan, history) {
       <div class="kpi-card">
         <div class="kpi-value">${lthrSeries[lthrSeries.length - 1]}<small> bpm</small></div>
         <div class="kpi-label">Lactate threshold</div>
-        <div class="kpi-foot">
-          <span class="kpi-flag good">${thresholdZone ? thresholdZone.pace_per_mi + "/mi est." : "HR only"}</span>
+        ${thresholdZone ? `<div class="kpi-pace-range">${thresholdZone.pace_per_mi}/mi</div>` : ""}
+        <div class="kpi-foot" style="justify-content:flex-end;">
           <span class="kpi-spark">${sparklineSVG(lthrSeries, "--warn")}</span>
         </div>
       </div>`);
   }
 
-  // Load tolerance - ACWR
+  // Load tolerance - ACWR, shown as a gauge against the standard 0.8-1.3 "safe" band
   const acwrSeries = series(loadHistory, "acwr");
   if (acwrSeries.length) {
     const acwr = acwrSeries[acwrSeries.length - 1];
-    let flagClass = "good", label = "safe";
-    if (acwr > 1.5) { flagClass = "bad"; label = "high risk"; }
-    else if (acwr > 1.3) { flagClass = "warn"; label = "caution"; }
-    else if (acwr < 0.8) { flagClass = "warn"; label = "detraining"; }
+    const acwrBands = [
+      { upper: 0.8, colorVar: "--warn", label: "Low" },
+      { upper: 1.3, colorVar: "--good", label: "Safe" },
+      { upper: 1.5, colorVar: "--warn", label: "Caution" },
+      { upper: 2.0, colorVar: "--bad", label: "High risk" },
+    ];
+    const acwrBand = bandFor(acwr, acwrBands, 0);
     secondary.push(`
-      <div class="kpi-card">
+      <div class="kpi-card kpi-card-gauge">
         <div class="kpi-value">${acwr}</div>
         <div class="kpi-label">Load tolerance</div>
-        <div class="kpi-foot">
-          <span class="kpi-flag ${flagClass}">${label}</span>
-          <span class="kpi-spark">${sparklineSVG(acwrSeries, flagClass === "bad" ? "--bad" : flagClass === "warn" ? "--warn" : "--good")}</span>
-        </div>
+        <div class="kpi-gauge">${gaugeSVG(acwr, 0, 2.0, acwrBands)}</div>
+        <span class="kpi-flag ${colorVarToFlagClass(acwrBand.colorVar)}">${acwrBand.label}</span>
       </div>`);
   }
 
-  // Training status - categorical, shown as a small dot history instead of a sparkline
-  const statusSeries = loadHistory
+  // Training status - categorical. Show how long it's been at the current status
+  // (resets whenever the status itself changes), not just the date of the latest reading.
+  const statusEntries = loadHistory
     .filter(r => r.training_status)
     .sort((a, b) => a.date.localeCompare(b.date))
-    .map(r => r.training_status);
-  if (statusSeries.length) {
-    const status = statusSeries[statusSeries.length - 1];
+    .map(r => ({ date: r.date, status: r.training_status }));
+  if (statusEntries.length) {
+    const status = statusEntries[statusEntries.length - 1].status;
+    let sinceDate = statusEntries[statusEntries.length - 1].date;
+    for (let i = statusEntries.length - 1; i >= 0; i--) {
+      if (statusEntries[i].status !== status) break;
+      sinceDate = statusEntries[i].date;
+    }
     const goodStatuses = ["productive", "peaking", "maintaining"];
     const badStatuses = ["overreaching", "detraining", "unproductive"];
     const flagClass = goodStatuses.includes(status) ? "good" : badStatuses.includes(status) ? "bad" : "warn";
@@ -232,10 +286,7 @@ function renderKPIs(plan, history) {
       <div class="kpi-card">
         <div class="kpi-value" style="font-size:14px; text-transform:capitalize;">${status}</div>
         <div class="kpi-label">Training status</div>
-        <div class="kpi-foot">
-          <span class="kpi-flag ${flagClass}">${fmtDateShort(latestLoad.date)}</span>
-          ${statusDotsHTML(statusSeries)}
-        </div>
+        <span class="kpi-flag ${flagClass}">Since ${fmtDateShort(sinceDate)}</span>
       </div>`);
   }
 
