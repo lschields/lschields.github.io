@@ -34,6 +34,24 @@ async function loadJSON(path) {
   return res.json();
 }
 
+// Keep --sticky-header-height in sync with the real rendered header so the
+// cascading .category-subheader elements stick right below it with no gap.
+// (Same logic as app.js's watchStickyHeader() - duplicated here rather than
+// shared, matching this page's existing pattern of a self-contained script.)
+function watchStickyHeader() {
+  const header = document.querySelector(".sticky-header");
+  if (!header) return;
+  const sync = () => {
+    document.documentElement.style.setProperty("--sticky-header-height", `${header.offsetHeight}px`);
+  };
+  sync();
+  if (typeof ResizeObserver !== "undefined") {
+    new ResizeObserver(sync).observe(header);
+  } else {
+    window.addEventListener("resize", sync);
+  }
+}
+
 function exerciseCardHTML(ex) {
   return `
     <div class="exercise-card">
@@ -64,7 +82,9 @@ function renderExerciseLibrary(plan) {
     if (!items.length) return "";
     return `
       <div class="exercise-category">
-        <div class="panel-kicker">${cat.label.toUpperCase()}</div>
+        <div class="category-subheader">
+          <div class="panel-kicker">${cat.label.toUpperCase()}</div>
+        </div>
         <div class="exercise-grid">${items.map(exerciseCardHTML).join("")}</div>
       </div>`;
   }).join("");
@@ -72,6 +92,7 @@ function renderExerciseLibrary(plan) {
 
 async function init() {
   initThemeToggle();
+  watchStickyHeader();
   try {
     const plan = await loadJSON("data/plan.json");
     renderExerciseLibrary(plan);

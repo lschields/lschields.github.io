@@ -99,6 +99,29 @@ code {
   margin-bottom: 18px;
 }
 .sticky-header .site-nav { margin-bottom: 16px; }
+
+/* Cascading section sub-headers - each section's own heading sticks just below
+   the main sticky-header while you scroll through that section, then gets
+   pushed out by the next section's heading once you scroll past it. Height of
+   .sticky-header is measured in JS and written to --sticky-header-height so
+   these line up under it with no gap regardless of header content length. */
+.panel-subheader {
+  position: sticky;
+  top: var(--sticky-header-height, 96px);
+  z-index: 10;
+  background: var(--panel);
+  margin: -18px -18px 12px;
+  padding: 16px 18px 10px;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.category-subheader {
+  position: sticky;
+  top: var(--sticky-header-height, 96px);
+  z-index: 10;
+  background: var(--panel);
+  margin: 0 -18px;
+  padding: 10px 18px 8px;
+}
 .sticky-header .page-header { margin-bottom: 0; }
 
 /* Header */
@@ -314,7 +337,15 @@ code {
 .week-tab.is-past { opacity: 0.55; }
 
 /* Week detail */
-.week-detail-head { margin-bottom: 14px; }
+.week-detail-head {
+  position: sticky;
+  top: var(--sticky-header-height, 96px);
+  z-index: 10;
+  background: var(--panel);
+  margin: -18px -18px 14px;
+  padding: 18px 18px 12px;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
 .week-detail-head .block-pill {
   display: inline-block;
   font-size: 11px;

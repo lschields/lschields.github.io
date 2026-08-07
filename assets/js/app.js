@@ -485,8 +485,10 @@ function renderCoachNotes() {
   const el = document.getElementById("coach-notes");
   if (!w.coach_notes || !w.coach_notes.length) { el.innerHTML = ""; return; }
   el.innerHTML = `
-    <div class="panel-kicker">WEEK ${w.week_num} &middot; COACH NOTES</div>
-    <h2>${w.focus}</h2>
+    <div class="panel-subheader">
+      <div class="panel-kicker">WEEK ${w.week_num} &middot; COACH NOTES</div>
+      <h2>${w.focus}</h2>
+    </div>
     ${w.coach_notes.map((note, i) => `
       <div class="coach-note-item">
         <span class="coach-note-num">${i + 1}</span>
@@ -534,8 +536,10 @@ function renderRetro(history) {
     </tr>`).join("");
 
   el.innerHTML = `
-    <div class="panel-kicker">MOST RECENT LOGGED WEEK</div>
-    <h2>${fmtDateShort(weekStart.toISOString().slice(0,10))} &ndash; ${fmtDateShort(weekEnd.toISOString().slice(0,10))} retrospective</h2>
+    <div class="panel-subheader">
+      <div class="panel-kicker">MOST RECENT LOGGED WEEK</div>
+      <h2>${fmtDateShort(weekStart.toISOString().slice(0,10))} &ndash; ${fmtDateShort(weekEnd.toISOString().slice(0,10))} retrospective</h2>
+    </div>
     <div class="mini-grid">
       <div class="mini-stat"><div class="v">${totalMi.toFixed(1)} mi</div><div class="l">Distance</div></div>
       <div class="mini-stat"><div class="v">${inWeek.length}</div><div class="l">Activities logged</div></div>
@@ -644,8 +648,10 @@ function renderRaceLog(history) {
       <td>${r.notes || ""}</td>
     </tr>`).join("");
   el.innerHTML = `
-    <div class="panel-kicker">RACE LOG</div>
-    <h2>Results</h2>
+    <div class="panel-subheader">
+      <div class="panel-kicker">RACE LOG</div>
+      <h2>Results</h2>
+    </div>
     <table class="simple">
       <thead><tr><th>Date</th><th>Race</th><th>Distance</th><th>Time</th><th>Notes</th></tr></thead>
       <tbody>${rows}</tbody>
@@ -661,8 +667,10 @@ function renderPaceZones(plan) {
   `).join("");
   const context = (a.context || []).map(c => `<li>${c}</li>`).join("");
   el.innerHTML = `
-    <div class="panel-kicker">REFERENCE</div>
-    <h2>Pace zones &amp; context</h2>
+    <div class="panel-subheader">
+      <div class="panel-kicker">REFERENCE</div>
+      <h2>Pace zones &amp; context</h2>
+    </div>
     <table class="simple">
       <thead><tr><th>Zone</th><th>Pace / mi</th><th>HR</th></tr></thead>
       <tbody>${zoneRows}</tbody>
@@ -683,8 +691,10 @@ function renderRaceStrategy(plan) {
   `).join("");
 
   el.innerHTML = `
-    <div class="panel-kicker">RACE DAY</div>
-    <h2>${race.name} strategy</h2>
+    <div class="panel-subheader">
+      <div class="panel-kicker">RACE DAY</div>
+      <h2>${race.name} strategy</h2>
+    </div>
     <ul class="exercise-list">${courseHtml}</ul>
     <table class="simple" style="margin-top:12px;">
       <thead><tr><th>Segment</th><th>Target</th><th>Note</th></tr></thead>
@@ -723,6 +733,27 @@ function initThemeToggle() {
 }
 
 // ---------------------------------------------------------------------
+// Sticky header height sync - the cascading section sub-headers (.panel-subheader,
+// .category-subheader, .week-detail-head) stick just below .sticky-header via
+// var(--sticky-header-height). Measure the real header and keep it in sync
+// whenever its size changes (font load, window resize causing the meta line
+// to wrap, etc.) instead of hardcoding a pixel value that would drift.
+// ---------------------------------------------------------------------
+function watchStickyHeader() {
+  const header = document.querySelector(".sticky-header");
+  if (!header) return;
+  const sync = () => {
+    document.documentElement.style.setProperty("--sticky-header-height", `${header.offsetHeight}px`);
+  };
+  sync();
+  if (typeof ResizeObserver !== "undefined") {
+    new ResizeObserver(sync).observe(header);
+  } else {
+    window.addEventListener("resize", sync);
+  }
+}
+
+// ---------------------------------------------------------------------
 // Header
 // ---------------------------------------------------------------------
 function renderHeader(plan) {
@@ -746,6 +777,7 @@ function renderAll() {
 
 async function init() {
   initThemeToggle();
+  watchStickyHeader();
   try {
     const [plan, history] = await Promise.all([
       loadJSON("data/plan.json"),
