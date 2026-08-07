@@ -87,6 +87,20 @@ code {
   font-size: 0.85em;
 }
 
+/* Sticky header - nav + page-header stay pinned while the rest of the page scrolls */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--bg);
+  padding-bottom: 14px;
+  padding-top: 2px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 18px;
+}
+.sticky-header .site-nav { margin-bottom: 16px; }
+.sticky-header .page-header { margin-bottom: 0; }
+
 /* Header */
 .page-header {
   margin-bottom: 22px;
