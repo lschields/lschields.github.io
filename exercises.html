@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PT &amp; Prehab Reference - Training Dashboard</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<script>
+(function () {
+  var saved = localStorage.getItem("td:theme");
+  if (saved === "light") document.documentElement.setAttribute("data-theme", "light");
+})();
+</script>
+<div class="wrap">
+
+  <nav class="site-nav">
+    <a href="index.html">Dashboard</a>
+    <a href="exercises.html" class="active">PT &amp; Prehab Reference</a>
+  </nav>
+
+  <header class="page-header">
+    <div class="page-header-text">
+      <div class="eyebrow">REFERENCE</div>
+      <h1>PT &amp; prehab exercise library</h1>
+      <div class="header-meta">
+        <span>Every exercise used in the Monday/Friday PT sessions and the light run-day touches, with form cues.</span>
+      </div>
+    </div>
+    <div class="theme-toggle" id="theme-toggle">
+      <button type="button" data-theme-choice="dark">Dark</button>
+      <button type="button" data-theme-choice="light">Light</button>
+    </div>
+  </header>
+
+  <section class="panel" id="exercise-categories"></section>
+
+  <footer class="page-footer">
+    Exercise library defined in <code>scripts/build_plan.py</code>, exported to <code>data/plan.json</code>.
+  </footer>
+
+</div>
+
+<script src="assets/js/exercises.js"></script>
+</body>
+</html>

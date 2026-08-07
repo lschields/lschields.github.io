@@ -118,92 +118,189 @@ EXERCISES = {
         "name": "Achilles isometric calf hold",
         "prescription": "3 x 30-45s hold, straight leg, mid-range",
         "cue": "Pain during the hold should stay <=3/10. Stop the exercise, not the plan, if it spikes.",
+        "category": "achilles_calf",
+        "equipment": "Bodyweight (add a backpack to progress load)",
+        "how_to": "Stand on the edge of a step on the ball of one foot (or on flat ground for less "
+                  "load). Rise to about mid-range on your toes - not full extension - and hold there. "
+                  "Keep the knee straight the whole time.",
     },
     "achilles_eccentric": {
         "name": "Eccentric heel drop (Alfredson protocol)",
         "prescription": "3 x 15 straight-leg + 3 x 15 bent-knee, both legs",
         "cue": "Slow 3-count lower off a step, use the good leg (or hands) to reset up. Mild ache is fine, sharp pain is not.",
+        "category": "achilles_calf",
+        "equipment": "A step or curb",
+        "how_to": "Stand with heels hanging off the edge of a step. Rise onto both toes, then shift "
+                  "your weight onto one leg and lower that heel below the step over a slow 3-count. "
+                  "Use both feet (or a hand rail) to reset back up - only the lowering is single-leg. "
+                  "For the bent-knee set, do the same movement with a soft knee bend to target the "
+                  "soleus instead of the gastrocnemius.",
     },
     "tib_raise": {
         "name": "Tibialis raise",
         "prescription": "3 x 15-20, heels on a small plate or wall lean",
         "cue": "Builds shin/ankle strength that protects the Achilles as load climbs.",
+        "category": "achilles_calf",
+        "equipment": "Bodyweight, small plate optional",
+        "how_to": "Lean back against a wall with your heels a foot or two out in front of you, "
+                  "weight on your heels. Lift your toes and forefeet up toward your shins, then lower "
+                  "with control. Keep it slow - this is a small range of motion.",
     },
     "calf_raise_straight": {
         "name": "Standing calf raise (straight leg)",
         "prescription": "4 x 12-15, add load once bodyweight is easy",
         "cue": "",
+        "category": "achilles_calf",
+        "equipment": "Bodyweight, progress to dumbbells/barbell",
+        "how_to": "Stand on flat ground or the edge of a step with legs straight. Rise onto your toes "
+                  "as high as you can, pause briefly at the top, then lower with control - don't just "
+                  "drop.",
     },
     "calf_raise_bent": {
         "name": "Seated calf raise (bent knee)",
         "prescription": "3 x 15",
         "cue": "Targets soleus - the muscle that matters most late in a half marathon.",
+        "category": "achilles_calf",
+        "equipment": "Seated, a plate or dumbbell across the knees",
+        "how_to": "Sit with feet flat and a weight resting across your knees. Push through the balls "
+                  "of your feet to rise onto your toes, hold briefly, then lower with control.",
     },
     "single_leg_rdl": {
         "name": "Single-leg RDL",
         "prescription": "3 x 8-10/side",
         "cue": "Slow and controlled - this is a hip/hamstring + balance exercise, not a load exercise.",
+        "category": "hip_glute",
+        "equipment": "Bodyweight, or a light dumbbell in the opposite hand",
+        "how_to": "Stand on one leg with a slight bend in the knee. Hinge forward at the hips, "
+                  "reaching the opposite hand toward the floor while your free leg extends straight "
+                  "back for balance. Keep your back flat throughout, then drive back up to standing.",
     },
     "bulgarian_split_squat": {
         "name": "Bulgarian split squat",
         "prescription": "3 x 8-10/side",
         "cue": "Progress load week to week once form is clean.",
+        "category": "hip_glute",
+        "equipment": "A bench or step; dumbbells to add load",
+        "how_to": "Stand a couple feet in front of a bench and rest the top of your back foot on it. "
+                  "Lower straight down until your front thigh is close to parallel with the ground, "
+                  "keeping your torso upright, then drive back up through the front heel.",
     },
     "goblet_squat": {
         "name": "Goblet squat",
         "prescription": "3 x 10-12",
         "cue": "",
+        "category": "hip_glute",
+        "equipment": "A dumbbell or kettlebell",
+        "how_to": "Hold a dumbbell or kettlebell vertically at your chest. Squat down keeping your "
+                  "chest up and knees tracking over your toes, then stand back up.",
     },
     "hip_thrust": {
         "name": "Barbell/DB hip thrust",
         "prescription": "3 x 8-12",
         "cue": "Glute drive - directly supports late-race form when hip extensors fatigue.",
+        "category": "hip_glute",
+        "equipment": "A bench + barbell or dumbbell (bodyweight works too)",
+        "how_to": "Sit on the ground with your upper back against a bench, feet flat, a barbell or "
+                  "dumbbell across your hips. Drive through your heels to lift your hips until your "
+                  "body forms a straight line from shoulders to knees, squeeze your glutes at the "
+                  "top, then lower with control.",
     },
     "clamshell": {
         "name": "Banded clamshell",
         "prescription": "3 x 15-20/side",
         "cue": "Hip stability - keeps the knee tracking straight under fatigue.",
+        "category": "hip_glute",
+        "equipment": "A light resistance band",
+        "how_to": "Lie on your side with a light band above your knees, hips and knees bent about 45 "
+                  "degrees, feet together. Keeping your feet touching, open your top knee upward, "
+                  "then lower with control.",
     },
     "monster_walk": {
         "name": "Banded monster walk",
         "prescription": "3 x 10 steps/direction",
         "cue": "",
+        "category": "hip_glute",
+        "equipment": "A resistance band",
+        "how_to": "Place a light band around your ankles (or just above your knees), feet hip-width "
+                  "apart, in a slight squat. Step sideways while keeping tension on the band, staying "
+                  "low the whole time - don't let your feet come together.",
     },
     "step_down": {
         "name": "Slow step-down",
         "prescription": "3 x 8/side",
         "cue": "Eccentric knee control - the single best exercise for runner's knee prevention.",
+        "category": "knee_stability",
+        "equipment": "A step or low box",
+        "how_to": "Stand on a step or low box on one leg. Slowly lower your other foot toward the "
+                  "ground with control, tapping lightly, then push back up through the standing leg. "
+                  "Keep the knee tracking straight over your toes - don't let it cave inward.",
     },
     "copenhagen_plank": {
         "name": "Copenhagen plank (knee-supported)",
         "prescription": "3 x 20-30s/side",
         "cue": "Adductor strength - commonly the missing piece behind hip and knee niggles.",
+        "category": "core",
+        "equipment": "A bench",
+        "how_to": "Lie on your side with your top leg's shin or knee resting on a bench, bottom leg "
+                  "free. Prop up on your forearm and lift your hips into a side-plank position, "
+                  "holding steady.",
     },
     "side_plank": {
         "name": "Side plank w/ hip abduction",
         "prescription": "3 x 30-45s/side",
         "cue": "",
+        "category": "core",
+        "equipment": "Bodyweight",
+        "how_to": "Lie on your side, prop up on your forearm with elbow under your shoulder, feet "
+                  "stacked. Lift your hips so your body forms a straight line, hold, and optionally "
+                  "lift your top leg for added hip work.",
     },
     "dead_bug": {
         "name": "Dead bug",
         "prescription": "3 x 10/side",
         "cue": "",
+        "category": "core",
+        "equipment": "Bodyweight",
+        "how_to": "Lie on your back, arms reaching straight up, knees bent 90 degrees over your hips. "
+                  "Slowly lower one arm overhead and the opposite leg toward the floor while keeping "
+                  "your low back pressed into the ground, then return and switch sides.",
     },
     "pallof_press": {
         "name": "Pallof press",
         "prescription": "3 x 12/side",
         "cue": "",
+        "category": "core",
+        "equipment": "A resistance band anchored to something sturdy",
+        "how_to": "Stand side-on to a band anchored at chest height, holding the handle at your "
+                  "chest with both hands. Press the band straight out in front of you and hold, "
+                  "resisting the rotation it creates, then pull back in with control.",
     },
     "plank": {
         "name": "Front plank",
         "prescription": "3 x 45-60s",
         "cue": "",
+        "category": "core",
+        "equipment": "Bodyweight",
+        "how_to": "Forearms on the ground under your shoulders, body in a straight line from head to "
+                  "heels, core and glutes braced. Hold without letting your hips sag or pike up.",
     },
     "single_leg_balance": {
         "name": "Single-leg balance reach",
         "prescription": "3 x 8 reaches/side",
         "cue": "Cheap injury insurance - do it in socks on a hard floor.",
+        "category": "knee_stability",
+        "equipment": "Bodyweight",
+        "how_to": "Stand on one leg, barefoot or in socks on a hard floor. Reach your opposite hand "
+                  "toward the ground or out to the side while keeping your standing leg stable, then "
+                  "return to center. Progress by reaching further or closing your eyes.",
     },
+}
+
+CATEGORY_LABELS = {
+    "achilles_calf": "Achilles & calf",
+    "hip_glute": "Hip & glute",
+    "knee_stability": "Knee & stability",
+    "core": "Core",
 }
 
 
@@ -672,10 +769,19 @@ add_week(
     ],
 )
 
+CATEGORY_ORDER = ["achilles_calf", "hip_glute", "knee_stability", "core"]
+exercise_library = []
+for _cat in CATEGORY_ORDER:
+    items = [{"id": k, **v} for k, v in EXERCISES.items() if v["category"] == _cat]
+    items.sort(key=lambda e: e["name"])
+    exercise_library.extend(items)
+
 plan = {
     "generated_at": dt.datetime.utcnow().isoformat() + "Z",
     "athlete": ATHLETE,
     "weeks": WEEKS,
+    "exercise_library": exercise_library,
+    "exercise_categories": [{"id": c, "label": CATEGORY_LABELS[c]} for c in CATEGORY_ORDER],
 }
 
 OUT.parent.mkdir(parents=True, exist_ok=True)
