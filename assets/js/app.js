@@ -341,9 +341,14 @@ const SESSION_ICON = {
   run: "R", strength: "S", core: "C", pt: "+", rest: "-",
 };
 
+const KIND_LABELS = {
+  mp: "Goal pace", shakeout: "Shakeout", race: "Race", recovery: "Recovery",
+  easy: "Easy", long: "Long", tempo: "Tempo", intervals: "Intervals",
+};
+
 function sessionKindLabel(s) {
-  if (s.type === "run") return s.kind;
-  return s.type;
+  if (s.type === "run") return KIND_LABELS[s.kind] || s.kind;
+  return capitalize(s.type);
 }
 
 function renderSession(session, dateISO, pool) {
@@ -652,7 +657,7 @@ function renderPaceZones(plan) {
   const el = document.getElementById("pace-zones-panel");
   const a = plan.athlete;
   const zoneRows = a.pace_zones.map(z => `
-    <tr><td class="strong">${z.name}</td><td>${z.pace_per_mi}</td><td>Zone ${z.hr_zone}</td></tr>
+    <tr><td class="strong">${z.name}</td><td>${z.pace_per_mi}</td><td>${z.hr_zone !== null && z.hr_zone !== undefined ? "Zone " + z.hr_zone : "&mdash;"}</td></tr>
   `).join("");
   const context = (a.context || []).map(c => `<li>${c}</li>`).join("");
   el.innerHTML = `
@@ -663,6 +668,30 @@ function renderPaceZones(plan) {
       <tbody>${zoneRows}</tbody>
     </table>
     <ul class="exercise-list" style="margin-top:12px;">${context}</ul>
+  `;
+}
+
+function renderRaceStrategy(plan) {
+  const el = document.getElementById("race-strategy-panel");
+  const race = plan.athlete.race;
+  const strategy = plan.athlete.race_strategy;
+  if (!strategy) { el.innerHTML = ""; return; }
+
+  const courseHtml = (race.course || []).map(c => `<li>${c}</li>`).join("");
+  const splitRows = (strategy.splits || []).map(s => `
+    <tr><td class="strong">${s.segment}</td><td>${s.target}</td><td>${s.note}</td></tr>
+  `).join("");
+
+  el.innerHTML = `
+    <div class="panel-kicker">RACE DAY</div>
+    <h2>${race.name} strategy</h2>
+    <ul class="exercise-list">${courseHtml}</ul>
+    <table class="simple" style="margin-top:12px;">
+      <thead><tr><th>Segment</th><th>Target</th><th>Note</th></tr></thead>
+      <tbody>${splitRows}</tbody>
+    </table>
+    ${strategy.fueling ? `<div class="coach-note-item" style="margin-top:12px;"><span class="coach-note-num">F</span><span>${strategy.fueling}</span></div>` : ""}
+    ${strategy.if_behind_pace ? `<div class="coach-note-item"><span class="coach-note-num">?</span><span>${strategy.if_behind_pace}</span></div>` : ""}
   `;
 }
 
@@ -732,8 +761,9 @@ async function init() {
     renderCharts(plan, history);
     renderRaceLog(history);
     renderPaceZones(plan);
+    renderRaceStrategy(plan);
   } catch (err) {
-    document.getElementById("kpi-strip").innerHTML =
+    document.getElementById("kpi-primary").innerHTML =
       `<div class="kpi-card"><div class="kpi-label">Error loading dashboard data: ${err.message}</div></div>`;
     console.error(err);
   }
