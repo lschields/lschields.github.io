@@ -13,6 +13,12 @@ paces/zones reconciled back to verified Garmin data (VO2max 53, LTHR 169) and
 the 1:28 goal, since the artifact's VO2max 55 / LTHR 178 / 1:25 numbers aren't
 supported by what's actually in data/history.json.
 
+Extended 2026-08-07 (same day) to add back Week 1 (Aug 3-9) - the week Luke
+was already mid-way through, running the artifact's own Week 2 workouts
+(Tue/Wed easy runs already logged in history.json). The plan now spans the
+full 13 weeks the artifact originally covered (Aug 3 - Nov 1), not just the
+12 weeks from Aug 10 forward.
+
 This is the source of truth for prescribed workouts. Edit this file (not
 plan.json directly) when the plan needs to change, then re-run:
 
@@ -62,12 +68,14 @@ ATHLETE = {
         "9:00-9:48/mi, HR 128-149).",
         "Half marathon PR: 1:30. Ran this exact Cambridge course in 11/2025 in 1:35.",
         "Goal of 1:28 is real but ambitious - set from the PR/Cambridge-2025 evidence, not the "
-        "marathon-day result. A Week 7 time trial recalibrates paces before the peak phase locks in.",
+        "marathon-day result. A Week 8 time trial recalibrates paces before the peak phase locks in.",
         "Plan rebuilt 2026-08-07 around a base template Luke built (cambridge_hm_plan.html): "
         "Tue/Wed/Thu/Sat/Sun running, Mon/Fri for PT/prehab, HR-based easy/long/recovery, "
         "pace-based tempo/intervals/goal-pace work. That artifact assumed VO2max 55 / LTHR 178 / "
         "a 1:25 goal - none of which match verified Garmin data (VO2max 53, LTHR 169 as of 8/7), "
         "so paces here are reconciled back to the 1:28 goal and real numbers.",
+        "Plan spans 13 weeks, Aug 3 - Nov 1 2026 - Week 1 (Aug 3-9) picks up the week Luke had "
+        "already started under the artifact's own schedule before this dashboard existed.",
     ],
     "hr_zones": [
         {"zone": 1, "name": "Warmup", "floor_bpm": 107, "ceil_bpm": 130},
@@ -324,7 +332,7 @@ def build_day(date, sessions):
 # Week definitions
 # ---------------------------------------------------------------------------
 
-START_MONDAY = dt.date(2026, 8, 10)  # Week 1 Monday - first full week after today (Fri 8/7)
+START_MONDAY = dt.date(2026, 8, 3)  # Week 1 Monday - the week Luke was already mid-way through
 
 WEEKS = []
 
@@ -346,15 +354,46 @@ def add_week(week_num, block, block_label, focus, target_miles, coach_notes, day
     })
 
 
-# ---- Week 1 (Aug 10-16) - Rebuild ------------------------------------------
+# ---- Week 1 (Aug 3-9) - Rebuild ---------------------------------------------
 add_week(
-    1, "rebuild", "Rebuild - Weeks 1-2", "Consolidate the return to running - still no pace targets",
+    1, "rebuild", "Rebuild - Weeks 1-3", "The week you'd already started - now folded into this plan",
+    21,
+    [
+        "This is the week you were already running off the old artifact's schedule before this "
+        "dashboard existed - Tue and Wed are already logged (nice work), so this just picks up where "
+        "that plan left off and brings the rest of the week under the same HR-based rules as "
+        "everything else here: no pace numbers on easy/long/recovery days.",
+        "Heads up: this week's volume (~21mi) on top of the marathon recovery build-up is exactly why "
+        "your ACWR read 1.5 (elevated) as of Aug 6. That's expected, not a red flag by itself - but "
+        "it's why next week backs off to 18mi instead of continuing to climb.",
+    ],
+    [
+        [pt_rebuild_mon()],
+        [run_session("easy", "Easy run", distance_mi=4, hr_zone=2,
+                      details="Already logged."),
+         light_touch("achilles_eccentric")],
+        [run_session("easy", "Easy run", distance_mi=4, hr_zone=2,
+                      details="Already logged."),
+         light_touch("achilles_eccentric")],
+        [run_session("easy", "Easy run", distance_mi=3, hr_zone=2,
+                      details="Add 4 x 20s strides only if the Achilles has been completely pain-free."),
+         light_touch("achilles_eccentric")],
+        [pt_rebuild_fri()],
+        [run_session("long", "Long run (easy)", distance_mi=7, hr_zone=2,
+                      details="No pace target - time on feet, nothing more.")],
+        [run_session("recovery", "Recovery run", distance_mi=3, hr_zone=1,
+                      details="Should feel almost too easy the whole way.")],
+    ],
+)
+
+# ---- Week 2 (Aug 10-16) - Rebuild -------------------------------------------
+add_week(
+    2, "rebuild", "Rebuild - Weeks 1-3", "Intentional step-back after an elevated ACWR reading",
     18,
     [
-        "You've already been rebuilding on your own since mid-July (nice work) - this week just "
-        "brings that under a real structure. Everything stays HR-based, no pace numbers, because "
-        "your ACWR was flagged high (1.5) as of Aug 6 - the load's been climbing faster than it "
-        "should. This week is about not undoing that progress, not about adding to it yet.",
+        "Volume dips from ~21 to 18mi this week on purpose - Week 1 pushed ACWR to 1.5 (elevated), "
+        "so this week gives that number room to settle back toward the 0.8-1.3 safe range before we "
+        "build again. Everything stays HR-based, no pace numbers.",
         "Every easy/long/recovery run: stay in Zone 1-2 (up to ~144bpm). If you catch yourself "
         "drifting into Zone 3, slow down - walk if you have to.",
     ],
@@ -374,14 +413,14 @@ add_week(
     ],
 )
 
-# ---- Week 2 (Aug 17-23) - Rebuild ------------------------------------------
+# ---- Week 3 (Aug 17-23) - Rebuild -------------------------------------------
 add_week(
-    2, "rebuild", "Rebuild - Weeks 1-2", "Same shape, a little more volume if Week 1 went clean",
+    3, "rebuild", "Rebuild - Weeks 1-3", "Back to building, if ACWR and the Achilles cooperated",
     22,
     [
-        "If Week 1 had zero Achilles flare and readiness kept trending the direction it has been "
-        "(RHR down, HRV up), we add volume. If not, repeat Week 1's numbers instead and tell me - "
-        "I'd rather adjust the plan than have you push through.",
+        "If Weeks 1-2 had zero Achilles flare and readiness kept trending the direction it has been "
+        "(RHR down, HRV up), we add volume again. If not, repeat Week 2's numbers instead and tell "
+        "me - I'd rather adjust the plan than have you push through.",
     ],
     [
         [pt_rebuild_mon()],
@@ -398,9 +437,9 @@ add_week(
     ],
 )
 
-# ---- Week 3 (Aug 24-30) - Base ---------------------------------------------
+# ---- Week 4 (Aug 24-30) - Base -----------------------------------------------
 add_week(
-    3, "base", "Base - Weeks 3-4", "Aerobic volume builds, still fully HR-led",
+    4, "base", "Base - Weeks 4-5", "Aerobic volume builds, still fully HR-led",
     25,
     [
         "Base phase. Still no pace targets on any of these - the point right now is volume the "
@@ -419,9 +458,9 @@ add_week(
     ],
 )
 
-# ---- Week 4 (Aug 31-Sep 6) - Base ------------------------------------------
+# ---- Week 5 (Aug 31-Sep 6) - Base ---------------------------------------------
 add_week(
-    4, "base", "Base - Weeks 3-4", "First tempo of the cycle",
+    5, "base", "Base - Weeks 4-5", "First tempo of the cycle",
     28,
     [
         "First pace-based quality session shows up Thursday. Keep it honest but controlled - this "
@@ -442,9 +481,9 @@ add_week(
     ],
 )
 
-# ---- Week 5 (Sep 7-13) - Build ----------------------------------------------
+# ---- Week 6 (Sep 7-13) - Build ------------------------------------------------
 add_week(
-    5, "build", "Build - Weeks 5-7", "Intervals introduced, hard/easy/hard weekday pattern begins",
+    6, "build", "Build - Weeks 6-8", "Intervals introduced, hard/easy/hard weekday pattern begins",
     31,
     [
         "From here, Tue and Thu carry the quality (intervals, then tempo/goal-pace work), Wed stays "
@@ -465,9 +504,9 @@ add_week(
     ],
 )
 
-# ---- Week 6 (Sep 14-20) - Build ---------------------------------------------
+# ---- Week 7 (Sep 14-20) - Build ------------------------------------------------
 add_week(
-    6, "build", "Build - Weeks 5-7", "Volume and intensity both step up",
+    7, "build", "Build - Weeks 6-8", "Volume and intensity both step up",
     34,
     [
         "Highest load so far. If sleep or HRV dip noticeably this week, that's the signal to trim "
@@ -486,13 +525,13 @@ add_week(
     ],
 )
 
-# ---- Week 7 (Sep 21-27) - Build (cutback + time trial) ----------------------
+# ---- Week 8 (Sep 21-27) - Build (cutback + time trial) -------------------------
 add_week(
-    7, "build", "Build - Weeks 5-7", "Cutback week - and a 10K time trial to stop guessing on paces",
+    8, "build", "Build - Weeks 6-8", "Cutback week - and a 10K time trial to stop guessing on paces",
     26,
     [
         "Planned step-back: volume drops and Tuesday's intervals get shorter. The adaptation from "
-        "Weeks 5-6 happens now, while you're recovering, not while you're grinding.",
+        "Weeks 6-7 happens now, while you're recovering, not while you're grinding.",
         "Thursday is a 10K time trial (or an actual local 10K if one lines up) - fully rested for it, "
         "real race effort. Whatever that number is replaces the marathon result for pace-setting from "
         "here forward. Upload the file after and we'll recalibrate the Peak-block paces together.",
@@ -513,12 +552,12 @@ add_week(
     ],
 )
 
-# ---- Week 8 (Sep 28-Oct 4) - Peak -------------------------------------------
+# ---- Week 9 (Sep 28-Oct 4) - Peak -----------------------------------------------
 add_week(
-    8, "peak", "Peak - Weeks 8-10", "Goal-pace work begins",
+    9, "peak", "Peak - Weeks 9-11", "Goal-pace work begins",
     34,
     [
-        "Peak phase - goal pace shows up directly in sessions now. Numbers below assume the Week 7 "
+        "Peak phase - goal pace shows up directly in sessions now. Numbers below assume the Week 8 "
         "time trial confirmed 1:28 pace is on target; adjust this week's paces first if it didn't.",
     ],
     [
@@ -537,9 +576,9 @@ add_week(
     ],
 )
 
-# ---- Week 9 (Oct 5-11) - Peak ------------------------------------------------
+# ---- Week 10 (Oct 5-11) - Peak -----------------------------------------------
 add_week(
-    9, "peak", "Peak - Weeks 8-10", "Highest volume of the cycle, longest goal-pace run",
+    10, "peak", "Peak - Weeks 9-11", "Highest volume of the cycle, longest goal-pace run",
     37,
     [
         "Biggest week of the plan. Saturday's long run is the closest thing to a rehearsal you'll "
@@ -560,9 +599,9 @@ add_week(
     ],
 )
 
-# ---- Week 10 (Oct 12-18) - Peak ----------------------------------------------
+# ---- Week 11 (Oct 12-18) - Peak -----------------------------------------------
 add_week(
-    10, "peak", "Peak - Weeks 8-10", "Last real quality week, volume starts easing",
+    11, "peak", "Peak - Weeks 9-11", "Last real quality week, volume starts easing",
     30,
     [
         "Last hard week. Sharpen, don't strain - there's no time left to recover a setback before "
@@ -582,9 +621,9 @@ add_week(
     ],
 )
 
-# ---- Week 11 (Oct 19-25) - Taper --------------------------------------------
+# ---- Week 12 (Oct 19-25) - Taper -----------------------------------------------
 add_week(
-    11, "taper", "Taper - Weeks 11-12", "Volume drops, keep short touches of goal pace",
+    12, "taper", "Taper - Weeks 12-13", "Volume drops, keep short touches of goal pace",
     22,
     [
         "Taper starts now. The fitness is already there - this block is about arriving on Nov 1 "
@@ -604,9 +643,9 @@ add_week(
     ],
 )
 
-# ---- Week 12 (Oct 26-Nov 1) - Race week --------------------------------------
+# ---- Week 13 (Oct 26-Nov 1) - Race week -----------------------------------------
 add_week(
-    12, "taper", "Taper - Weeks 11-12", "Race week",
+    13, "taper", "Taper - Weeks 12-13", "Race week",
     12.1,
     [
         "Race week - Mon and Fri are full rest now, not PT days. Everything here is about staying "

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-07T00:56:10.780582Z",
+  "generated_at": "2026-08-07T01:14:45.607037Z",
   "athlete": {
     "name": "Luke",
     "race": {
@@ -20,8 +20,9 @@
       "Ran Grandma's Marathon 6/20/2026 in 3:45:49 - GI distress during the race; pre-race training projection was ~3:28. Not used for pace-setting.",
       "3-4 week layoff after Grandma's for illness + sore Achilles, followed by a self-directed return to running through July that's visible in the logged activities (easy paces, 9:00-9:48/mi, HR 128-149).",
       "Half marathon PR: 1:30. Ran this exact Cambridge course in 11/2025 in 1:35.",
-      "Goal of 1:28 is real but ambitious - set from the PR/Cambridge-2025 evidence, not the marathon-day result. A Week 7 time trial recalibrates paces before the peak phase locks in.",
-      "Plan rebuilt 2026-08-07 around a base template Luke built (cambridge_hm_plan.html): Tue/Wed/Thu/Sat/Sun running, Mon/Fri for PT/prehab, HR-based easy/long/recovery, pace-based tempo/intervals/goal-pace work. That artifact assumed VO2max 55 / LTHR 178 / a 1:25 goal - none of which match verified Garmin data (VO2max 53, LTHR 169 as of 8/7), so paces here are reconciled back to the 1:28 goal and real numbers."
+      "Goal of 1:28 is real but ambitious - set from the PR/Cambridge-2025 evidence, not the marathon-day result. A Week 8 time trial recalibrates paces before the peak phase locks in.",
+      "Plan rebuilt 2026-08-07 around a base template Luke built (cambridge_hm_plan.html): Tue/Wed/Thu/Sat/Sun running, Mon/Fri for PT/prehab, HR-based easy/long/recovery, pace-based tempo/intervals/goal-pace work. That artifact assumed VO2max 55 / LTHR 178 / a 1:25 goal - none of which match verified Garmin data (VO2max 53, LTHR 169 as of 8/7), so paces here are reconciled back to the 1:28 goal and real numbers.",
+      "Plan spans 13 weeks, Aug 3 - Nov 1 2026 - Week 1 (Aug 3-9) picks up the week Luke had already started under the artifact's own schedule before this dashboard existed."
     ],
     "hr_zones": [
       {
@@ -124,13 +125,235 @@
     {
       "week_num": 1,
       "block": "rebuild",
-      "block_label": "Rebuild - Weeks 1-2",
+      "block_label": "Rebuild - Weeks 1-3",
+      "start_date": "2026-08-03",
+      "end_date": "2026-08-09",
+      "focus": "The week you'd already started - now folded into this plan",
+      "target_miles": 21,
+      "coach_notes": [
+        "This is the week you were already running off the old artifact's schedule before this dashboard existed - Tue and Wed are already logged (nice work), so this just picks up where that plan left off and brings the rest of the week under the same HR-based rules as everything else here: no pace numbers on easy/long/recovery days.",
+        "Heads up: this week's volume (~21mi) on top of the marathon recovery build-up is exactly why your ACWR read 1.5 (elevated) as of Aug 6. That's expected, not a red flag by itself - but it's why next week backs off to 18mi instead of continuing to climb."
+      ],
+      "days": [
+        {
+          "date": "2026-08-03",
+          "day_name": "Mon",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "PT - Achilles/hip focus",
+              "exercises": [
+                {
+                  "name": "Achilles isometric calf hold",
+                  "prescription": "3 x 30-45s hold, straight leg, mid-range",
+                  "cue": "Pain during the hold should stay <=3/10. Stop the exercise, not the plan, if it spikes."
+                },
+                {
+                  "name": "Eccentric heel drop (Alfredson protocol)",
+                  "prescription": "3 x 15 straight-leg + 3 x 15 bent-knee, both legs",
+                  "cue": "Slow 3-count lower off a step, use the good leg (or hands) to reset up. Mild ache is fine, sharp pain is not."
+                },
+                {
+                  "name": "Tibialis raise",
+                  "prescription": "3 x 15-20, heels on a small plate or wall lean",
+                  "cue": "Builds shin/ankle strength that protects the Achilles as load climbs."
+                },
+                {
+                  "name": "Banded clamshell",
+                  "prescription": "3 x 15-20/side",
+                  "cue": "Hip stability - keeps the knee tracking straight under fatigue."
+                },
+                {
+                  "name": "Banded monster walk",
+                  "prescription": "3 x 10 steps/direction",
+                  "cue": ""
+                },
+                {
+                  "name": "Single-leg balance reach",
+                  "prescription": "3 x 8 reaches/side",
+                  "cue": "Cheap injury insurance - do it in socks on a hard floor."
+                }
+              ],
+              "note": "This block's real job is the Achilles and hips, not the barbell. Keep everything else light."
+            }
+          ]
+        },
+        {
+          "date": "2026-08-04",
+          "day_name": "Tue",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy run",
+              "distance_mi": 4,
+              "duration_min": null,
+              "pace": null,
+              "hr_zone": 2,
+              "details": "Already logged.",
+              "note": ""
+            },
+            {
+              "type": "pt",
+              "title": "Quick touch",
+              "exercises": [
+                {
+                  "name": "Eccentric heel drop (Alfredson protocol)",
+                  "prescription": "3 x 15 straight-leg + 3 x 15 bent-knee, both legs",
+                  "cue": "Slow 3-count lower off a step, use the good leg (or hands) to reset up. Mild ache is fine, sharp pain is not."
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-05",
+          "day_name": "Wed",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy run",
+              "distance_mi": 4,
+              "duration_min": null,
+              "pace": null,
+              "hr_zone": 2,
+              "details": "Already logged.",
+              "note": ""
+            },
+            {
+              "type": "pt",
+              "title": "Quick touch",
+              "exercises": [
+                {
+                  "name": "Eccentric heel drop (Alfredson protocol)",
+                  "prescription": "3 x 15 straight-leg + 3 x 15 bent-knee, both legs",
+                  "cue": "Slow 3-count lower off a step, use the good leg (or hands) to reset up. Mild ache is fine, sharp pain is not."
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-06",
+          "day_name": "Thu",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "easy",
+              "title": "Easy run",
+              "distance_mi": 3,
+              "duration_min": null,
+              "pace": null,
+              "hr_zone": 2,
+              "details": "Add 4 x 20s strides only if the Achilles has been completely pain-free.",
+              "note": ""
+            },
+            {
+              "type": "pt",
+              "title": "Quick touch",
+              "exercises": [
+                {
+                  "name": "Eccentric heel drop (Alfredson protocol)",
+                  "prescription": "3 x 15 straight-leg + 3 x 15 bent-knee, both legs",
+                  "cue": "Slow 3-count lower off a step, use the good leg (or hands) to reset up. Mild ache is fine, sharp pain is not."
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-07",
+          "day_name": "Fri",
+          "sessions": [
+            {
+              "type": "strength",
+              "title": "PT - Knee/core focus",
+              "exercises": [
+                {
+                  "name": "Eccentric heel drop (Alfredson protocol)",
+                  "prescription": "3 x 15 straight-leg + 3 x 15 bent-knee, both legs",
+                  "cue": "Slow 3-count lower off a step, use the good leg (or hands) to reset up. Mild ache is fine, sharp pain is not."
+                },
+                {
+                  "name": "Slow step-down",
+                  "prescription": "3 x 8/side",
+                  "cue": "Eccentric knee control - the single best exercise for runner's knee prevention."
+                },
+                {
+                  "name": "Copenhagen plank (knee-supported)",
+                  "prescription": "3 x 20-30s/side",
+                  "cue": "Adductor strength - commonly the missing piece behind hip and knee niggles."
+                },
+                {
+                  "name": "Dead bug",
+                  "prescription": "3 x 10/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Side plank w/ hip abduction",
+                  "prescription": "3 x 30-45s/side",
+                  "cue": ""
+                },
+                {
+                  "name": "Goblet squat",
+                  "prescription": "3 x 10-12",
+                  "cue": ""
+                }
+              ],
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-08",
+          "day_name": "Sat",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "long",
+              "title": "Long run (easy)",
+              "distance_mi": 7,
+              "duration_min": null,
+              "pace": null,
+              "hr_zone": 2,
+              "details": "No pace target - time on feet, nothing more.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "date": "2026-08-09",
+          "day_name": "Sun",
+          "sessions": [
+            {
+              "type": "run",
+              "kind": "recovery",
+              "title": "Recovery run",
+              "distance_mi": 3,
+              "duration_min": null,
+              "pace": null,
+              "hr_zone": 1,
+              "details": "Should feel almost too easy the whole way.",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "week_num": 2,
+      "block": "rebuild",
+      "block_label": "Rebuild - Weeks 1-3",
       "start_date": "2026-08-10",
       "end_date": "2026-08-16",
-      "focus": "Consolidate the return to running - still no pace targets",
+      "focus": "Intentional step-back after an elevated ACWR reading",
       "target_miles": 18,
       "coach_notes": [
-        "You've already been rebuilding on your own since mid-July (nice work) - this week just brings that under a real structure. Everything stays HR-based, no pace numbers, because your ACWR was flagged high (1.5) as of Aug 6 - the load's been climbing faster than it should. This week is about not undoing that progress, not about adding to it yet.",
+        "Volume dips from ~21 to 18mi this week on purpose - Week 1 pushed ACWR to 1.5 (elevated), so this week gives that number room to settle back toward the 0.8-1.3 safe range before we build again. Everything stays HR-based, no pace numbers.",
         "Every easy/long/recovery run: stay in Zone 1-2 (up to ~144bpm). If you catch yourself drifting into Zone 3, slow down - walk if you have to."
       ],
       "days": [
@@ -344,15 +567,15 @@
       ]
     },
     {
-      "week_num": 2,
+      "week_num": 3,
       "block": "rebuild",
-      "block_label": "Rebuild - Weeks 1-2",
+      "block_label": "Rebuild - Weeks 1-3",
       "start_date": "2026-08-17",
       "end_date": "2026-08-23",
-      "focus": "Same shape, a little more volume if Week 1 went clean",
+      "focus": "Back to building, if ACWR and the Achilles cooperated",
       "target_miles": 22,
       "coach_notes": [
-        "If Week 1 had zero Achilles flare and readiness kept trending the direction it has been (RHR down, HRV up), we add volume. If not, repeat Week 1's numbers instead and tell me - I'd rather adjust the plan than have you push through."
+        "If Weeks 1-2 had zero Achilles flare and readiness kept trending the direction it has been (RHR down, HRV up), we add volume again. If not, repeat Week 2's numbers instead and tell me - I'd rather adjust the plan than have you push through."
       ],
       "days": [
         {
@@ -565,9 +788,9 @@
       ]
     },
     {
-      "week_num": 3,
+      "week_num": 4,
       "block": "base",
-      "block_label": "Base - Weeks 3-4",
+      "block_label": "Base - Weeks 4-5",
       "start_date": "2026-08-24",
       "end_date": "2026-08-30",
       "focus": "Aerobic volume builds, still fully HR-led",
@@ -762,9 +985,9 @@
       ]
     },
     {
-      "week_num": 4,
+      "week_num": 5,
       "block": "base",
-      "block_label": "Base - Weeks 3-4",
+      "block_label": "Base - Weeks 4-5",
       "start_date": "2026-08-31",
       "end_date": "2026-09-06",
       "focus": "First tempo of the cycle",
@@ -959,9 +1182,9 @@
       ]
     },
     {
-      "week_num": 5,
+      "week_num": 6,
       "block": "build",
-      "block_label": "Build - Weeks 5-7",
+      "block_label": "Build - Weeks 6-8",
       "start_date": "2026-09-07",
       "end_date": "2026-09-13",
       "focus": "Intervals introduced, hard/easy/hard weekday pattern begins",
@@ -1144,9 +1367,9 @@
       ]
     },
     {
-      "week_num": 6,
+      "week_num": 7,
       "block": "build",
-      "block_label": "Build - Weeks 5-7",
+      "block_label": "Build - Weeks 6-8",
       "start_date": "2026-09-14",
       "end_date": "2026-09-20",
       "focus": "Volume and intensity both step up",
@@ -1329,15 +1552,15 @@
       ]
     },
     {
-      "week_num": 7,
+      "week_num": 8,
       "block": "build",
-      "block_label": "Build - Weeks 5-7",
+      "block_label": "Build - Weeks 6-8",
       "start_date": "2026-09-21",
       "end_date": "2026-09-27",
       "focus": "Cutback week - and a 10K time trial to stop guessing on paces",
       "target_miles": 26,
       "coach_notes": [
-        "Planned step-back: volume drops and Tuesday's intervals get shorter. The adaptation from Weeks 5-6 happens now, while you're recovering, not while you're grinding.",
+        "Planned step-back: volume drops and Tuesday's intervals get shorter. The adaptation from Weeks 6-7 happens now, while you're recovering, not while you're grinding.",
         "Thursday is a 10K time trial (or an actual local 10K if one lines up) - fully rested for it, real race effort. Whatever that number is replaces the marathon result for pace-setting from here forward. Upload the file after and we'll recalibrate the Peak-block paces together."
       ],
       "days": [
@@ -1515,15 +1738,15 @@
       ]
     },
     {
-      "week_num": 8,
+      "week_num": 9,
       "block": "peak",
-      "block_label": "Peak - Weeks 8-10",
+      "block_label": "Peak - Weeks 9-11",
       "start_date": "2026-09-28",
       "end_date": "2026-10-04",
       "focus": "Goal-pace work begins",
       "target_miles": 34,
       "coach_notes": [
-        "Peak phase - goal pace shows up directly in sessions now. Numbers below assume the Week 7 time trial confirmed 1:28 pace is on target; adjust this week's paces first if it didn't."
+        "Peak phase - goal pace shows up directly in sessions now. Numbers below assume the Week 8 time trial confirmed 1:28 pace is on target; adjust this week's paces first if it didn't."
       ],
       "days": [
         {
@@ -1680,9 +1903,9 @@
       ]
     },
     {
-      "week_num": 9,
+      "week_num": 10,
       "block": "peak",
-      "block_label": "Peak - Weeks 8-10",
+      "block_label": "Peak - Weeks 9-11",
       "start_date": "2026-10-05",
       "end_date": "2026-10-11",
       "focus": "Highest volume of the cycle, longest goal-pace run",
@@ -1845,9 +2068,9 @@
       ]
     },
     {
-      "week_num": 10,
+      "week_num": 11,
       "block": "peak",
-      "block_label": "Peak - Weeks 8-10",
+      "block_label": "Peak - Weeks 9-11",
       "start_date": "2026-10-12",
       "end_date": "2026-10-18",
       "focus": "Last real quality week, volume starts easing",
@@ -2010,9 +2233,9 @@
       ]
     },
     {
-      "week_num": 11,
+      "week_num": 12,
       "block": "taper",
-      "block_label": "Taper - Weeks 11-12",
+      "block_label": "Taper - Weeks 12-13",
       "start_date": "2026-10-19",
       "end_date": "2026-10-25",
       "focus": "Volume drops, keep short touches of goal pace",
@@ -2175,9 +2398,9 @@
       ]
     },
     {
-      "week_num": 12,
+      "week_num": 13,
       "block": "taper",
-      "block_label": "Taper - Weeks 11-12",
+      "block_label": "Taper - Weeks 12-13",
       "start_date": "2026-10-26",
       "end_date": "2026-11-01",
       "focus": "Race week",
