@@ -1,0 +1,40 @@
+{
+  "generated_at": "2026-08-09T20:37:47.337979Z",
+  "workouts": [
+    {
+      "date": "2026-08-11",
+      "week": "week_02",
+      "filename": "2026-08-11_W02_Tue_Easy_4mi.json",
+      "path": "data/workouts/week_02/2026-08-11_W02_Tue_Easy_4mi.json",
+      "workout_name": "W02 Tue Easy 4mi"
+    },
+    {
+      "date": "2026-08-12",
+      "week": "week_02",
+      "filename": "2026-08-12_W02_Wed_Easy_4mi.json",
+      "path": "data/workouts/week_02/2026-08-12_W02_Wed_Easy_4mi.json",
+      "workout_name": "W02 Wed Easy 4mi"
+    },
+    {
+      "date": "2026-08-13",
+      "week": "week_02",
+      "filename": "2026-08-13_W02_Thu_Easy_4mi.json",
+      "path": "data/workouts/week_02/2026-08-13_W02_Thu_Easy_4mi.json",
+      "workout_name": "W02 Thu Easy 4mi"
+    },
+    {
+      "date": "2026-08-15",
+      "week": "week_02",
+      "filename": "2026-08-15_W02_Sat_Long_6mi.json",
+      "path": "data/workouts/week_02/2026-08-15_W02_Sat_Long_6mi.json",
+      "workout_name": "W02 Sat Long 6mi"
+    },
+    {
+      "date": "2026-08-16",
+      "week": "week_02",
+      "filename": "2026-08-16_W02_Sun_Recovery_3mi.json",
+      "path": "data/workouts/week_02/2026-08-16_W02_Sun_Recovery_3mi.json",
+      "workout_name": "W02 Sun Recovery 3mi"
+    }
+  ]
+}

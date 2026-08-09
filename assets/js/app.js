@@ -5,7 +5,7 @@
 // against the JSON files - the only "write" behavior is a small localStorage
 // toggle for non-running sessions (strength/PT) that Garmin can't verify.
 
-const state = { plan: null, history: null, selectedWeek: null, today: new Date() };
+const state = { plan: null, history: null, selectedWeek: null, today: new Date(), workoutsByDate: {} };
 
 function todayISO() {
   return state.today.toISOString().slice(0, 10);
@@ -34,6 +34,28 @@ async function loadJSON(path) {
   const res = await fetch(path, { cache: "no-store" });
   if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
   return res.json();
+}
+
+// Like loadJSON, but missing-file is not an error - the workouts manifest
+// won't exist until the first batch of Garmin workout files has been
+// generated, and the dashboard should just render without download links
+// rather than break.
+async function loadJSONOptional(path) {
+  try {
+    const res = await fetch(path, { cache: "no-store" });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
+function buildWorkoutsByDate(manifest) {
+  const map = {};
+  for (const w of (manifest && manifest.workouts) || []) {
+    (map[w.date] = map[w.date] || []).push(w);
+  }
+  return map;
 }
 
 function findCurrentWeek(plan) {
@@ -398,6 +420,19 @@ function renderSession(session, dateISO, pool) {
     ? `<div class="session-no-check"></div>`
     : `<div class="session-check ${checkClass}" ${checkAttrs}>${checkMark}</div>`;
 
+  // Garmin Connect workout file for this session, if one's been generated -
+  // matched purely by date (see buildWorkoutsByDate()/state.workoutsByDate).
+  let workoutHtml = "";
+  if (isRun) {
+    const matches = state.workoutsByDate[dateISO];
+    if (matches && matches.length) {
+      workoutHtml = matches.map(w => `
+        <a class="workout-download" href="${w.path}" download title="Download Garmin Connect workout JSON">
+          &#8681; Workout file
+        </a>`).join("");
+    }
+  }
+
   const html = `
     <div class="session">
       ${checkHtml}
@@ -405,6 +440,7 @@ function renderSession(session, dateISO, pool) {
         <div class="session-title-row">
           <span class="session-title">${session.title}</span>
           <span class="session-tag kind-${session.kind || session.type}">${sessionKindLabel(session)}</span>
+          ${workoutHtml}
         </div>
         ${metaParts.length ? `<div class="session-meta">${metaParts.join(" &middot; ")}</div>` : ""}
         ${session.details ? `<div class="session-details">${session.details}</div>` : ""}
@@ -779,12 +815,14 @@ async function init() {
   initThemeToggle();
   watchStickyHeader();
   try {
-    const [plan, history] = await Promise.all([
+    const [plan, history, workoutsManifest] = await Promise.all([
       loadJSON("data/plan.json"),
       loadJSON("data/history.json"),
+      loadJSONOptional("data/workouts/index.json"),
     ]);
     state.plan = plan;
     state.history = history;
+    state.workoutsByDate = buildWorkoutsByDate(workoutsManifest);
     state.selectedWeek = findCurrentWeek(plan);
 
     renderHeader(plan);
