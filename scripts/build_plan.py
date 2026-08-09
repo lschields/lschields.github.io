@@ -493,6 +493,13 @@ add_week(
         "build again. Everything stays HR-based, no pace numbers.",
         "Every easy/long/recovery run: stay in Zone 1-2 (up to ~144bpm). If you catch yourself "
         "drifting into Zone 3, slow down - walk if you have to.",
+        "Week 1 update: Thu and Sun got skipped for 95F+/70% humidity heat, and Saturday's long run "
+        "was cut to 6.52mi at an 11:02/mi average (walking by the end) just to hold HR under 143 - "
+        "exactly the right call, nothing to make up. That actually left ACWR at 1.1 (healthy) already, "
+        "not the 1.5 this cutback was originally sized for - but Achilles/HRV/RHR were all trending "
+        "well before the heat hit, so there's no reason to add volume back either. Staying at 18mi as "
+        "planned; if heat like this repeats, cap HR the same way and treat the shortened/skipped "
+        "session as correct, not a gap to backfill.",
     ],
     [
         [pt_rebuild_mon()],
