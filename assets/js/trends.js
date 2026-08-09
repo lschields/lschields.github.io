@@ -134,29 +134,64 @@ function computeCompletionStats(plan, history) {
 
 function pct(done, due) { return due > 0 ? Math.round((done / due) * 100) : 0; }
 
+const KPI_TOOLTIPS = {
+  overall: "Share of every due session (runs + PT/prehab) checked off so far. Runs are matched automatically against uploaded Garmin activities; PT/prehab relies on the checkbox being tapped in this browser.",
+  streak: "Consecutive fully-completed days, not counting today (an unfinished today shouldn't look like a broken streak). Rest days don't break a streak since there's nothing to complete on them.",
+  runs: "Runs are the most reliable number here - a match against an uploaded Garmin activity counts automatically, so this holds up regardless of which device or browser you're checking from.",
+  pt: "PT/prehab has no Garmin signal, so this is purely self-reported via the checkbox on the dashboard - it only reflects what's been checked off in this specific browser.",
+};
+
+function escapeAttr(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;");
+}
+
+function kpiTooltip(key) {
+  const text = KPI_TOOLTIPS[key];
+  if (!text) return { attr: "", icon: "" };
+  return { attr: `data-tooltip="${escapeAttr(text)}"`, icon: `<i class="kpi-info-icon">i</i>` };
+}
+
+function initKPITooltips() {
+  document.addEventListener("click", (e) => {
+    const card = e.target.closest(".kpi-card[data-tooltip]");
+    document.querySelectorAll(".kpi-card.tooltip-open").forEach(c => {
+      if (c !== card) c.classList.remove("tooltip-open");
+    });
+    if (card) card.classList.toggle("tooltip-open");
+  });
+}
+
 function renderKPIs(stats) {
   const el = document.getElementById("trends-kpi");
   const overallPct = pct(stats.totalDone, stats.totalDue);
   const runPct = pct(stats.byType.run.done, stats.byType.run.due);
   const ptPct = pct(stats.byType.pt.done, stats.byType.pt.due);
+  const overallTt = kpiTooltip("overall");
+  const streakTt = kpiTooltip("streak");
+  const runsTt = kpiTooltip("runs");
+  const ptTt = kpiTooltip("pt");
 
   el.innerHTML = `
-    <div class="kpi-card">
+    <div class="kpi-card" ${overallTt.attr}>
+      ${overallTt.icon}
       <div class="kpi-value">${overallPct}<small>%</small></div>
       <div class="kpi-label">Overall completion</div>
       <span class="kpi-flag ${overallPct >= 85 ? "good" : overallPct >= 60 ? "warn" : "bad"}">${stats.totalDone} / ${stats.totalDue} sessions</span>
     </div>
-    <div class="kpi-card">
+    <div class="kpi-card" ${streakTt.attr}>
+      ${streakTt.icon}
       <div class="kpi-value">${stats.currentStreak}<small> day${stats.currentStreak === 1 ? "" : "s"}</small></div>
       <div class="kpi-label">Current streak</div>
       <span class="kpi-flag ${stats.currentStreak > 0 ? "good" : "warn"}">Longest: ${stats.longestStreak}</span>
     </div>
-    <div class="kpi-card">
+    <div class="kpi-card" ${runsTt.attr}>
+      ${runsTt.icon}
       <div class="kpi-value">${runPct}<small>%</small></div>
       <div class="kpi-label">Runs completed</div>
       <span class="kpi-flag ${runPct >= 85 ? "good" : runPct >= 60 ? "warn" : "bad"}">${stats.byType.run.done} / ${stats.byType.run.due}</span>
     </div>
-    <div class="kpi-card">
+    <div class="kpi-card" ${ptTt.attr}>
+      ${ptTt.icon}
       <div class="kpi-value">${ptPct}<small>%</small></div>
       <div class="kpi-label">PT / prehab completed</div>
       <span class="kpi-flag ${ptPct >= 85 ? "good" : ptPct >= 60 ? "warn" : "bad"}">${stats.byType.pt.done} / ${stats.byType.pt.due}</span>
@@ -235,6 +270,7 @@ function renderWeeklyChart(stats) {
 async function init() {
   initThemeToggle();
   watchStickyHeader();
+  initKPITooltips();
   try {
     const [plan, history] = await Promise.all([loadJSON("data/plan.json"), loadJSON("data/history.json")]);
     const stats = computeCompletionStats(plan, history);

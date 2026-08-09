@@ -168,6 +168,41 @@ function series(records, field) {
 }
 
 // ---------------------------------------------------------------------
+// KPI tooltips - coaching context/takeaways per metric, shown on hover
+// (desktop) or tap (touch, via .tooltip-open - wired in initKPITooltips()).
+// ---------------------------------------------------------------------
+const KPI_TOOLTIPS = {
+  race: "Countdown to race day. Inside 2 weeks this becomes your taper clock - trust the volume drop rather than trying to add fitness this late.",
+  mileage: "Actual miles logged vs. this week's target. One off week isn't a problem - a pattern of missed weeks is what's worth flagging.",
+  block: "Which phase of the plan you're in. Rebuild and Base build the aerobic engine, Build and Peak add speed on top of it, Taper backs off so you arrive fresh.",
+  vo2max: "Garmin's estimate of your aerobic ceiling. It's a ceiling on potential, not a guarantee - trust the trend over any single reading, since it can shift with fitness, illness, or even strap fit.",
+  rhr: "Resting heart rate is one of the earliest signals of fatigue or illness. A few beats above your baseline for 2+ days in a row is worth an easy day; a flat or falling trend usually means training is being absorbed well.",
+  lthr: "The effort you can hold before fatigue piles up fast - this pace anchors your tempo and threshold sessions. It should trend faster as fitness builds; a stall for several weeks in Build phase is worth a look.",
+  acwr: "Acute:chronic workload ratio - this week's training load vs. your last month's average. 0.8-1.3 is the safe range; above 1.5 is where injury risk climbs fastest, and the clearest 'back off' signal on this whole dashboard.",
+  status: "Garmin's read on whether recent training is building fitness, holding steady, or digging a hole. 'Unproductive' or 'overreaching' alone isn't an emergency - paired with a rising RHR or high ACWR, it's a real signal to ease up.",
+};
+
+function escapeAttr(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;");
+}
+
+function kpiTooltip(key) {
+  const text = KPI_TOOLTIPS[key];
+  if (!text) return { attr: "", icon: "" };
+  return { attr: `data-tooltip="${escapeAttr(text)}"`, icon: `<i class="kpi-info-icon">i</i>` };
+}
+
+function initKPITooltips() {
+  document.addEventListener("click", (e) => {
+    const card = e.target.closest(".kpi-card[data-tooltip]");
+    document.querySelectorAll(".kpi-card.tooltip-open").forEach(c => {
+      if (c !== card) c.classList.remove("tooltip-open");
+    });
+    if (card) card.classList.toggle("tooltip-open");
+  });
+}
+
+// ---------------------------------------------------------------------
 // KPI strip - primary row (race countdown, weekly mileage, block/week) and
 // secondary row (the 5 fitness metrics, each with a trend sparkline)
 // ---------------------------------------------------------------------
@@ -192,23 +227,29 @@ function renderKPIs(plan, history) {
   // --- primary row ---
   const primary = [];
 
+  const raceTt = kpiTooltip("race");
   primary.push(`
-    <div class="kpi-card">
+    <div class="kpi-card" ${raceTt.attr}>
+      ${raceTt.icon}
       <div class="kpi-value">${daysToRace >= 0 ? daysToRace : 0}<small> days</small></div>
       <div class="kpi-label">To ${race.name}</div>
       <span class="kpi-flag good">Goal ${race.goal_time_display} &middot; ${race.goal_pace_per_mi}/mi</span>
     </div>`);
 
   const pct = currentWeek.target_miles ? Math.round((weekActualMi / currentWeek.target_miles) * 100) : 0;
+  const mileageTt = kpiTooltip("mileage");
   primary.push(`
-    <div class="kpi-card">
+    <div class="kpi-card" ${mileageTt.attr}>
+      ${mileageTt.icon}
       <div class="kpi-value">${weekActualMi.toFixed(1)}<small> / ${currentWeek.target_miles} mi</small></div>
       <div class="kpi-label">This week's mileage</div>
       <span class="kpi-flag ${pct >= 90 ? "good" : pct >= 50 ? "warn" : "bad"}">${pct}% of target</span>
     </div>`);
 
+  const blockTt = kpiTooltip("block");
   primary.push(`
-    <div class="kpi-card">
+    <div class="kpi-card" ${blockTt.attr}>
+      ${blockTt.icon}
       <div class="kpi-value">W${currentWeek.week_num}<small> / ${plan.weeks.length}</small></div>
       <div class="kpi-label">${currentWeek.block_label}</div>
       <span class="kpi-flag good">${capitalize(currentWeek.block)} phase</span>
@@ -229,8 +270,10 @@ function renderKPIs(plan, history) {
       { upper: 70, colorVar: "--good", label: "Above average" },
     ];
     const vo2Band = bandFor(vo2, vo2Bands, 30);
+    const vo2Tt = kpiTooltip("vo2max");
     secondary.push(`
-      <div class="kpi-card kpi-card-gauge">
+      <div class="kpi-card kpi-card-gauge" ${vo2Tt.attr}>
+        ${vo2Tt.icon}
         <div class="kpi-value">${vo2}</div>
         <div class="kpi-label">VO2 max</div>
         <div class="kpi-gauge">${gaugeSVG(vo2, 30, 70, vo2Bands)}</div>
@@ -241,8 +284,10 @@ function renderKPIs(plan, history) {
   // Resting HR
   const rhrSeries = series(readinessHistory, "resting_hr");
   if (rhrSeries.length) {
+    const rhrTt = kpiTooltip("rhr");
     secondary.push(`
-      <div class="kpi-card">
+      <div class="kpi-card" ${rhrTt.attr}>
+        ${rhrTt.icon}
         <div class="kpi-value">${rhrSeries[rhrSeries.length - 1]}<small> bpm</small></div>
         <div class="kpi-label">Resting HR</div>
         <div class="kpi-foot">
@@ -257,8 +302,10 @@ function renderKPIs(plan, history) {
   const lthrSeries = series(loadHistory, "lthr");
   if (lthrSeries.length) {
     const thresholdZone = (plan.athlete.pace_zones || []).find(z => z.name === "Tempo / Threshold");
+    const lthrTt = kpiTooltip("lthr");
     secondary.push(`
-      <div class="kpi-card">
+      <div class="kpi-card" ${lthrTt.attr}>
+        ${lthrTt.icon}
         <div class="kpi-value">${lthrSeries[lthrSeries.length - 1]}<small> bpm</small></div>
         <div class="kpi-label">Lactate threshold</div>
         ${thresholdZone ? `<div class="kpi-pace-range">${thresholdZone.pace_per_mi}/mi</div>` : ""}
@@ -279,8 +326,10 @@ function renderKPIs(plan, history) {
       { upper: 2.0, colorVar: "--bad", label: "High risk" },
     ];
     const acwrBand = bandFor(acwr, acwrBands, 0);
+    const acwrTt = kpiTooltip("acwr");
     secondary.push(`
-      <div class="kpi-card kpi-card-gauge">
+      <div class="kpi-card kpi-card-gauge" ${acwrTt.attr}>
+        ${acwrTt.icon}
         <div class="kpi-value">${acwr}</div>
         <div class="kpi-label">Load tolerance</div>
         <div class="kpi-gauge">${gaugeSVG(acwr, 0, 2.0, acwrBands)}</div>
@@ -304,8 +353,10 @@ function renderKPIs(plan, history) {
     const goodStatuses = ["productive", "peaking", "maintaining"];
     const badStatuses = ["overreaching", "detraining", "unproductive"];
     const flagClass = goodStatuses.includes(status) ? "good" : badStatuses.includes(status) ? "bad" : "warn";
+    const statusTt = kpiTooltip("status");
     secondary.push(`
-      <div class="kpi-card">
+      <div class="kpi-card" ${statusTt.attr}>
+        ${statusTt.icon}
         <div class="kpi-value" style="font-size:14px; text-transform:capitalize;">${status}</div>
         <div class="kpi-label">Training status</div>
         <span class="kpi-flag ${flagClass}">Since ${fmtDateShort(sinceDate)}</span>
@@ -814,6 +865,7 @@ function renderAll() {
 async function init() {
   initThemeToggle();
   watchStickyHeader();
+  initKPITooltips();
   try {
     const [plan, history, workoutsManifest] = await Promise.all([
       loadJSON("data/plan.json"),
