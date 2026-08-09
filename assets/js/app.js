@@ -168,26 +168,16 @@ function series(records, field) {
 }
 
 // ---------------------------------------------------------------------
-// KPI tooltips - coaching context/takeaways per metric, shown on hover
-// (desktop) or tap (touch, via .tooltip-open - wired in initKPITooltips()).
+// KPI tooltips - coaching context that reads the *current* numbers, not
+// generic definitions. Each render call rebuilds these from whatever's in
+// plan.json/history.json right now, so they update automatically as new
+// Garmin data comes in - no separate "refresh" step needed.
 // ---------------------------------------------------------------------
-const KPI_TOOLTIPS = {
-  race: "Countdown to race day. Inside 2 weeks this becomes your taper clock - trust the volume drop rather than trying to add fitness this late.",
-  mileage: "Actual miles logged vs. this week's target. One off week isn't a problem - a pattern of missed weeks is what's worth flagging.",
-  block: "Which phase of the plan you're in. Rebuild and Base build the aerobic engine, Build and Peak add speed on top of it, Taper backs off so you arrive fresh.",
-  vo2max: "Garmin's estimate of your aerobic ceiling. It's a ceiling on potential, not a guarantee - trust the trend over any single reading, since it can shift with fitness, illness, or even strap fit.",
-  rhr: "Resting heart rate is one of the earliest signals of fatigue or illness. A few beats above your baseline for 2+ days in a row is worth an easy day; a flat or falling trend usually means training is being absorbed well.",
-  lthr: "The effort you can hold before fatigue piles up fast - this pace anchors your tempo and threshold sessions. It should trend faster as fitness builds; a stall for several weeks in Build phase is worth a look.",
-  acwr: "Acute:chronic workload ratio - this week's training load vs. your last month's average. 0.8-1.3 is the safe range; above 1.5 is where injury risk climbs fastest, and the clearest 'back off' signal on this whole dashboard.",
-  status: "Garmin's read on whether recent training is building fitness, holding steady, or digging a hole. 'Unproductive' or 'overreaching' alone isn't an emergency - paired with a rising RHR or high ACWR, it's a real signal to ease up.",
-};
-
 function escapeAttr(s) {
   return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;");
 }
 
-function kpiTooltip(key) {
-  const text = KPI_TOOLTIPS[key];
+function kpiTooltip(text) {
   if (!text) return { attr: "", icon: "" };
   return { attr: `data-tooltip="${escapeAttr(text)}"`, icon: `<i class="kpi-info-icon">i</i>` };
 }
@@ -223,11 +213,20 @@ function renderKPIs(plan, history) {
     .filter(r => r.resting_hr !== undefined)
     .sort((a, b) => a.date.localeCompare(b.date)).slice(-1)[0];
   const latestLoad = loadHistory.slice(-1)[0];
+  // Populated by the ACWR card below, read by the training-status card afterward
+  // so its tooltip can cross-reference load tolerance when both look shaky.
+  let latestAcwrValue = null, latestAcwrLabel = null;
 
   // --- primary row ---
   const primary = [];
 
-  const raceTt = kpiTooltip("race");
+  let raceTip;
+  if (daysToRace < 0) raceTip = "Race day has passed - hope it went well!";
+  else if (daysToRace <= 7) raceTip = `${daysToRace} day${daysToRace === 1 ? "" : "s"} out - race week. Trust the taper: nothing new, nothing hard.`;
+  else if (daysToRace <= 14) raceTip = `${daysToRace} days out - deep taper territory. Volume should already be dropping; don't chase fitness this late.`;
+  else if (daysToRace <= 28) raceTip = `${daysToRace} days out. Still time to build, but the taper clock starts soon - keep an eye on the block/week card.`;
+  else raceTip = `${daysToRace} days out - plenty of runway left before taper matters.`;
+  const raceTt = kpiTooltip(raceTip);
   primary.push(`
     <div class="kpi-card" ${raceTt.attr}>
       ${raceTt.icon}
@@ -237,7 +236,12 @@ function renderKPIs(plan, history) {
     </div>`);
 
   const pct = currentWeek.target_miles ? Math.round((weekActualMi / currentWeek.target_miles) * 100) : 0;
-  const mileageTt = kpiTooltip("mileage");
+  const daysLeftInWeek = Math.max(0, daysBetween(t, currentWeek.end_date));
+  let mileageTip;
+  if (pct >= 90) mileageTip = `${weekActualMi.toFixed(1)} of ${currentWeek.target_miles}mi logged (${pct}%) - right on track for the week.`;
+  else if (pct >= 50) mileageTip = `${weekActualMi.toFixed(1)} of ${currentWeek.target_miles}mi logged (${pct}%), with ${daysLeftInWeek} day${daysLeftInWeek === 1 ? "" : "s"} left in the week to close the gap.`;
+  else mileageTip = `Only ${weekActualMi.toFixed(1)} of ${currentWeek.target_miles}mi logged (${pct}%) with ${daysLeftInWeek} day${daysLeftInWeek === 1 ? "" : "s"} left - worth a look at what's getting in the way.`;
+  const mileageTt = kpiTooltip(mileageTip);
   primary.push(`
     <div class="kpi-card" ${mileageTt.attr}>
       ${mileageTt.icon}
@@ -246,7 +250,15 @@ function renderKPIs(plan, history) {
       <span class="kpi-flag ${pct >= 90 ? "good" : pct >= 50 ? "warn" : "bad"}">${pct}% of target</span>
     </div>`);
 
-  const blockTt = kpiTooltip("block");
+  const PHASE_NOTES = {
+    rebuild: "building back safely - volume and consistency matter more than speed right now.",
+    base: "building the aerobic engine everything else gets layered on top of.",
+    build: "speed work is layering in - hard days should feel hard, easy days easy.",
+    peak: "the highest load of the cycle - dial in race-pace feel and prioritize recovery.",
+    taper: "volume is dropping on purpose - trust it, don't chase fitness this late.",
+  };
+  const blockTip = `Week ${currentWeek.week_num} of ${plan.weeks.length}, ${currentWeek.block} phase: ${PHASE_NOTES[currentWeek.block] || ""}`;
+  const blockTt = kpiTooltip(blockTip);
   primary.push(`
     <div class="kpi-card" ${blockTt.attr}>
       ${blockTt.icon}
@@ -270,7 +282,13 @@ function renderKPIs(plan, history) {
       { upper: 70, colorVar: "--good", label: "Above average" },
     ];
     const vo2Band = bandFor(vo2, vo2Bands, 30);
-    const vo2Tt = kpiTooltip("vo2max");
+    const vo2Prev = vo2Series.length > 1 ? vo2Series[vo2Series.length - 2] : null;
+    let vo2Trend = "";
+    if (vo2Prev !== null && vo2 > vo2Prev) vo2Trend = ` Up from ${vo2Prev} last reading - trending the right direction.`;
+    else if (vo2Prev !== null && vo2 < vo2Prev) vo2Trend = ` Down from ${vo2Prev} last reading - not unusual on a single reading, watch the trend rather than react to one drop.`;
+    else if (vo2Prev !== null) vo2Trend = ` Steady at ${vo2Prev} on the last reading.`;
+    const vo2Tip = `Currently ${vo2} (${vo2Band.label.toLowerCase()}).${vo2Trend} This is Garmin's estimate of your aerobic ceiling, not a guarantee you're racing at it yet.`;
+    const vo2Tt = kpiTooltip(vo2Tip);
     secondary.push(`
       <div class="kpi-card kpi-card-gauge" ${vo2Tt.attr}>
         ${vo2Tt.icon}
@@ -284,7 +302,20 @@ function renderKPIs(plan, history) {
   // Resting HR
   const rhrSeries = series(readinessHistory, "resting_hr");
   if (rhrSeries.length) {
-    const rhrTt = kpiTooltip("rhr");
+    const rhrLatest = rhrSeries[rhrSeries.length - 1];
+    const rhrPriorReadings = rhrSeries.slice(0, -1);
+    const rhrBaseline = rhrPriorReadings.length
+      ? rhrPriorReadings.reduce((a, b) => a + b, 0) / rhrPriorReadings.length : null;
+    let rhrTip;
+    if (rhrBaseline !== null) {
+      const diff = rhrLatest - rhrBaseline;
+      if (diff >= 3) rhrTip = `${rhrLatest} bpm - about ${Math.round(diff)} bpm above your recent average of ${rhrBaseline.toFixed(0)}. Elevated for 2+ days in a row is worth an easy day.`;
+      else if (diff <= -2) rhrTip = `${rhrLatest} bpm - below your recent average of ${rhrBaseline.toFixed(0)}, a good sign of recovery.`;
+      else rhrTip = `${rhrLatest} bpm - in line with your recent average of ${rhrBaseline.toFixed(0)}.`;
+    } else {
+      rhrTip = `${rhrLatest} bpm. Resting heart rate is one of the earliest signals of fatigue or illness - watch the trend as more readings come in.`;
+    }
+    const rhrTt = kpiTooltip(rhrTip);
     secondary.push(`
       <div class="kpi-card" ${rhrTt.attr}>
         ${rhrTt.icon}
@@ -302,7 +333,16 @@ function renderKPIs(plan, history) {
   const lthrSeries = series(loadHistory, "lthr");
   if (lthrSeries.length) {
     const thresholdZone = (plan.athlete.pace_zones || []).find(z => z.name === "Tempo / Threshold");
-    const lthrTt = kpiTooltip("lthr");
+    const lthrLatest = lthrSeries[lthrSeries.length - 1];
+    const lthrPrev = lthrSeries.length > 1 ? lthrSeries[lthrSeries.length - 2] : null;
+    let lthrTip;
+    if (lthrPrev !== null && lthrPrev !== lthrLatest) {
+      const dir = lthrLatest > lthrPrev ? "up" : "down";
+      lthrTip = `${lthrLatest} bpm, ${dir} from ${lthrPrev} last reading. This pace anchors your tempo/threshold sessions - watch how it pairs with pace at that effort over time, not the bpm number alone.`;
+    } else {
+      lthrTip = `${lthrLatest} bpm, holding steady. This pace anchors your tempo/threshold sessions.`;
+    }
+    const lthrTt = kpiTooltip(lthrTip);
     secondary.push(`
       <div class="kpi-card" ${lthrTt.attr}>
         ${lthrTt.icon}
@@ -326,7 +366,16 @@ function renderKPIs(plan, history) {
       { upper: 2.0, colorVar: "--bad", label: "High risk" },
     ];
     const acwrBand = bandFor(acwr, acwrBands, 0);
-    const acwrTt = kpiTooltip("acwr");
+    latestAcwrValue = acwr;
+    latestAcwrLabel = acwrBand.label;
+    const ACWR_ACTIONS = {
+      "Low": "lower than ideal - there's room to safely add volume.",
+      "Safe": "right in the 0.8-1.3 sweet spot - the current ramp rate is sustainable.",
+      "Caution": "climbing into the caution zone - keep an eye on how the next few days feel before adding more.",
+      "High risk": "above 1.5 - the clearest 'ease up' signal on this whole dashboard. Worth trimming volume this week.",
+    };
+    const acwrTip = `${acwr} - ${ACWR_ACTIONS[acwrBand.label] || ""}`;
+    const acwrTt = kpiTooltip(acwrTip);
     secondary.push(`
       <div class="kpi-card kpi-card-gauge" ${acwrTt.attr}>
         ${acwrTt.icon}
@@ -353,7 +402,19 @@ function renderKPIs(plan, history) {
     const goodStatuses = ["productive", "peaking", "maintaining"];
     const badStatuses = ["overreaching", "detraining", "unproductive"];
     const flagClass = goodStatuses.includes(status) ? "good" : badStatuses.includes(status) ? "bad" : "warn";
-    const statusTt = kpiTooltip("status");
+    const STATUS_ACTIONS = {
+      productive: "training is building fitness effectively - stay the course.",
+      peaking: "you're at your fitness peak - exactly where you want to be heading into a key block.",
+      maintaining: "holding steady - fine during a cutback or taper, worth building again once volume returns.",
+      overreaching: "pushing hard - fine short-term, but pair with easy days and sleep or it tips into a hole.",
+      detraining: "load has dropped off - expected during taper, worth a look anywhere else in the plan.",
+      unproductive: "recent training isn't converting into fitness gains yet - common right after a layoff or illness, keep at HR-based volume before adding intensity.",
+    };
+    let statusTip = `${capitalize(status)} since ${fmtDateShort(sinceDate)} - ${STATUS_ACTIONS[status] || ""}`;
+    if (badStatuses.includes(status) && (latestAcwrLabel === "Caution" || latestAcwrLabel === "High risk")) {
+      statusTip += ` Combined with a load-tolerance reading of ${latestAcwrValue} (${latestAcwrLabel.toLowerCase()}), this is worth taking seriously - an easier week would help.`;
+    }
+    const statusTt = kpiTooltip(statusTip);
     secondary.push(`
       <div class="kpi-card" ${statusTt.attr}>
         ${statusTt.icon}

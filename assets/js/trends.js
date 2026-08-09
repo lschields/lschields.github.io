@@ -134,19 +134,14 @@ function computeCompletionStats(plan, history) {
 
 function pct(done, due) { return due > 0 ? Math.round((done / due) * 100) : 0; }
 
-const KPI_TOOLTIPS = {
-  overall: "Share of every due session (runs + PT/prehab) checked off so far. Runs are matched automatically against uploaded Garmin activities; PT/prehab relies on the checkbox being tapped in this browser.",
-  streak: "Consecutive fully-completed days, not counting today (an unfinished today shouldn't look like a broken streak). Rest days don't break a streak since there's nothing to complete on them.",
-  runs: "Runs are the most reliable number here - a match against an uploaded Garmin activity counts automatically, so this holds up regardless of which device or browser you're checking from.",
-  pt: "PT/prehab has no Garmin signal, so this is purely self-reported via the checkbox on the dashboard - it only reflects what's been checked off in this specific browser.",
-};
-
+// Tooltip copy is generated fresh from `stats` on every render (see below),
+// so it reads the current numbers rather than describing the metric in the
+// abstract - it updates automatically as new Garmin/checkbox data comes in.
 function escapeAttr(s) {
   return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;");
 }
 
-function kpiTooltip(key) {
-  const text = KPI_TOOLTIPS[key];
+function kpiTooltip(text) {
   if (!text) return { attr: "", icon: "" };
   return { attr: `data-tooltip="${escapeAttr(text)}"`, icon: `<i class="kpi-info-icon">i</i>` };
 }
@@ -166,10 +161,27 @@ function renderKPIs(stats) {
   const overallPct = pct(stats.totalDone, stats.totalDue);
   const runPct = pct(stats.byType.run.done, stats.byType.run.due);
   const ptPct = pct(stats.byType.pt.done, stats.byType.pt.due);
-  const overallTt = kpiTooltip("overall");
-  const streakTt = kpiTooltip("streak");
-  const runsTt = kpiTooltip("runs");
-  const ptTt = kpiTooltip("pt");
+
+  const overallTip = overallPct >= 85
+    ? `${overallPct}% (${stats.totalDone}/${stats.totalDue}) - strong adherence, whatever you're doing keep doing it.`
+    : overallPct >= 60
+      ? `${overallPct}% (${stats.totalDone}/${stats.totalDue}) - decent, but there's room. Check the calendar below for where sessions are slipping.`
+      : `${overallPct}% (${stats.totalDone}/${stats.totalDue}) - a good chunk of due sessions aren't getting checked off. Worth a look at what's realistic in the plan vs. what's actually happening.`;
+
+  const streakTip = stats.currentStreak === 0
+    ? `No active streak right now (longest so far: ${stats.longestStreak}). The next fully-completed day starts a new one.`
+    : stats.currentStreak >= stats.longestStreak
+      ? `${stats.currentStreak}-day streak - this is your longest yet.`
+      : `${stats.currentStreak}-day streak, ${stats.longestStreak - stats.currentStreak} day${stats.longestStreak - stats.currentStreak === 1 ? "" : "s"} short of your best (${stats.longestStreak}).`;
+
+  const runsTip = `${runPct}% (${stats.byType.run.done}/${stats.byType.run.due}) - Garmin-verified, so this holds up regardless of which device or browser you're checking from.`;
+
+  const ptTip = `${ptPct}% (${stats.byType.pt.done}/${stats.byType.pt.due}) - self-reported only in this browser. If you're doing the work but not checking the box, this will undercount it.`;
+
+  const overallTt = kpiTooltip(overallTip);
+  const streakTt = kpiTooltip(streakTip);
+  const runsTt = kpiTooltip(runsTip);
+  const ptTt = kpiTooltip(ptTip);
 
   el.innerHTML = `
     <div class="kpi-card" ${overallTt.attr}>
