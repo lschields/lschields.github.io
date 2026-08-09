@@ -189,6 +189,11 @@ code {
   grid-template-columns: repeat(5, 1fr);
   margin-bottom: 18px;
 }
+.kpi-strip-quad {
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 18px;
+}
+.kpi-strip-quad .kpi-card { padding: 16px 16px 14px; }
 .kpi-card {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -261,6 +266,7 @@ code {
 @media (max-width: 640px) {
   .kpi-strip-primary { grid-template-columns: repeat(3, 1fr); }
   .kpi-strip-secondary { grid-template-columns: repeat(2, 1fr); }
+  .kpi-strip-quad { grid-template-columns: repeat(2, 1fr); }
   .kpi-strip-primary .kpi-value { font-size: 18px; }
   .kpi-strip-primary .kpi-card { padding: 12px 10px 10px; }
 }
@@ -640,4 +646,43 @@ table.simple td.strong { color: var(--text); font-weight: 600; }
   .wrap { padding: 18px 12px 40px; }
   .page-header h1 { font-size: 23px; }
   .page-header { flex-wrap: wrap; }
+}
+
+/* Completion trends - calendar heatmap */
+.cal-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 11.5px;
+  color: var(--text-dim);
+  margin-bottom: 14px;
+}
+.cal-legend span { display: flex; align-items: center; gap: 5px; }
+.cal-grid { display: flex; flex-direction: column; gap: 5px; }
+.cal-row { display: flex; align-items: center; gap: 10px; }
+.cal-row-label {
+  flex: 0 0 auto;
+  min-width: 92px;
+  font-size: 11.5px;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+.cal-row-label small { font-weight: 400; color: var(--text-faint); text-transform: capitalize; }
+.cal-row-cells { display: flex; gap: 4px; flex-wrap: wrap; }
+.cal-cell {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  display: inline-block;
+  border: 1px solid var(--border);
+}
+.cal-full { background: var(--good); border-color: var(--good); }
+.cal-partial { background: var(--warn); border-color: var(--warn); }
+.cal-none { background: var(--bad); border-color: var(--bad); }
+.cal-rest { background: var(--panel-alt); }
+.cal-upcoming { background: transparent; border-style: dashed; }
+
+@media (max-width: 640px) {
+  .cal-row { flex-wrap: wrap; }
+  .cal-row-label { min-width: 100%; }
 }

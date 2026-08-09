@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Completion Trends - Training Dashboard</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<script>
+(function () {
+  var saved = localStorage.getItem("td:theme");
+  if (saved === "light") document.documentElement.setAttribute("data-theme", "light");
+})();
+</script>
+<div class="wrap">
+
+  <div class="sticky-header">
+    <nav class="site-nav">
+      <a href="index.html">Dashboard</a>
+      <a href="exercises.html">PT &amp; Prehab Reference</a>
+      <a href="workouts.html">Workout Files</a>
+      <a href="trends.html" class="active">Trends</a>
+    </nav>
+
+    <header class="page-header">
+      <div class="page-header-text">
+        <div class="eyebrow">PROGRESS</div>
+        <h1>Completion trends</h1>
+        <div class="header-meta">
+          <span>How consistently the plan is actually getting done - runs are Garmin-verified, PT/prehab is self-reported.</span>
+        </div>
+      </div>
+      <div class="theme-toggle" id="theme-toggle">
+        <button type="button" data-theme-choice="dark">Dark</button>
+        <button type="button" data-theme-choice="light">Light</button>
+      </div>
+    </header>
+  </div>
+
+  <section class="kpi-strip kpi-strip-quad" id="trends-kpi"></section>
+
+  <section class="panel" id="trends-calendar"></section>
+
+  <section class="panel chart-panel">
+    <div class="panel-subheader">
+      <div class="panel-kicker">TRENDS</div>
+      <h2>Weekly completion rate</h2>
+      <p class="panel-sub">Share of due sessions checked off, by week.</p>
+    </div>
+    <canvas id="chart-weekly-completion" height="90"></canvas>
+  </section>
+
+  <footer class="page-footer">
+    Computed from <code>data/plan.json</code> + <code>data/history.json</code> plus this browser's
+    self-reported checkboxes. PT/prehab completion won't carry across devices - only Garmin-matched
+    runs will.
+  </footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="assets/js/trends.js"></script>
+</body>
+</html>
