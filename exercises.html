@@ -31,9 +31,12 @@
           <span>Every exercise used in the Monday/Friday PT sessions and the light run-day touches, with form cues.</span>
         </div>
       </div>
-      <div class="theme-toggle" id="theme-toggle">
-        <button type="button" data-theme-choice="dark">Dark</button>
-        <button type="button" data-theme-choice="light">Light</button>
+      <div class="header-controls">
+        <div class="theme-toggle" id="theme-toggle">
+          <button type="button" data-theme-choice="dark">Dark</button>
+          <button type="button" data-theme-choice="light">Light</button>
+        </div>
+        <button type="button" id="sign-out" class="btn-signout" title="Sign out">Sign out</button>
       </div>
     </header>
   </div>
@@ -46,6 +49,7 @@
 
 </div>
 
+<script type="module" src="assets/js/firebase-auth.js"></script>
 <script src="assets/js/exercises.js"></script>
 </body>
 </html>

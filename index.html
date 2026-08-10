@@ -29,9 +29,12 @@
         <h1 id="page-title">Training Dashboard</h1>
         <div class="header-meta" id="header-meta"></div>
       </div>
-      <div class="theme-toggle" id="theme-toggle">
-        <button type="button" data-theme-choice="dark">Dark</button>
-        <button type="button" data-theme-choice="light">Light</button>
+      <div class="header-controls">
+        <div class="theme-toggle" id="theme-toggle">
+          <button type="button" data-theme-choice="dark">Dark</button>
+          <button type="button" data-theme-choice="light">Light</button>
+        </div>
+        <button type="button" id="sign-out" class="btn-signout" title="Sign out">Sign out</button>
       </div>
     </header>
   </div>
@@ -90,6 +93,7 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script type="module" src="assets/js/firebase-auth.js"></script>
 <script src="assets/js/app.js"></script>
 </body>
 </html>

@@ -176,6 +176,73 @@ code {
 }
 .theme-toggle button.active { background: var(--accent-bg); color: var(--accent-text); }
 
+.header-controls {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-signout {
+  flex: 0 0 auto;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text-faint);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 7px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.btn-signout:hover { color: var(--text); border-color: var(--text-faint); }
+
+/* Auth gate - full-screen overlay shown until someone signs in */
+.auth-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.auth-card {
+  width: 100%;
+  max-width: 320px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.auth-title { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
+.auth-sub { color: var(--text-dim); font-size: 13px; margin-bottom: 8px; }
+.auth-card input {
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+}
+.auth-card input:focus { outline: 1px solid var(--accent); border-color: var(--accent); }
+.auth-card button[type="submit"] {
+  margin-top: 6px;
+  background: var(--accent-bg);
+  color: var(--accent-text);
+  border: none;
+  border-radius: 8px;
+  padding: 11px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.auth-card button[type="submit"]:disabled { opacity: 0.6; cursor: default; }
+.auth-error { color: var(--accent); font-size: 12.5px; min-height: 15px; }
+
 /* KPI strip */
 .kpi-strip {
   display: grid;

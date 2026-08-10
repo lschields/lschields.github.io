@@ -501,13 +501,15 @@ function renderSession(session, dateISO, pool) {
     } else {
       // No Garmin activity matched yet - let it be manually self-reported until
       // the weekly upload confirms it (at which point the auto-match takes over).
+      // Self-reported state now lives in Firebase (window.tdAuth), not
+      // localStorage, so a check on one device shows up on every device.
       const key = localKey(dateISO, session.title);
-      done = localStorage.getItem(key) === "1";
+      done = window.tdAuth.isCheckedIn(key);
       checkClass = done ? "done checkable" : "checkable";
     }
   } else if (session.type === "strength" || session.type === "core" || session.type === "pt") {
     const key = localKey(dateISO, session.title);
-    done = localStorage.getItem(key) === "1";
+    done = window.tdAuth.isCheckedIn(key);
     checkClass = done ? "done checkable" : "checkable";
   }
 
@@ -618,8 +620,8 @@ function renderWeekDetail(plan, history) {
     node.addEventListener("click", (e) => {
       e.stopPropagation();
       const key = node.dataset.toggleKey;
-      const isDone = localStorage.getItem(key) === "1";
-      if (isDone) { localStorage.removeItem(key); } else { localStorage.setItem(key, "1"); }
+      const isDone = window.tdAuth.isCheckedIn(key);
+      window.tdAuth.setCheckin(key, !isDone);
       renderWeekDetail(plan, history);
     });
   });
@@ -924,6 +926,8 @@ function renderAll() {
 }
 
 async function init() {
+  await window.tdAuth.requireAuth();
+  window.tdAuth.initSignOut();
   initThemeToggle();
   watchStickyHeader();
   initKPITooltips();
@@ -937,6 +941,12 @@ async function init() {
     state.history = history;
     state.workoutsByDate = buildWorkoutsByDate(workoutsManifest);
     state.selectedWeek = findCurrentWeek(plan);
+
+    // Wait for the first snapshot of checkbox-completion data before the
+    // first render (avoids a flash of "unchecked" then flicker to
+    // "checked"); after that, re-render automatically whenever the data
+    // changes - including from another device.
+    await window.tdAuth.watchCheckins(() => renderAll());
 
     renderHeader(plan);
     renderAll();
@@ -952,4 +962,5 @@ async function init() {
   }
 }
 
-init();
+if (window.tdAuth) init();
+else window.addEventListener("tdAuthReady", init, { once: true });

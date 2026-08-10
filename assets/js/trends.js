@@ -2,13 +2,14 @@
 // Reads data/plan.json + data/history.json (same as the dashboard) and
 // computes, across every elapsed day of the plan so far, which sessions got
 // checked off - either auto-matched against an uploaded Garmin activity, or
-// self-reported via the same localStorage keys the dashboard's checkboxes
-// use (assets/js/app.js). This is read-only aggregation, no new state.
+// self-reported via the same Firebase-backed checkbox state the dashboard's
+// checkboxes use (assets/js/app.js, via assets/js/firebase-auth.js). This
+// page only reads that state, it never writes to it.
 //
-// Caveat worth knowing: PT/strength completion is self-reported only (no
-// Garmin signal for it), so those numbers only reflect what was checked off
-// in *this* browser. Run completion is mostly Garmin-verified and so is
-// consistent across browsers/devices.
+// PT/strength completion is self-reported (no Garmin signal for it), but
+// since that state now lives in Firebase rather than localStorage, it's
+// consistent across every device you're signed in on, same as run
+// completion (which is mostly Garmin-verified anyway).
 
 function initThemeToggle() {
   const el = document.getElementById("theme-toggle");
@@ -75,11 +76,11 @@ function computeCompletionStats(plan, history) {
           let isDone = false;
           if (session.type === "run") {
             const match = matchSessionToActivity(pool, day.date);
-            isDone = !!match || localStorage.getItem(localKey(day.date, session.title)) === "1";
+            isDone = !!match || window.tdAuth.isCheckedIn(localKey(day.date, session.title));
             byType.run.due++;
             if (isDone) byType.run.done++;
           } else if (PT_TYPES.has(session.type)) {
-            isDone = localStorage.getItem(localKey(day.date, session.title)) === "1";
+            isDone = window.tdAuth.isCheckedIn(localKey(day.date, session.title));
             byType.pt.due++;
             if (isDone) byType.pt.done++;
           }
@@ -176,7 +177,7 @@ function renderKPIs(stats) {
 
   const runsTip = `${runPct}% (${stats.byType.run.done}/${stats.byType.run.due}) - Garmin-verified, so this holds up regardless of which device or browser you're checking from.`;
 
-  const ptTip = `${ptPct}% (${stats.byType.pt.done}/${stats.byType.pt.due}) - self-reported only in this browser. If you're doing the work but not checking the box, this will undercount it.`;
+  const ptTip = `${ptPct}% (${stats.byType.pt.done}/${stats.byType.pt.due}) - self-reported (no Garmin signal for PT/strength), synced across your devices. If you're doing the work but not checking the box, this will undercount it.`;
 
   const overallTt = kpiTooltip(overallTip);
   const streakTt = kpiTooltip(streakTip);
@@ -280,15 +281,26 @@ function renderWeeklyChart(stats) {
 }
 
 async function init() {
+  await window.tdAuth.requireAuth();
+  window.tdAuth.initSignOut();
   initThemeToggle();
   watchStickyHeader();
   initKPITooltips();
   try {
     const [plan, history] = await Promise.all([loadJSON("data/plan.json"), loadJSON("data/history.json")]);
-    const stats = computeCompletionStats(plan, history);
-    renderKPIs(stats);
-    renderCalendar(stats, plan);
-    renderWeeklyChart(stats);
+
+    function renderFromStats() {
+      const stats = computeCompletionStats(plan, history);
+      renderKPIs(stats);
+      renderCalendar(stats, plan);
+      renderWeeklyChart(stats);
+    }
+
+    // Wait for the first snapshot of checkbox-completion data before the
+    // first render, then re-render whenever it changes (including from
+    // another device).
+    await window.tdAuth.watchCheckins(renderFromStats);
+    renderFromStats();
   } catch (err) {
     document.getElementById("trends-kpi").innerHTML =
       `<div class="kpi-card"><div class="kpi-label">Error loading trends: ${err.message}</div></div>`;
@@ -296,4 +308,5 @@ async function init() {
   }
 }
 
-init();
+if (window.tdAuth) init();
+else window.addEventListener("tdAuthReady", init, { once: true });

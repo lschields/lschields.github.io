@@ -31,9 +31,12 @@
           <span>How consistently the plan is actually getting done - runs are Garmin-verified, PT/prehab is self-reported.</span>
         </div>
       </div>
-      <div class="theme-toggle" id="theme-toggle">
-        <button type="button" data-theme-choice="dark">Dark</button>
-        <button type="button" data-theme-choice="light">Light</button>
+      <div class="header-controls">
+        <div class="theme-toggle" id="theme-toggle">
+          <button type="button" data-theme-choice="dark">Dark</button>
+          <button type="button" data-theme-choice="light">Light</button>
+        </div>
+        <button type="button" id="sign-out" class="btn-signout" title="Sign out">Sign out</button>
       </div>
     </header>
   </div>
@@ -52,14 +55,15 @@
   </section>
 
   <footer class="page-footer">
-    Computed from <code>data/plan.json</code> + <code>data/history.json</code> plus this browser's
-    self-reported checkboxes. PT/prehab completion won't carry across devices - only Garmin-matched
-    runs will.
+    Computed from <code>data/plan.json</code> + <code>data/history.json</code> plus your
+    self-reported checkboxes, synced across devices. PT/prehab completion is self-reported (no
+    Garmin signal for it); runs are mostly Garmin-verified.
   </footer>
 
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script type="module" src="assets/js/firebase-auth.js"></script>
 <script src="assets/js/trends.js"></script>
 </body>
 </html>

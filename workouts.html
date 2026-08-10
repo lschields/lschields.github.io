@@ -31,9 +31,12 @@
           <span>Structured Garmin Connect workouts, generated a couple weeks ahead at a time. Download individually or grab a whole week as a .zip.</span>
         </div>
       </div>
-      <div class="theme-toggle" id="theme-toggle">
-        <button type="button" data-theme-choice="dark">Dark</button>
-        <button type="button" data-theme-choice="light">Light</button>
+      <div class="header-controls">
+        <div class="theme-toggle" id="theme-toggle">
+          <button type="button" data-theme-choice="dark">Dark</button>
+          <button type="button" data-theme-choice="light">Light</button>
+        </div>
+        <button type="button" id="sign-out" class="btn-signout" title="Sign out">Sign out</button>
       </div>
     </header>
   </div>
@@ -50,6 +53,7 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script type="module" src="assets/js/firebase-auth.js"></script>
 <script src="assets/js/workouts.js"></script>
 </body>
 </html>

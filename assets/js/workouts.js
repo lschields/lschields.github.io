@@ -162,6 +162,8 @@ function renderWeeks(manifest) {
 }
 
 async function init() {
+  await window.tdAuth.requireAuth();
+  window.tdAuth.initSignOut();
   initThemeToggle();
   watchStickyHeader();
   try {
@@ -174,4 +176,5 @@ async function init() {
   }
 }
 
-init();
+if (window.tdAuth) init();
+else window.addEventListener("tdAuthReady", init, { once: true });
