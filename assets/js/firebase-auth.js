@@ -37,10 +37,10 @@ import {
 // --- Fill these in from the Firebase console: Project settings (gear icon)
 // -> General -> Your apps -> SDK setup and configuration -> Config. ---
 const firebaseConfig = {
-  apiKey: "REPLACE_ME",
-  authDomain: "REPLACE_ME.firebaseapp.com",
-  databaseURL: "https://REPLACE_ME-default-rtdb.firebaseio.com",
-  projectId: "REPLACE_ME",
+  apiKey: "AIzaSyDuaXoD_R_OVE008XH3hFxq3vX3rf7GrXw",
+  authDomain: "training-dashboard-eff4b.firebaseapp.com",
+  databaseURL: "https://training-dashboard-eff4b-default-rtdb.firebaseio.com",
+  projectId: "training-dashboard-eff4b",
 };
 
 const app = initializeApp(firebaseConfig);
