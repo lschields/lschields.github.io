@@ -254,7 +254,19 @@ function renderCalendar(stats, plan) {
 
 function renderWeeklyChart(stats) {
   const canvas = document.getElementById("chart-weekly-completion");
-  if (!canvas || typeof Chart === "undefined") return;
+  if (!canvas) return;
+  // See the matching guard in app.js's renderCharts() - Chart.js loads from
+  // a CDN and can occasionally fail to be defined in time (slow network,
+  // ad/tracker blocker). Show a message instead of leaving a silent blank
+  // canvas.
+  if (typeof Chart === "undefined") {
+    const msg = document.createElement("p");
+    msg.className = "panel-sub";
+    msg.style.margin = "0";
+    msg.textContent = "Charts library didn't load - try refreshing the page.";
+    canvas.replaceWith(msg);
+    return;
+  }
   const labels = stats.weeks.map(w => `W${w.week_num}`);
   const data = stats.weeks.map(w => pct(w.done, w.due));
   new Chart(canvas, {

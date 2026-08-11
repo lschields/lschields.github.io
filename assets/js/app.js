@@ -706,6 +706,23 @@ function renderRetro(history) {
 // Charts
 // ---------------------------------------------------------------------
 function renderCharts(plan, history) {
+  // Chart.js loads from a CDN via a <script> tag - if that request is slow,
+  // blocked (ad/tracker blockers sometimes flag third-party CDN domains),
+  // or briefly down, `Chart` won't be defined yet. Rather than throw (which
+  // used to take out everything rendered after this point - see
+  // renderSafely() in init()), show a plain message in each chart panel so
+  // the rest of the page is unaffected.
+  if (typeof Chart === "undefined") {
+    document.querySelectorAll(".chart-panel canvas").forEach(canvas => {
+      const msg = document.createElement("p");
+      msg.className = "panel-sub";
+      msg.style.margin = "0";
+      msg.textContent = "Charts library didn't load - try refreshing the page.";
+      canvas.replaceWith(msg);
+    });
+    return;
+  }
+
   const pool = buildActivityPool(history);
   const labels = plan.weeks.map(w => "W" + w.week_num);
   const planned = plan.weeks.map(w => w.target_miles);
@@ -942,41 +959,64 @@ function renderAll() {
   renderCoachNotes();
 }
 
+// Runs fn() and swallows any error, logging it instead of letting it
+// propagate. Used so that one section failing to render (e.g. Chart.js
+// didn't load) can't take down every section after it in init(), and can't
+// clobber sections that already rendered successfully - each panel is
+// responsible for its own failure, not the whole page.
+function renderSafely(label, fn) {
+  try {
+    fn();
+  } catch (err) {
+    console.error(`Failed to render ${label}:`, err);
+  }
+}
+
 async function init() {
   await window.tdAuth.requireAuth();
   window.tdAuth.initSignOut();
   initThemeToggle();
   watchStickyHeader();
   initKPITooltips();
+
+  // Only a failure here (the actual data the whole page depends on) is
+  // serious enough to replace the KPI strip with an error message - nothing
+  // else has rendered yet at this point, so there's nothing to preserve.
+  let plan, history, workoutsManifest;
   try {
-    const [plan, history, workoutsManifest] = await Promise.all([
+    [plan, history, workoutsManifest] = await Promise.all([
       loadJSON("data/plan.json"),
       loadJSON("data/history.json"),
       loadJSONOptional("data/workouts/index.json"),
     ]);
-    state.plan = plan;
-    state.history = history;
-    state.workoutsByDate = buildWorkoutsByDate(workoutsManifest);
-    state.selectedWeek = findCurrentWeek(plan);
-
-    // Wait for the first snapshot of checkbox-completion data before the
-    // first render (avoids a flash of "unchecked" then flicker to
-    // "checked"); after that, re-render automatically whenever the data
-    // changes - including from another device.
-    await window.tdAuth.watchCheckins(() => renderAll());
-
-    renderHeader(plan);
-    renderAll();
-    renderRetro(history);
-    renderCharts(plan, history);
-    renderRaceLog(history);
-    renderPaceZones(plan);
-    renderRaceStrategy(plan);
   } catch (err) {
     document.getElementById("kpi-primary").innerHTML =
       `<div class="kpi-card"><div class="kpi-label">Error loading dashboard data: ${err.message}</div></div>`;
     console.error(err);
+    return;
   }
+
+  state.plan = plan;
+  state.history = history;
+  state.workoutsByDate = buildWorkoutsByDate(workoutsManifest);
+  state.selectedWeek = findCurrentWeek(plan);
+
+  // Wait for the first snapshot of checkbox-completion data before the
+  // first render (avoids a flash of "unchecked" then flicker to
+  // "checked"); after that, re-render automatically whenever the data
+  // changes - including from another device.
+  await window.tdAuth.watchCheckins(() => renderAll());
+
+  renderHeader(plan);
+  renderAll();
+  // From here on, each section renders independently - a problem in one
+  // (e.g. the Chart.js CDN script failing to load) shows up only in that
+  // section, not as a blank page or a wiped-out KPI strip.
+  renderSafely("retro panel", () => renderRetro(history));
+  renderSafely("charts", () => renderCharts(plan, history));
+  renderSafely("race log", () => renderRaceLog(history));
+  renderSafely("pace zones", () => renderPaceZones(plan));
+  renderSafely("race strategy", () => renderRaceStrategy(plan));
 }
 
 if (window.tdAuth) init();
