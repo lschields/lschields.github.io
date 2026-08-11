@@ -788,7 +788,15 @@ function dualAxisChartOptions() {
 function renderRaceLog(history) {
   const el = document.getElementById("race-log-panel");
   const races = (history.races || []).slice().sort((a, b) => (b.date || "").localeCompare(a.date || ""));
-  if (!races.length) { el.innerHTML = ""; return; }
+  const header = `
+    <div class="panel-subheader">
+      <div class="panel-kicker">RACE LOG</div>
+      <h2>Results</h2>
+    </div>`;
+  if (!races.length) {
+    el.innerHTML = `${header}<p class="panel-sub" style="margin:0;">No races logged yet.</p>`;
+    return;
+  }
   const rows = races.map(r => `
     <tr>
       <td>${r.date ? fmtDateShort(r.date) : (r.date_note || "?")}</td>
@@ -798,10 +806,7 @@ function renderRaceLog(history) {
       <td>${r.notes || ""}</td>
     </tr>`).join("");
   el.innerHTML = `
-    <div class="panel-subheader">
-      <div class="panel-kicker">RACE LOG</div>
-      <h2>Results</h2>
-    </div>
+    ${header}
     <table class="simple">
       <thead><tr><th>Date</th><th>Race</th><th>Distance</th><th>Time</th><th>Notes</th></tr></thead>
       <tbody>${rows}</tbody>
@@ -812,15 +817,22 @@ function renderRaceLog(history) {
 function renderPaceZones(plan) {
   const el = document.getElementById("pace-zones-panel");
   const a = plan.athlete;
-  const zoneRows = a.pace_zones.map(z => `
+  const header = `
+    <div class="panel-subheader">
+      <div class="panel-kicker">REFERENCE</div>
+      <h2>Pace zones &amp; context</h2>
+    </div>`;
+  const zones = a.pace_zones || [];
+  if (!zones.length) {
+    el.innerHTML = `${header}<p class="panel-sub" style="margin:0;">No pace zones defined yet.</p>`;
+    return;
+  }
+  const zoneRows = zones.map(z => `
     <tr><td class="strong">${z.name}</td><td>${z.pace_per_mi}</td><td>${z.hr_zone !== null && z.hr_zone !== undefined ? "Zone " + z.hr_zone : "&mdash;"}</td></tr>
   `).join("");
   const context = (a.context || []).map(c => `<li>${c}</li>`).join("");
   el.innerHTML = `
-    <div class="panel-subheader">
-      <div class="panel-kicker">REFERENCE</div>
-      <h2>Pace zones &amp; context</h2>
-    </div>
+    ${header}
     <table class="simple">
       <thead><tr><th>Zone</th><th>Pace / mi</th><th>HR</th></tr></thead>
       <tbody>${zoneRows}</tbody>
@@ -833,7 +845,15 @@ function renderRaceStrategy(plan) {
   const el = document.getElementById("race-strategy-panel");
   const race = plan.athlete.race;
   const strategy = plan.athlete.race_strategy;
-  if (!strategy) { el.innerHTML = ""; return; }
+  const header = `
+    <div class="panel-subheader">
+      <div class="panel-kicker">RACE DAY</div>
+      <h2>${race.name} strategy</h2>
+    </div>`;
+  if (!strategy) {
+    el.innerHTML = `${header}<p class="panel-sub" style="margin:0;">Race day strategy hasn't been added yet.</p>`;
+    return;
+  }
 
   const courseHtml = (race.course || []).map(c => `<li>${c}</li>`).join("");
   const splitRows = (strategy.splits || []).map(s => `
@@ -841,10 +861,7 @@ function renderRaceStrategy(plan) {
   `).join("");
 
   el.innerHTML = `
-    <div class="panel-subheader">
-      <div class="panel-kicker">RACE DAY</div>
-      <h2>${race.name} strategy</h2>
-    </div>
+    ${header}
     <ul class="exercise-list">${courseHtml}</ul>
     <table class="simple" style="margin-top:12px;">
       <thead><tr><th>Segment</th><th>Target</th><th>Note</th></tr></thead>
