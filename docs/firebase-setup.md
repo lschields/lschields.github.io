@@ -38,25 +38,33 @@ free "Spark" plan, which is far more than this app will ever use.
    This does not need to be a real inbox - it's just your login for this
    site. Pick something you'll remember (a password manager entry is a good
    idea, since this password protects your training data).
+4. Once created, copy the **UID** shown in the Users table for that account -
+   you'll need it in the next step.
 
-There's deliberately no public "sign up" page on the site - this is the only
-way an account gets created, so nobody else can register themselves.
+There's no public "sign up" page on the site, so nobody can register their
+own account through the app - but the Email/Password provider's sign-up
+*endpoint* still technically exists at the Firebase API level, reachable by
+anyone who has your project's public config values. The rules in step 5
+close that gap by checking the specific UID, not just "any signed-in user."
 
 ## 5. Apply the security rules
 1. Back in **Realtime Database**, go to the **Rules** tab.
-2. Replace the contents with what's in this repo's `database.rules.json`:
+2. Replace the contents with what's in this repo's `database.rules.json`,
+   swapping in the UID you copied in step 4:
    ```json
    {
      "rules": {
-       ".read": "auth != null",
-       ".write": "auth != null"
+       ".read": "auth != null && auth.uid === 'YOUR_UID_HERE'",
+       ".write": "auth != null && auth.uid === 'YOUR_UID_HERE'"
      }
    }
    ```
 3. Click **Publish**.
 
-This means only someone signed in (i.e. you) can read or write anything in
-the database - no public access at all.
+This means only that one specific account (yours) can read or write
+anything in the database - not just anyone who happens to be signed in,
+which matters because the sign-up endpoint itself can't be fully hidden
+(see the note in step 4).
 
 ## 6. Get your config values
 1. Click the gear icon next to **Project Overview** > **Project settings**.
