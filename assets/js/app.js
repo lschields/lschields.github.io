@@ -7,8 +7,22 @@
 
 const state = { plan: null, history: null, selectedWeek: null, today: new Date(), workoutsByDate: {} };
 
+// Formats a Date as YYYY-MM-DD using its *local* calendar date, not UTC.
+// Date.toISOString() always converts to UTC first, which silently rolls
+// over to tomorrow's date in the evening for any timezone behind UTC
+// (Cambridge, MA is UTC-4/-5) - that made "today"'s highlight, and any
+// "has this day passed" check, use the wrong date for a few hours each
+// night. Every date-key computation in this file should go through this,
+// not toISOString().
+function pad2(n) {
+  return String(n).padStart(2, "0");
+}
+function localISO(d) {
+  return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+}
+
 function todayISO() {
-  return state.today.toISOString().slice(0, 10);
+  return localISO(state.today);
 }
 
 function parseISO(s) {
@@ -688,7 +702,7 @@ function renderRetro(history) {
   el.innerHTML = `
     <div class="panel-subheader">
       <div class="panel-kicker">MOST RECENT LOGGED WEEK</div>
-      <h2>${fmtDateShort(weekStart.toISOString().slice(0,10))} &ndash; ${fmtDateShort(weekEnd.toISOString().slice(0,10))} retrospective</h2>
+      <h2>${fmtDateShort(localISO(weekStart))} &ndash; ${fmtDateShort(localISO(weekEnd))} retrospective</h2>
     </div>
     <div class="mini-grid">
       <div class="mini-stat"><div class="v">${totalMi.toFixed(1)} mi</div><div class="l">Distance</div></div>

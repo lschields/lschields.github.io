@@ -40,7 +40,15 @@ async function loadJSON(path) {
   return res.json();
 }
 
-function todayISO() { return new Date().toISOString().slice(0, 10); }
+// See the matching comment in app.js - toISOString() converts to UTC first,
+// which rolls over to tomorrow's date in the evening for any timezone
+// behind UTC (Cambridge, MA is UTC-4/-5). Use local calendar-date parts
+// instead so "today" matches the device's actual local date.
+function pad2(n) { return String(n).padStart(2, "0"); }
+function todayISO() {
+  const d = new Date();
+  return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+}
 function parseISO(s) { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); }
 function fmtDateShort(iso) { return parseISO(iso).toLocaleDateString(undefined, { month: "short", day: "numeric" }); }
 function localKey(dateISO, title) { return `td:${dateISO}:${title}`; }
