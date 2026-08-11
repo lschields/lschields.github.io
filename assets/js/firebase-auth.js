@@ -48,11 +48,17 @@ const auth = getAuth(app);
 const db = getDatabase(app);
 setPersistence(auth, browserLocalPersistence).catch(() => {});
 
-// Realtime Database keys can't contain . # $ [ ] - session titles won't
-// normally hit these, but sanitize defensively rather than risk a silent
-// write failure.
+// Realtime Database keys can't contain . # $ [ ] - and "/" is NOT safe
+// either, even though it's technically a legal character: the SDK treats it
+// as a path separator, so a title like "PT - Achilles/hip focus" would
+// silently write to a *nested* location (checkins/.../Achilles/hip focus)
+// instead of a flat key - the write looks like it succeeds, but a lookup
+// against the un-split string never finds it, so the checkbox reverts to
+// unchecked on the next reload. Several real session titles contain "/"
+// (e.g. "PT - Achilles/hip focus", "Long run w/ goal-pace finish"), so this
+// isn't a defensive-only case - it's a real, hit-in-practice bug fix.
 function fbKey(key) {
-  return key.replace(/[.#$[\]]/g, "_");
+  return key.replace(/[.#$[\]/]/g, "_");
 }
 
 // ---------------------------------------------------------------------
