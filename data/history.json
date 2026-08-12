@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-12T14:50:57.351762Z",
+  "generated_at": "2026-08-12T15:02:02.915269Z",
   "athlete_snapshot": {
     "ftp": 230,
     "vo2max": 53,
@@ -241,6 +241,50 @@
   ],
   "activities": [
     {
+      "source_file": "8528490944_ACTIVITY.fit",
+      "date": "2022-03-26",
+      "start_time": "2022-03-26T12:33:05",
+      "sport": "running",
+      "distance_mi": 13.21,
+      "duration_sec": 5437.6,
+      "avg_pace_per_mi": "6:52",
+      "avg_pace_sec_per_mi": 411.7,
+      "avg_hr": 173,
+      "max_hr": 193,
+      "avg_power": null,
+      "avg_cadence_spm": 158,
+      "avg_vertical_oscillation_mm": null,
+      "avg_stance_time_ms": null,
+      "avg_stance_time_balance_pct": null,
+      "total_ascent_m": 818,
+      "total_calories": 1543,
+      "total_training_effect": 4.5,
+      "race": true,
+      "title": "Washington DC Rock 'n' Roll Half Marathon 2022"
+    },
+    {
+      "source_file": "20869913068_ACTIVITY.fit",
+      "date": "2025-11-02",
+      "start_time": "2025-11-02T12:00:34",
+      "sport": "running",
+      "distance_mi": 13.13,
+      "duration_sec": 5790.6,
+      "avg_pace_per_mi": "7:21",
+      "avg_pace_sec_per_mi": 440.9,
+      "avg_hr": 160,
+      "max_hr": 175,
+      "avg_power": 384,
+      "avg_cadence_spm": 158,
+      "avg_vertical_oscillation_mm": 110.0,
+      "avg_stance_time_ms": 269.8,
+      "avg_stance_time_balance_pct": null,
+      "total_ascent_m": 47,
+      "total_calories": 1450,
+      "total_training_effect": 5.0,
+      "race": true,
+      "title": "Cambridge Half Marathon 2025"
+    },
+    {
       "source_file": "23319786401_ACTIVITY.fit",
       "date": "2026-06-20",
       "start_time": "2026-06-20T12:49:20",
@@ -446,22 +490,26 @@
   ],
   "races": [
     {
-      "name": "Half marathon PR",
-      "date": null,
-      "date_note": "exact date unknown - tell Claude if you want this precise",
+      "name": "Washington DC Rock 'n' Roll Half Marathon 2022",
+      "date": "2022-03-26",
       "distance_mi": 13.10938,
-      "time_sec": 5400,
-      "time_display": "1:30:00",
-      "notes": "Personal best, prior to this cycle."
+      "time_sec": 5437.6,
+      "time_display": "1:30:38",
+      "avg_hr": 173,
+      "max_hr": 193,
+      "avg_pace_per_mi": "6:52",
+      "notes": "Personal best. Watch-recorded time (may differ a few seconds from official chip time) - refines the previous rounded 1:30:00 estimate."
     },
     {
       "name": "Cambridge Half Marathon 2025",
       "date": "2025-11-02",
-      "date_note": "approximate - Cambridge Half Marathon weekend, same course as the 2026 goal race",
       "distance_mi": 13.10938,
-      "time_sec": 5700,
-      "time_display": "1:35:00",
-      "notes": "Same course as the 2026 goal race - most directly comparable data point."
+      "time_sec": 5790.6,
+      "time_display": "1:36:31",
+      "notes": "Same course as the 2026 goal race - most directly comparable data point. Watch-recorded time refines the previous rounded 1:35:00 estimate.",
+      "avg_hr": 160,
+      "max_hr": 175,
+      "avg_pace_per_mi": "7:21"
     },
     {
       "name": "Grandma's Marathon 2026",

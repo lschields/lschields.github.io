@@ -8,11 +8,17 @@ completion checkmarks, and the charts at the bottom of the page.
 
 Usage:
     python3 scripts/parse_garmin.py path/to/activity1.fit path/to/activity2.fit path/to/garmin-coach-export.json
+    python3 scripts/parse_garmin.py --race "Cambridge Half Marathon 2025" path/to/race.fit
 
 Accepts, in any combination:
   - .fit activity files (exported per-activity from Garmin Connect: Activity > ... > Export Original)
   - Garmin Coach/health data exports (.json, in the shape produced for this project - see
     data/raw/ for an example)
+  - --race "Name" immediately before a .fit file marks that activity as a race: it gets
+    race:true + title on the activities entry (matches Grandma's Marathon's existing shape)
+    and upserts a matching data/history.json "races" summary entry (time, distance, HR).
+    Re-running is safe - matched by (date, name) and existing notes/date_note are preserved
+    unless you explicitly overwrite them afterward.
 
 It is safe to re-run: activities are de-duplicated by (date, distance), and
 readiness/load entries are de-duplicated by date (newer export wins).
@@ -183,6 +189,14 @@ def archive_raw(path: Path, date_str=None):
             pass
 
 
+def upsert_race(races, race):
+    for i, r in enumerate(races):
+        if r["date"] == race["date"] and r["name"] == race["name"]:
+            races[i] = {**r, **race}  # preserve hand-written notes/date_note unless explicitly overwritten
+            return
+    races.append(race)
+
+
 def main(argv):
     if not argv:
         print(__doc__)
@@ -190,20 +204,58 @@ def main(argv):
 
     history = load_history()
 
-    for arg in argv:
+    pending_race_name = None
+    args = list(argv)
+    i = 0
+    while i < len(args):
+        arg = args[i]
+
+        if arg == "--race":
+            if i + 1 >= len(args):
+                print("  ! --race needs a name argument")
+                return 1
+            pending_race_name = args[i + 1]
+            i += 2
+            continue
+
         path = Path(arg)
+        i += 1
         if not path.exists():
             print(f"  ! not found: {path}")
             continue
 
         if path.suffix.lower() == ".fit":
-            print(f"Parsing FIT activity: {path.name}")
+            race_name = pending_race_name
+            pending_race_name = None
+            label = "race" if race_name else "activity"
+            print(f"Parsing FIT {label}: {path.name}")
             activity = parse_fit(path)
             if activity:
+                if race_name:
+                    activity["race"] = True
+                    activity["title"] = race_name
                 added = upsert_activity(history["activities"], activity)
                 print(f"  -> {activity['date']}  {activity['distance_mi']}mi  "
                       f"{activity['avg_pace_per_mi']}/mi  HR {activity['avg_hr']}  "
                       f"({'updated' if not added else 'added'})")
+                if race_name and activity.get("date"):
+                    dur = activity["duration_sec"]
+                    h, rem = divmod(int(round(dur)), 3600)
+                    m, s = divmod(rem, 60)
+                    time_display = f"{h}:{m:02d}:{s:02d}" if h else f"{m}:{s:02d}"
+                    race_entry = {
+                        "name": race_name,
+                        "date": activity["date"],
+                        "distance_mi": activity["distance_mi"],
+                        "time_sec": dur,
+                        "time_display": time_display,
+                        "avg_hr": activity.get("avg_hr"),
+                        "max_hr": activity.get("max_hr"),
+                        "avg_pace_per_mi": activity.get("avg_pace_per_mi"),
+                        "notes": "",
+                    }
+                    upsert_race(history.setdefault("races", []), race_entry)
+                    print(f"  -> race log: {race_name} on {activity['date']}, {time_display}")
             archive_raw(path, activity["date"] if activity else None)
 
         elif path.suffix.lower() == ".json":
@@ -235,6 +287,7 @@ def main(argv):
     print(f"  activities: {len(history['activities'])}")
     print(f"  readiness entries: {len(history['readiness_history'])}")
     print(f"  load entries: {len(history['load_history'])}")
+    print(f"  races: {len(history.get('races', []))}")
     return 0
 
 
