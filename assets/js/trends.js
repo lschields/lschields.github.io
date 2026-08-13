@@ -313,7 +313,20 @@ async function init() {
       const stats = computeCompletionStats(plan, history);
       renderKPIs(stats);
       renderCalendar(stats, plan);
-      renderWeeklyChart(stats);
+      // Not awaited - KPIs/calendar shouldn't wait on chart-loader.js's
+      // multi-CDN fallback (see assets/js/chart-loader.js). The chart fills
+      // in whenever chartReady resolves, which is usually already true by
+      // the time this line runs since the loader starts at page load.
+      renderChartWhenReady(stats);
+    }
+
+    async function renderChartWhenReady(stats) {
+      try {
+        if (window.chartReady) await window.chartReady;
+        renderWeeklyChart(stats); // itself checks typeof Chart === "undefined"
+      } catch (err) {
+        console.error("Failed to render weekly chart:", err);
+      }
     }
 
     // Wait for the first snapshot of checkbox-completion data before the

@@ -974,10 +974,11 @@ function renderAll() {
 }
 
 // Runs fn() and swallows any error, logging it instead of letting it
-// propagate. Used so that one section failing to render (e.g. Chart.js
-// didn't load) can't take down every section after it in init(), and can't
-// clobber sections that already rendered successfully - each panel is
-// responsible for its own failure, not the whole page.
+// propagate. Used so that one section failing to render can't take down
+// every section after it in init(), and can't clobber sections that
+// already rendered successfully - each panel is responsible for its own
+// failure, not the whole page. (Charts have their own async handling below
+// rather than using this - see the chartReady block in init().)
 function renderSafely(label, fn) {
   try {
     fn();
@@ -1027,10 +1028,27 @@ async function init() {
   // (e.g. the Chart.js CDN script failing to load) shows up only in that
   // section, not as a blank page or a wiped-out KPI strip.
   renderSafely("retro panel", () => renderRetro(history));
-  renderSafely("charts", () => renderCharts(plan, history));
   renderSafely("race log", () => renderRaceLog(history));
   renderSafely("pace zones", () => renderPaceZones(plan));
   renderSafely("race strategy", () => renderRaceStrategy(plan));
+
+  // Charts wait on assets/js/chart-loader.js's multi-CDN fallback (started
+  // as early as possible, right at the top of <body>) rather than the
+  // single blocking <script> tag this used to be. Deliberately NOT awaited
+  // here - the sections above shouldn't sit around waiting on a slow/
+  // failing chart source, they render immediately regardless. Charts fill
+  // in whenever chartReady resolves, which is usually already true by the
+  // time execution reaches this line.
+  (async () => {
+    try {
+      if (window.chartReady) await window.chartReady;
+      // renderCharts() itself checks typeof Chart === "undefined" and shows
+      // a "didn't load" message per panel if every fallback source failed.
+      renderCharts(plan, history);
+    } catch (err) {
+      console.error("Failed to render charts:", err);
+    }
+  })();
 }
 
 if (window.tdAuth) init();
