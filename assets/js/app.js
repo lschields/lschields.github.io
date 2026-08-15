@@ -1192,18 +1192,15 @@ async function init() {
   renderSafely("pace zones", () => renderPaceZones(plan));
   renderSafely("race strategy", () => renderRaceStrategy(plan));
 
-  // Charts wait on assets/js/chart-loader.js's multi-CDN fallback (started
-  // as early as possible, right at the top of <body>) rather than the
-  // single blocking <script> tag this used to be. Deliberately NOT awaited
-  // here - the sections above shouldn't sit around waiting on a slow/
-  // failing chart source, they render immediately regardless. Charts fill
-  // in whenever chartReady resolves, which is usually already true by the
-  // time execution reaches this line.
+  // Chart.js is vendored locally (assets/js/vendor/chart.umd.js, loaded as a
+  // normal blocking <script> before this one) rather than fetched from a
+  // CDN, so it's synchronously available by the time this line runs -
+  // window.chartReady no longer exists. Still wrapped defensively in case
+  // that ever changes back; renderCharts() itself checks
+  // typeof Chart === "undefined" and shows a "didn't load" message if not.
   (async () => {
     try {
       if (window.chartReady) await window.chartReady;
-      // renderCharts() itself checks typeof Chart === "undefined" and shows
-      // a "didn't load" message per panel if every fallback source failed.
       renderCharts(plan, history);
     } catch (err) {
       console.error("Failed to render charts:", err);

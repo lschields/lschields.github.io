@@ -11,6 +11,10 @@
 // consistent across every device you're signed in on, same as run
 // completion (which is mostly Garmin-verified anyway).
 
+// Last-computed stats, kept around so a theme toggle can re-render the chart
+// with the new theme's colors without recomputing everything from scratch.
+let lastStats = null;
+
 function initThemeToggle() {
   const el = document.getElementById("theme-toggle");
   if (!el) return;
@@ -19,6 +23,10 @@ function initThemeToggle() {
     else document.documentElement.removeAttribute("data-theme");
     localStorage.setItem("td:theme", theme);
     el.querySelectorAll("button").forEach(b => b.classList.toggle("active", b.dataset.themeChoice === theme));
+    // Chart colors are pulled from CSS custom properties (see cssVar()
+    // below), so a theme switch needs an explicit re-render to repaint an
+    // already-drawn canvas with the new palette.
+    if (lastStats && typeof Chart !== "undefined") renderWeeklyChart(lastStats);
   }
   const current = localStorage.getItem("td:theme") === "light" ? "light" : "dark";
   applyTheme(current);
@@ -260,6 +268,26 @@ function renderCalendar(stats, plan) {
   `;
 }
 
+// Reads a live value from the page's CSS custom properties, so chart colors
+// always match the current theme instead of being hardcoded to one - same
+// helper as app.js's (duplicated rather than shared, consistent with this
+// page's existing self-contained-script pattern, e.g. its own pad2/todayISO).
+function cssVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+function hexToRgba(hex, alpha) {
+  const h = hex.replace("#", "");
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+// Tracks the current chart instance so a theme-toggle re-render can destroy
+// it before creating a new one - Chart.js throws if you construct on a
+// canvas that already has an instance attached.
+let weeklyChartInstance = null;
+
 function renderWeeklyChart(stats) {
   const canvas = document.getElementById("chart-weekly-completion");
   if (!canvas) return;
@@ -275,26 +303,60 @@ function renderWeeklyChart(stats) {
     canvas.replaceWith(msg);
     return;
   }
+
+  const good = cssVar("--good");
+  const warn = cssVar("--warn");
+  const bad = cssVar("--bad");
+  const gridColor = hexToRgba(cssVar("--border"), 0.6);
+  const tickColor = cssVar("--text-dim");
+
+  const legendEl = document.getElementById("chart-weekly-completion-legend");
+  if (legendEl) {
+    legendEl.innerHTML = [
+      { label: "≥85% completed", color: good },
+      { label: "60–84%", color: warn },
+      { label: "<60%", color: bad },
+    ].map(item => `
+      <span class="chart-legend-item">
+        <span class="chart-legend-dot" style="background:${item.color}"></span>${item.label}
+      </span>`).join("");
+  }
+
   const labels = stats.weeks.map(w => `W${w.week_num}`);
   const data = stats.weeks.map(w => pct(w.done, w.due));
-  new Chart(canvas, {
+
+  if (weeklyChartInstance) weeklyChartInstance.destroy();
+  weeklyChartInstance = new Chart(canvas, {
     type: "bar",
     data: {
       labels,
       datasets: [{
         label: "% completed",
         data,
-        backgroundColor: data.map(v => v >= 85 ? "rgba(92,191,143,0.7)" : v >= 60 ? "rgba(211,171,104,0.7)" : "rgba(217,123,113,0.7)"),
+        backgroundColor: data.map(v => v >= 85 ? hexToRgba(good, 0.75) : v >= 60 ? hexToRgba(warn, 0.75) : hexToRgba(bad, 0.75)),
         borderRadius: 3,
       }],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
+      interaction: { mode: "index", intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: cssVar("--panel"),
+          titleColor: cssVar("--text"),
+          bodyColor: cssVar("--text-dim"),
+          borderColor: cssVar("--border"),
+          borderWidth: 1,
+          padding: 10,
+          cornerRadius: 8,
+          boxPadding: 4,
+        },
+      },
       scales: {
-        y: { min: 0, max: 100, ticks: { color: "#8a94a6", font: { size: 10 }, callback: v => v + "%" }, grid: { color: "#1c2431" } },
-        x: { ticks: { color: "#5b6577", font: { size: 10 } }, grid: { color: "#1c2431" } },
+        y: { min: 0, max: 100, ticks: { color: tickColor, font: { size: 11 }, callback: v => v + "%" }, grid: { color: gridColor } },
+        x: { ticks: { color: tickColor, font: { size: 11 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 10 }, grid: { display: false } },
       },
     },
   });
@@ -311,12 +373,14 @@ async function init() {
 
     function renderFromStats() {
       const stats = computeCompletionStats(plan, history);
+      lastStats = stats; // so a later theme toggle can re-render the chart
       renderKPIs(stats);
       renderCalendar(stats, plan);
-      // Not awaited - KPIs/calendar shouldn't wait on chart-loader.js's
-      // multi-CDN fallback (see assets/js/chart-loader.js). The chart fills
-      // in whenever chartReady resolves, which is usually already true by
-      // the time this line runs since the loader starts at page load.
+      // Not awaited - KPIs/calendar shouldn't wait on the chart. Chart.js is
+      // now vendored locally (assets/js/vendor/chart.umd.js, loaded as a
+      // normal blocking <script> before this one) rather than fetched from
+      // a CDN, so window.chartReady no longer exists - this is just
+      // defensive in case that ever changes back.
       renderChartWhenReady(stats);
     }
 
