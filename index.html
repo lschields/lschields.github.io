@@ -16,6 +16,28 @@
   if (saved === "light") document.documentElement.setAttribute("data-theme", "light");
 })();
 </script>
+<div class="layout">
+<aside class="side-nav">
+  <div class="side-nav-brand">Training Dashboard</div>
+  <nav class="side-nav-pages">
+    <a href="index.html" class="active">Dashboard</a>
+    <a href="exercises.html">PT &amp; Prehab Reference</a>
+    <a href="workouts.html">Workout Files</a>
+    <a href="trends.html">Trends</a>
+  </nav>
+  <nav class="side-nav-sections">
+    <div class="side-nav-sections-label">On this page</div>
+    <a href="#week-detail">This week</a>
+    <a href="#coach-notes">Coach notes</a>
+    <a href="#retro-panel">Last week</a>
+    <a href="#chart-mileage-panel">Weekly mileage</a>
+    <a href="#chart-hrv-panel">HRV &amp; RHR</a>
+    <a href="#chart-load-panel">Training load</a>
+    <a href="#race-log-panel">Race log</a>
+    <a href="#pace-zones-panel">Pace zones</a>
+    <a href="#race-strategy-panel">Race day</a>
+  </nav>
+</aside>
 <div class="wrap">
 
   <div class="sticky-header">
@@ -55,7 +77,7 @@
 
   <section class="panel" id="retro-panel"></section>
 
-  <section class="panel chart-panel">
+  <section class="panel chart-panel" id="chart-mileage-panel">
     <div class="panel-subheader">
       <div class="panel-kicker">TRENDS</div>
       <h2>Weekly mileage</h2>
@@ -64,7 +86,7 @@
     <canvas id="chart-mileage" height="90"></canvas>
   </section>
 
-  <section class="panel chart-panel">
+  <section class="panel chart-panel" id="chart-hrv-panel">
     <div class="panel-subheader">
       <div class="panel-kicker">TRENDS</div>
       <h2>HRV &amp; resting heart rate</h2>
@@ -73,7 +95,7 @@
     <canvas id="chart-hrv" height="90"></canvas>
   </section>
 
-  <section class="panel chart-panel">
+  <section class="panel chart-panel" id="chart-load-panel">
     <div class="panel-subheader">
       <div class="panel-kicker">TRENDS</div>
       <h2>Training load (ATL / CTL / ACWR)</h2>
@@ -93,6 +115,7 @@
     actuals updated via <code>scripts/parse_garmin.py</code>.
   </footer>
 
+</div>
 </div>
 
 <script src="assets/js/chart-loader.js"></script>

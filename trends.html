@@ -16,6 +16,22 @@
   if (saved === "light") document.documentElement.setAttribute("data-theme", "light");
 })();
 </script>
+<div class="layout">
+<aside class="side-nav">
+  <div class="side-nav-brand">Training Dashboard</div>
+  <nav class="side-nav-pages">
+    <a href="index.html">Dashboard</a>
+    <a href="exercises.html">PT &amp; Prehab Reference</a>
+    <a href="workouts.html">Workout Files</a>
+    <a href="trends.html" class="active">Trends</a>
+  </nav>
+  <nav class="side-nav-sections">
+    <div class="side-nav-sections-label">On this page</div>
+    <a href="#trends-kpi">Overview</a>
+    <a href="#trends-calendar">Calendar</a>
+    <a href="#chart-weekly-completion-panel">Weekly completion</a>
+  </nav>
+</aside>
 <div class="wrap">
 
   <div class="sticky-header">
@@ -48,7 +64,7 @@
 
   <section class="panel" id="trends-calendar"></section>
 
-  <section class="panel chart-panel">
+  <section class="panel chart-panel" id="chart-weekly-completion-panel">
     <div class="panel-subheader">
       <div class="panel-kicker">TRENDS</div>
       <h2>Weekly completion rate</h2>
@@ -63,6 +79,7 @@
     Garmin signal for it); runs are mostly Garmin-verified.
   </footer>
 
+</div>
 </div>
 
 <script src="assets/js/chart-loader.js"></script>

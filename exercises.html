@@ -16,6 +16,23 @@
   if (saved === "light") document.documentElement.setAttribute("data-theme", "light");
 })();
 </script>
+<div class="layout">
+<aside class="side-nav">
+  <div class="side-nav-brand">Training Dashboard</div>
+  <nav class="side-nav-pages">
+    <a href="index.html">Dashboard</a>
+    <a href="exercises.html" class="active">PT &amp; Prehab Reference</a>
+    <a href="workouts.html">Workout Files</a>
+    <a href="trends.html">Trends</a>
+  </nav>
+  <nav class="side-nav-sections">
+    <div class="side-nav-sections-label">On this page</div>
+    <a href="#cat-achilles_calf">Achilles &amp; calf</a>
+    <a href="#cat-hip_glute">Hip &amp; glute</a>
+    <a href="#cat-knee_stability">Knee &amp; stability</a>
+    <a href="#cat-core">Core</a>
+  </nav>
+</aside>
 <div class="wrap">
 
   <div class="sticky-header">
@@ -50,6 +67,7 @@
     Exercise library defined in <code>scripts/build_plan.py</code>, exported to <code>data/plan.json</code>.
   </footer>
 
+</div>
 </div>
 
 <script type="module" src="assets/js/firebase-auth.js"></script>

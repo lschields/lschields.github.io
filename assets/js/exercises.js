@@ -81,7 +81,7 @@ function renderExerciseLibrary(plan) {
     const items = library.filter(e => e.category === cat.id);
     if (!items.length) return "";
     return `
-      <div class="exercise-category">
+      <div class="exercise-category" id="cat-${cat.id}">
         <div class="category-subheader">
           <div class="panel-kicker">${cat.label.toUpperCase()}</div>
         </div>
