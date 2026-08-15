@@ -613,7 +613,7 @@ function collapseKey(dateISO) { return `td:collapsed:${dateISO}`; }
 function weatherChipHTML(dateISO) {
   const w = window.tdWeather && window.tdWeather.forDate(dateISO);
   if (!w) return "";
-  return `<span class="day-weather" title="${w.humidityPct}% humidity at 5pm">${w.tempF}&deg;F &middot; ${w.precipPct}% rain</span>`;
+  return `<span class="day-weather" title="${w.timeLabel} forecast">${w.tempF}&deg;F, ${w.precipPct}%, H: ${w.humidityPct}%</span>`;
 }
 
 function renderWeekDetail(plan, history) {
