@@ -24,6 +24,15 @@
   --bad-bg: #4a2620;
   --bad-text: #f0c4bc;
 
+  /* Deeper, more muted tones for gauge fills specifically - the badge
+     colors above (--good/--warn/--bad) stay bright since they're text on
+     a background pill and need contrast; gauges are a filled bar and read
+     better closer to the rest of the deep-maroon theme. */
+  --gauge-good: #3d7f60;
+  --gauge-warn: #8a6a3a;
+  --gauge-bad: #8f4a44;
+  --gauge-track: #2a2e3a;
+
   --tag-long-bg: #f3efe6;
   --tag-long-text: #2a2621;
 
@@ -55,6 +64,11 @@
   --bad: #8c3a2e;
   --bad-bg: #f3d9d0;
   --bad-text: #5c2018;
+
+  --gauge-good: #2f5a45;
+  --gauge-warn: #6b5122;
+  --gauge-bad: #6e2d22;
+  --gauge-track: #e2dbc9;
 
   --tag-long-bg: #12151c;
   --tag-long-text: #f0e9e5;
@@ -344,9 +358,13 @@ code {
   letter-spacing: -0.01em;
 }
 .kpi-strip-primary .kpi-value { font-size: 27px; }
-.kpi-strip-secondary .kpi-value { font-size: 18px; }
+.kpi-strip-secondary .kpi-value { font-size: 25px; }
 .kpi-value small { font-size: 12.5px; font-weight: 500; color: var(--text-dim); }
-.kpi-strip-secondary .kpi-value small { font-size: 11px; }
+.kpi-strip-secondary .kpi-value small { font-size: 13px; }
+/* Training status shows a word ("Unproductive"), not a short number - sized
+   down from the numeric secondary-row values so long statuses still fit,
+   but still noticeably bigger than before. */
+.kpi-value-status { font-size: 19px; text-transform: capitalize; }
 .kpi-label {
   font-size: 11px;
   color: var(--text-dim);
@@ -383,10 +401,26 @@ code {
   white-space: nowrap;
 }
 
-.kpi-card-gauge { text-align: center; }
-.kpi-gauge { margin: 2px 0 -6px; line-height: 0; }
+/* Cards with a sparkline (Resting HR, Lactate threshold) - the sparkline
+   sits inline, vertically centered next to its number, instead of alone in
+   a footer row below everything else where it used to look disconnected
+   from the rest of the card. */
+.kpi-card-spark {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.kpi-card-main { flex: 1 1 auto; min-width: 0; }
+.kpi-card-spark .kpi-spark { margin-top: 2px; }
+
+/* Bar gauge (VO2max, Load tolerance) - a slim horizontal bar with colored
+   range segments and a small triangle marking the current reading, instead
+   of the old semicircular speedometer, to take up less vertical space. */
+.kpi-card-gauge { text-align: left; }
+.kpi-gauge { margin: 10px 0 2px; line-height: 0; }
 .gauge-svg { display: block; width: 100%; height: auto; }
-.kpi-card-gauge .kpi-flag { margin-top: 4px; }
+.kpi-card-gauge .kpi-flag { margin-top: 2px; }
 
 .status-dots { display: flex; gap: 3px; align-items: center; }
 .status-dot {

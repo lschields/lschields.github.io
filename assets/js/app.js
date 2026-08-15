@@ -122,21 +122,11 @@ function sparklineSVG(values, colorVar) {
     <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="2.2" fill="var(${colorVar})" /></svg>`;
 }
 
-// Semicircular "speedometer" gauge - colored range bands (each defined by an
-// upper bound + color) with a needle pointing at the current value.
-function polarPt(cx, cy, r, thetaDeg) {
-  const t = (thetaDeg * Math.PI) / 180;
-  return { x: cx + r * Math.cos(t), y: cy - r * Math.sin(t) };
-}
-function valueToTheta(value, min, max) {
-  const f = Math.min(1, Math.max(0, (value - min) / (max - min)));
-  return 180 - f * 180;
-}
-function bandArcPath(cx, cy, r, theta1, theta2) {
-  const p1 = polarPt(cx, cy, r, theta1), p2 = polarPt(cx, cy, r, theta2);
-  const largeArc = theta1 - theta2 > 180 ? 1 : 0;
-  return `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} A ${r} ${r} 0 ${largeArc} 1 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`;
-}
+// Straight bar gauge - colored range bands (each defined by an upper bound
+// + color) filling a slim horizontal bar, with a small triangle marking
+// the current reading above it. Replaced the old semicircular "speedometer"
+// gauge (arcs + needle) since it took up too much vertical space next to
+// the sparkline-based cards beside it.
 function bandFor(value, bands, min) {
   let lower = min;
   for (const b of bands) {
@@ -145,19 +135,34 @@ function bandFor(value, bands, min) {
   }
   return bands[bands.length - 1];
 }
-function gaugeSVG(value, min, max, bands) {
-  const cx = 50, cy = 50, r = 40, strokeW = 9;
+// Gauge fills use a deeper/more muted variant of each band's semantic color
+// (--gauge-good/--gauge-warn/--gauge-bad) than the badge pill that shares
+// the same band (--good/--warn/--bad) - a filled bar reads better closer to
+// the rest of the deep theme, while the badge needs the brighter tone for
+// text-on-pill contrast.
+function gaugeToneVar(colorVar) {
+  return colorVar.replace("--", "--gauge-");
+}
+let gaugeIdCounter = 0;
+function barGaugeSVG(value, min, max, bands) {
+  const clipId = `gauge-clip-${gaugeIdCounter++}`;
+  const w = 100, barY = 9, barH = 6;
   let lower = min;
-  const arcs = bands.map(b => {
-    const theta1 = valueToTheta(lower, min, max), theta2 = valueToTheta(b.upper, min, max);
+  const segs = bands.map(b => {
+    const x1 = ((lower - min) / (max - min)) * w;
+    const x2 = ((Math.min(b.upper, max) - min) / (max - min)) * w;
     lower = b.upper;
-    return `<path d="${bandArcPath(cx, cy, r, theta1, theta2)}" stroke="var(${b.colorVar})" stroke-width="${strokeW}" fill="none" />`;
+    return `<rect x="${x1.toFixed(2)}" y="${barY}" width="${Math.max(0, x2 - x1).toFixed(2)}" height="${barH}" fill="var(${gaugeToneVar(b.colorVar)})" />`;
   }).join("");
-  const needleTheta = valueToTheta(value, min, max);
-  const tip = polarPt(cx, cy, r - 7, needleTheta);
-  const needle = `<line x1="${cx}" y1="${cy}" x2="${tip.x.toFixed(2)}" y2="${tip.y.toFixed(2)}" stroke="var(--text)" stroke-width="2.5" stroke-linecap="round" />
-    <circle cx="${cx}" cy="${cy}" r="3.5" fill="var(--text)" />`;
-  return `<svg viewBox="0 0 100 56" class="gauge-svg" aria-hidden="true">${arcs}${needle}</svg>`;
+  const f = Math.min(1, Math.max(0, (value - min) / (max - min)));
+  const markerX = Math.min(w - 1, Math.max(1, f * w));
+  const triTop = barY - 6;
+  return `<svg viewBox="0 0 ${w} ${barY + barH + 2}" class="gauge-svg gauge-bar" preserveAspectRatio="none" aria-hidden="true">
+    <defs><clipPath id="${clipId}"><rect x="0" y="${barY}" width="${w}" height="${barH}" rx="3" /></clipPath></defs>
+    <rect x="0" y="${barY}" width="${w}" height="${barH}" rx="3" fill="var(--gauge-track)" />
+    <g clip-path="url(#${clipId})">${segs}</g>
+    <polygon points="${(markerX - 4).toFixed(2)},${triTop} ${(markerX + 4).toFixed(2)},${triTop} ${markerX.toFixed(2)},${barY}" fill="var(--text)" />
+  </svg>`;
 }
 function colorVarToFlagClass(colorVar) {
   return colorVar.replace("--", "");
@@ -223,9 +228,6 @@ function renderKPIs(plan, history) {
 
   const readinessHistory = history.readiness_history || [];
   const loadHistory = history.load_history || [];
-  const latestReadiness = readinessHistory
-    .filter(r => r.resting_hr !== undefined)
-    .sort((a, b) => a.date.localeCompare(b.date)).slice(-1)[0];
   const latestLoad = loadHistory.slice(-1)[0];
   // Populated by the ACWR card below, read by the training-status card afterward
   // so its tooltip can cross-reference load tolerance when both look shaky.
@@ -308,7 +310,7 @@ function renderKPIs(plan, history) {
         ${vo2Tt.icon}
         <div class="kpi-value">${vo2}</div>
         <div class="kpi-label">VO2 max</div>
-        <div class="kpi-gauge">${gaugeSVG(vo2, 30, 70, vo2Bands)}</div>
+        <div class="kpi-gauge">${barGaugeSVG(vo2, 30, 70, vo2Bands)}</div>
         <span class="kpi-flag ${colorVarToFlagClass(vo2Band.colorVar)}">${vo2Band.label}</span>
       </div>`);
   }
@@ -331,14 +333,13 @@ function renderKPIs(plan, history) {
     }
     const rhrTt = kpiTooltip(rhrTip);
     secondary.push(`
-      <div class="kpi-card" ${rhrTt.attr}>
+      <div class="kpi-card kpi-card-spark" ${rhrTt.attr}>
         ${rhrTt.icon}
-        <div class="kpi-value">${rhrSeries[rhrSeries.length - 1]}<small> bpm</small></div>
-        <div class="kpi-label">Resting HR</div>
-        <div class="kpi-foot">
-          <span class="kpi-flag good">${fmtDateShort(latestReadiness.date)}</span>
-          <span class="kpi-spark">${sparklineSVG(rhrSeries, "--accent")}</span>
+        <div class="kpi-card-main">
+          <div class="kpi-value">${rhrLatest}<small> bpm</small></div>
+          <div class="kpi-label">Resting HR</div>
         </div>
+        <span class="kpi-spark">${sparklineSVG(rhrSeries, "--accent")}</span>
       </div>`);
   }
 
@@ -358,14 +359,14 @@ function renderKPIs(plan, history) {
     }
     const lthrTt = kpiTooltip(lthrTip);
     secondary.push(`
-      <div class="kpi-card" ${lthrTt.attr}>
+      <div class="kpi-card kpi-card-spark" ${lthrTt.attr}>
         ${lthrTt.icon}
-        <div class="kpi-value">${lthrSeries[lthrSeries.length - 1]}<small> bpm</small></div>
-        <div class="kpi-label">Lactate threshold</div>
-        ${thresholdZone ? `<div class="kpi-pace-range">${thresholdZone.pace_per_mi}/mi</div>` : ""}
-        <div class="kpi-foot" style="justify-content:flex-end;">
-          <span class="kpi-spark">${sparklineSVG(lthrSeries, "--warn")}</span>
+        <div class="kpi-card-main">
+          <div class="kpi-value">${lthrLatest}<small> bpm</small></div>
+          <div class="kpi-label">Lactate threshold</div>
+          ${thresholdZone ? `<div class="kpi-pace-range">${thresholdZone.pace_per_mi}/mi</div>` : ""}
         </div>
+        <span class="kpi-spark">${sparklineSVG(lthrSeries, "--warn")}</span>
       </div>`);
   }
 
@@ -395,7 +396,7 @@ function renderKPIs(plan, history) {
         ${acwrTt.icon}
         <div class="kpi-value">${acwr}</div>
         <div class="kpi-label">Load tolerance</div>
-        <div class="kpi-gauge">${gaugeSVG(acwr, 0, 2.0, acwrBands)}</div>
+        <div class="kpi-gauge">${barGaugeSVG(acwr, 0, 2.0, acwrBands)}</div>
         <span class="kpi-flag ${colorVarToFlagClass(acwrBand.colorVar)}">${acwrBand.label}</span>
       </div>`);
   }
@@ -432,7 +433,7 @@ function renderKPIs(plan, history) {
     secondary.push(`
       <div class="kpi-card" ${statusTt.attr}>
         ${statusTt.icon}
-        <div class="kpi-value" style="font-size:14px; text-transform:capitalize;">${status}</div>
+        <div class="kpi-value kpi-value-status">${status}</div>
         <div class="kpi-label">Training status</div>
         <span class="kpi-flag ${flagClass}">Since ${fmtDateShort(sinceDate)}</span>
       </div>`);
