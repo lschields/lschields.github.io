@@ -458,28 +458,49 @@ function sumWeekActualMiles(week, pool) {
 function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
 // ---------------------------------------------------------------------
-// Week tabs
+// Week nav - prev/next arrows stepping one week at a time, replacing the
+// old horizontally-scrolling strip of all 13 week tabs.
 // ---------------------------------------------------------------------
-function renderWeekTabs(plan) {
-  const el = document.getElementById("week-tabs");
+function renderWeekNav(plan) {
+  const el = document.getElementById("week-nav");
+  const w = state.selectedWeek;
   const t = todayISO();
-  el.innerHTML = plan.weeks.map(w => {
-    const isCurrent = t >= w.start_date && t <= w.end_date;
-    const isPast = t > w.end_date;
-    const isActive = state.selectedWeek.week_num === w.week_num;
-    return `<button class="week-tab ${isActive ? "active" : ""} ${isCurrent ? "is-current" : ""} ${isPast ? "is-past" : ""}"
-              data-week="${w.week_num}">
-              <span class="wt-num">W${w.week_num}</span>
-              <span class="wt-label">${capitalize(w.block)}</span>
-            </button>`;
-  }).join("");
-  el.querySelectorAll(".week-tab").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const num = Number(btn.dataset.week);
-      state.selectedWeek = state.plan.weeks.find(w => w.week_num === num);
+  const isCurrent = t >= w.start_date && t <= w.end_date;
+  const idx = plan.weeks.findIndex(x => x.week_num === w.week_num);
+  const hasPrev = idx > 0;
+  const hasNext = idx < plan.weeks.length - 1;
+  const atCurrentWeek = isCurrent;
+
+  el.innerHTML = `
+    <div class="week-nav-controls">
+      <button type="button" class="week-nav-arrow" id="week-nav-prev" ${hasPrev ? "" : "disabled"} aria-label="Previous week">&#8249;</button>
+      <div class="week-nav-current">
+        <span class="wn-num">Week ${w.week_num} of ${plan.weeks.length}${isCurrent ? `<span class="wn-current-badge">current</span>` : ""}</span>
+        <span class="wn-label">${capitalize(w.block)} &middot; ${fmtDateShort(w.start_date)}&ndash;${fmtDateShort(w.end_date)}</span>
+      </div>
+      <button type="button" class="week-nav-arrow" id="week-nav-next" ${hasNext ? "" : "disabled"} aria-label="Next week">&#8250;</button>
+    </div>
+    ${!atCurrentWeek ? `<button type="button" class="week-nav-today" id="week-nav-today">Today</button>` : ""}
+  `;
+
+  if (hasPrev) {
+    document.getElementById("week-nav-prev").addEventListener("click", () => {
+      state.selectedWeek = plan.weeks[idx - 1];
       renderAll();
     });
-  });
+  }
+  if (hasNext) {
+    document.getElementById("week-nav-next").addEventListener("click", () => {
+      state.selectedWeek = plan.weeks[idx + 1];
+      renderAll();
+    });
+  }
+  if (!atCurrentWeek) {
+    document.getElementById("week-nav-today").addEventListener("click", () => {
+      state.selectedWeek = findCurrentWeek(plan);
+      renderAll();
+    });
+  }
 }
 
 // ---------------------------------------------------------------------
@@ -968,7 +989,7 @@ function renderHeader(plan) {
 // ---------------------------------------------------------------------
 function renderAll() {
   renderKPIs(state.plan, state.history);
-  renderWeekTabs(state.plan);
+  renderWeekNav(state.plan);
   renderWeekDetail(state.plan, state.history);
   renderCoachNotes();
 }
