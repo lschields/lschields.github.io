@@ -605,6 +605,17 @@ function renderSession(session, dateISO, pool) {
 
 function collapseKey(dateISO) { return `td:collapsed:${dateISO}`; }
 
+// Small forecast chip for a day-card-head, sourced from window.tdWeather
+// (assets/js/weather.js). Returns "" when there's no data for this date -
+// either the weather fetch hasn't resolved yet, failed, or the date is
+// outside Open-Meteo's ~14-16 day forecast window (true for most of the
+// 13-week plan; only "this week" and the near future will ever show a chip).
+function weatherChipHTML(dateISO) {
+  const w = window.tdWeather && window.tdWeather.forDate(dateISO);
+  if (!w) return "";
+  return `<span class="day-weather" title="${w.humidityPct}% humidity at 5pm">${w.tempF}&deg;F &middot; ${w.precipPct}% rain</span>`;
+}
+
 function renderWeekDetail(plan, history) {
   const w = state.selectedWeek;
   const el = document.getElementById("week-detail");
@@ -627,6 +638,7 @@ function renderWeekDetail(plan, history) {
             <span class="day-chevron">&#9660;</span>
             <span class="day-name">${day.day_name}</span>
           </span>
+          ${weatherChipHTML(day.date)}
           <span class="day-date">${summary ? `<span class="day-summary">${summary}</span> &middot; ` : ""}${fmtDateShort(day.date)}${isToday ? " &middot; today" : ""}</span>
         </div>
         <div class="day-grid-inner">${sessionsHtml}</div>
@@ -1071,6 +1083,16 @@ async function init() {
       console.error("Failed to render charts:", err);
     }
   })();
+
+  // Weather chips (assets/js/weather.js) - same fire-and-forget pattern as
+  // charts above: never block the rest of the page on a third-party fetch.
+  // Re-renders just the week-detail panel once data resolves (or fails,
+  // which is also a no-op - weatherChipHTML() just returns "" then).
+  if (window.tdWeather) {
+    window.tdWeather.load().then(() => {
+      renderSafely("week detail (weather)", () => renderWeekDetail(state.plan, state.history));
+    });
+  }
 }
 
 if (window.tdAuth) init();
