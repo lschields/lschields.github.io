@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-12T15:02:02.915269Z",
+  "generated_at": "2026-08-15T00:41:56.965159Z",
   "athlete_snapshot": {
     "ftp": 230,
     "vo2max": 53,
@@ -486,6 +486,26 @@
       "total_ascent_m": 19,
       "total_calories": 427,
       "total_training_effect": 3.3
+    },
+    {
+      "source_file": "23968413338_ACTIVITY.fit",
+      "date": "2026-08-13",
+      "start_time": "2026-08-13T23:16:10",
+      "sport": "running",
+      "distance_mi": 4.01,
+      "duration_sec": 2221.8,
+      "avg_pace_per_mi": "9:15",
+      "avg_pace_sec_per_mi": 554.6,
+      "avg_hr": 139,
+      "max_hr": 146,
+      "avg_power": 311,
+      "avg_cadence_spm": 164,
+      "avg_vertical_oscillation_mm": 95.5,
+      "avg_stance_time_ms": 283.3,
+      "avg_stance_time_balance_pct": 49.87,
+      "total_ascent_m": 16,
+      "total_calories": 445,
+      "total_training_effect": 3.2
     }
   ],
   "races": [
