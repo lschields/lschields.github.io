@@ -753,6 +753,51 @@ function renderRetro(history) {
 // ---------------------------------------------------------------------
 // Charts
 // ---------------------------------------------------------------------
+
+// Reads a live value from the page's CSS custom properties (theme colors),
+// so chart colors always match the current dark/dark-maroon or light theme
+// instead of being hardcoded to one. Re-read on every renderCharts() call
+// (including the re-render triggered by a theme switch - see
+// initThemeToggle()) rather than cached, since the value changes at runtime.
+function cssVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+// "#rrggbb" -> "rgba(r,g,b,alpha)", for bar fills / area tints where a solid
+// theme color would be too heavy at 100% opacity.
+function hexToRgba(hex, alpha) {
+  const h = hex.replace("#", "");
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+// Chart.js instances currently on screen, keyed by canvas id - tracked so
+// renderCharts() can destroy and recreate them cleanly (Chart.js throws if
+// you construct a new Chart on a canvas that already has one attached).
+// Re-rendering happens both on initial load and whenever the theme toggles,
+// so colors picked up via cssVar() above stay in sync with dark/light mode.
+const chartInstances = {};
+function makeChart(canvasId, config) {
+  if (chartInstances[canvasId]) chartInstances[canvasId].destroy();
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  chartInstances[canvasId] = new Chart(canvas, config);
+}
+
+// Renders the small colored-dot + label row above a chart (replaces
+// Chart.js's built-in legend, which ate into the plot area and looked
+// cramped on a wide, short chart). `items` is [{ label, color }, ...].
+function renderChartLegend(containerId, items) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = items.map(item => `
+    <span class="chart-legend-item">
+      <span class="chart-legend-dot" style="background:${item.color}"></span>${item.label}
+    </span>`).join("");
+}
+
 function renderCharts(plan, history) {
   // Chart.js loads from a CDN via a <script> tag - if that request is slow,
   // blocked (ad/tracker blockers sometimes flag third-party CDN domains),
@@ -771,6 +816,11 @@ function renderCharts(plan, history) {
     return;
   }
 
+  const accent = cssVar("--accent");
+  const good = cssVar("--good");
+  const warn = cssVar("--warn");
+  const bad = cssVar("--bad");
+
   const pool = buildActivityPool(history);
   const labels = plan.weeks.map(w => "W" + w.week_num);
   const planned = plan.weeks.map(w => w.target_miles);
@@ -783,65 +833,133 @@ function renderCharts(plan, history) {
     return Math.round(mi * 10) / 10;
   });
 
-  new Chart(document.getElementById("chart-mileage"), {
+  renderChartLegend("chart-mileage-legend", [
+    { label: "Planned", color: hexToRgba(accent, 0.45) },
+    { label: "Actual", color: good },
+  ]);
+  makeChart("chart-mileage", {
     type: "bar",
     data: {
       labels,
       datasets: [
-        { label: "Planned", data: planned, backgroundColor: "rgba(79,140,255,0.25)", borderRadius: 3 },
-        { label: "Actual", data: actual, backgroundColor: "rgba(52,211,153,0.65)", borderRadius: 3 },
+        { label: "Planned", data: planned, backgroundColor: hexToRgba(accent, 0.3), borderRadius: 3 },
+        { label: "Actual", data: actual, backgroundColor: hexToRgba(good, 0.75), borderRadius: 3 },
       ],
     },
-    options: chartOptions(),
+    options: chartOptions({ suffix: " mi" }),
   });
 
   const readiness = (history.readiness_history || []).slice().sort((a, b) => a.date.localeCompare(b.date));
-  new Chart(document.getElementById("chart-hrv"), {
+  renderChartLegend("chart-hrv-legend", [
+    { label: "HRV", color: accent },
+    { label: "Resting HR", color: warn },
+  ]);
+  makeChart("chart-hrv", {
     type: "line",
     data: {
       labels: readiness.map(r => fmtDateShort(r.date)),
       datasets: [
         { label: "HRV", data: readiness.map(r => r.hrv ?? r.hrv_last_night_avg ?? null),
-          borderColor: "#4f8cff", backgroundColor: "transparent", tension: 0.3, spanGaps: true },
+          borderColor: accent, backgroundColor: "transparent", tension: 0.3, spanGaps: true,
+          pointRadius: 0, pointHoverRadius: 4, borderWidth: 2 },
         { label: "Resting HR", data: readiness.map(r => r.resting_hr ?? null),
-          borderColor: "#e3b341", backgroundColor: "transparent", tension: 0.3, spanGaps: true, yAxisID: "y1" },
+          borderColor: warn, backgroundColor: "transparent", tension: 0.3, spanGaps: true, yAxisID: "y1",
+          pointRadius: 0, pointHoverRadius: 4, borderWidth: 2 },
       ],
     },
-    options: dualAxisChartOptions(),
+    options: dualAxisChartOptions({ suffix: " ms" }, { suffix: " bpm" }),
   });
 
   const load = (history.load_history || []).slice().sort((a, b) => a.date.localeCompare(b.date));
-  new Chart(document.getElementById("chart-load"), {
+  renderChartLegend("chart-load-legend", [
+    { label: "ATL (fatigue)", color: bad },
+    { label: "CTL (fitness)", color: accent },
+    { label: "ACWR", color: warn },
+  ]);
+  makeChart("chart-load", {
     type: "line",
     data: {
       labels: load.map(l => fmtDateShort(l.date)),
       datasets: [
-        { label: "ATL (fatigue)", data: load.map(l => l.atl ?? null), borderColor: "#f2705c", tension: 0.3 },
-        { label: "CTL (fitness)", data: load.map(l => l.ctl ?? null), borderColor: "#4f8cff", tension: 0.3 },
-        { label: "ACWR", data: load.map(l => l.acwr ?? null), borderColor: "#e3b341", tension: 0.3, yAxisID: "y1" },
+        { label: "ATL (fatigue)", data: load.map(l => l.atl ?? null), borderColor: bad, tension: 0.3,
+          pointRadius: 0, pointHoverRadius: 4, borderWidth: 2 },
+        { label: "CTL (fitness)", data: load.map(l => l.ctl ?? null), borderColor: accent, tension: 0.3,
+          pointRadius: 0, pointHoverRadius: 4, borderWidth: 2 },
+        { label: "ACWR", data: load.map(l => l.acwr ?? null), borderColor: warn, tension: 0.3, yAxisID: "y1",
+          pointRadius: 0, pointHoverRadius: 4, borderWidth: 2 },
       ],
     },
-    options: dualAxisChartOptions(),
+    options: dualAxisChartOptions({}, {}),
   });
 }
 
-function chartOptions() {
+// `yFormat`/`y1Format` optionally add a unit suffix to axis tick labels
+// (e.g. " mi", " bpm") - makes the axes self-explanatory without needing the
+// legend to spell out units. `beginAtZero` defaults on (right for a mileage
+// bar chart, where 0 is a meaningful floor) but line charts of physiological
+// trends (HRV/RHR, ATL/CTL/ACWR) turn it off - those values live in a narrow
+// band far from zero, and forcing a 0 baseline would flatten the very
+// variation this redesign is trying to make more visible.
+function chartOptions(yFormat, beginAtZero = true) {
+  const gridColor = hexToRgba(cssVar("--border"), 0.6);
+  const tickColor = cssVar("--text-dim");
+  const tooltipBg = cssVar("--panel");
+  const tooltipBorder = cssVar("--border");
+  const tooltipText = cssVar("--text");
+  const tooltipDim = cssVar("--text-dim");
+
   return {
     responsive: true,
     maintainAspectRatio: false,
-    plugins: { legend: { labels: { color: "#8a94a6", font: { size: 11 } } } },
+    interaction: { mode: "index", intersect: false },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: tooltipBg,
+        titleColor: tooltipText,
+        bodyColor: tooltipDim,
+        borderColor: tooltipBorder,
+        borderWidth: 1,
+        padding: 10,
+        cornerRadius: 8,
+        boxPadding: 4,
+      },
+    },
     scales: {
-      x: { ticks: { color: "#5b6577", font: { size: 10 } }, grid: { color: "#1c2431" } },
-      y: { ticks: { color: "#5b6577", font: { size: 10 } }, grid: { color: "#1c2431" } },
+      x: {
+        ticks: { color: tickColor, font: { size: 11 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 10 },
+        grid: { display: false },
+      },
+      y: {
+        beginAtZero,
+        grace: "10%",
+        ticks: {
+          color: tickColor,
+          font: { size: 11 },
+          maxTicksLimit: 6,
+          callback: v => yFormat?.suffix ? `${v}${yFormat.suffix}` : v,
+        },
+        grid: { color: gridColor },
+      },
     },
   };
 }
 
-function dualAxisChartOptions() {
-  const base = chartOptions();
+function dualAxisChartOptions(yFormat, y1Format) {
+  // Line charts of physiological/load trends - narrow-band data, so no
+  // forced 0 baseline (see chartOptions() comment above).
+  const base = chartOptions(yFormat, false);
+  const tickColor = cssVar("--text-dim");
   base.scales.y1 = {
     position: "right",
-    ticks: { color: "#5b6577", font: { size: 10 } },
+    beginAtZero: false,
+    grace: "10%",
+    ticks: {
+      color: tickColor,
+      font: { size: 11 },
+      maxTicksLimit: 6,
+      callback: v => y1Format?.suffix ? `${v}${y1Format.suffix}` : v,
+    },
     grid: { display: false },
   };
   return base;
@@ -954,6 +1072,14 @@ function initThemeToggle() {
     el.querySelectorAll("button").forEach(b => {
       b.classList.toggle("active", b.dataset.themeChoice === theme);
     });
+    // Chart colors are pulled from CSS custom properties (see cssVar() in
+    // the charts section) rather than hardcoded, so they need a re-render
+    // to actually pick up the new theme's palette - just flipping the
+    // data-theme attribute doesn't repaint an already-drawn canvas. No-op
+    // if charts haven't loaded yet (typeof Chart check inside renderCharts).
+    if (state.plan && state.history && typeof Chart !== "undefined") {
+      renderCharts(state.plan, state.history);
+    }
   }
 
   const current = localStorage.getItem("td:theme") === "light" ? "light" : "dark";

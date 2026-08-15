@@ -939,7 +939,34 @@ table.simple tr:last-child td { border-bottom: none; }
 table.simple td.strong { color: var(--text); font-weight: 600; }
 
 .chart-panel { position: relative; }
-.chart-panel canvas { width: 100% !important; height: 220px !important; }
+.chart-panel canvas { width: 100% !important; height: 320px !important; }
+@media (max-width: 640px) {
+  .chart-panel canvas { height: 240px !important; }
+}
+
+/* Custom legend (replaces Chart.js's built-in one, which ate into plot
+   space and looked cramped) - a simple row of colored dot + label chips
+   sitting between the panel description and the chart itself. Built in JS
+   (renderCharts()) since the dataset colors and labels already live there. */
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-bottom: 10px;
+}
+.chart-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.chart-legend-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
 
 .page-footer {
   text-align: center;
