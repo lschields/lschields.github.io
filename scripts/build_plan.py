@@ -519,12 +519,22 @@ add_week(
 
 # ---- Week 3 (Aug 17-23) - Rebuild -------------------------------------------
 add_week(
-    3, "rebuild", "Rebuild - Weeks 1-3", "Back to building, if ACWR and the Achilles cooperated",
+    3, "rebuild", "Rebuild - Weeks 1-3", "Building, on the strength of a clean Week 2",
     22,
     [
-        "If Weeks 1-2 had zero Achilles flare and readiness kept trending the direction it has been "
-        "(RHR down, HRV up), we add volume again. If not, repeat Week 2's numbers instead and tell "
-        "me - I'd rather adjust the plan than have you push through.",
+        "Decision made: building to 22mi as originally planned. Week 2 was fully completed for the "
+        "first time this cycle (all 5 sessions, 21mi actual) with zero Achilles flare, pace-at-HR "
+        "kept improving all week (easy pace dropped from ~9:30/mi to 8:35-8:44/mi at the same or "
+        "lower HR), and training status flipped to 'productive' for two straight readings.",
+        "HRV/RHR didn't show the clean downtrend/uptrend this note originally asked for - they were "
+        "flat and noisy (RHR 43-48, HRV 50-68) rather than trending. Saturday's low-readiness reading "
+        "(29) had a clear one-off cause (a late heavy meal + short sleep + GI upset the night before), "
+        "not a training-load problem, and fully rebounded by Sunday (readiness 29->45, HRV 54->61, "
+        "great sleep). Weighed against everything else, that's not a reason to hold back.",
+        "ACWR is still elevated (1.6-1.7) - watch it, but a chunk of that is mechanical: last week's "
+        "healthy-looking 1.1 was artificially low because heat forced two skipped sessions, so "
+        "finally running the full prescribed week was always going to push it up. If Achilles or "
+        "readiness turn genuinely worse this week, say so and this gets revisited immediately.",
     ],
     [
         [pt_rebuild_mon()],
