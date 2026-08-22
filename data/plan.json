@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-16T15:29:14.971425Z",
+  "generated_at": "2026-08-22T00:31:27.496115Z",
   "athlete": {
     "name": "Luke",
     "race": {
@@ -1005,12 +1005,12 @@
             {
               "type": "run",
               "kind": "easy",
-              "title": "Easy run",
+              "title": "Easy run + strides",
               "distance_mi": 5,
               "duration_min": null,
               "pace": null,
               "hr_zone": 2,
-              "details": "",
+              "details": "Last 10 min: 4 x 20s relaxed strides, full recovery between.",
               "note": ""
             },
             {

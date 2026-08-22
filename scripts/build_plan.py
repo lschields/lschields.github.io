@@ -561,7 +561,8 @@ add_week(
     ],
     [
         [pt_build_mon()],
-        [run_session("easy", "Easy run", distance_mi=5, hr_zone=2),
+        [run_session("easy", "Easy run + strides", distance_mi=5, hr_zone=2,
+                      details="Last 10 min: 4 x 20s relaxed strides, full recovery between."),
          light_touch("achilles_eccentric")],
         [run_session("easy", "Easy run", distance_mi=5.5, hr_zone=2)],
         [run_session("easy", "Easy run + strides", distance_mi=5, hr_zone=2,

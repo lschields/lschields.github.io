@@ -16,13 +16,15 @@ Usage:
 Writes one JSON file per running session (skips strength/PT days - those
 aren't structured cardio workouts) to data/workouts/week_<NN>/.
 
-Note: heart.rate.zone targets are modeled directly on a known-good
-example Luke already used successfully. pace.zone targets (for the
-Build-phase tempo/interval/goal-pace sessions later in the plan) are
-inferred from the same schema shape but haven't been validated against
-a real import yet - sanity-check the first one before trusting it blind.
+Note: heart.rate.zone targets and distance-based end conditions are modeled directly on a
+known-good example Luke already used successfully. pace.zone targets (Build-phase
+tempo/interval/goal-pace sessions) and time-based end conditions (strides, parsed out of
+a session's free-text "details" like "4 x 20s strides") are inferred from the same schema
+shape but haven't been validated against a real import yet - sanity-check the first one of
+each before trusting it blind.
 """
 import json
+import re
 import sys
 import datetime as dt
 from pathlib import Path
@@ -59,7 +61,7 @@ def pace_target(slow_sec_per_mi, fast_sec_per_mi):
             round(slow_mps, 3), round(fast_mps, 3))
 
 
-def make_step(step_id, order, kind, distance_mi, target):
+def make_step(step_id, order, kind, distance_mi, target, description=None):
     target_type, v1, v2 = target
     return {
         "type": "ExecutableStepDTO",
@@ -67,7 +69,7 @@ def make_step(step_id, order, kind, distance_mi, target):
         "stepOrder": order,
         "stepType": STEP_TYPES[kind],
         "childStepId": None,
-        "description": None,
+        "description": description,
         "endCondition": {"conditionTypeId": 3, "conditionTypeKey": "distance", "displayOrder": 3, "displayable": True},
         "endConditionValue": round(distance_mi * MILE_M),
         "preferredEndConditionUnit": {"unitId": 5, "unitKey": "mile", "factor": 160934},
@@ -93,6 +95,32 @@ def make_step(step_id, order, kind, distance_mi, target):
         "weightUnit": {"unitId": 8, "unitKey": "kilogram", "factor": 1000},
         "drillType": None,
     }
+
+
+def make_time_step(step_id, order, kind, seconds, target, description=None):
+    """Time-based variant of make_step - for strides/short efforts where a distance end
+    condition doesn't make sense. conditionTypeId 2/"time" is inferred from the same
+    Garmin workout-service schema family as the validated distance steps, not confirmed
+    against a real import yet - sanity-check the first stride workout before trusting it."""
+    step = make_step(step_id, order, kind, 0, target, description=description)
+    step["endCondition"] = {"conditionTypeId": 2, "conditionTypeKey": "time", "displayOrder": 2, "displayable": True}
+    step["endConditionValue"] = seconds
+    step["preferredEndConditionUnit"] = None
+    return step
+
+
+STRIDES_RE = re.compile(r"(\d+)\s*x\s*(\d+)\s*s", re.IGNORECASE)
+
+
+def parse_strides(details):
+    """Pulls '4 x 20s strides' / '6 x 20s strides' etc. out of a session's free-text
+    details field. Returns (count, work_seconds) or None if no stride mention found."""
+    if not details:
+        return None
+    m = STRIDES_RE.search(details)
+    if not m:
+        return None
+    return int(m.group(1)), int(m.group(2))
 
 
 def fmt_pace(s):
@@ -177,12 +205,24 @@ def build_workout(week_num, date_str, day_name, session, history):
         est_pace_sec = {1: 630, 2: 570}.get(session.get("hr_zone"), 570)  # 10:30 or 9:30 /mi
     est_duration_secs = round(distance_mi * est_pace_sec)
 
+    strides = parse_strides(session.get("details", ""))
+    strides_recovery_sec = 60  # not specified in plan text - standard recovery for a 20s relaxed stride
+
     steps = []
     sid = 8000000000
     order = 1
     if warmup_mi:
         steps.append(make_step(sid, order, "warmup", warmup_mi, NO_TARGET)); sid += 1; order += 1
     steps.append(make_step(sid, order, "interval", main_mi, main_target)); sid += 1; order += 1
+    if strides:
+        count, work_sec = strides
+        for i in range(count):
+            steps.append(make_time_step(sid, order, "interval", work_sec, NO_TARGET,
+                          description=f"Stride {i+1}/{count} - quick, relaxed pickup, not max effort"))
+            sid += 1; order += 1
+            steps.append(make_time_step(sid, order, "cooldown", strides_recovery_sec, NO_TARGET,
+                          description="Recovery - easy jog or walk"))
+            sid += 1; order += 1
     if cooldown_mi:
         steps.append(make_step(sid, order, "cooldown", cooldown_mi, NO_TARGET)); sid += 1; order += 1
 
