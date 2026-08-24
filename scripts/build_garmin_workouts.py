@@ -129,7 +129,11 @@ def fmt_pace(s):
 
 
 def recent_paces(history, before_date):
-    acts = [a for a in history.get("activities", []) if a.get("date") and a["date"] < before_date]
+    # Only actual runs - walks/mobility/PT sessions (sport != "running", or no distance)
+    # would otherwise pollute the pace/HR evidence used for "YOUR DATA" and the duration
+    # estimate (a walk's 20:00/mi pace has nothing to do with an upcoming easy run).
+    acts = [a for a in history.get("activities", [])
+            if a.get("date") and a["date"] < before_date and a.get("sport") == "running"]
     acts = acts[-3:]
     paces = [a["avg_pace_sec_per_mi"] for a in acts if a.get("avg_pace_sec_per_mi")]
     hrs = [a["avg_hr"] for a in acts if a.get("avg_hr")]
