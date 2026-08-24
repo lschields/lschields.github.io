@@ -69,6 +69,28 @@ def fmt_pace(seconds_per_mile):
     return f"{m}:{s:02d}"
 
 
+# fitparse's bundled sport-code table doesn't cover every value Garmin has
+# introduced (newer non-running activity types in particular) - when it
+# can't resolve one, session.get("sport") comes back as a raw int instead of
+# a string. Left as-is, that raw int reaches history.json and crashes the
+# dashboard's capitalize(a.sport) call in renderRetro() if that activity is
+# ever the most recently logged one (found 2026-08-15 via activity
+# 24016477933_ACTIVITY.fit, 2026-08-17 - a Garmin mobility/stretch session,
+# confirmed by Luke). A couple of known overrides, then a safe generic
+# fallback so no future unmapped code can do the same thing.
+SPORT_NAME_OVERRIDES = {
+    86: "mobility",
+}
+
+
+def resolve_sport(raw_sport):
+    if isinstance(raw_sport, str):
+        return raw_sport
+    if isinstance(raw_sport, int) and raw_sport in SPORT_NAME_OVERRIDES:
+        return SPORT_NAME_OVERRIDES[raw_sport]
+    return "activity"
+
+
 def parse_fit(path: Path):
     import fitparse  # pip install fitparse --break-system-packages
     f = fitparse.FitFile(str(path))
@@ -94,7 +116,7 @@ def parse_fit(path: Path):
         "source_file": path.name,
         "date": date,
         "start_time": start_time.isoformat() if isinstance(start_time, (dt.datetime, dt.date)) else None,
-        "sport": session.get("sport"),
+        "sport": resolve_sport(session.get("sport")),
         "distance_mi": round(distance_mi, 2),
         "duration_sec": round(duration_sec, 1),
         "avg_pace_per_mi": fmt_pace(pace_sec_per_mi) if pace_sec_per_mi else None,

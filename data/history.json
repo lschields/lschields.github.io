@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T00:01:01.187488Z",
+  "generated_at": "2026-08-24T00:54:47.253779Z",
   "athlete_snapshot": {
     "ftp": 230,
     "vo2max": 54,
@@ -731,7 +731,7 @@
       "source_file": "24016477933_ACTIVITY.fit",
       "date": "2026-08-17",
       "start_time": "2026-08-17T23:34:08",
-      "sport": 86,
+      "sport": "mobility",
       "distance_mi": 0,
       "duration_sec": 1988.7,
       "avg_pace_per_mi": null,
