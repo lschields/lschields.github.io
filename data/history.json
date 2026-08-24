@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T19:00:06.284576Z",
+  "generated_at": "2026-08-24T00:01:01.187488Z",
   "athlete_snapshot": {
     "ftp": 230,
     "vo2max": 54,
@@ -292,6 +292,30 @@
       "sleep_light_pct": 61,
       "sleep_feedback": "positive_long_and_deep",
       "hrv": 59
+    },
+    {
+      "date": "2026-08-22",
+      "hrv": 60,
+      "resting_hr": 45
+    },
+    {
+      "date": "2026-08-23",
+      "hrv_status": "balanced",
+      "hrv_last_night_avg": 56,
+      "hrv_7day_avg": 61,
+      "training_readiness_score": 55,
+      "training_readiness_level": "moderate",
+      "body_battery_high": 84,
+      "resting_hr": 46,
+      "resting_hr_7day_avg": 45,
+      "avg_stress_level": 21,
+      "sleep_score": 80,
+      "sleep_total_hours": 6.9,
+      "sleep_deep_pct": 25,
+      "sleep_rem_pct": 21,
+      "sleep_light_pct": 54,
+      "sleep_feedback": "positive_deep",
+      "hrv": 56
     }
   ],
   "load_history": [
@@ -379,6 +403,17 @@
       "acwr": 1.3,
       "training_status": "productive",
       "recovery_time_hours": 13.2,
+      "vo2max": 54,
+      "lthr": 163,
+      "weight_kg": 72.1
+    },
+    {
+      "date": "2026-08-23",
+      "atl": 421,
+      "ctl": 328,
+      "acwr": 1.2,
+      "training_status": "productive",
+      "recovery_time_hours": 5.6,
       "vo2max": 54,
       "lthr": 163,
       "weight_kg": 72.1
@@ -771,6 +806,46 @@
       "total_ascent_m": 16,
       "total_calories": 496,
       "total_training_effect": 3.3
+    },
+    {
+      "source_file": "24078011440_ACTIVITY.fit",
+      "date": "2026-08-22",
+      "start_time": "2026-08-22T21:03:56",
+      "sport": "running",
+      "distance_mi": 7.0,
+      "duration_sec": 3772.5,
+      "avg_pace_per_mi": "8:59",
+      "avg_pace_sec_per_mi": 538.5,
+      "avg_hr": 141,
+      "max_hr": 146,
+      "avg_power": 325,
+      "avg_cadence_spm": 164,
+      "avg_vertical_oscillation_mm": 96.2,
+      "avg_stance_time_ms": 280.1,
+      "avg_stance_time_balance_pct": 49.83,
+      "total_ascent_m": 39,
+      "total_calories": 781,
+      "total_training_effect": 3.6
+    },
+    {
+      "source_file": "24090976935_ACTIVITY.fit",
+      "date": "2026-08-23",
+      "start_time": "2026-08-23T19:26:14",
+      "sport": "walking",
+      "distance_mi": 4.78,
+      "duration_sec": 5755.9,
+      "avg_pace_per_mi": "20:04",
+      "avg_pace_sec_per_mi": 1203.7,
+      "avg_hr": 91,
+      "max_hr": 113,
+      "avg_power": null,
+      "avg_cadence_spm": null,
+      "avg_vertical_oscillation_mm": null,
+      "avg_stance_time_ms": null,
+      "avg_stance_time_balance_pct": null,
+      "total_ascent_m": 23,
+      "total_calories": 488,
+      "total_training_effect": 1.0
     }
   ],
   "races": [
