@@ -201,13 +201,17 @@ function kpiTooltip(text) {
   return { attr: `data-tooltip="${escapeAttr(text)}"`, icon: `<i class="kpi-info-icon">i</i>` };
 }
 
+// Handles tap-to-toggle for both KPI cards and the hoverable chart-legend
+// chips (HRV/RHR/ATL/CTL/ACWR recent-readings tooltips) - same CSS pattern,
+// one shared selector list so touch devices (no :hover) can open either.
+const TOOLTIP_HOSTS = ".kpi-card[data-tooltip], .chart-legend-item-hoverable[data-tooltip]";
 function initKPITooltips() {
   document.addEventListener("click", (e) => {
-    const card = e.target.closest(".kpi-card[data-tooltip]");
-    document.querySelectorAll(".kpi-card.tooltip-open").forEach(c => {
-      if (c !== card) c.classList.remove("tooltip-open");
+    const host = e.target.closest(TOOLTIP_HOSTS);
+    document.querySelectorAll(".tooltip-open").forEach(c => {
+      if (c !== host) c.classList.remove("tooltip-open");
     });
-    if (card) card.classList.toggle("tooltip-open");
+    if (host) host.classList.toggle("tooltip-open");
   });
 }
 
@@ -788,14 +792,49 @@ function makeChart(canvasId, config) {
 
 // Renders the small colored-dot + label row above a chart (replaces
 // Chart.js's built-in legend, which ate into the plot area and looked
-// cramped on a wide, short chart). `items` is [{ label, color }, ...].
+// cramped on a wide, short chart). `items` is [{ label, color, tooltip? }] -
+// `tooltip`, if present, makes that chip hoverable/tappable with a
+// recent-readings summary (see seriesTooltip() below), reusing the same
+// data-tooltip CSS pattern as the KPI cards.
 function renderChartLegend(containerId, items) {
   const el = document.getElementById(containerId);
   if (!el) return;
-  el.innerHTML = items.map(item => `
-    <span class="chart-legend-item">
-      <span class="chart-legend-dot" style="background:${item.color}"></span>${item.label}
-    </span>`).join("");
+  el.innerHTML = items.map(item => {
+    const tt = item.tooltip ? kpiTooltip(item.tooltip) : { attr: "", icon: "" };
+    return `
+    <span class="chart-legend-item${tt.attr ? " chart-legend-item-hoverable" : ""}" ${tt.attr}>
+      <span class="chart-legend-dot" style="background:${item.color}"></span>${item.label}${tt.icon}
+    </span>`;
+  }).join("");
+}
+
+// Builds a "last N readings + trend" tooltip string for a chart-legend chip,
+// e.g. "HRV - last 4 readings: Aug 10: 55ms · Aug 11: 58ms · ... Trending up
+// (+5ms over this stretch)." Recomputed from `points` on every renderCharts()
+// call (same live-data pattern as the KPI card tooltips - see the comment
+// above kpiTooltip()), so it automatically reflects new Garmin data with no
+// separate refresh step; it does NOT poll in the background, only updates
+// the next time the page loads/re-renders with fresh history.json data.
+function seriesTooltip(label, points, opts = {}) {
+  const clean = points.filter(p => p.value !== null && p.value !== undefined && !Number.isNaN(p.value));
+  if (!clean.length) return "";
+  const n = Math.min(opts.count || 4, clean.length);
+  const recent = clean.slice(-n);
+  const unit = opts.unit || "";
+  const decimals = opts.decimals ?? 0;
+  const fmt = v => (decimals ? v.toFixed(decimals) : Math.round(v));
+  const readingsStr = recent.map(p => `${fmtDateShort(p.date)}: ${fmt(p.value)}${unit}`).join(" · ");
+
+  let trendPhrase = "holding steady";
+  if (recent.length > 1) {
+    const delta = recent[recent.length - 1].value - recent[0].value;
+    const flat = opts.flatThreshold ?? 0;
+    if (delta > flat) trendPhrase = `trending up (+${fmt(Math.abs(delta))}${unit} over this stretch)`;
+    else if (delta < -flat) trendPhrase = `trending down (-${fmt(Math.abs(delta))}${unit} over this stretch)`;
+  }
+
+  const extra = opts.extra ? opts.extra(recent[recent.length - 1].value) : "";
+  return `${label} - last ${recent.length} reading${recent.length === 1 ? "" : "s"}: ${readingsStr}. ${capitalize(trendPhrase)}.${extra ? " " + extra : ""}`;
 }
 
 function renderCharts(plan, history) {
@@ -816,10 +855,12 @@ function renderCharts(plan, history) {
     return;
   }
 
-  const accent = cssVar("--accent");
-  const good = cssVar("--good");
-  const warn = cssVar("--warn");
-  const bad = cssVar("--bad");
+  // Dedicated chart-series palette (see the CSS custom properties for why
+  // this isn't just --accent/--good/--warn/--bad reused).
+  const c1 = cssVar("--chart-1"); // blue
+  const c2 = cssVar("--chart-2"); // green
+  const c3 = cssVar("--chart-3"); // amber
+  const c4 = cssVar("--chart-4"); // red/coral
 
   const pool = buildActivityPool(history);
   const labels = plan.weeks.map(w => "W" + w.week_num);
@@ -834,36 +875,38 @@ function renderCharts(plan, history) {
   });
 
   renderChartLegend("chart-mileage-legend", [
-    { label: "Planned", color: hexToRgba(accent, 0.45) },
-    { label: "Actual", color: good },
+    { label: "Planned", color: hexToRgba(c1, 0.55) },
+    { label: "Actual", color: c2 },
   ]);
   makeChart("chart-mileage", {
     type: "bar",
     data: {
       labels,
       datasets: [
-        { label: "Planned", data: planned, backgroundColor: hexToRgba(accent, 0.3), borderRadius: 3 },
-        { label: "Actual", data: actual, backgroundColor: hexToRgba(good, 0.75), borderRadius: 3 },
+        { label: "Planned", data: planned, backgroundColor: hexToRgba(c1, 0.35), borderRadius: 3, categoryPercentage: 0.7, barPercentage: 0.85 },
+        { label: "Actual", data: actual, backgroundColor: hexToRgba(c2, 0.8), borderRadius: 3, categoryPercentage: 0.7, barPercentage: 0.85 },
       ],
     },
     options: chartOptions({ suffix: " mi" }),
   });
 
   const readiness = (history.readiness_history || []).slice().sort((a, b) => a.date.localeCompare(b.date));
+  const hrvPoints = readiness.map(r => ({ date: r.date, value: r.hrv ?? r.hrv_last_night_avg ?? null }));
+  const rhrPoints = readiness.map(r => ({ date: r.date, value: r.resting_hr ?? null }));
   renderChartLegend("chart-hrv-legend", [
-    { label: "HRV", color: accent },
-    { label: "Resting HR", color: warn },
+    { label: "HRV", color: c1, tooltip: seriesTooltip("HRV", hrvPoints, { unit: " ms", flatThreshold: 2 }) },
+    { label: "Resting HR", color: c3, tooltip: seriesTooltip("Resting HR", rhrPoints, { unit: " bpm", flatThreshold: 1 }) },
   ]);
   makeChart("chart-hrv", {
     type: "line",
     data: {
       labels: readiness.map(r => fmtDateShort(r.date)),
       datasets: [
-        { label: "HRV", data: readiness.map(r => r.hrv ?? r.hrv_last_night_avg ?? null),
-          borderColor: accent, backgroundColor: "transparent", tension: 0.3, spanGaps: true,
+        { label: "HRV", data: hrvPoints.map(p => p.value),
+          borderColor: c1, backgroundColor: "transparent", tension: 0.3, spanGaps: true,
           pointRadius: 0, pointHoverRadius: 4, borderWidth: 2 },
-        { label: "Resting HR", data: readiness.map(r => r.resting_hr ?? null),
-          borderColor: warn, backgroundColor: "transparent", tension: 0.3, spanGaps: true, yAxisID: "y1",
+        { label: "Resting HR", data: rhrPoints.map(p => p.value),
+          borderColor: c3, backgroundColor: "transparent", tension: 0.3, spanGaps: true, yAxisID: "y1",
           pointRadius: 0, pointHoverRadius: 4, borderWidth: 2 },
       ],
     },
@@ -871,21 +914,37 @@ function renderCharts(plan, history) {
   });
 
   const load = (history.load_history || []).slice().sort((a, b) => a.date.localeCompare(b.date));
+  const atlPoints = load.map(l => ({ date: l.date, value: l.atl ?? null }));
+  const ctlPoints = load.map(l => ({ date: l.date, value: l.ctl ?? null }));
+  const acwrPoints = load.map(l => ({ date: l.date, value: l.acwr ?? null }));
+  const ACWR_ACTIONS = {
+    low: "Lower than ideal - there's room to safely add volume.",
+    safe: "Right in the 0.8-1.3 sweet spot - the current ramp rate is sustainable.",
+    caution: "Climbing into the caution zone - keep an eye on how the next few days feel.",
+    high: "Above 1.5 - the clearest 'ease up' signal on this chart. Worth trimming volume this week.",
+  };
+  const acwrExtra = v => {
+    if (v == null) return "";
+    if (v < 0.8) return ACWR_ACTIONS.low;
+    if (v <= 1.3) return ACWR_ACTIONS.safe;
+    if (v <= 1.5) return ACWR_ACTIONS.caution;
+    return ACWR_ACTIONS.high;
+  };
   renderChartLegend("chart-load-legend", [
-    { label: "ATL (fatigue)", color: bad },
-    { label: "CTL (fitness)", color: accent },
-    { label: "ACWR", color: warn },
+    { label: "ATL (fatigue)", color: c4, tooltip: seriesTooltip("ATL (fatigue)", atlPoints, { decimals: 1, flatThreshold: 1 }) },
+    { label: "CTL (fitness)", color: c1, tooltip: seriesTooltip("CTL (fitness)", ctlPoints, { decimals: 1, flatThreshold: 1 }) },
+    { label: "ACWR", color: c3, tooltip: seriesTooltip("ACWR", acwrPoints, { decimals: 2, flatThreshold: 0.05, extra: acwrExtra }) },
   ]);
   makeChart("chart-load", {
     type: "line",
     data: {
       labels: load.map(l => fmtDateShort(l.date)),
       datasets: [
-        { label: "ATL (fatigue)", data: load.map(l => l.atl ?? null), borderColor: bad, tension: 0.3,
+        { label: "ATL (fatigue)", data: atlPoints.map(p => p.value), borderColor: c4, tension: 0.3,
           pointRadius: 0, pointHoverRadius: 4, borderWidth: 2 },
-        { label: "CTL (fitness)", data: load.map(l => l.ctl ?? null), borderColor: accent, tension: 0.3,
+        { label: "CTL (fitness)", data: ctlPoints.map(p => p.value), borderColor: c1, tension: 0.3,
           pointRadius: 0, pointHoverRadius: 4, borderWidth: 2 },
-        { label: "ACWR", data: load.map(l => l.acwr ?? null), borderColor: warn, tension: 0.3, yAxisID: "y1",
+        { label: "ACWR", data: acwrPoints.map(p => p.value), borderColor: c3, tension: 0.3, yAxisID: "y1",
           pointRadius: 0, pointHoverRadius: 4, borderWidth: 2 },
       ],
     },
@@ -912,6 +971,7 @@ function chartOptions(yFormat, beginAtZero = true) {
     responsive: true,
     maintainAspectRatio: false,
     interaction: { mode: "index", intersect: false },
+    layout: { padding: { top: 4, right: 10, left: 4, bottom: 0 } },
     plugins: {
       legend: { display: false },
       tooltip: {
@@ -927,7 +987,15 @@ function chartOptions(yFormat, beginAtZero = true) {
     },
     scales: {
       x: {
-        ticks: { color: tickColor, font: { size: 11 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 10 },
+        // autoSkipPadding enforces a minimum pixel gap between ticks so
+        // labels never crowd/overlap even if maxTicksLimit alone would
+        // still pack them too tight for the available width - this (plus
+        // the larger 12px font) is the fix for the "smooshed horizontally"
+        // look. maxTicksLimit is just a secondary cap.
+        ticks: {
+          color: tickColor, font: { size: 12 }, padding: 6,
+          maxRotation: 0, autoSkip: true, autoSkipPadding: 24, maxTicksLimit: 9,
+        },
         grid: { display: false },
       },
       y: {
@@ -935,7 +1003,8 @@ function chartOptions(yFormat, beginAtZero = true) {
         grace: "10%",
         ticks: {
           color: tickColor,
-          font: { size: 11 },
+          font: { size: 12 },
+          padding: 6,
           maxTicksLimit: 6,
           callback: v => yFormat?.suffix ? `${v}${yFormat.suffix}` : v,
         },
@@ -956,7 +1025,8 @@ function dualAxisChartOptions(yFormat, y1Format) {
     grace: "10%",
     ticks: {
       color: tickColor,
-      font: { size: 11 },
+      font: { size: 12 },
+      padding: 6,
       maxTicksLimit: 6,
       callback: v => y1Format?.suffix ? `${v}${y1Format.suffix}` : v,
     },

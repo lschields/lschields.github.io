@@ -33,6 +33,16 @@
   --gauge-bad: #8f4a44;
   --gauge-track: #2a2e3a;
 
+  /* Dedicated chart-series palette - deliberately NOT reusing --accent/
+     --good/--warn/--bad. --accent (maroon) and --bad (coral) sit too close
+     in hue to tell apart as adjacent line colors on a chart; this 4-hue set
+     (blue/green/amber/red) is chosen for mutual contrast first, semantic
+     meaning second. */
+  --chart-1: #5b9bff; /* blue */
+  --chart-2: #4ecf9a; /* green */
+  --chart-3: #e8b64a; /* amber */
+  --chart-4: #f2705c; /* red/coral */
+
   --tag-long-bg: #f3efe6;
   --tag-long-text: #2a2621;
 
@@ -69,6 +79,14 @@
   --gauge-warn: #6b5122;
   --gauge-bad: #6e2d22;
   --gauge-track: #e2dbc9;
+
+  /* Same reasoning as the dark-theme block above - darkened/desaturated
+     enough for contrast against the cream background while staying
+     distinguishable from each other. */
+  --chart-1: #2f5aa8; /* blue */
+  --chart-2: #1f6b4d; /* green */
+  --chart-3: #8a6520; /* amber */
+  --chart-4: #a83e2e; /* red/coral */
 
   --tag-long-bg: #12151c;
   --tag-long-text: #f0e9e5;
@@ -960,12 +978,71 @@ table.simple td.strong { color: var(--text); font-weight: 600; }
   gap: 6px;
   font-size: 12px;
   color: var(--text-dim);
+  position: relative;
 }
 .chart-legend-dot {
   width: 9px;
   height: 9px;
   border-radius: 50%;
   flex: 0 0 auto;
+}
+
+/* Recent-readings tooltip on hoverable legend chips (HRV/RHR/ATL/CTL/ACWR) -
+   same visual language as the KPI card tooltips (.kpi-card[data-tooltip]),
+   but anchored to open below-left instead of centered-above: these chips
+   sit right under the panel header with little room above, and near the
+   left/right panel edges where a centered bubble would overflow. Content is
+   rebuilt every render from the live data (see seriesTooltip() in app.js),
+   so it's never stale copy. */
+.chart-legend-item-hoverable { cursor: help; }
+.chart-legend-item-hoverable .kpi-info-icon { position: static; margin-left: 1px; }
+.chart-legend-item-hoverable[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 0;
+  top: 100%;
+  transform: translateY(-4px);
+  margin-top: 10px;
+  width: 240px;
+  max-width: 80vw;
+  background: var(--panel-alt);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 11.5px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-transform: none;
+  letter-spacing: normal;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.12s ease, transform 0.12s ease;
+  z-index: 50;
+  pointer-events: none;
+}
+.chart-legend-item-hoverable[data-tooltip]::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 100%;
+  transform: translateY(-4px);
+  margin-top: 3px;
+  border: 6px solid transparent;
+  border-bottom-color: var(--panel-alt);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.12s ease;
+  z-index: 50;
+}
+.chart-legend-item-hoverable[data-tooltip]:hover::after,
+.chart-legend-item-hoverable[data-tooltip]:hover::before,
+.chart-legend-item-hoverable[data-tooltip].tooltip-open::after,
+.chart-legend-item-hoverable[data-tooltip].tooltip-open::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 .page-footer {
