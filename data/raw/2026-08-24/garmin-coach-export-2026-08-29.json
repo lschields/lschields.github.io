@@ -1,0 +1,159 @@
+{
+  "exported_at": "2026-08-29T21:24:10.694Z",
+  "athlete": {
+    "ftp": 230,
+    "vo2max": 54,
+    "weight_kg": 72.1,
+    "lthr": 163,
+    "zones": {
+      "power": [
+        {
+          "zone": 1,
+          "floor_w": 0
+        },
+        {
+          "zone": 2,
+          "floor_w": 129
+        },
+        {
+          "zone": 3,
+          "floor_w": 175
+        },
+        {
+          "zone": 4,
+          "floor_w": 209
+        },
+        {
+          "zone": 5,
+          "floor_w": 244
+        },
+        {
+          "zone": 6,
+          "floor_w": 278
+        },
+        {
+          "zone": 7,
+          "floor_w": 347
+        }
+      ],
+      "hr": [
+        {
+          "zone": 1,
+          "floor_bpm": 106
+        },
+        {
+          "zone": 2,
+          "floor_bpm": 130
+        },
+        {
+          "zone": 3,
+          "floor_bpm": 145
+        },
+        {
+          "zone": 4,
+          "floor_bpm": 156
+        },
+        {
+          "zone": 5,
+          "floor_bpm": 163
+        }
+      ]
+    }
+  },
+  "readiness": {
+    "hrv_status": "balanced",
+    "hrv_last_night_avg": 64,
+    "hrv_7day_avg": 61,
+    "training_readiness_score": 43,
+    "training_readiness_level": "low",
+    "body_battery_high": 98,
+    "resting_hr": 43,
+    "resting_hr_7day_avg": 44,
+    "avg_stress_level": 31,
+    "sleep_score": 81,
+    "sleep_total_hours": 7.3,
+    "sleep_deep_pct": 16,
+    "sleep_rem_pct": 24,
+    "sleep_light_pct": 61,
+    "sleep_feedback": "positive_long_and_refreshing"
+  },
+  "load": {
+    "atl": 538,
+    "ctl": 411,
+    "acwr": 1.3,
+    "training_status": "productive",
+    "recovery_time_hours": 35.2
+  },
+  "trends": {
+    "hrv_7d": [
+      {
+        "date": "2026-08-22",
+        "hrv": 60
+      },
+      {
+        "date": "2026-08-23",
+        "hrv": 56
+      },
+      {
+        "date": "2026-08-24",
+        "hrv": 45
+      },
+      {
+        "date": "2026-08-25",
+        "hrv": 73
+      },
+      {
+        "date": "2026-08-26",
+        "hrv": 61
+      },
+      {
+        "date": "2026-08-27",
+        "hrv": 66
+      },
+      {
+        "date": "2026-08-28",
+        "hrv": 69
+      },
+      {
+        "date": "2026-08-29",
+        "hrv": 64
+      }
+    ],
+    "resting_hr_7d": [
+      {
+        "date": "2026-08-22",
+        "resting_hr": 45
+      },
+      {
+        "date": "2026-08-23",
+        "resting_hr": 46
+      },
+      {
+        "date": "2026-08-24",
+        "resting_hr": 42
+      },
+      {
+        "date": "2026-08-25",
+        "resting_hr": 42
+      },
+      {
+        "date": "2026-08-26",
+        "resting_hr": 44
+      },
+      {
+        "date": "2026-08-27",
+        "resting_hr": 44
+      },
+      {
+        "date": "2026-08-28",
+        "resting_hr": 44
+      },
+      {
+        "date": "2026-08-29",
+        "resting_hr": 43
+      }
+    ],
+    "vo2max_weekly": []
+  },
+  "recent_activities": []
+}
