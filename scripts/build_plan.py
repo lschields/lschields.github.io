@@ -35,6 +35,46 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "plan.json"
+HISTORY_PATH = ROOT / "data" / "history.json"
+
+HR_ZONE_NAMES = ["Warmup", "Easy", "Aerobic / Steady", "Threshold", "Max"]
+# Last zone has no floor above it to derive a ceiling from - keep the same
+# +26bpm headroom the original hand-set Zone 5 (164-190) used.
+LAST_ZONE_CEIL_PAD = 26
+
+
+def live_hr_zones_and_lthr():
+    """Read the most recent Garmin-reported HR zones + LTHR straight out of
+    data/history.json (populated by scripts/parse_garmin.py's athlete_snapshot,
+    refreshed on every Garmin Coach export upload), instead of relying on a
+    hand-typed snapshot here that silently goes stale as LTHR drifts.
+
+    Returns (hr_zones, lthr_bpm) or (None, None) if history.json doesn't have
+    zone data yet, so callers can fall back to a hardcoded default.
+    """
+    if not HISTORY_PATH.exists():
+        return None, None
+    try:
+        snapshot = json.loads(HISTORY_PATH.read_text()).get("athlete_snapshot", {})
+    except (json.JSONDecodeError, OSError):
+        return None, None
+
+    raw_zones = snapshot.get("zones", {}).get("hr", [])
+    lthr = snapshot.get("lthr")
+    if not raw_zones:
+        return None, lthr
+
+    raw_zones = sorted(raw_zones, key=lambda z: z["zone"])
+    hr_zones = []
+    for i, z in enumerate(raw_zones):
+        floor_bpm = z["floor_bpm"]
+        if i + 1 < len(raw_zones):
+            ceil_bpm = raw_zones[i + 1]["floor_bpm"] - 1
+        else:
+            ceil_bpm = floor_bpm + LAST_ZONE_CEIL_PAD
+        name = HR_ZONE_NAMES[i] if i < len(HR_ZONE_NAMES) else f"Zone {z['zone']}"
+        hr_zones.append({"zone": z["zone"], "name": name, "floor_bpm": floor_bpm, "ceil_bpm": ceil_bpm})
+    return hr_zones, lthr
 
 RACE_DATE = dt.date(2026, 11, 1)  # Cambridge Half Marathon, Sunday
 GOAL_TIME_SEC = 88 * 60  # 1:28:00
@@ -77,6 +117,12 @@ ATHLETE = {
         "Plan spans 13 weeks, Aug 3 - Nov 1 2026 - Week 1 (Aug 3-9) picks up the week Luke had "
         "already started under the artifact's own schedule before this dashboard existed.",
     ],
+    # Fallback values only - used if data/history.json has no Garmin Coach
+    # export yet. Once a coach export has been ingested, live_hr_zones_and_lthr()
+    # below overwrites these with whatever Garmin most recently reported, so
+    # this dict never goes stale again the way the old hand-typed Aug 6
+    # snapshot did (LTHR drifted 169->163 over three weeks without this
+    # updating once).
     "hr_zones": [
         {"zone": 1, "name": "Warmup", "floor_bpm": 107, "ceil_bpm": 130},
         {"zone": 2, "name": "Easy", "floor_bpm": 131, "ceil_bpm": 144},
@@ -108,6 +154,12 @@ ATHLETE = {
                            "come back in miles 10-12. Chasing pace early rarely ends well.",
     },
 }
+
+_live_hr_zones, _live_lthr = live_hr_zones_and_lthr()
+if _live_hr_zones:
+    ATHLETE["hr_zones"] = _live_hr_zones
+if _live_lthr:
+    ATHLETE["lthr_bpm"] = _live_lthr
 
 # ---------------------------------------------------------------------------
 # Reusable strength / PT circuits (referenced by id from week definitions)

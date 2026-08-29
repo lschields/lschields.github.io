@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T00:06:44.579422Z",
+  "generated_at": "2026-08-29T21:40:27.828410Z",
   "workouts": [
     {
       "date": "2026-08-11",
@@ -105,6 +105,41 @@
       "filename": "2026-08-30_W04_Sun_Recovery_3.5mi.json",
       "path": "data/workouts/week_04/2026-08-30_W04_Sun_Recovery_3.5mi.json",
       "workout_name": "W04 Sun Recovery 3.5mi"
+    },
+    {
+      "date": "2026-09-01",
+      "week": "week_05",
+      "filename": "2026-09-01_W05_Tue_Easy_5.5mi.json",
+      "path": "data/workouts/week_05/2026-09-01_W05_Tue_Easy_5.5mi.json",
+      "workout_name": "W05 Tue Easy 5.5mi"
+    },
+    {
+      "date": "2026-09-02",
+      "week": "week_05",
+      "filename": "2026-09-02_W05_Wed_Easy_5mi.json",
+      "path": "data/workouts/week_05/2026-09-02_W05_Wed_Easy_5mi.json",
+      "workout_name": "W05 Wed Easy 5mi"
+    },
+    {
+      "date": "2026-09-03",
+      "week": "week_05",
+      "filename": "2026-09-03_W05_Thu_Tempo_6mi.json",
+      "path": "data/workouts/week_05/2026-09-03_W05_Thu_Tempo_6mi.json",
+      "workout_name": "W05 Thu Tempo 6mi"
+    },
+    {
+      "date": "2026-09-05",
+      "week": "week_05",
+      "filename": "2026-09-05_W05_Sat_Long_9.5mi.json",
+      "path": "data/workouts/week_05/2026-09-05_W05_Sat_Long_9.5mi.json",
+      "workout_name": "W05 Sat Long 9.5mi"
+    },
+    {
+      "date": "2026-09-06",
+      "week": "week_05",
+      "filename": "2026-09-06_W05_Sun_Recovery_4mi.json",
+      "path": "data/workouts/week_05/2026-09-06_W05_Sun_Recovery_4mi.json",
+      "workout_name": "W05 Sun Recovery 4mi"
     }
   ]
 }
