@@ -116,6 +116,10 @@ ATHLETE = {
         "so paces here are reconciled back to the 1:28 goal and real numbers.",
         "Plan spans 13 weeks, Aug 3 - Nov 1 2026 - Week 1 (Aug 3-9) picks up the week Luke had "
         "already started under the artifact's own schedule before this dashboard existed.",
+        "The Tempo/Threshold and VO2max interval paces below are goal-fitness targets, not what's "
+        "currently prescribed - Weeks 5-8's actual tempo/interval sessions are effort-based (no fixed "
+        "pace) since there's no current hard-effort data yet. The Week 8 time trial is what confirms "
+        "whether these numbers are realistic before Peak-phase paces lock in.",
     ],
     # Fallback values only - used if data/history.json has no Garmin Coach
     # export yet. Once a coach export has been ingested, live_hr_zones_and_lthr()
@@ -630,9 +634,11 @@ add_week(
     5, "base", "Base - Weeks 4-5", "First tempo of the cycle",
     28,
     [
-        "First pace-based quality session shows up Thursday. Keep it honest but controlled - this "
-        "is a toe in the water, not a test. Tempo pace is 6:35-6:45/mi, full stop - don't run it by "
-        "feel or let HR override the pace here.",
+        "First quality session of the cycle shows up Thursday - but there's no current hard-effort "
+        "data to set a real tempo pace from yet (the only reference is pre-layoff/2022 fitness), so "
+        "this and every Build-phase quality session through Week 8 are prescribed by controlled effort, "
+        "not a fixed pace number. Record whatever pace comes out - that's useful data on its own. The "
+        "Week 8 (Sep 24) 10K time trial is what actually sets real target paces from here.",
     ],
     [
         [pt_build_mon()],
@@ -640,8 +646,9 @@ add_week(
          light_touch("calf_raise_straight")],
         [run_session("easy", "Easy run", distance_mi=5, hr_zone=2)],
         [run_session("tempo", "Tempo run", distance_mi=6,
-                      pace="1.5mi warmup, 3mi @ 6:35-6:45, 1.5mi cooldown",
-                      details="3 continuous miles at threshold pace - controlled hard, not a race.")],
+                      pace="1.5mi warmup, 3mi continuous @ controlled-hard effort, 1.5mi cooldown",
+                      details="Comfortably hard, not a race - sustainable the whole 3 miles. No fixed "
+                              "pace target yet; record whatever pace results.")],
         [pt_build_fri()],
         [run_session("long", "Long run", distance_mi=9.5, hr_zone=2)],
         [run_session("recovery", "Recovery run", distance_mi=4, hr_zone=1)],
@@ -656,15 +663,19 @@ add_week(
         "From here, Tue and Thu carry the quality (intervals, then tempo/goal-pace work), Wed stays "
         "easy between them, and Saturday's long run stays aerobic. This is the hard-easy-hard "
         "shape that makes the quality days actually count.",
+        "Still no fixed pace numbers on Tue/Thu - same reasoning as Week 5, effort-based until the "
+        "Week 8 time trial gives real data.",
     ],
     [
         [pt_build_mon()],
         [run_session("intervals", "VO2max intervals", distance_mi=6,
-                      pace="1.5mi warmup, 5 x 800m @ 6:00-6:10/mi w/ 400m jog recovery, 1mi cooldown",
-                      details="Hard but repeatable - if rep 5 falls apart, ease off rep 4 next time.")],
+                      pace="1.5mi warmup, 5 x 800m @ hard, repeatable effort, 400m jog recovery, 1mi cooldown",
+                      details="Hard but repeatable - if rep 5 falls apart, ease off rep 4 next time. "
+                              "No fixed pace target yet; record pace per rep.")],
         [run_session("easy", "Easy run", distance_mi=5.5, hr_zone=2)],
         [run_session("tempo", "Tempo run", distance_mi=6.5,
-                      pace="1.5mi warmup, 3.5mi @ 6:35-6:45, 1mi cooldown")],
+                      pace="1.5mi warmup, 3.5mi continuous @ controlled-hard effort, 1mi cooldown",
+                      details="Comfortably hard, controlled - one more data point before the time trial.")],
         [pt_build_fri()],
         [run_session("long", "Long run", distance_mi=10, hr_zone=2)],
         [run_session("recovery", "Recovery run", distance_mi=4, hr_zone=1)],
@@ -682,10 +693,13 @@ add_week(
     [
         [pt_build_mon()],
         [run_session("intervals", "VO2max intervals", distance_mi=7,
-                      pace="1.5mi warmup, 5 x 1mi @ 6:05-6:15/mi w/ 3min jog recovery, 1mi cooldown")],
+                      pace="1.5mi warmup, 5 x 1mi @ hard, repeatable effort, 3min jog recovery, 1mi cooldown",
+                      details="Repeatable across all 5 reps - if it's not repeatable, it's too fast. "
+                              "Record pace per rep.")],
         [run_session("easy", "Easy run", distance_mi=6, hr_zone=2)],
         [run_session("tempo", "Tempo run", distance_mi=7,
-                      pace="1.5mi warmup, 4mi @ 6:35-6:45, 1.5mi cooldown")],
+                      pace="1.5mi warmup, 4mi continuous @ controlled-hard effort, 1.5mi cooldown",
+                      details="Last quality session before the Week 8 time trial - keep it controlled.")],
         [pt_build_fri()],
         [run_session("long", "Long run", distance_mi=11, hr_zone=2)],
         [run_session("recovery", "Recovery run", distance_mi=4, hr_zone=1)],
@@ -706,7 +720,9 @@ add_week(
     [
         [pt_build_mon()],
         [run_session("intervals", "Short intervals", distance_mi=5,
-                      pace="1.5mi warmup, 4 x 800m @ 6:05-6:15/mi w/ 400m jog recovery, 1mi cooldown")],
+                      pace="1.5mi warmup, 4 x 800m @ moderately hard effort, 400m jog recovery, 1mi cooldown",
+                      details="Short and controlled - two days out from Thursday's time trial, this "
+                              "isn't the place to test limits.")],
         [run_session("easy", "Easy + strides", distance_mi=4, hr_zone=2,
                       details="4 x 20s strides, keep it easy two days out from the time trial.")],
         [run_session("race", "10K time trial", distance_mi=6.2,

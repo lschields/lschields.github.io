@@ -2,9 +2,9 @@
   "workoutId": null,
   "ownerId": 585149926,
   "workoutName": "W05 Wed Easy 5mi",
-  "description": "EASY RUN \u2014 5 miles | Zone 2 | HR 130-144 bpm\n\nPURPOSE: Pure aerobic base building. Zone 2 running trains fat oxidation, builds mitochondrial density, and improves cardiac stroke volume - without generating meaningful fatigue.\n\nFOCUS: Let HR govern pace completely. If it's hot/humid you may need to run slower than usual to stay under 144 bpm - that's correct, don't chase pace targets.\n\nYOUR DATA: Your last 3 logged runs averaged 139-142 bpm at 8:27-9:02/mi.\n\nFEEL: Fully conversational. You should be able to speak in complete sentences with zero effort.",
-  "updatedDate": "2026-08-29T21:40:27.0",
-  "createdDate": "2026-08-29T21:40:27.0",
+  "description": "EASY RUN \u2014 5 miles | Zone 2 | HR 130-144 bpm\n\nPURPOSE: Pure aerobic base building. Zone 2 running trains fat oxidation, builds mitochondrial density, and improves cardiac stroke volume - without generating meaningful fatigue.\n\nFOCUS: Let HR govern pace completely. If it's hot/humid you may need to run slower than usual to stay under 144 bpm - that's correct, don't chase pace targets.\n\nYOUR DATA: Your last 3 logged runs averaged 121-142 bpm at 8:27-10:17/mi.\n\nFEEL: Fully conversational. You should be able to speak in complete sentences with zero effort.",
+  "updatedDate": "2026-08-30T13:54:34.0",
+  "createdDate": "2026-08-30T13:54:34.0",
   "sportType": {
     "sportTypeId": 1,
     "sportTypeKey": "running",
@@ -33,7 +33,7 @@
       "poolLengthUnit": null,
       "poolLength": null,
       "avgTrainingSpeed": 2.8,
-      "estimatedDurationInSecs": 2633,
+      "estimatedDurationInSecs": 2776,
       "estimatedDistanceInMeters": 8047,
       "estimatedDistanceUnit": {
         "unitId": 2,

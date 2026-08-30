@@ -150,27 +150,48 @@ def recent_evidence(history, kind, before_date):
 
 
 def build_description(kind_label, distance_mi, zone_num, floor_bpm, ceil_bpm, details, evidence):
-    purpose = {
-        "Easy": "Pure aerobic base building. Zone 2 running trains fat oxidation, builds mitochondrial "
-                "density, and improves cardiac stroke volume - without generating meaningful fatigue.",
-        "Long": "Time on feet at an aerobic effort - builds fatigue resistance, capillary density, and "
-                "fuel efficiency for race-day distance without digging into recovery.",
-        "Recovery": "Active recovery. The point is blood flow and turnover, not training stimulus - "
-                    "this run should barely register as effort.",
-    }.get(kind_label, "Aerobic, HR-governed effort.")
-    lines = [
-        f"{kind_label.upper()} RUN — {distance_mi} miles | Zone {zone_num} | HR {floor_bpm}-{ceil_bpm} bpm",
-        "",
-        f"PURPOSE: {purpose}",
-        "",
-        "FOCUS: Let HR govern pace completely. If it's hot/humid you may need to run slower than usual "
-        f"to stay under {ceil_bpm} bpm - that's correct, don't chase pace targets.",
-    ]
+    if zone_num is not None:
+        # HR-governed session (easy/long/recovery).
+        purpose = {
+            "Easy": "Pure aerobic base building. Zone 2 running trains fat oxidation, builds mitochondrial "
+                    "density, and improves cardiac stroke volume - without generating meaningful fatigue.",
+            "Long": "Time on feet at an aerobic effort - builds fatigue resistance, capillary density, and "
+                    "fuel efficiency for race-day distance without digging into recovery.",
+            "Recovery": "Active recovery. The point is blood flow and turnover, not training stimulus - "
+                        "this run should barely register as effort.",
+        }.get(kind_label, "Aerobic, HR-governed effort.")
+        header = f"{kind_label.upper()} RUN — {distance_mi} miles | Zone {zone_num} | HR {floor_bpm}-{ceil_bpm} bpm"
+        focus = ("Let HR govern pace completely. If it's hot/humid you may need to run slower than usual "
+                  f"to stay under {ceil_bpm} bpm - that's correct, don't chase pace targets.")
+        feel = "Fully conversational. You should be able to speak in complete sentences with zero effort."
+    else:
+        # Pace/effort-based session (tempo/intervals) with no fixed pace target yet - see
+        # build_plan.py Weeks 5-8: there's no current hard-effort data to set a real pace
+        # from, so these are prescribed by controlled effort until the Week 8 time trial.
+        purpose = {
+            "Tempo": "Sustained comfortably-hard effort - trains lactate clearance and the ability to "
+                     "hold a hard pace under control.",
+            "Intervals": "Hard, repeatable efforts near current top-end aerobic capacity - trains VO2max "
+                         "and running economy. Consistent effort rep-to-rep matters more than a fast first rep.",
+        }.get(kind_label, "Controlled hard effort.")
+        header = f"{kind_label.upper()} RUN — {distance_mi} miles | Effort-based (no fixed pace yet)"
+        focus = ("No fixed pace target - there's no current hard-effort data to set one honestly yet "
+                  "(the only reference point is pre-layoff/2022 fitness). Run the effort described below "
+                  "and record whatever pace results - that's useful data. The Week 8 10K time trial "
+                  "(Sep 24) sets real target paces from here forward.")
+        feel = {
+            "Tempo": "Comfortably hard - sustainable for the whole segment. Short sentences, not full "
+                     "conversation.",
+            "Intervals": "Hard but repeatable - breathing hard by the end of each rep, but able to hit "
+                         "the next one at the same effort.",
+        }.get(kind_label, "Controlled hard effort.")
+
+    lines = [header, "", f"PURPOSE: {purpose}", "", f"FOCUS: {focus}"]
     if details:
         lines += ["", f"NOTE: {details}"]
     if evidence:
         lines += ["", f"YOUR DATA: {evidence}"]
-    lines += ["", "FEEL: Fully conversational. You should be able to speak in complete sentences with zero effort."]
+    lines += ["", f"FEEL: {feel}"]
     return "\n".join(lines)
 
 
