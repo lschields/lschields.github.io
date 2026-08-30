@@ -117,9 +117,11 @@ ATHLETE = {
         "Plan spans 13 weeks, Aug 3 - Nov 1 2026 - Week 1 (Aug 3-9) picks up the week Luke had "
         "already started under the artifact's own schedule before this dashboard existed.",
         "The Tempo/Threshold and VO2max interval paces below are goal-fitness targets, not what's "
-        "currently prescribed - Weeks 5-8's actual tempo/interval sessions are effort-based (no fixed "
-        "pace) since there's no current hard-effort data yet. The Week 8 time trial is what confirms "
-        "whether these numbers are realistic before Peak-phase paces lock in.",
+        "currently prescribed. Weeks 5-8's actual tempo sessions target Zone 4 (Threshold, live off "
+        "current LTHR) instead - a real current-fitness number, not this goal-derived one. Interval "
+        "sessions stay effort-based (no fixed pace) since HR lags too much on short reps to target "
+        "live, and there's no current hard-effort pace data yet either. The Week 8 time trial confirms "
+        "whether the paces below are realistic before Peak-phase paces lock in.",
     ],
     # Fallback values only - used if data/history.json has no Garmin Coach
     # export yet. Once a coach export has been ingested, live_hr_zones_and_lthr()
@@ -451,7 +453,7 @@ def light_touch(*ids, note=""):
 
 
 def run_session(kind, title, distance_mi=None, duration_min=None, pace=None,
-                 hr_zone=None, details="", note=""):
+                 hr_zone=None, details="", note="", warmup_mi=None, cooldown_mi=None):
     return {
         "type": "run",
         "kind": kind,  # recovery | easy | long | tempo | intervals | mp | race | shakeout
@@ -462,6 +464,11 @@ def run_session(kind, title, distance_mi=None, duration_min=None, pace=None,
         "hr_zone": hr_zone,
         "details": details,
         "note": note,
+        # Only set for structured sessions (tempo/intervals) where the warmup/cooldown
+        # mileage is part of the prescription, not a cosmetic buffer - build_garmin_workouts.py
+        # uses these directly instead of guessing a flat 0.25mi on each end.
+        "warmup_mi": warmup_mi,
+        "cooldown_mi": cooldown_mi,
     }
 
 
@@ -634,21 +641,26 @@ add_week(
     5, "base", "Base - Weeks 4-5", "First tempo of the cycle",
     28,
     [
-        "First quality session of the cycle shows up Thursday - but there's no current hard-effort "
-        "data to set a real tempo pace from yet (the only reference is pre-layoff/2022 fitness), so "
-        "this and every Build-phase quality session through Week 8 are prescribed by controlled effort, "
-        "not a fixed pace number. Record whatever pace comes out - that's useful data on its own. The "
-        "Week 8 (Sep 24) 10K time trial is what actually sets real target paces from here.",
+        "First quality session of the cycle shows up Thursday. Tempo target is now HR-zone based "
+        "(2026-08-30, per Luke) instead of a fixed pace or vague effort cue: hold Zone 4 (Threshold - "
+        "currently ~156-162bpm, just under LTHR) for the continuous portion. That's your actual current "
+        "fitness, sourced live from Garmin (see live_hr_zones_and_lthr() in build_plan.py), not a guess "
+        "- and it updates automatically as LTHR drifts. Whatever pace that HR produces is the honest "
+        "current tempo pace; record it.",
+        "VO2max intervals (from Week 6) stay effort-based rather than HR-zone based - HR takes 60-90s+ "
+        "to stabilize, too slow to be a useful real-time target on 800m-1mi reps. Effort/RPE is the "
+        "physiologically correct call there, not a data gap to fix later.",
     ],
     [
         [pt_build_mon()],
         [run_session("easy", "Easy run", distance_mi=5.5, hr_zone=2),
          light_touch("calf_raise_straight")],
         [run_session("easy", "Easy run", distance_mi=5, hr_zone=2)],
-        [run_session("tempo", "Tempo run", distance_mi=6,
-                      pace="1.5mi warmup, 3mi continuous @ controlled-hard effort, 1.5mi cooldown",
-                      details="Comfortably hard, not a race - sustainable the whole 3 miles. No fixed "
-                              "pace target yet; record whatever pace results.")],
+        [run_session("tempo", "Tempo run", distance_mi=6, hr_zone=4,
+                      warmup_mi=1.5, cooldown_mi=1.5,
+                      details="3 continuous miles held in Zone 4 (Threshold, just under LTHR) - "
+                              "controlled hard, not a race. Whatever pace that HR produces is your "
+                              "real current tempo pace.")],
         [pt_build_fri()],
         [run_session("long", "Long run", distance_mi=9.5, hr_zone=2)],
         [run_session("recovery", "Recovery run", distance_mi=4, hr_zone=1)],
@@ -673,9 +685,10 @@ add_week(
                       details="Hard but repeatable - if rep 5 falls apart, ease off rep 4 next time. "
                               "No fixed pace target yet; record pace per rep.")],
         [run_session("easy", "Easy run", distance_mi=5.5, hr_zone=2)],
-        [run_session("tempo", "Tempo run", distance_mi=6.5,
-                      pace="1.5mi warmup, 3.5mi continuous @ controlled-hard effort, 1mi cooldown",
-                      details="Comfortably hard, controlled - one more data point before the time trial.")],
+        [run_session("tempo", "Tempo run", distance_mi=6.5, hr_zone=4,
+                      warmup_mi=1.5, cooldown_mi=1.5,
+                      details="3.5 continuous miles held in Zone 4 (Threshold, just under LTHR) - "
+                              "controlled, not a race.")],
         [pt_build_fri()],
         [run_session("long", "Long run", distance_mi=10, hr_zone=2)],
         [run_session("recovery", "Recovery run", distance_mi=4, hr_zone=1)],
@@ -697,9 +710,10 @@ add_week(
                       details="Repeatable across all 5 reps - if it's not repeatable, it's too fast. "
                               "Record pace per rep.")],
         [run_session("easy", "Easy run", distance_mi=6, hr_zone=2)],
-        [run_session("tempo", "Tempo run", distance_mi=7,
-                      pace="1.5mi warmup, 4mi continuous @ controlled-hard effort, 1.5mi cooldown",
-                      details="Last quality session before the Week 8 time trial - keep it controlled.")],
+        [run_session("tempo", "Tempo run", distance_mi=7, hr_zone=4,
+                      warmup_mi=1.5, cooldown_mi=1.5,
+                      details="4 continuous miles held in Zone 4 (Threshold, just under LTHR) - "
+                              "last quality session before the Week 8 time trial, keep it controlled.")],
         [pt_build_fri()],
         [run_session("long", "Long run", distance_mi=11, hr_zone=2)],
         [run_session("recovery", "Recovery run", distance_mi=4, hr_zone=1)],

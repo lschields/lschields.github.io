@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T13:54:34.134016Z",
+  "generated_at": "2026-08-30T14:00:07.752737Z",
   "athlete": {
     "name": "Luke",
     "race": {
@@ -23,7 +23,7 @@
       "Goal of 1:28 is real but ambitious - set from the PR/Cambridge-2025 evidence, not the marathon-day result. A Week 8 time trial recalibrates paces before the peak phase locks in.",
       "Plan rebuilt 2026-08-07 around a base template Luke built (cambridge_hm_plan.html): Tue/Wed/Thu/Sat/Sun running, Mon/Fri for PT/prehab, HR-based easy/long/recovery, pace-based tempo/intervals/goal-pace work. That artifact assumed VO2max 55 / LTHR 178 / a 1:25 goal - none of which match verified Garmin data (VO2max 53, LTHR 169 as of 8/7), so paces here are reconciled back to the 1:28 goal and real numbers.",
       "Plan spans 13 weeks, Aug 3 - Nov 1 2026 - Week 1 (Aug 3-9) picks up the week Luke had already started under the artifact's own schedule before this dashboard existed.",
-      "The Tempo/Threshold and VO2max interval paces below are goal-fitness targets, not what's currently prescribed - Weeks 5-8's actual tempo/interval sessions are effort-based (no fixed pace) since there's no current hard-effort data yet. The Week 8 time trial is what confirms whether these numbers are realistic before Peak-phase paces lock in."
+      "The Tempo/Threshold and VO2max interval paces below are goal-fitness targets, not what's currently prescribed. Weeks 5-8's actual tempo sessions target Zone 4 (Threshold, live off current LTHR) instead - a real current-fitness number, not this goal-derived one. Interval sessions stay effort-based (no fixed pace) since HR lags too much on short reps to target live, and there's no current hard-effort pace data yet either. The Week 8 time trial confirms whether the paces below are realistic before Peak-phase paces lock in."
     ],
     "hr_zones": [
       {
@@ -210,7 +210,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "Already logged.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             },
             {
               "type": "pt",
@@ -242,7 +244,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "Already logged.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             },
             {
               "type": "pt",
@@ -274,7 +278,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "Add 4 x 20s strides only if the Achilles has been completely pain-free.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             },
             {
               "type": "pt",
@@ -367,7 +373,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "No pace target - time on feet, nothing more.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -384,7 +392,9 @@
               "pace": null,
               "hr_zone": 1,
               "details": "Should feel almost too easy the whole way.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         }
@@ -478,7 +488,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             },
             {
               "type": "pt",
@@ -510,7 +522,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             },
             {
               "type": "pt",
@@ -542,7 +556,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             },
             {
               "type": "pt",
@@ -635,7 +651,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "No pace target - time on feet, nothing more.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -652,7 +670,9 @@
               "pace": null,
               "hr_zone": 1,
               "details": "Should feel almost too easy the whole way.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         }
@@ -746,7 +766,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             },
             {
               "type": "pt",
@@ -778,7 +800,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "Last 10 min: 4 x 20s relaxed strides, full recovery between.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             },
             {
               "type": "pt",
@@ -810,7 +834,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             },
             {
               "type": "pt",
@@ -903,7 +929,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -920,7 +948,9 @@
               "pace": null,
               "hr_zone": 1,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         }
@@ -1012,7 +1042,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "Last 10 min: 4 x 20s relaxed strides, full recovery between.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             },
             {
               "type": "pt",
@@ -1044,7 +1076,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -1061,7 +1095,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "6 x 20s strides after.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -1139,7 +1175,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -1156,7 +1194,9 @@
               "pace": null,
               "hr_zone": 1,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         }
@@ -1171,7 +1211,8 @@
       "focus": "First tempo of the cycle",
       "target_miles": 28,
       "coach_notes": [
-        "First quality session of the cycle shows up Thursday - but there's no current hard-effort data to set a real tempo pace from yet (the only reference is pre-layoff/2022 fitness), so this and every Build-phase quality session through Week 8 are prescribed by controlled effort, not a fixed pace number. Record whatever pace comes out - that's useful data on its own. The Week 8 (Sep 24) 10K time trial is what actually sets real target paces from here."
+        "First quality session of the cycle shows up Thursday. Tempo target is now HR-zone based (2026-08-30, per Luke) instead of a fixed pace or vague effort cue: hold Zone 4 (Threshold - currently ~156-162bpm, just under LTHR) for the continuous portion. That's your actual current fitness, sourced live from Garmin (see live_hr_zones_and_lthr() in build_plan.py), not a guess - and it updates automatically as LTHR drifts. Whatever pace that HR produces is the honest current tempo pace; record it.",
+        "VO2max intervals (from Week 6) stay effort-based rather than HR-zone based - HR takes 60-90s+ to stabilize, too slow to be a useful real-time target on 800m-1mi reps. Effort/RPE is the physiologically correct call there, not a data gap to fix later."
       ],
       "days": [
         {
@@ -1248,7 +1289,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             },
             {
               "type": "pt",
@@ -1280,7 +1323,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -1294,10 +1339,12 @@
               "title": "Tempo run",
               "distance_mi": 6,
               "duration_min": null,
-              "pace": "1.5mi warmup, 3mi continuous @ controlled-hard effort, 1.5mi cooldown",
-              "hr_zone": null,
-              "details": "Comfortably hard, not a race - sustainable the whole 3 miles. No fixed pace target yet; record whatever pace results.",
-              "note": ""
+              "pace": null,
+              "hr_zone": 4,
+              "details": "3 continuous miles held in Zone 4 (Threshold, just under LTHR) - controlled hard, not a race. Whatever pace that HR produces is your real current tempo pace.",
+              "note": "",
+              "warmup_mi": 1.5,
+              "cooldown_mi": 1.5
             }
           ]
         },
@@ -1375,7 +1422,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -1392,7 +1441,9 @@
               "pace": null,
               "hr_zone": 1,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         }
@@ -1485,7 +1536,9 @@
               "pace": "1.5mi warmup, 5 x 800m @ hard, repeatable effort, 400m jog recovery, 1mi cooldown",
               "hr_zone": null,
               "details": "Hard but repeatable - if rep 5 falls apart, ease off rep 4 next time. No fixed pace target yet; record pace per rep.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -1502,7 +1555,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -1516,10 +1571,12 @@
               "title": "Tempo run",
               "distance_mi": 6.5,
               "duration_min": null,
-              "pace": "1.5mi warmup, 3.5mi continuous @ controlled-hard effort, 1mi cooldown",
-              "hr_zone": null,
-              "details": "Comfortably hard, controlled - one more data point before the time trial.",
-              "note": ""
+              "pace": null,
+              "hr_zone": 4,
+              "details": "3.5 continuous miles held in Zone 4 (Threshold, just under LTHR) - controlled, not a race.",
+              "note": "",
+              "warmup_mi": 1.5,
+              "cooldown_mi": 1.5
             }
           ]
         },
@@ -1597,7 +1654,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -1614,7 +1673,9 @@
               "pace": null,
               "hr_zone": 1,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         }
@@ -1706,7 +1767,9 @@
               "pace": "1.5mi warmup, 5 x 1mi @ hard, repeatable effort, 3min jog recovery, 1mi cooldown",
               "hr_zone": null,
               "details": "Repeatable across all 5 reps - if it's not repeatable, it's too fast. Record pace per rep.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -1723,7 +1786,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -1737,10 +1802,12 @@
               "title": "Tempo run",
               "distance_mi": 7,
               "duration_min": null,
-              "pace": "1.5mi warmup, 4mi continuous @ controlled-hard effort, 1.5mi cooldown",
-              "hr_zone": null,
-              "details": "Last quality session before the Week 8 time trial - keep it controlled.",
-              "note": ""
+              "pace": null,
+              "hr_zone": 4,
+              "details": "4 continuous miles held in Zone 4 (Threshold, just under LTHR) - last quality session before the Week 8 time trial, keep it controlled.",
+              "note": "",
+              "warmup_mi": 1.5,
+              "cooldown_mi": 1.5
             }
           ]
         },
@@ -1818,7 +1885,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -1835,7 +1904,9 @@
               "pace": null,
               "hr_zone": 1,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         }
@@ -1928,7 +1999,9 @@
               "pace": "1.5mi warmup, 4 x 800m @ moderately hard effort, 400m jog recovery, 1mi cooldown",
               "hr_zone": null,
               "details": "Short and controlled - two days out from Thursday's time trial, this isn't the place to test limits.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -1945,7 +2018,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "4 x 20s strides, keep it easy two days out from the time trial.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -1962,7 +2037,9 @@
               "pace": null,
               "hr_zone": null,
               "details": "Race effort. Warm up 1.5-2mi, cool down 1mi (not counted in the day's total).",
-              "note": "This number recalibrates every pace from here to race day."
+              "note": "This number recalibrates every pace from here to race day.",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2040,7 +2117,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "Easy - legs will still have Thursday in them.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2057,7 +2136,9 @@
               "pace": null,
               "hr_zone": 1,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         }
@@ -2133,7 +2214,9 @@
               "pace": "1.5mi warmup, 5 x 1mi @ 6:00-6:10/mi w/ 3min jog recovery, 1mi cooldown",
               "hr_zone": null,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2150,7 +2233,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2167,7 +2252,9 @@
               "pace": "1.5mi warmup, 4mi @ 6:43, 1.5mi cooldown",
               "hr_zone": null,
               "details": "Should feel controlled, not desperate.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2229,7 +2316,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "Easy the whole way except the last 2mi - shift those to goal pace (6:43/mi).",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2246,7 +2335,9 @@
               "pace": null,
               "hr_zone": 1,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         }
@@ -2322,7 +2413,9 @@
               "pace": "1.5mi warmup, 6 x 1000m @ 6:00-6:10/mi w/ 3min jog recovery, 1mi cooldown",
               "hr_zone": null,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2339,7 +2432,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2356,7 +2451,9 @@
               "pace": "1.5mi warmup, 6mi @ 6:43, 1.5mi cooldown",
               "hr_zone": null,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2418,7 +2515,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "Easy, with miles 8-11 @ goal pace (6:43/mi), easy cooldown. Practice race-day fueling on this one.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2435,7 +2534,9 @@
               "pace": null,
               "hr_zone": 1,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         }
@@ -2511,7 +2612,9 @@
               "pace": "1.5mi warmup, 4 x 1mi @ 6:00-6:10/mi w/ 3min jog recovery, 1mi cooldown",
               "hr_zone": null,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2528,7 +2631,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2545,7 +2650,9 @@
               "pace": "1.5mi warmup, 4mi @ 6:43, 1.5mi cooldown",
               "hr_zone": null,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2607,7 +2714,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "Easy, last 1mi @ goal pace (6:43/mi).",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2624,7 +2733,9 @@
               "pace": null,
               "hr_zone": 1,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         }
@@ -2700,7 +2811,9 @@
               "pace": "1.5mi warmup, 3 x 1mi @ 6:05-6:15/mi w/ 3min jog recovery, 1mi cooldown",
               "hr_zone": null,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2717,7 +2830,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2734,7 +2849,9 @@
               "pace": "1mi warmup, 2mi @ 6:43, 1mi cooldown",
               "hr_zone": null,
               "details": "Short and sharp - this is about confidence, not fitness.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2796,7 +2913,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2813,7 +2932,9 @@
               "pace": null,
               "hr_zone": 1,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         }
@@ -2856,7 +2977,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "4 x 20s strides.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2873,7 +2996,9 @@
               "pace": null,
               "hr_zone": 2,
               "details": "",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2890,7 +3015,9 @@
               "pace": "2mi easy, 2mi @ 6:43",
               "hr_zone": null,
               "details": "Feel the goal pace one more time. Should feel easy.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2918,7 +3045,9 @@
               "pace": "Very easy, 4 loose strides",
               "hr_zone": null,
               "details": "Lay out kit, pin bib, bed by 9:30pm.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         },
@@ -2935,7 +3064,9 @@
               "pace": "Goal 6:43/mi (1:28:00)",
               "hr_zone": null,
               "details": "Wake 4:30am, familiar breakfast by 5:00, arrive by 6:00, warm up 1.5mi, corral by 6:45. You've done the work - trust the pacing plan and go get it.",
-              "note": ""
+              "note": "",
+              "warmup_mi": null,
+              "cooldown_mi": null
             }
           ]
         }

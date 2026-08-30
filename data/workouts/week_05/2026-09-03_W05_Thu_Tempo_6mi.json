@@ -2,9 +2,9 @@
   "workoutId": null,
   "ownerId": 585149926,
   "workoutName": "W05 Thu Tempo 6mi",
-  "description": "TEMPO RUN \u2014 6 miles | Effort-based (no fixed pace yet)\n\nPURPOSE: Sustained comfortably-hard effort - trains lactate clearance and the ability to hold a hard pace under control.\n\nFOCUS: No fixed pace target - there's no current hard-effort data to set one honestly yet (the only reference point is pre-layoff/2022 fitness). Run the effort described below and record whatever pace results - that's useful data. The Week 8 10K time trial (Sep 24) sets real target paces from here forward.\n\nNOTE: Comfortably hard, not a race - sustainable the whole 3 miles. No fixed pace target yet; record whatever pace results.\n\nYOUR DATA: Your last 3 logged runs averaged 121-142 bpm at 8:27-10:17/mi.\n\nFEEL: Comfortably hard - sustainable for the whole segment. Short sentences, not full conversation.",
-  "updatedDate": "2026-08-30T13:54:34.0",
-  "createdDate": "2026-08-30T13:54:34.0",
+  "description": "TEMPO RUN \u2014 6 miles | Zone 4 (Threshold) | HR 156-162 bpm\n\nPURPOSE: Sustained comfortably-hard effort at your current lactate threshold - trains lactate clearance and the ability to hold a hard pace under control.\n\nFOCUS: Let HR govern the main effort - hold 156-162 bpm (your current Threshold zone, just under LTHR) for the continuous portion. Whatever pace that HR produces today is your honest current tempo pace, not a guess - it'll get faster as fitness improves.\n\nNOTE: 3 continuous miles held in Zone 4 (Threshold, just under LTHR) - controlled hard, not a race. Whatever pace that HR produces is your real current tempo pace.\n\nYOUR DATA: Your last 3 logged runs averaged 121-142 bpm at 8:27-10:17/mi.\n\nFEEL: Comfortably hard - sustainable for the whole segment. Short sentences, not full conversation.",
+  "updatedDate": "2026-08-30T14:00:07.0",
+  "createdDate": "2026-08-30T14:00:07.0",
   "sportType": {
     "sportTypeId": 1,
     "sportTypeKey": "running",
@@ -60,7 +60,7 @@
             "displayOrder": 3,
             "displayable": true
           },
-          "endConditionValue": 402,
+          "endConditionValue": 2414,
           "preferredEndConditionUnit": {
             "unitId": 5,
             "unitKey": "mile",
@@ -121,7 +121,7 @@
             "displayOrder": 3,
             "displayable": true
           },
-          "endConditionValue": 8851,
+          "endConditionValue": 4828,
           "preferredEndConditionUnit": {
             "unitId": 5,
             "unitKey": "mile",
@@ -129,12 +129,12 @@
           },
           "endConditionCompare": null,
           "targetType": {
-            "workoutTargetTypeId": 1,
-            "workoutTargetTypeKey": "no.target",
-            "displayOrder": 1
+            "workoutTargetTypeId": 4,
+            "workoutTargetTypeKey": "heart.rate.zone",
+            "displayOrder": 4
           },
-          "targetValueOne": null,
-          "targetValueTwo": null,
+          "targetValueOne": 156.0,
+          "targetValueTwo": 162.0,
           "zoneNumber": null,
           "secondaryTargetType": null,
           "secondaryTargetValueOne": null,
@@ -182,7 +182,7 @@
             "displayOrder": 3,
             "displayable": true
           },
-          "endConditionValue": 402,
+          "endConditionValue": 2414,
           "preferredEndConditionUnit": {
             "unitId": 5,
             "unitKey": "mile",

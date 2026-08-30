@@ -150,7 +150,18 @@ def recent_evidence(history, kind, before_date):
 
 
 def build_description(kind_label, distance_mi, zone_num, floor_bpm, ceil_bpm, details, evidence):
-    if zone_num is not None:
+    if zone_num is not None and kind_label == "Tempo":
+        # Tempo, HR-governed by the current Threshold zone (just under live LTHR) instead of a
+        # fixed/goal pace - see build_plan.py Weeks 5-7. This IS the current-fitness number, so
+        # it gets its own copy rather than the easy/long/recovery "fully conversational" text.
+        header = f"TEMPO RUN — {distance_mi} miles | Zone {zone_num} (Threshold) | HR {floor_bpm}-{ceil_bpm} bpm"
+        purpose = ("Sustained comfortably-hard effort at your current lactate threshold - trains lactate "
+                    "clearance and the ability to hold a hard pace under control.")
+        focus = (f"Let HR govern the main effort - hold {floor_bpm}-{ceil_bpm} bpm (your current Threshold "
+                  "zone, just under LTHR) for the continuous portion. Whatever pace that HR produces today "
+                  "is your honest current tempo pace, not a guess - it'll get faster as fitness improves.")
+        feel = "Comfortably hard - sustainable for the whole segment. Short sentences, not full conversation."
+    elif zone_num is not None:
         # HR-governed session (easy/long/recovery).
         purpose = {
             "Easy": "Pure aerobic base building. Zone 2 running trains fat oxidation, builds mitochondrial "
@@ -216,8 +227,16 @@ def build_workout(week_num, date_str, day_name, session, history):
     description = build_description(kind_label, distance_mi, zone_num, floor_bpm, ceil_bpm,
                                      session.get("details", ""), evidence)
 
-    warmup_mi = 0.25 if distance_mi > 2 else 0
-    cooldown_mi = 0.25 if distance_mi > 2 else 0
+    # Structured sessions (tempo/intervals) carry their own warmup/cooldown mileage from
+    # build_plan.py - the flat 0.25mi guess below is only a cosmetic buffer for easy/long/
+    # recovery runs where the split doesn't matter. Using the guess for a tempo run would
+    # apply the HR/pace target to almost the entire distance instead of just the hard portion.
+    warmup_mi = session.get("warmup_mi")
+    if warmup_mi is None:
+        warmup_mi = 0.25 if distance_mi > 2 else 0
+    cooldown_mi = session.get("cooldown_mi")
+    if cooldown_mi is None:
+        cooldown_mi = 0.25 if distance_mi > 2 else 0
     main_mi = distance_mi - warmup_mi - cooldown_mi
 
     # Rough duration estimate for the segment - averages recent logged pace if we have
