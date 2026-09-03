@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T23:43:52.155002Z",
+  "generated_at": "2026-09-03T23:59:41.747956Z",
   "athlete": {
     "name": "Luke",
     "race": {
@@ -1211,8 +1211,9 @@
       "focus": "First tempo of the cycle",
       "target_miles": 28,
       "coach_notes": [
-        "First quality session of the cycle shows up Thursday. Tempo target is now HR-zone based (2026-08-30, per Luke) instead of a fixed pace or vague effort cue: hold Zone 4 (Threshold - currently ~156-162bpm, just under LTHR) for the continuous portion. That's your actual current fitness, sourced live from Garmin (see live_hr_zones_and_lthr() in build_plan.py), not a guess - and it updates automatically as LTHR drifts. Whatever pace that HR produces is the honest current tempo pace; record it.",
-        "VO2max intervals (from Week 6) stay effort-based rather than HR-zone based - HR takes 60-90s+ to stabilize, too slow to be a useful real-time target on 800m-1mi reps. Effort/RPE is the physiologically correct call there, not a data gap to fix later."
+        "First quality session of the cycle shows up Thursday. Tempo target is HR-zone based (2026-08-30, per Luke) instead of a fixed pace or vague effort cue: hold Zone 4 (Threshold, currently just below LTHR) for the continuous portion - see the Pace zones panel for today's exact bpm range, sourced live from Garmin. Whatever pace that HR produces is the honest current tempo pace; record it.",
+        "VO2max intervals (from Week 6) stay effort-based rather than HR-zone based - HR takes 60-90s+ to stabilize, too slow to be a useful real-time target on 800m-1mi reps. Effort/RPE is the physiologically correct call there, not a data gap to fix later.",
+        "Correction (2026-09-03): Thursday's tempo used a target of 156-162bpm computed from the Garmin Coach export's zones.hr field. That field turned out to be Luke's CYCLING zones, not running - 156-162bpm was actually deep in his real Zone 5, not Zone 4, which is why the session felt unsustainable and had to be cut short. Fixed same day: zones are now computed from live LTHR using Luke's confirmed running percentage table (64/77/87/91/96/112% of LTHR), not the export's zones.hr field. Real Zone 4 is ~148-155bpm at the current LTHR - see live numbers above. Saturday's long run and Sunday's recovery run already use the corrected Zone 2 target (~126-141bpm, down from the ~131-144bpm used earlier this cycle)."
       ],
       "days": [
         {

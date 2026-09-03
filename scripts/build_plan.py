@@ -41,14 +41,17 @@ HR_ZONE_NAMES = ["Warmup", "Easy", "Aerobic / Steady", "Threshold", "Max"]
 
 # Confirmed 2026-09-03 directly off Luke's watch (Garmin Connect > User Settings > Heart
 # Rate Zones, "based on % LTHR"): 64/77/87/91/96/112% of LTHR. This does NOT match the
-# floor_bpm values in the Garmin Coach JSON export's athlete.zones.hr array (that array
-# implies a different, more conservative ~65/79/88/95/99% breakdown) - the export's zones
-# turned out to be some other Garmin-internal default table, not what's actually configured
-# on the watch. Using the export's numbers on 2026-09-03 put a "Zone 4" tempo target at
-# 156-162bpm, which per the real watch table is actually deep in Zone 5 (156+) - Luke had a
-# genuinely awful, unsustainable session as a direct result. Do not go back to reading
-# zones.hr from the export; these percentages, applied to the live LTHR value, are the
-# confirmed source of truth until/unless Luke reports his watch settings changed.
+# floor_bpm values in the Garmin Coach JSON export's athlete.zones.hr array. Root cause
+# confirmed same day: that array is Luke's CYCLING zones (LTHR 168, 63/77/86/92/96/108%),
+# not running - running his cycling LTHR/percentages reproduces the export's floor_bpm
+# values almost exactly (4/5 zones exact, 5th within 1bpm of rounding). The export's own
+# "lthr" field correctly reports his running LTHR (163), but the zones.hr array underneath
+# comes from a different, unreconciled (cycling) source - a bug in whatever tool generates
+# the export, not staleness or drift. Using the export's numbers on 2026-09-03 put a
+# "Zone 4" tempo target at 156-162bpm, which per the real running zones is deep in Zone 5
+# (156+) - Luke had a genuinely awful, unsustainable session as a direct result. Do not go
+# back to reading zones.hr from the export; these percentages, applied to the live LTHR
+# value, are the permanent correct source, not a workaround pending further investigation.
 HR_ZONE_PCT_OF_LTHR = [
     (64, 77),   # Zone 1 - Warmup
     (77, 87),   # Zone 2 - Easy
@@ -62,7 +65,7 @@ def live_hr_zones_and_lthr():
     """Derive HR zone floor/ceiling bpm from the live LTHR value in data/history.json
     (populated by scripts/parse_garmin.py's athlete_snapshot on every coach-export upload)
     using Luke's confirmed watch percentage table (HR_ZONE_PCT_OF_LTHR above) - NOT the
-    export's own athlete.zones.hr array, which reflects a different, unconfirmed table.
+    export's own athlete.zones.hr array, which is actually his cycling zones (see comment above).
 
     Returns (hr_zones, lthr_bpm) or (None, None) if history.json doesn't have an LTHR yet,
     so callers can fall back to a hardcoded default.
@@ -651,15 +654,22 @@ add_week(
     5, "base", "Base - Weeks 4-5", "First tempo of the cycle",
     28,
     [
-        "First quality session of the cycle shows up Thursday. Tempo target is now HR-zone based "
-        "(2026-08-30, per Luke) instead of a fixed pace or vague effort cue: hold Zone 4 (Threshold - "
-        "currently ~156-162bpm, just under LTHR) for the continuous portion. That's your actual current "
-        "fitness, sourced live from Garmin (see live_hr_zones_and_lthr() in build_plan.py), not a guess "
-        "- and it updates automatically as LTHR drifts. Whatever pace that HR produces is the honest "
+        "First quality session of the cycle shows up Thursday. Tempo target is HR-zone based "
+        "(2026-08-30, per Luke) instead of a fixed pace or vague effort cue: hold Zone 4 (Threshold, "
+        "currently just below LTHR) for the continuous portion - see the Pace zones panel for today's "
+        "exact bpm range, sourced live from Garmin. Whatever pace that HR produces is the honest "
         "current tempo pace; record it.",
         "VO2max intervals (from Week 6) stay effort-based rather than HR-zone based - HR takes 60-90s+ "
         "to stabilize, too slow to be a useful real-time target on 800m-1mi reps. Effort/RPE is the "
         "physiologically correct call there, not a data gap to fix later.",
+        "Correction (2026-09-03): Thursday's tempo used a target of 156-162bpm computed from the Garmin "
+        "Coach export's zones.hr field. That field turned out to be Luke's CYCLING zones, not running - "
+        "156-162bpm was actually deep in his real Zone 5, not Zone 4, which is why the session felt "
+        "unsustainable and had to be cut short. Fixed same day: zones are now computed from live LTHR "
+        "using Luke's confirmed running percentage table (64/77/87/91/96/112% of LTHR), not the export's "
+        "zones.hr field. Real Zone 4 is ~148-155bpm at the current LTHR - see live numbers above. "
+        "Saturday's long run and Sunday's recovery run already use the corrected Zone 2 target "
+        "(~126-141bpm, down from the ~131-144bpm used earlier this cycle).",
     ],
     [
         [pt_build_mon()],
