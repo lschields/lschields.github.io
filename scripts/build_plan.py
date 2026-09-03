@@ -38,19 +38,34 @@ OUT = ROOT / "data" / "plan.json"
 HISTORY_PATH = ROOT / "data" / "history.json"
 
 HR_ZONE_NAMES = ["Warmup", "Easy", "Aerobic / Steady", "Threshold", "Max"]
-# Last zone has no floor above it to derive a ceiling from - keep the same
-# +26bpm headroom the original hand-set Zone 5 (164-190) used.
-LAST_ZONE_CEIL_PAD = 26
+
+# Confirmed 2026-09-03 directly off Luke's watch (Garmin Connect > User Settings > Heart
+# Rate Zones, "based on % LTHR"): 64/77/87/91/96/112% of LTHR. This does NOT match the
+# floor_bpm values in the Garmin Coach JSON export's athlete.zones.hr array (that array
+# implies a different, more conservative ~65/79/88/95/99% breakdown) - the export's zones
+# turned out to be some other Garmin-internal default table, not what's actually configured
+# on the watch. Using the export's numbers on 2026-09-03 put a "Zone 4" tempo target at
+# 156-162bpm, which per the real watch table is actually deep in Zone 5 (156+) - Luke had a
+# genuinely awful, unsustainable session as a direct result. Do not go back to reading
+# zones.hr from the export; these percentages, applied to the live LTHR value, are the
+# confirmed source of truth until/unless Luke reports his watch settings changed.
+HR_ZONE_PCT_OF_LTHR = [
+    (64, 77),   # Zone 1 - Warmup
+    (77, 87),   # Zone 2 - Easy
+    (87, 91),   # Zone 3 - Aerobic / Steady
+    (91, 96),   # Zone 4 - Threshold
+    (96, 112),  # Zone 5 - Max
+]
 
 
 def live_hr_zones_and_lthr():
-    """Read the most recent Garmin-reported HR zones + LTHR straight out of
-    data/history.json (populated by scripts/parse_garmin.py's athlete_snapshot,
-    refreshed on every Garmin Coach export upload), instead of relying on a
-    hand-typed snapshot here that silently goes stale as LTHR drifts.
+    """Derive HR zone floor/ceiling bpm from the live LTHR value in data/history.json
+    (populated by scripts/parse_garmin.py's athlete_snapshot on every coach-export upload)
+    using Luke's confirmed watch percentage table (HR_ZONE_PCT_OF_LTHR above) - NOT the
+    export's own athlete.zones.hr array, which reflects a different, unconfirmed table.
 
-    Returns (hr_zones, lthr_bpm) or (None, None) if history.json doesn't have
-    zone data yet, so callers can fall back to a hardcoded default.
+    Returns (hr_zones, lthr_bpm) or (None, None) if history.json doesn't have an LTHR yet,
+    so callers can fall back to a hardcoded default.
     """
     if not HISTORY_PATH.exists():
         return None, None
@@ -59,21 +74,16 @@ def live_hr_zones_and_lthr():
     except (json.JSONDecodeError, OSError):
         return None, None
 
-    raw_zones = snapshot.get("zones", {}).get("hr", [])
     lthr = snapshot.get("lthr")
-    if not raw_zones:
-        return None, lthr
+    if not lthr:
+        return None, None
 
-    raw_zones = sorted(raw_zones, key=lambda z: z["zone"])
     hr_zones = []
-    for i, z in enumerate(raw_zones):
-        floor_bpm = z["floor_bpm"]
-        if i + 1 < len(raw_zones):
-            ceil_bpm = raw_zones[i + 1]["floor_bpm"] - 1
-        else:
-            ceil_bpm = floor_bpm + LAST_ZONE_CEIL_PAD
-        name = HR_ZONE_NAMES[i] if i < len(HR_ZONE_NAMES) else f"Zone {z['zone']}"
-        hr_zones.append({"zone": z["zone"], "name": name, "floor_bpm": floor_bpm, "ceil_bpm": ceil_bpm})
+    for i, (lo_pct, hi_pct) in enumerate(HR_ZONE_PCT_OF_LTHR):
+        floor_bpm = round(lo_pct / 100 * lthr)
+        ceil_bpm = round(hi_pct / 100 * lthr) - 1
+        name = HR_ZONE_NAMES[i] if i < len(HR_ZONE_NAMES) else f"Zone {i + 1}"
+        hr_zones.append({"zone": i + 1, "name": name, "floor_bpm": floor_bpm, "ceil_bpm": ceil_bpm})
     return hr_zones, lthr
 
 RACE_DATE = dt.date(2026, 11, 1)  # Cambridge Half Marathon, Sunday

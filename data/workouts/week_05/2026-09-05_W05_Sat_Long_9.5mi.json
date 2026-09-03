@@ -2,9 +2,9 @@
   "workoutId": null,
   "ownerId": 585149926,
   "workoutName": "W05 Sat Long 9.5mi",
-  "description": "LONG RUN \u2014 9.5 miles | Zone 2 | HR 129-143 bpm\n\nPURPOSE: Time on feet at an aerobic effort - builds fatigue resistance, capillary density, and fuel efficiency for race-day distance without digging into recovery.\n\nFOCUS: Let HR govern pace completely. If it's hot/humid you may need to run slower than usual to stay under 143 bpm - that's correct, don't chase pace targets.\n\nYOUR DATA: Your last 3 logged runs averaged 121-141 bpm at 8:34-10:17/mi.\n\nFEEL: Fully conversational. You should be able to speak in complete sentences with zero effort.",
-  "updatedDate": "2026-09-03T00:00:49.0",
-  "createdDate": "2026-09-03T00:00:49.0",
+  "description": "LONG RUN \u2014 9.5 miles | Zone 2 | HR 126-141 bpm\n\nPURPOSE: Time on feet at an aerobic effort - builds fatigue resistance, capillary density, and fuel efficiency for race-day distance without digging into recovery.\n\nFOCUS: Let HR govern pace completely. If it's hot/humid you may need to run slower than usual to stay under 141 bpm - that's correct, don't chase pace targets.\n\nYOUR DATA: Your last 3 logged runs averaged 139-142 bpm at 8:08-8:41/mi.\n\nFEEL: Fully conversational. You should be able to speak in complete sentences with zero effort.",
+  "updatedDate": "2026-09-03T23:44:11.0",
+  "createdDate": "2026-09-03T23:44:11.0",
   "sportType": {
     "sportTypeId": 1,
     "sportTypeKey": "running",
@@ -33,7 +33,7 @@
       "poolLengthUnit": null,
       "poolLength": null,
       "avgTrainingSpeed": 2.8,
-      "estimatedDurationInSecs": 5231,
+      "estimatedDurationInSecs": 4824,
       "estimatedDistanceInMeters": 15289,
       "estimatedDistanceUnit": {
         "unitId": 2,
@@ -133,8 +133,8 @@
             "workoutTargetTypeKey": "heart.rate.zone",
             "displayOrder": 4
           },
-          "targetValueOne": 129.0,
-          "targetValueTwo": 143.0,
+          "targetValueOne": 126.0,
+          "targetValueTwo": 141.0,
           "zoneNumber": null,
           "secondaryTargetType": null,
           "secondaryTargetValueOne": null,

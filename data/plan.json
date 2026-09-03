@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T00:00:46.298966Z",
+  "generated_at": "2026-09-03T23:43:52.155002Z",
   "athlete": {
     "name": "Luke",
     "race": {
@@ -29,32 +29,32 @@
       {
         "zone": 1,
         "name": "Warmup",
-        "floor_bpm": 106,
-        "ceil_bpm": 128
+        "floor_bpm": 104,
+        "ceil_bpm": 125
       },
       {
         "zone": 2,
         "name": "Easy",
-        "floor_bpm": 129,
-        "ceil_bpm": 143
+        "floor_bpm": 126,
+        "ceil_bpm": 141
       },
       {
         "zone": 3,
         "name": "Aerobic / Steady",
-        "floor_bpm": 144,
-        "ceil_bpm": 154
+        "floor_bpm": 142,
+        "ceil_bpm": 147
       },
       {
         "zone": 4,
         "name": "Threshold",
-        "floor_bpm": 155,
-        "ceil_bpm": 161
+        "floor_bpm": 148,
+        "ceil_bpm": 155
       },
       {
         "zone": 5,
         "name": "Max",
-        "floor_bpm": 162,
-        "ceil_bpm": 188
+        "floor_bpm": 156,
+        "ceil_bpm": 182
       }
     ],
     "lthr_bpm": 163,
