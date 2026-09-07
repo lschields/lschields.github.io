@@ -687,30 +687,46 @@ add_week(
     ],
 )
 
-# ---- Week 6 (Sep 7-13) - Build ------------------------------------------------
+# ---- Week 6 (Sep 7-13) - Build (cutback - see coach_notes) --------------------
 add_week(
-    6, "build", "Build - Weeks 6-8", "Intervals introduced, hard/easy/hard weekday pattern begins",
-    31,
+    6, "build", "Build - Weeks 6-8", "Cutback week - recovering from Thursday's Zone 5 overreach",
+    35.5,
     [
-        "From here, Tue and Thu carry the quality (intervals, then tempo/goal-pace work), Wed stays "
-        "easy between them, and Saturday's long run stays aerobic. This is the hard-easy-hard "
-        "shape that makes the quality days actually count.",
-        "Still no fixed pace numbers on Tue/Thu - same reasoning as Week 5, effort-based until the "
-        "Week 8 time trial gives real data.",
+        "Restructured 2026-09-07, in place of the original 'intervals introduced' week. Reasons: "
+        "Thursday's tempo (before the HR zone bug was found) put Luke in an accidental Zone 5 effort - "
+        "HRV dropped from 74 to 53 that day and hadn't recovered by Sep 6-7 (55-63, still below the "
+        "pre-Thursday high), resting HR crept up (44->44->48), and Labor Day weekend time constraints "
+        "plus general fatigue meant Sat/Sun's planned long run and recovery run were skipped outright "
+        "(swim + hike instead) and the long run got done Monday instead, a day late.",
+        "Monday's PT got replaced by that delayed long run - not made up elsewhere, same as any other "
+        "skipped/shifted session this cycle. VO2max intervals (originally Tuesday) are dropped for this "
+        "week entirely rather than stacked the day after a 9.5mi effort while still under-recovered - "
+        "they simply get introduced in Week 7 as already scheduled there, no separate makeup needed. "
+        "Thursday's tempo stays as the week's only quality session (single, not double), and Saturday's "
+        "long run is cut from 10mi to an easy 6mi since Monday's delayed long run already provided this "
+        "week's long-aerobic-effort stimulus - two long efforts in one week on top of everything else "
+        "would be piling on, not smart training.",
+        "Target miles above (35.5) includes Monday's already-completed 9.5mi carryover - the genuinely "
+        "new Week 6 stimulus (Tue-Sun) is 26mi, down from the original 31mi plan, not up.",
     ],
     [
-        [pt_build_mon()],
-        [run_session("intervals", "VO2max intervals", distance_mi=6,
-                      pace="1.5mi warmup, 5 x 800m @ hard, repeatable effort, 400m jog recovery, 1mi cooldown",
-                      details="Hard but repeatable - if rep 5 falls apart, ease off rep 4 next time. "
-                              "No fixed pace target yet; record pace per rep.")],
+        [run_session("long", "Long run (delayed from Week 5)", distance_mi=9.5, hr_zone=2,
+                      details="Already logged - completed Monday instead of Saturday due to Labor Day "
+                              "weekend time constraints, after skipping Sat/Sun's planned running "
+                              "(did a swim + hike instead) while recovering from Thursday's accidental "
+                              "Zone 5 tempo effort. Replaces this week's long run; no PT today.")],
+        [run_session("easy", "Easy run", distance_mi=4, hr_zone=2,
+                      details="Buffer day, not intervals - one day post long-run, still recovering "
+                              "from Thursday. VO2max intervals move to Week 7 instead.")],
         [run_session("easy", "Easy run", distance_mi=5.5, hr_zone=2)],
         [run_session("tempo", "Tempo run", distance_mi=6.5, hr_zone=4,
                       warmup_mi=1.5, cooldown_mi=1.5,
                       details="3.5 continuous miles held in Zone 4 (Threshold, just under LTHR) - "
-                              "controlled, not a race.")],
+                              "controlled, not a race. This week's only quality session.")],
         [pt_build_fri()],
-        [run_session("long", "Long run", distance_mi=10, hr_zone=2)],
+        [run_session("easy", "Easy run", distance_mi=6, hr_zone=2,
+                      details="Shortened from a 10mi long run - Monday's delayed long run already "
+                              "covered this week's long-aerobic stimulus.")],
         [run_session("recovery", "Recovery run", distance_mi=4, hr_zone=1)],
     ],
 )
