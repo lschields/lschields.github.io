@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "Garmin Running Data Exporter",
+  "version": "0.1.0",
+  "description": "Passively captures your Garmin Connect training and health data - including sport-specific heart rate zones - as you browse, and exports it as one JSON file for your running dashboard.",
+  "permissions": ["storage", "unlimitedStorage"],
+  "host_permissions": ["https://connect.garmin.com/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Garmin Data Exporter",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://connect.garmin.com/*"],
+      "js": ["capture.js"],
+      "world": "MAIN",
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["https://connect.garmin.com/*"],
+      "js": ["relay.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

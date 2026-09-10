@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Garmin Data Exporter</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <div class="title">Garmin Data Exporter</div>
+      <div class="subtitle">for the running dashboard</div>
+    </header>
+
+    <p class="intro">
+      Browse the Garmin Connect pages below (in any order, any tab) - each one fires the
+      API call that fills in a row here. When you've got what you need, export.
+    </p>
+
+    <ul id="list"></ul>
+
+    <div id="count" class="count"></div>
+
+    <div class="actions">
+      <button id="exportBtn" disabled>Export JSON</button>
+      <button id="clearBtn" class="secondary">Clear captured data</button>
+    </div>
+
+    <footer>
+      Data stays in this browser until you export or clear it. Nothing is sent anywhere
+      except the file you save.
+    </footer>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
