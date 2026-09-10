@@ -51,6 +51,18 @@
     return typeof url === "string" && WHITELIST.some((re) => re.test(url));
   }
 
+  // Garmin's own code sometimes calls fetch()/XHR with a path relative to the
+  // page (e.g. "/gc-api/...") instead of a full URL. Resolve to absolute
+  // before storing, so the same endpoint always lands under one export key
+  // instead of splitting into a relative-path entry and an absolute one.
+  function toAbsoluteUrl(url) {
+    try {
+      return new URL(url, location.href).href;
+    } catch (e) {
+      return url;
+    }
+  }
+
   function emit(entry) {
     window.postMessage({ __garminExportCapture: true, entry }, "*");
   }
@@ -71,7 +83,7 @@
                 .text()
                 .then((body) => {
                   emit({
-                    url,
+                    url: toAbsoluteUrl(url),
                     status: res.status,
                     capturedAt: new Date().toISOString(),
                     body,
@@ -103,7 +115,7 @@
         const url = this.__garminExportUrl;
         if (isWanted(url) && typeof this.responseText === "string") {
           emit({
-            url,
+            url: toAbsoluteUrl(url),
             status: this.status,
             capturedAt: new Date().toISOString(),
             body: this.responseText,
