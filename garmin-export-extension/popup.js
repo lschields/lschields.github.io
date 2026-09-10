@@ -1,4 +1,5 @@
 const KNOWN = [
+  // Health Stats
   {
     match: /heartRateZones/i,
     label: "Heart Rate Zones",
@@ -10,20 +11,41 @@ const KNOWN = [
     hint: "Health Stats → Heart Rate",
   },
   {
-    match: /dailySleepData/i,
+    match: /dailySleepData|sleep-service\/stats\/sleep\/daily/i,
     label: "Sleep",
     hint: "Health Stats → Sleep",
   },
   {
-    match: /usersummary\/daily\//i,
-    label: "Daily Summary",
-    hint: "any dashboard page",
+    match: /healthstatus-service\/healthstatus\/summary/i,
+    label: "Health Status",
+    hint: "Health Stats → Health Status",
   },
   {
-    match: /wellnessactivity\/activity\/summary/i,
-    label: "Wellness Activity Summary",
-    hint: "Home dashboard",
+    match: /weight-service\/weight\//i,
+    label: "Weight",
+    hint: "Health Stats → Weight",
   },
+  {
+    match: /wellness\/daily\/respiration/i,
+    label: "Respiration",
+    hint: "Health Stats → Respiration",
+  },
+  {
+    match: /fitnessage-service\/fitnessage/i,
+    label: "Fitness Age",
+    hint: "Health Stats → Fitness Age",
+  },
+  {
+    match: /dailyStress/i,
+    label: "Stress",
+    hint: "Health Stats → Stress",
+  },
+  {
+    match: /bodyBattery\/events/i,
+    label: "Body Battery",
+    hint: "Health Stats → Body Battery",
+  },
+  // Performance Stats
   {
     match: /maxmet\/latest/i,
     label: "VO2 Max",
@@ -48,6 +70,57 @@ const KNOWN = [
     match: /hrv-service\/hrv\//i,
     label: "HRV Status",
     hint: "Performance Stats → HRV Status",
+  },
+  {
+    match: /manualstresslevel\/daily/i,
+    label: "HRV Stress",
+    hint: "Performance Stats → HRV Stress",
+  },
+  {
+    match: /racepredictions\/latest/i,
+    label: "Race Predictor",
+    hint: "Performance Stats → Race Predictor",
+  },
+  {
+    match: /runningeconomy\/latest/i,
+    label: "Running Economy",
+    hint: "Performance Stats → Running Economy",
+  },
+  {
+    match: /fitnessstats-service\/activity\/all/i,
+    label: "Training Effect",
+    hint: "Performance Stats → Training Effect",
+  },
+  {
+    match: /runningtolerance\/stats/i,
+    label: "Running Tolerance",
+    hint: "Performance Stats → Running Tolerance",
+  },
+  {
+    match: /latestLactateThreshold|powerToWeight\/latest/i,
+    label: "Running Lactate Threshold",
+    hint: "Performance Stats → Running Lactate Threshold",
+  },
+  {
+    match: /endurancescore/i,
+    label: "Endurance Score",
+    hint: "Performance Stats → Endurance Score",
+  },
+  {
+    match: /hillscore/i,
+    label: "Hill Score",
+    hint: "Performance Stats → Hill Score",
+  },
+  // Other
+  {
+    match: /usersummary\/daily\//i,
+    label: "Daily Summary (incl. Calories)",
+    hint: "any dashboard page",
+  },
+  {
+    match: /wellnessactivity\/activity\/summary/i,
+    label: "Wellness Activity Summary",
+    hint: "Home dashboard",
   },
   {
     match: /personal-information/i,

@@ -8,6 +8,7 @@
 // click through each time you want a full export.
 (function () {
   const WHITELIST = [
+    // Original set
     /\/gc-api\/biometric-service\/heartRateZones/i,
     /\/gc-api\/wellness-service\/wellness\/dailyHeartRate/i,
     /\/gc-api\/wellness-service\/wellness\/dailySleepData/i,
@@ -20,6 +21,30 @@
     /\/gc-api\/hrv-service\/hrv\//i,
     /\/gc-api\/userprofile-service\/userprofile\/personal-information/i,
     /\/gc-api\/userprofile-service\/userprofile\/user-settings/i,
+    // Added for: weight, health status, respiration, fitness age, stress,
+    // body battery, race predictor, running economy, training effect,
+    // running tolerance, running lactate threshold, endurance score, hill
+    // score, HRV stress - all confirmed live via Health Stats / Performance
+    // Stats pages. Calories and training status were already covered above
+    // (usersummary/daily and trainingstatus/daily respectively).
+    /\/gc-api\/weight-service\/weight\//i,
+    /\/gc-api\/healthstatus-service\/healthstatus\/summary/i,
+    /\/gc-api\/wellness-service\/wellness\/daily\/respiration/i,
+    /\/gc-api\/fitnessage-service\/fitnessage/i,
+    /\/gc-api\/wellness-service\/wellness\/dailyStress/i,
+    /\/gc-api\/wellness-service\/wellness\/bodyBattery\/events/i,
+    /\/gc-api\/metrics-service\/metrics\/racepredictions\/latest/i,
+    /\/gc-api\/metrics-service\/metrics\/runningeconomy\/latest/i,
+    /\/gc-api\/fitnessstats-service\/activity\/all/i,
+    /\/gc-api\/metrics-service\/metrics\/runningtolerance\/stats/i,
+    /\/gc-api\/biometric-service\/biometric\/latestLactateThreshold/i,
+    /\/gc-api\/biometric-service\/biometric\/powerToWeight\/latest/i,
+    /\/gc-api\/metrics-service\/metrics\/endurancescore/i,
+    /\/gc-api\/metrics-service\/metrics\/hillscore/i,
+    /\/gc-api\/metrics-service\/internal\/manualstresslevel\/daily/i,
+    // Bonus: richer range-based sleep stats seen alongside Health Status,
+    // in addition to the single-day dailySleepData above.
+    /\/gc-api\/sleep-service\/stats\/sleep\/daily/i,
   ];
 
   function isWanted(url) {

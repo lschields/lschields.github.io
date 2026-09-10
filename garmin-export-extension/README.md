@@ -52,11 +52,25 @@ Whatever loads while you're on these pages:
 |-----------------------------------------------|--------------------------------------------|
 | Health Stats → Heart Rate                     | Heart rate zones (sport-specific), daily HR |
 | Health Stats → Sleep                          | Sleep data                                  |
+| Health Stats → Health Status                  | Health status summary                       |
+| Health Stats → Weight                         | Weight                                      |
+| Health Stats → Respiration                    | Respiration rate                            |
+| Health Stats → Fitness Age                    | Fitness age                                 |
+| Health Stats → Stress                         | All-day stress                              |
+| Health Stats → Body Battery                   | Body Battery                                |
 | Performance Stats → Training Status           | Training status, training load balance      |
 | Performance Stats → VO2 Max                   | VO2 max                                     |
 | Performance Stats → HRV Status                | HRV                                         |
+| Performance Stats → HRV Stress                | HRV-derived stress                          |
+| Performance Stats → Race Predictor            | Race time predictions                       |
+| Performance Stats → Running Economy           | Running economy                             |
+| Performance Stats → Training Effect           | Aerobic / anaerobic training effect         |
+| Performance Stats → Running Tolerance         | Running tolerance                           |
+| Performance Stats → Running Lactate Threshold | Lactate threshold (HR, pace, power)         |
+| Performance Stats → Endurance Score           | Endurance score                             |
+| Performance Stats → Hill Score                | Hill score                                  |
 | Settings → User Settings                      | Personal info (weight, gender, activity class) |
-| Any dashboard/home page                       | Daily summary, wellness activity summary    |
+| Any dashboard/home page                       | Daily summary (incl. calories), wellness activity summary |
 
 ## Output shape
 
