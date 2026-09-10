@@ -25,16 +25,23 @@ that's expected for a personal/unpacked extension and can be ignored.
 ## Weekly use
 
 1. Log into [connect.garmin.com](https://connect.garmin.com) as usual.
-2. Click the extension icon and check which rows are already green (captured this session
-   carries over until you clear it, so you may already have some from earlier in the week).
-3. For anything still grey, visit the page listed next to it in the left nav
-   (Health Stats → Heart Rate, Performance Stats → Training Status, etc.) - just loading
-   the page is enough, nothing to click beyond that.
-4. Once everything you want is green, click **Export JSON**. It downloads to your normal
+2. Click the extension icon. This opens a **side panel** docked to the edge of the browser
+   window, not a popup - it stays open as you click around the site (a normal extension
+   popup would close the instant you clicked back into the page, which is why this is a
+   panel instead). Close it with the `x` in its own corner, or click the icon again.
+3. Check which rows are already green (captured data carries over across days until you
+   clear it, so you may already have some from earlier in the week).
+4. For anything still grey, visit the page listed next to it in the left nav
+   (Health Stats → Heart Rate, Performance Stats → Training Status, etc.). There's no
+   dwell time to worry about - a row turns green the moment Garmin's own page finishes
+   loading that data (usually a second or two), since the extension is just watching that
+   load happen, not polling or waiting on a timer. The panel updates live while it's open,
+   so you'll see rows flip green in real time as you navigate.
+5. Once everything you want is green, click **Export JSON**. It downloads to your normal
    Downloads folder as `garmin-export-YYYY-MM-DD.json`.
-5. Upload that file (alongside your `.fit` activity files, same as before) to the Claude
+6. Upload that file (alongside your `.fit` activity files, same as before) to the Claude
    chat that maintains the dashboard.
-6. Click **Clear captured data** if you want to start clean for next time - not required,
+7. Click **Clear captured data** if you want to start clean for next time - not required,
    exporting doesn't clear anything automatically.
 
 ## What it captures

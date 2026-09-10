@@ -1,7 +1,15 @@
 // Background service worker: receives captured entries from relay.js and
 // stores the latest response per endpoint URL in chrome.storage.local.
-// Data persists across browser sessions until you hit "Clear" in the popup,
+// Data persists across browser sessions until you hit "Clear" in the panel,
 // so you can capture over several visits before exporting once a week.
+
+// Clicking the toolbar icon opens the side panel instead of a popup - unlike
+// a popup, the side panel stays docked in the window and doesn't close when
+// you click into the page, so it can stay open while you browse Garmin
+// Connect and update live as each row gets captured.
+chrome.sidePanel
+  .setPanelBehavior({ openPanelOnActionClick: true })
+  .catch((error) => console.error("sidePanel setPanelBehavior failed:", error));
 
 function tryParseJson(text) {
   try {
