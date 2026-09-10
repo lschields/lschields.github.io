@@ -50,7 +50,7 @@ Whatever loads while you're on these pages:
 
 | Page (Garmin Connect left nav)              | What it captures                          |
 |-----------------------------------------------|--------------------------------------------|
-| Health Stats → Heart Rate                     | Heart rate zones (sport-specific), daily HR |
+| Health Stats → Heart Rate                     | Heart rate zones (sport-specific), daily HR, wellness activity summary |
 | Health Stats → Sleep                          | Sleep data                                  |
 | Health Stats → Health Status                  | Health status summary                       |
 | Health Stats → Weight                         | Weight                                      |
@@ -70,7 +70,7 @@ Whatever loads while you're on these pages:
 | Performance Stats → Endurance Score           | Endurance score                             |
 | Performance Stats → Hill Score                | Hill score                                  |
 | Settings → User Settings                      | Personal info (weight, gender, activity class) |
-| Any dashboard/home page                       | Daily summary (incl. calories), wellness activity summary |
+| Any dashboard/home page                       | Daily summary (incl. calories)              |
 
 ## Output shape
 

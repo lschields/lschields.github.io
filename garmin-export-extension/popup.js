@@ -120,7 +120,7 @@ const KNOWN = [
   {
     match: /wellnessactivity\/activity\/summary/i,
     label: "Wellness Activity Summary",
-    hint: "Home dashboard",
+    hint: "Health Stats → Heart Rate or Stress",
   },
   {
     match: /personal-information/i,
