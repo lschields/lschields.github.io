@@ -3,8 +3,8 @@
   "ownerId": 585149926,
   "workoutName": "W06 Mon Long 9.5mi",
   "description": "LONG RUN \u2014 9.5 miles | Zone 2 | HR 124-139 bpm\n\nPURPOSE: Time on feet at an aerobic effort - builds fatigue resistance, capillary density, and fuel efficiency for race-day distance without digging into recovery.\n\nFOCUS: Let HR govern pace completely. If it's hot/humid you may need to run slower than usual to stay under 139 bpm - that's correct, don't chase pace targets.\n\nNOTE: Already logged - completed Monday instead of Saturday due to Labor Day weekend time constraints, after skipping Sat/Sun's planned running (did a swim + hike instead) while recovering from Thursday's accidental Zone 5 tempo effort. Replaces this week's long run; no PT today.\n\nYOUR DATA: Your last 3 logged runs averaged 139-142 bpm at 8:08-8:41/mi.\n\nFEEL: Fully conversational. You should be able to speak in complete sentences with zero effort.",
-  "updatedDate": "2026-09-07T16:07:53.0",
-  "createdDate": "2026-09-07T16:07:53.0",
+  "updatedDate": "2026-09-10T01:17:14.0",
+  "createdDate": "2026-09-10T01:17:14.0",
   "sportType": {
     "sportTypeId": 1,
     "sportTypeKey": "running",
@@ -133,9 +133,9 @@
             "workoutTargetTypeKey": "heart.rate.zone",
             "displayOrder": 4
           },
-          "targetValueOne": 124.0,
-          "targetValueTwo": 139.0,
-          "zoneNumber": null,
+          "targetValueOne": null,
+          "targetValueTwo": null,
+          "zoneNumber": 2,
           "secondaryTargetType": null,
           "secondaryTargetValueOne": null,
           "secondaryTargetValueTwo": null,

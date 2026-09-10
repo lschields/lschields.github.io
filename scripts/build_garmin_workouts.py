@@ -16,12 +16,17 @@ Usage:
 Writes one JSON file per running session (skips strength/PT days - those
 aren't structured cardio workouts) to data/workouts/week_<NN>/.
 
-Note: heart.rate.zone targets and distance-based end conditions are modeled directly on a
-known-good example Luke already used successfully. pace.zone targets (Build-phase
-tempo/interval/goal-pace sessions) and time-based end conditions (strides, parsed out of
-a session's free-text "details" like "4 x 20s strides") are inferred from the same schema
-shape but haven't been validated against a real import yet - sanity-check the first one of
-each before trusting it blind.
+Note: heart.rate.zone targets (by zoneNumber, not custom bpm bounds - see hr_zone_target())
+and distance-based end conditions are modeled directly on real Garmin Connect exports Luke
+provided. Targeting by zoneNumber means Garmin resolves the actual bpm range against
+whatever's configured on the account at execution time, rather than us computing and
+embedding our own bpm bounds - see the 2026-09-03 incident in the Cambridge Half memory
+notes for why that matters (our computed bounds were briefly wrong, from a coach-export
+field that turned out to be Luke's cycling zones, not running). pace.zone targets
+(Build-phase tempo/interval/goal-pace sessions, not currently used - see build_workout())
+and time-based end conditions (strides, parsed out of a session's free-text "details" like
+"4 x 20s strides") are inferred from the same schema shape but haven't been validated
+against a real import yet - sanity-check the first one of each before trusting it blind.
 """
 import json
 import re
@@ -45,12 +50,30 @@ STEP_TYPES = {
     "interval": {"stepTypeId": 3, "stepTypeKey": "interval", "displayOrder": 3},
 }
 
-NO_TARGET = ({"workoutTargetTypeId": 1, "workoutTargetTypeKey": "no.target", "displayOrder": 1}, None, None)
+# All target-builder functions return a 4-tuple: (target_type, targetValueOne, targetValueTwo,
+# zoneNumber). Most targets leave zoneNumber None; hr_zone_target is the exception.
+NO_TARGET = ({"workoutTargetTypeId": 1, "workoutTargetTypeKey": "no.target", "displayOrder": 1}, None, None, None)
 
 
-def hr_target(floor_bpm, ceil_bpm):
+def hr_zone_target(zone_number):
+    """Target a Garmin-configured HR zone by number, instead of embedding bpm bounds we
+    compute ourselves. Garmin Connect/the watch resolve zone_number against whatever zones
+    are actually configured on the account for this workout's sport at execution time.
+
+    This replaces the old approach of computing floor_bpm/ceil_bpm and setting them as
+    targetValueOne/Two directly - that's what caused the 2026-09-03 incident (the bpm bounds
+    were computed from a Garmin Coach export field that turned out to be Luke's cycling zones,
+    not running, so "Zone 4" in the generated file was actually deep in his real Zone 5).
+    zone-number targeting can't drift like that - it always resolves against the real,
+    currently-configured zones, whatever they are. Schema confirmed from a real Garmin
+    Connect export Luke provided (Run-Workout.json, 2026-09-10): targetValueOne/Two are null,
+    zoneNumber carries the zone index (1-5).
+
+    We still compute floor_bpm/ceil_bpm elsewhere for the human-readable workout description
+    text - just not for the actual enforced target anymore.
+    """
     return ({"workoutTargetTypeId": 4, "workoutTargetTypeKey": "heart.rate.zone", "displayOrder": 4},
-            float(floor_bpm), float(ceil_bpm))
+            None, None, zone_number)
 
 
 def pace_target(slow_sec_per_mi, fast_sec_per_mi):
@@ -58,11 +81,11 @@ def pace_target(slow_sec_per_mi, fast_sec_per_mi):
     slow_mps = MILE_M / slow_sec_per_mi
     fast_mps = MILE_M / fast_sec_per_mi
     return ({"workoutTargetTypeId": 6, "workoutTargetTypeKey": "pace.zone", "displayOrder": 6},
-            round(slow_mps, 3), round(fast_mps, 3))
+            round(slow_mps, 3), round(fast_mps, 3), None)
 
 
 def make_step(step_id, order, kind, distance_mi, target, description=None):
-    target_type, v1, v2 = target
+    target_type, v1, v2, zone_number = target
     return {
         "type": "ExecutableStepDTO",
         "stepId": step_id,
@@ -77,7 +100,7 @@ def make_step(step_id, order, kind, distance_mi, target, description=None):
         "targetType": target_type,
         "targetValueOne": v1,
         "targetValueTwo": v2,
-        "zoneNumber": None,
+        "zoneNumber": zone_number,
         "secondaryTargetType": None,
         "secondaryTargetValueOne": None,
         "secondaryTargetValueTwo": None,
@@ -214,8 +237,12 @@ def build_workout(week_num, date_str, day_name, session, history):
 
     if session.get("hr_zone"):
         zone = hr_zones[session["hr_zone"]]
+        # floor_bpm/ceil_bpm are still computed (from live LTHR + Luke's confirmed running
+        # percentage table) - purely for the human-readable description text below. The
+        # actual enforced target references Garmin's own configured zone by number instead,
+        # so it can't drift out of sync the way the bpm-based target did on 2026-09-03.
         floor_bpm, ceil_bpm = zone["floor_bpm"], zone["ceil_bpm"]
-        main_target = hr_target(floor_bpm, ceil_bpm)
+        main_target = hr_zone_target(session["hr_zone"])
         zone_num = session["hr_zone"]
     else:
         # Pace-based session (tempo/intervals/goal pace) - session["pace"] is a free-text
