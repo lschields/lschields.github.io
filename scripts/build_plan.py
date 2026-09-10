@@ -39,25 +39,36 @@ HISTORY_PATH = ROOT / "data" / "history.json"
 
 HR_ZONE_NAMES = ["Warmup", "Easy", "Aerobic / Steady", "Threshold", "Max"]
 
-# Confirmed 2026-09-03 directly off Luke's watch (Garmin Connect > User Settings > Heart
-# Rate Zones, "based on % LTHR"): 64/77/87/91/96/112% of LTHR. This does NOT match the
-# floor_bpm values in the Garmin Coach JSON export's athlete.zones.hr array. Root cause
-# confirmed same day: that array is Luke's CYCLING zones (LTHR 168, 63/77/86/92/96/108%),
-# not running - running his cycling LTHR/percentages reproduces the export's floor_bpm
-# values almost exactly (4/5 zones exact, 5th within 1bpm of rounding). The export's own
-# "lthr" field correctly reports his running LTHR (163), but the zones.hr array underneath
-# comes from a different, unreconciled (cycling) source - a bug in whatever tool generates
-# the export, not staleness or drift. Using the export's numbers on 2026-09-03 put a
-# "Zone 4" tempo target at 156-162bpm, which per the real running zones is deep in Zone 5
-# (156+) - Luke had a genuinely awful, unsustainable session as a direct result. Do not go
-# back to reading zones.hr from the export; these percentages, applied to the live LTHR
-# value, are the permanent correct source, not a workaround pending further investigation.
+# History (read this before ever touching these numbers again):
+# - 2026-08-30: build_plan.py started reading zones.hr from the Garmin Coach JSON export.
+# - 2026-09-03: that put a "Zone 4" tempo target at 156-162bpm. Turned out to be Luke's
+#   CYCLING zones (LTHR 168, 63/77/86/92/96/108%), not running - a bug in whatever tool
+#   generates the export, not staleness. Luke had a genuinely awful, unsustainable session
+#   as a direct result. Fixed same day by having Luke read his watch's real running zones
+#   directly (Garmin Connect > User Settings > Heart Rate Zones): reported as 64/77/87/91/
+#   96/112% of LTHR at the time.
+# - 2026-09-10: Luke built a browser extension capturing Garmin Connect's internal API
+#   directly (biometric-service/heartRateZones), which returned a *different* running
+#   percentage table (~65/80/89/95/100%) than the 64/77/87/91/96/112% read on 2026-09-03.
+#   Flagged the discrepancy rather than silently switching sources again given the history
+#   above. Luke re-checked the Garmin Connect settings page directly and confirmed
+#   65/80/89/95/100%(/>100%) is what it currently shows - matching the API capture almost
+#   exactly (105/129/143/153/161bpm floors at LTHR 161, identical to the API on every zone).
+#   Cross-validated by two independent sources; this is the current confirmed table.
+#   Zone 5's upper bound uses 113% (~182bpm at LTHR 161) since Luke's Garmin gives Zone 5 as
+#   open-ended (">100%") rather than a percentage ceiling - 113% reproduces his confirmed
+#   max HR (182, seen in both a FIT file's zones_target record and this API's
+#   maxHeartRateUsed field) closely enough to use as a stand-in ceiling.
+# NOTE: this table may look "wrong" again someday if Luke's watch settings genuinely change
+# (not impossible - it already differed between 09-03 and 09-10 checks). If Luke ever reports
+# a mismatch, get a fresh reading directly from Garmin Connect's Heart Rate Zones settings
+# page (or the heartRateZones API capture) rather than assuming this comment is still current.
 HR_ZONE_PCT_OF_LTHR = [
-    (64, 77),   # Zone 1 - Warmup
-    (77, 87),   # Zone 2 - Easy
-    (87, 91),   # Zone 3 - Aerobic / Steady
-    (91, 96),   # Zone 4 - Threshold
-    (96, 112),  # Zone 5 - Max
+    (65, 80),    # Zone 1 - Warmup
+    (80, 89),    # Zone 2 - Easy
+    (89, 95),    # Zone 3 - Aerobic / Steady
+    (95, 100),   # Zone 4 - Threshold
+    (100, 113),  # Zone 5 - Max (open-ended on the watch; 113% approximates confirmed max HR)
 ]
 
 
