@@ -252,7 +252,7 @@ function renderKPIs(plan, history) {
       ${raceTt.icon}
       <div class="kpi-value">${daysToRace >= 0 ? daysToRace : 0}<small> days</small></div>
       <div class="kpi-label">To ${race.name}</div>
-      <span class="kpi-flag good">Goal ${race.goal_time_display} &middot; ${race.goal_pace_per_mi}/mi</span>
+      <span class="kpi-flag good">Goal ${race.goal_time_display}${race.goal_pace_per_mi ? " &middot; " + race.goal_pace_per_mi + "/mi" : ""}</span>
     </div>`);
 
   const pct = currentWeek.target_miles ? Math.round((weekActualMi / currentWeek.target_miles) * 100) : 0;
@@ -1187,8 +1187,9 @@ function watchStickyHeader() {
 function renderHeader(plan) {
   document.getElementById("eyebrow").textContent =
     `${plan.athlete.race.name.toUpperCase()} · ${fmtDateShort(plan.athlete.race.date)} 2026`;
+  const goalPace = plan.athlete.race.goal_pace_per_mi ? ` (${plan.athlete.race.goal_pace_per_mi}/mi)` : "";
   document.getElementById("header-meta").innerHTML = `
-    <span>Goal: <strong>${plan.athlete.race.goal_time_display}</strong> (${plan.athlete.race.goal_pace_per_mi}/mi)</span>
+    <span>Goal: <strong>${plan.athlete.race.goal_time_display}</strong>${goalPace}</span>
     <span>Plan: <strong>${plan.weeks.length} weeks</strong></span>
   `;
 }

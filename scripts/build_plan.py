@@ -3,7 +3,10 @@
 build_plan.py
 
 Regenerates data/plan.json - the full periodized training plan for the
-Cambridge Half Marathon (Nov 1, 2026), goal 1:28:00.
+Cambridge Half Marathon (Nov 1, 2026). No fixed time goal as of 2026-09-11 -
+Luke retired the original 1:28:00 goal given this year's setbacks and what
+the data's been showing; racing for a strong, well-executed performance
+instead. See ATHLETE["context"] below for the full reasoning.
 
 Rebuilt 2026-08-07 around Luke's preferred weekly pattern (Tue/Wed/Thu runs,
 Sat long run, Sun recovery run, PT/prehab confined to Mon/Fri with light daily
@@ -101,9 +104,14 @@ def live_hr_zones_and_lthr():
     return hr_zones, lthr
 
 RACE_DATE = dt.date(2026, 11, 1)  # Cambridge Half Marathon, Sunday
-GOAL_TIME_SEC = 88 * 60  # 1:28:00
+
+# PLACEHOLDER - retired as an actual goal 2026-09-11 (see context[] below for why), but
+# Weeks 9-13 (Peak/Taper/Race week - see further down this file) still reference this exact
+# value for their goal-pace sessions and race-day splits, since real current-fitness data
+# doesn't exist yet to replace it with. MUST be revisited once the Week 8 (Sep 24) time trial
+# gives real pace data, before Peak phase (starts Sep 28) locks in - don't let this go stale
+# and silently keep training Luke toward a number he's explicitly decided to let go of.
 GOAL_PACE_PER_MI = "6:43"
-GOAL_PACE_PER_KM = "4:10"
 
 ATHLETE = {
     "name": "Luke",
@@ -111,10 +119,13 @@ ATHLETE = {
         "name": "Cambridge Half Marathon",
         "date": RACE_DATE.isoformat(),
         "distance_mi": 13.10938,
-        "goal_time_sec": GOAL_TIME_SEC,
-        "goal_time_display": "1:28:00",
-        "goal_pace_per_mi": GOAL_PACE_PER_MI,
-        "goal_pace_per_km": GOAL_PACE_PER_KM,
+        # No fixed goal as of 2026-09-11 - see context[] below. Real target (if any) gets set
+        # from the Week 8 (Sep 24) time trial once there's actual current-fitness data behind
+        # it, rather than continuing to chase a number decided before this year's setbacks.
+        "goal_time_sec": None,
+        "goal_time_display": "TBD - set at Week 8 time trial",
+        "goal_pace_per_mi": None,
+        "goal_pace_per_km": None,
         "course": [
             "Starts/finishes at CambridgeSide in East Cambridge; route through Kendall Square, "
             "Memorial Drive, Riverside, West Cambridge, Lower Allston, and Watertown.",
@@ -131,8 +142,15 @@ ATHLETE = {
         "return to running through July that's visible in the logged activities (easy paces, "
         "9:00-9:48/mi, HR 128-149).",
         "Half marathon PR: 1:30. Ran this exact Cambridge course in 11/2025 in 1:35.",
-        "Goal of 1:28 is real but ambitious - set from the PR/Cambridge-2025 evidence, not the "
-        "marathon-day result. A Week 8 time trial recalibrates paces before the peak phase locks in.",
+        "1:28 goal retired 2026-09-11, by Luke's own call, not a training failure. Evidence: the "
+        "2026-08-30 tempo session put him in an accidental Zone 5 effort (from a since-fixed HR-zone "
+        "bug); Garmin's Race Predictor (2026-09-03) read 8:00/mi half-marathon pace (1:44:53); the "
+        "2026-09-10 tempo session (zones correctly applied this time) still capped out at 153bpm "
+        "despite maximal perceived effort and had to be stopped twice for GI discomfort - the third "
+        "distinct GI episode this cycle (Grandma's Marathon, 2026-08-27, now this). Racing for a "
+        "strong, well-executed performance given time constraints and this year's setbacks, not a "
+        "fixed time. The Week 8 (Sep 24) time trial still happens - it now exists purely to get real "
+        "current-fitness data, not to confirm a number that's already been let go of.",
         "Plan rebuilt 2026-08-07 around a base template Luke built (cambridge_hm_plan.html): "
         "Tue/Wed/Thu/Sat/Sun running, Mon/Fri for PT/prehab, HR-based easy/long/recovery, "
         "pace-based tempo/intervals/goal-pace work. That artifact assumed VO2max 55 / LTHR 178 / "
@@ -140,12 +158,13 @@ ATHLETE = {
         "so paces here are reconciled back to the 1:28 goal and real numbers.",
         "Plan spans 13 weeks, Aug 3 - Nov 1 2026 - Week 1 (Aug 3-9) picks up the week Luke had "
         "already started under the artifact's own schedule before this dashboard existed.",
-        "The Tempo/Threshold and VO2max interval paces below are goal-fitness targets, not what's "
-        "currently prescribed. Weeks 5-8's actual tempo sessions target Zone 4 (Threshold, live off "
-        "current LTHR) instead - a real current-fitness number, not this goal-derived one. Interval "
-        "sessions stay effort-based (no fixed pace) since HR lags too much on short reps to target "
-        "live, and there's no current hard-effort pace data yet either. The Week 8 time trial confirms "
-        "whether the paces below are realistic before Peak-phase paces lock in.",
+        "The Tempo/Threshold, Goal HM pace, and VO2max interval paces below are leftover goal-era "
+        "reference numbers, not what's currently prescribed anywhere - kept only so the paces used in "
+        "Weeks 9-13's not-yet-rewritten sessions are visible/traceable until those get updated post-"
+        "time-trial (see the GOAL_PACE_PER_MI comment near the top of this file). Weeks 5-8's actual "
+        "tempo sessions target Zone 4 (Threshold, live off current LTHR) instead - a real "
+        "current-fitness number. Interval sessions stay effort-based (no fixed pace) since HR lags too "
+        "much on short reps to target live, and there's no current hard-effort pace data yet either.",
     ],
     # Fallback values only - used if data/history.json has no Garmin Coach
     # export yet. Once a coach export has been ingested, live_hr_zones_and_lthr()
@@ -165,23 +184,30 @@ ATHLETE = {
         {"name": "Easy", "pace_per_mi": "HR-based, no pace target", "hr_zone": 2},
         {"name": "Long run", "pace_per_mi": "HR-based, no pace target", "hr_zone": 2},
         {"name": "Recovery", "pace_per_mi": "HR-based, no pace target", "hr_zone": 1},
-        {"name": "Tempo / Threshold", "pace_per_mi": "6:35-6:45", "hr_zone": None},
-        {"name": "Goal HM pace", "pace_per_mi": GOAL_PACE_PER_MI, "hr_zone": None},
-        {"name": "VO2max intervals", "pace_per_mi": "6:00-6:15", "hr_zone": None},
+        {"name": "Tempo / Threshold (leftover goal-era number, see context)", "pace_per_mi": "6:35-6:45", "hr_zone": None},
+        {"name": "Goal HM pace (retired 2026-09-11, see context)", "pace_per_mi": GOAL_PACE_PER_MI, "hr_zone": None},
+        {"name": "VO2max intervals (leftover goal-era number, see context)", "pace_per_mi": "6:00-6:15", "hr_zone": None},
         {"name": "Strides", "pace_per_mi": "5:30-5:45 (relaxed, not max effort)", "hr_zone": None},
     ],
     "race_strategy": {
+        # Rewritten 2026-09-11 to be effort/HR-based instead of fixed-pace splits, alongside
+        # retiring the 1:28 goal (see context[] above) - there's no confirmed current-fitness
+        # pace to split around, and won't be until the Week 8 time trial at the earliest.
         "splits": [
-            {"segment": "Miles 1-2", "target": "6:55-7:05/mi", "note": "Deliberately conservative - adrenaline will make this feel too easy. Don't chase the crowd."},
-            {"segment": "Miles 3-9", "target": f"{GOAL_PACE_PER_MI}/mi", "note": "Settle into goal pace, controlled not labored. Gel around mile 4 and mile 8-9, 2 min before a water stop, sip only."},
-            {"segment": "Miles 10-12", "target": f"{GOAL_PACE_PER_MI}/mi, or a few sec faster if it feels easy", "note": "If you've paced it right you'll have something left - start spending it here, gently."},
+            {"segment": "Miles 1-2", "target": "Zone 2, deliberately conservative", "note": "Adrenaline will make this feel too easy - hold back anyway. Don't chase the crowd."},
+            {"segment": "Miles 3-10", "target": "Zone 3, controlled effort", "note": "Let how you feel that day set the pace, not a number decided weeks in advance. Gel around mile 4 and mile 8-9, a couple minutes before a water stop, sip only."},
+            {"segment": "Miles 11-12", "target": "Push gently if it feels good, hold if it doesn't", "note": "There's no pace to chase here - just don't dig a hole you can't climb out of in the last mile."},
             {"segment": "Mile 13.1", "target": "Empty the tank", "note": "Run through the line, not to it."},
         ],
         "fueling": "2 gels total - one around mile 4, one around mile 8-9, each a couple minutes before a "
                    "water stop. Sip water, don't gulp - GI distress at Grandma's came from too much fluid "
-                   "with gels, not too little.",
-        "if_behind_pace": "If you're 10-15 sec/mi slow by mile 6, don't chase it - hold effort and let it "
-                           "come back in miles 10-12. Chasing pace early rarely ends well.",
+                   "with gels, not too little. Also sip an electrolyte drink in the 30-60 min before the "
+                   "race itself, not just plain water - added 2026-09-11 after a hard tempo session with "
+                   "bone-dry mouth/GI tightness on water-only pre-run hydration.",
+        "if_behind_pace": "There's no fixed pace to fall behind on anymore. If a mile feels harder than it "
+                           "should, ease back rather than grind through it - the goal is running the best "
+                           "race the day's actual fitness allows, not defending a number decided in "
+                           "September.",
     },
 }
 
@@ -801,8 +827,10 @@ add_week(
     9, "peak", "Peak - Weeks 9-11", "Goal-pace work begins",
     34,
     [
-        "Peak phase - goal pace shows up directly in sessions now. Numbers below assume the Week 8 "
-        "time trial confirmed 1:28 pace is on target; adjust this week's paces first if it didn't.",
+        "STALE as of 2026-09-11 - the paces in this week's sessions still reference the retired 1:28 "
+        "goal (6:43/mi), which Luke let go of for good reason (see the athlete context notes on the "
+        "dashboard). Rewrite this week's paces off the Week 8 (Sep 24) time trial result before this "
+        "week actually arrives - don't run these sessions with the old numbers unquestioned.",
     ],
     [
         [pt_peak_mon()],
@@ -896,8 +924,11 @@ add_week(
         "loose and well-rested. Sleep and easy carb-forward eating matter more this week than any "
         "workout does.",
         "Course is flat and fast with cold, clear conditions typical on race morning - dress in a "
-        "layer you can throw away at the start. Goal: 1:28:00. Go out conservative through mile 2, "
-        "settle into goal pace by mile 3, hold through mile 12, then empty the tank.",
+        "layer you can throw away at the start. STALE as of 2026-09-11: the 1:28 goal referenced here "
+        "and in this week's shakeout/race sessions has been retired (see athlete context) - rewrite "
+        "this week's pace text once real current-fitness data exists. Race plan is otherwise still "
+        "right: go out conservative through mile 2, settle into a controlled effort by mile 3, hold "
+        "through mile 12, then empty the tank.",
     ],
     [
         [rest_day()],
