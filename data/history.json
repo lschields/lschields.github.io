@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T01:09:39.647811Z",
+  "generated_at": "2026-09-11T00:30:28.647033Z",
   "athlete_snapshot": {
     "ftp": 230,
     "vo2max": 54,
@@ -488,21 +488,22 @@
     },
     {
       "date": "2026-09-10",
-      "hrv_status": "balanced",
-      "hrv_last_night_avg": 60,
-      "hrv_7day_avg": 58,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 61,
+      "hrv_7day_avg": 60,
       "training_readiness_score": 51,
       "training_readiness_level": "moderate",
       "body_battery_high": 90,
-      "resting_hr": 42,
+      "resting_hr": 46,
       "resting_hr_7day_avg": 45,
       "avg_stress_level": 37,
-      "sleep_score": 71,
-      "sleep_total_hours": 6.1,
+      "sleep_score": 84,
+      "sleep_total_hours": 7.4,
       "sleep_deep_pct": 21,
       "sleep_rem_pct": 11,
       "sleep_light_pct": 67,
-      "sleep_feedback": "positive_deep"
+      "sleep_feedback": "positive_deep",
+      "avg_waking_respiration": 12.46
     }
   ],
   "load_history": [
@@ -673,14 +674,19 @@
     },
     {
       "date": "2026-09-10",
-      "atl": 531,
-      "ctl": 479,
-      "acwr": 1.1,
+      "atl": 631,
+      "ctl": 501,
+      "acwr": 1.2,
       "training_status": "productive",
       "recovery_time_hours": 21.8,
       "vo2max": 54,
       "lthr": 161,
-      "weight_kg": 72.1
+      "weight_kg": 72.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "running_tolerance_feedback": "ABOVE_TOLERANCE",
+      "acute_impact_load": 51040,
+      "acute_tolerance": 38148
     }
   ],
   "activities": [
@@ -1330,6 +1336,26 @@
       "total_ascent_m": 24,
       "total_calories": 617,
       "total_training_effect": 3.2
+    },
+    {
+      "source_file": "24315636154_ACTIVITY.fit",
+      "date": "2026-09-10",
+      "start_time": "2026-09-10T22:35:55",
+      "sport": "running",
+      "distance_mi": 6.5,
+      "duration_sec": 3147.9,
+      "avg_pace_per_mi": "8:04",
+      "avg_pace_sec_per_mi": 484.0,
+      "avg_hr": 143,
+      "max_hr": 153,
+      "avg_power": 343,
+      "avg_cadence_spm": 166,
+      "avg_vertical_oscillation_mm": 96.0,
+      "avg_stance_time_ms": 260.4,
+      "avg_stance_time_balance_pct": 50.19,
+      "total_ascent_m": 27,
+      "total_calories": 699,
+      "total_training_effect": 3.8
     }
   ],
   "races": [
