@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T00:30:28.647033Z",
+  "generated_at": "2026-09-12T01:16:35.015617Z",
   "athlete_snapshot": {
     "ftp": 230,
     "vo2max": 54,
@@ -39,7 +39,7 @@
       "hr": [
         {
           "zone": 1,
-          "floor_bpm": 106
+          "floor_bpm": 105
         },
         {
           "zone": 2,
@@ -47,18 +47,19 @@
         },
         {
           "zone": 3,
-          "floor_bpm": 144
+          "floor_bpm": 143
         },
         {
           "zone": 4,
-          "floor_bpm": 155
+          "floor_bpm": 152
         },
         {
           "zone": 5,
-          "floor_bpm": 162
+          "floor_bpm": 159
         }
       ]
-    }
+    },
+    "max_hr": 181
   },
   "readiness_history": [
     {
@@ -484,7 +485,19 @@
     {
       "date": "2026-09-09",
       "hrv": 60,
-      "resting_hr": 42
+      "resting_hr": 42,
+      "resting_hr_7day_avg": 45,
+      "body_battery_high": 90,
+      "avg_stress_level": 37,
+      "avg_waking_respiration": 14,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 60,
+      "hrv_7day_avg": 58,
+      "sleep_score": 71,
+      "sleep_total_hours": 6.1,
+      "sleep_deep_pct": 21.3,
+      "sleep_rem_pct": 11.5,
+      "sleep_light_pct": 67.4
     },
     {
       "date": "2026-09-10",
@@ -493,17 +506,33 @@
       "hrv_7day_avg": 60,
       "training_readiness_score": 51,
       "training_readiness_level": "moderate",
-      "body_battery_high": 90,
+      "body_battery_high": 87,
       "resting_hr": 46,
       "resting_hr_7day_avg": 45,
-      "avg_stress_level": 37,
+      "avg_stress_level": 38,
       "sleep_score": 84,
       "sleep_total_hours": 7.4,
-      "sleep_deep_pct": 21,
-      "sleep_rem_pct": 11,
-      "sleep_light_pct": 67,
+      "sleep_deep_pct": 15.8,
+      "sleep_rem_pct": 17.1,
+      "sleep_light_pct": 67.2,
       "sleep_feedback": "positive_deep",
-      "avg_waking_respiration": 12.46
+      "avg_waking_respiration": 16
+    },
+    {
+      "date": "2026-09-11",
+      "resting_hr": 43,
+      "resting_hr_7day_avg": 44,
+      "body_battery_high": 99,
+      "avg_stress_level": 39,
+      "avg_waking_respiration": 14,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 75,
+      "hrv_7day_avg": 62,
+      "sleep_score": 91,
+      "sleep_total_hours": 8.0,
+      "sleep_deep_pct": 11.9,
+      "sleep_rem_pct": 22.9,
+      "sleep_light_pct": 65.3
     }
   ],
   "load_history": [
@@ -673,6 +702,25 @@
       "weight_kg": 72.1
     },
     {
+      "date": "2026-09-09",
+      "atl": 531,
+      "ctl": 479,
+      "acwr": 1.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive",
+      "running_tolerance_feedback": "ABOVE_TOLERANCE",
+      "acute_impact_load": 43677,
+      "acute_tolerance": 38148,
+      "monthly_load_aerobic_high": 118.5202,
+      "monthly_load_aerobic_low": 1733.6522,
+      "monthly_load_anaerobic": 57.299316,
+      "training_balance_feedback": "AEROBIC_HIGH_SHORTAGE",
+      "vo2max": 54,
+      "lthr": 161,
+      "weight_kg": 72.1
+    },
+    {
       "date": "2026-09-10",
       "atl": 631,
       "ctl": 501,
@@ -686,7 +734,30 @@
       "training_status_detail": "PRODUCTIVE_3",
       "running_tolerance_feedback": "ABOVE_TOLERANCE",
       "acute_impact_load": 51040,
-      "acute_tolerance": 38148
+      "acute_tolerance": 38148,
+      "monthly_load_aerobic_high": 268.52618,
+      "monthly_load_aerobic_low": 1658.195,
+      "monthly_load_anaerobic": 57.299316,
+      "training_balance_feedback": "AEROBIC_HIGH_SHORTAGE"
+    },
+    {
+      "date": "2026-09-11",
+      "atl": 521,
+      "ctl": 490,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive",
+      "running_tolerance_feedback": "ABOVE_TOLERANCE",
+      "acute_impact_load": 43869,
+      "acute_tolerance": 38148,
+      "monthly_load_aerobic_high": 268.52618,
+      "monthly_load_aerobic_low": 1658.195,
+      "monthly_load_anaerobic": 57.299316,
+      "training_balance_feedback": "AEROBIC_HIGH_SHORTAGE",
+      "vo2max": 54,
+      "lthr": 161,
+      "weight_kg": 72.1
     }
   ],
   "activities": [
@@ -1389,6 +1460,38 @@
       "time_display": "3:45:49",
       "notes": "GI distress during the race derailed pacing. Pre-race training projection was ~3:28. Not a reliable fitness indicator for this cycle - kept here for the training log, not for pace-setting.",
       "pre_race_projection_display": "3:28:00"
+    }
+  ],
+  "race_predictions": [
+    {
+      "date": "2026-09-09",
+      "time_5k_sec": 1313,
+      "time_10k_sec": 2792,
+      "time_half_sec": 6268,
+      "time_marathon_sec": 13517,
+      "pace_5k_per_mi": "7:03",
+      "pace_10k_per_mi": "7:29",
+      "pace_half_per_mi": "7:58"
+    },
+    {
+      "date": "2026-09-10",
+      "time_5k_sec": 1296,
+      "time_10k_sec": 2753,
+      "time_half_sec": 6225,
+      "time_marathon_sec": 13469,
+      "pace_5k_per_mi": "6:57",
+      "pace_10k_per_mi": "7:23",
+      "pace_half_per_mi": "7:55"
+    },
+    {
+      "date": "2026-09-11",
+      "time_5k_sec": 1296,
+      "time_10k_sec": 2753,
+      "time_half_sec": 6226,
+      "time_marathon_sec": 13472,
+      "pace_5k_per_mi": "6:57",
+      "pace_10k_per_mi": "7:23",
+      "pace_half_per_mi": "7:55"
     }
   ]
 }

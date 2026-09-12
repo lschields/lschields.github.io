@@ -12,8 +12,14 @@ Usage:
 
 Accepts, in any combination:
   - .fit activity files (exported per-activity from Garmin Connect: Activity > ... > Export Original)
-  - Garmin Coach/health data exports (.json, in the shape produced for this project - see
-    data/raw/ for an example)
+  - Garmin health/readiness data exports (.json), in either of two shapes:
+      * the original simplified coach-export format ({"athlete": ..., "readiness": ...,
+        "load": ..., "trends": ...}) - see data/raw/ for an example. Superseded 2026-09-11
+        but still parsed for backfilling/re-running old files.
+      * the garmin-connect-browser-capture-extension format (source field identifies it) -
+        a raw capture of Garmin Connect's own internal API responses
+        ({"captures": [{url, data, status, capturedAt}, ...]}). This is the current
+        going-forward export format as of 2026-09-12; see parse_extension_json() below.
   - --race "Name" immediately before a .fit file marks that activity as a race: it gets
     race:true + title on the activities entry (matches Grandma's Marathon's existing shape)
     and upserts a matching data/history.json "races" summary entry (time, distance, HR).
@@ -21,7 +27,11 @@ Accepts, in any combination:
     unless you explicitly overwrite them afterward.
 
 It is safe to re-run: activities are de-duplicated by (date, distance), and
-readiness/load entries are de-duplicated by date (newer export wins).
+readiness/load entries are de-duplicated by date and merged rather than
+replaced - a newer export wins on any field both formats provide, but a
+field only one format carries (e.g. training-readiness score, which the
+old format had and the new extension format doesn't) is preserved rather
+than dropped if that date already has an entry.
 
 This script only computes objective numbers (pace, mileage, HR, load, trend).
 It does NOT rewrite the plan - that's a judgment call made in a Claude chat
@@ -29,6 +39,7 @@ session using this data plus how you say you're feeling, then saved via
 scripts/build_plan.py.
 """
 import json
+import re
 import sys
 import shutil
 import datetime as dt
@@ -49,6 +60,7 @@ def load_history():
         "load_history": [],
         "activities": [],
         "races": [],
+        "race_predictions": [],
     }
 
 
@@ -57,6 +69,7 @@ def save_history(history):
     history["readiness_history"].sort(key=lambda r: r["date"])
     history["load_history"].sort(key=lambda r: r["date"])
     history["activities"].sort(key=lambda a: a["date"])
+    history.setdefault("race_predictions", []).sort(key=lambda r: r["date"])
     HISTORY_PATH.write_text(json.dumps(history, indent=2))
 
 
@@ -165,10 +178,225 @@ def parse_coach_json(path: Path):
     return athlete, readiness_entry, load_entry, trend_entries
 
 
+def _strip_query(url):
+    return url.split("?", 1)[0]
+
+
+def _captures_matching(captures, pattern):
+    """Data payloads (status 200 only) for captures whose URL - query string
+    stripped, since the extension cache-busts some endpoints with a random
+    `_=<timestamp>` param - matches the given regex, in original order."""
+    rx = re.compile(pattern)
+    return [c["data"] for c in captures
+            if c.get("status") == 200 and rx.search(_strip_query(c.get("url", "")))]
+
+
+def _capture_one(captures, pattern):
+    matches = _captures_matching(captures, pattern)
+    return matches[0] if matches else None
+
+
+def parse_extension_json(data):
+    """Parse a garmin-connect-browser-capture-extension export.
+
+    This format (identified by data["source"]) is a raw dump of ~40-50 Garmin
+    Connect internal API responses captured by Luke's browser extension -
+    data["captures"] = [{url, data, status, capturedAt}, ...] - structurally
+    nothing like the simplified coach-export JSON parse_coach_json() expects.
+    Before this function existed, feeding one of these into parse_coach_json()
+    silently produced a garbage all-null entry (hit on 2026-09-10/09-11,
+    fixed by hand at the time - see project memory). This is the real parser,
+    built 2026-09-12 once Luke settled on this extension as the permanent
+    going-forward weekly export, replacing the old simplified coach export.
+
+    Each metric below is pulled from whichever specific internal endpoint
+    actually carries it (they're spread across ~10 different Garmin
+    services) rather than treating the capture list generically.
+
+    Two known, permanent gaps versus the old format: no training-readiness
+    score/level and no recovery-time-hours - the extension doesn't currently
+    capture the endpoint(s) those come from. Left out rather than faked;
+    worth flagging if a future decision leans on either one.
+    """
+    captures = data.get("captures", [])
+
+    usersummary = _capture_one(captures, r"usersummary-service/usersummary/daily/[^/]+$")
+    hrv_daily = _capture_one(captures, r"hrv-service/hrv/daily/\d{4}-\d{2}-\d{2}/\d{4}-\d{2}-\d{2}$")
+    sleep_stats = _capture_one(captures, r"sleep-service/stats/sleep/daily/\d{4}-\d{2}-\d{2}/\d{4}-\d{2}-\d{2}$")
+    training_status = _capture_one(captures, r"trainingstatus/daily/\d{4}-\d{2}-\d{2}$")
+    training_load_balance = _capture_one(captures, r"trainingloadbalance/latest/\d{4}-\d{2}-\d{2}$")
+    running_tolerance = _capture_one(captures, r"runningtolerance/stats$")
+    race_predictions = _capture_one(captures, r"racepredictions/latest/[a-f0-9-]+$")
+    heart_rate_zones = _capture_one(captures, r"biometric-service/heartRateZones/$")
+
+    # The extension hits personal-information several times with different
+    # cache-busting query params; one specific call requests
+    # includeBiometric=false and comes back with biometricProfile: null.
+    # Query-stripping collapses all of these to the same URL, so pick the
+    # first one that actually has a populated biometricProfile rather than
+    # trusting capture order.
+    personal_info = next(
+        (c for c in _captures_matching(captures, r"personal-information/[a-f0-9-]+$")
+         if c.get("biometricProfile")),
+        None,
+    )
+
+    # Target date: prefer an actual Garmin calendarDate over exported_at (a
+    # UTC timestamp of when the extension ran, which rolls to the next day
+    # for an evening US run - confirmed happening on the 2026-09-12 export).
+    date = None
+    for source in (usersummary, training_status, race_predictions):
+        if source and source.get("calendarDate"):
+            date = source["calendarDate"]
+            break
+    if not date:
+        date = (data.get("exported_at") or "")[:10] or dt.date.today().isoformat()
+
+    # --- athlete_snapshot patch (merged onto the existing snapshot by the
+    # caller, not a full replace - see merge_athlete_snapshot()) ---
+    running_zones = next((z for z in (heart_rate_zones or []) if z.get("sport") == "RUNNING"), None)
+    athlete = {}
+    if personal_info and personal_info.get("biometricProfile"):
+        bio = personal_info["biometricProfile"]
+        athlete["vo2max"] = bio.get("vo2Max")
+        athlete["lthr"] = bio.get("lactateThresholdHeartRate")
+        athlete["weight_kg"] = round(bio["weight"] / 1000, 1) if bio.get("weight") else None
+    if running_zones:
+        # This is the permanent fix for the "athlete_snapshot.zones.hr is
+        # actually cycling data" bug (see project memory, root-caused
+        # 2026-09-03) - pulled straight from Garmin's own sport-tagged zone
+        # table instead of the ambiguous/wrong field the old export used.
+        athlete["lthr"] = running_zones.get("lactateThresholdHeartRateUsed", athlete.get("lthr"))
+        athlete["max_hr"] = running_zones.get("maxHeartRateUsed")
+        athlete["zones"] = {"hr": [
+            {"zone": i + 1, "floor_bpm": running_zones.get(f"zone{i + 1}Floor")}
+            for i in range(5)
+        ]}
+    athlete = {k: v for k, v in athlete.items() if v is not None}
+
+    # --- readiness_history entry ---
+    readiness_entry = {"date": date}
+    if usersummary:
+        readiness_entry.update({
+            "resting_hr": usersummary.get("restingHeartRate"),
+            "resting_hr_7day_avg": usersummary.get("lastSevenDaysAvgRestingHeartRate"),
+            "body_battery_high": usersummary.get("bodyBatteryHighestValue"),
+            "avg_stress_level": usersummary.get("averageStressLevel"),
+            "avg_waking_respiration": usersummary.get("avgWakingRespirationValue"),
+        })
+    if hrv_daily and hrv_daily.get("hrvSummaries"):
+        today_hrv = next((s for s in hrv_daily["hrvSummaries"] if s.get("calendarDate") == date),
+                          hrv_daily["hrvSummaries"][-1])
+        readiness_entry.update({
+            "hrv_status": today_hrv.get("status"),
+            "hrv_last_night_avg": today_hrv.get("lastNightAvg"),
+            "hrv_7day_avg": today_hrv.get("weeklyAvg"),
+        })
+    if sleep_stats and sleep_stats.get("individualStats"):
+        today_sleep = next((s for s in sleep_stats["individualStats"] if s.get("calendarDate") == date), None)
+        if today_sleep:
+            v = today_sleep.get("values", {})
+            total_s = v.get("totalSleepTimeInSeconds") or 0
+
+            def sleep_pct(key):
+                return round(100 * v[key] / total_s, 1) if total_s and v.get(key) is not None else None
+
+            readiness_entry.update({
+                "sleep_score": v.get("sleepScore"),
+                "sleep_total_hours": round(total_s / 3600, 1) if total_s else None,
+                "sleep_deep_pct": sleep_pct("deepTime"),
+                "sleep_rem_pct": sleep_pct("remTime"),
+                "sleep_light_pct": sleep_pct("lightTime"),
+            })
+    readiness_entry = {k: v for k, v in readiness_entry.items() if v is not None}
+
+    # --- load_history entry ---
+    load_entry = {"date": date}
+    if training_status and training_status.get("latestTrainingStatusData"):
+        device_data = next(iter(training_status["latestTrainingStatusData"].values()))
+        acute = device_data.get("acuteTrainingLoadDTO", {})
+        phrase = device_data.get("trainingStatusFeedbackPhrase") or ""
+        load_entry.update({
+            "atl": acute.get("dailyTrainingLoadAcute"),
+            "ctl": acute.get("dailyTrainingLoadChronic"),
+            "acwr": acute.get("dailyAcuteChronicWorkloadRatio"),
+            "acwr_status": acute.get("acwrStatus"),
+            "training_status_detail": phrase or None,
+            # "PRODUCTIVE_3" -> "productive", so the dashboard's plain-word
+            # training-status log line matches what the old export produced.
+            "training_status": re.sub(r"_\d+$", "", phrase).lower() or None,
+        })
+    if running_tolerance:
+        rt = running_tolerance[0] if isinstance(running_tolerance, list) else running_tolerance
+        load_entry.update({
+            "running_tolerance_feedback": rt.get("runningToleranceFeedBackPhrase"),
+            "acute_impact_load": rt.get("acuteImpactLoad"),
+            "acute_tolerance": rt.get("acuteTolerance"),
+        })
+    if training_load_balance and training_load_balance.get("metricsTrainingLoadBalanceDTOMap"):
+        tlb = next(iter(training_load_balance["metricsTrainingLoadBalanceDTOMap"].values()))
+        load_entry.update({
+            "monthly_load_aerobic_high": tlb.get("monthlyLoadAerobicHigh"),
+            "monthly_load_aerobic_low": tlb.get("monthlyLoadAerobicLow"),
+            "monthly_load_anaerobic": tlb.get("monthlyLoadAnaerobic"),
+            "training_balance_feedback": tlb.get("trainingBalanceFeedbackPhrase"),
+        })
+    load_entry.update({
+        "vo2max": athlete.get("vo2max"),
+        "lthr": athlete.get("lthr"),
+        "weight_kg": athlete.get("weight_kg"),
+    })
+    load_entry = {k: v for k, v in load_entry.items() if v is not None}
+
+    # --- race prediction entry - new, the old format never had this ---
+    race_prediction_entry = None
+    if race_predictions:
+        def pace_per_mi(sec, miles):
+            return fmt_pace(sec / miles) if sec else None
+
+        race_prediction_entry = {
+            "date": date,
+            "time_5k_sec": race_predictions.get("time5K"),
+            "time_10k_sec": race_predictions.get("time10K"),
+            "time_half_sec": race_predictions.get("timeHalfMarathon"),
+            "time_marathon_sec": race_predictions.get("timeMarathon"),
+            "pace_5k_per_mi": pace_per_mi(race_predictions.get("time5K"), 3.10686),
+            "pace_10k_per_mi": pace_per_mi(race_predictions.get("time10K"), 6.21371),
+            "pace_half_per_mi": pace_per_mi(race_predictions.get("timeHalfMarathon"), 13.10938),
+        }
+        race_prediction_entry = {k: v for k, v in race_prediction_entry.items() if v is not None}
+
+    return athlete, readiness_entry, load_entry, race_prediction_entry
+
+
+def merge_athlete_snapshot(history, patch):
+    """Shallow-merge new athlete fields onto the existing snapshot instead of
+    replacing it outright, so a source that only reports running fitness
+    (like the browser-capture export, which has no cycling data at all)
+    doesn't blow away previously-known fields it simply doesn't carry
+    (cycling ftp, zones.power)."""
+    if not patch:
+        return
+    snapshot = history.setdefault("athlete_snapshot", {})
+    for k, v in patch.items():
+        if v is None:
+            continue
+        if k == "zones" and isinstance(v, dict) and isinstance(snapshot.get("zones"), dict):
+            snapshot["zones"] = {**snapshot["zones"], **v}
+        else:
+            snapshot[k] = v
+
+
 def upsert_by_date(records, new_record):
+    """Merge (not replace) the record for this date - different Garmin
+    export formats carry different, non-overlapping metrics for the same
+    day (e.g. only the old coach export has a training-readiness score;
+    only the new browser-capture export has running-tolerance data), so a
+    later parse of one format shouldn't erase fields only the other format
+    ever provides. On any field both records set, the new one wins."""
     for i, r in enumerate(records):
         if r["date"] == new_record["date"]:
-            records[i] = new_record
+            records[i] = {**r, **new_record}
             return
     records.append(new_record)
 
@@ -281,25 +509,39 @@ def main(argv):
             archive_raw(path, activity["date"] if activity else None)
 
         elif path.suffix.lower() == ".json":
-            print(f"Parsing coach/health export: {path.name}")
-            athlete, readiness_entry, load_entry, trends = parse_coach_json(path)
-            if athlete:
-                history["athlete_snapshot"] = athlete
-            upsert_by_date(history["readiness_history"], readiness_entry)
-            upsert_by_date(history["load_history"], load_entry)
+            raw = json.loads(path.read_text())
+            if raw.get("source") == "garmin-connect-browser-capture-extension":
+                print(f"Parsing Garmin browser-capture export: {path.name}")
+                athlete, readiness_entry, load_entry, race_prediction_entry = parse_extension_json(raw)
+                merge_athlete_snapshot(history, athlete)
+                upsert_by_date(history["readiness_history"], readiness_entry)
+                upsert_by_date(history["load_history"], load_entry)
+                if race_prediction_entry:
+                    upsert_by_date(history.setdefault("race_predictions", []), race_prediction_entry)
 
-            # Fold the 7-day HRV/RHR trend points in as lightweight daily entries too,
-            # so the chart has more than one dot even between weekly uploads.
-            for metric, tdate, value in trends:
-                existing = next((r for r in history["readiness_history"] if r["date"] == tdate), None)
-                if existing:
-                    existing.setdefault(metric, value)
-                else:
-                    history["readiness_history"].append({"date": tdate, metric: value})
+                print(f"  -> readiness/load snapshot for {readiness_entry['date']}"
+                      + (", race predictions updated" if race_prediction_entry else ""))
+                archive_raw(path, readiness_entry["date"])
 
-            print(f"  -> readiness/load snapshot for {readiness_entry['date']}, "
-                  f"{len(trends)} trend points folded in")
-            archive_raw(path, readiness_entry["date"])
+            else:
+                print(f"Parsing coach/health export: {path.name}")
+                athlete, readiness_entry, load_entry, trends = parse_coach_json(path)
+                merge_athlete_snapshot(history, athlete)
+                upsert_by_date(history["readiness_history"], readiness_entry)
+                upsert_by_date(history["load_history"], load_entry)
+
+                # Fold the 7-day HRV/RHR trend points in as lightweight daily entries too,
+                # so the chart has more than one dot even between weekly uploads.
+                for metric, tdate, value in trends:
+                    existing = next((r for r in history["readiness_history"] if r["date"] == tdate), None)
+                    if existing:
+                        existing.setdefault(metric, value)
+                    else:
+                        history["readiness_history"].append({"date": tdate, metric: value})
+
+                print(f"  -> readiness/load snapshot for {readiness_entry['date']}, "
+                      f"{len(trends)} trend points folded in")
+                archive_raw(path, readiness_entry["date"])
 
         else:
             print(f"  ! unrecognized file type, skipping: {path.name}")
@@ -310,6 +552,7 @@ def main(argv):
     print(f"  readiness entries: {len(history['readiness_history'])}")
     print(f"  load entries: {len(history['load_history'])}")
     print(f"  races: {len(history.get('races', []))}")
+    print(f"  race predictions: {len(history.get('race_predictions', []))}")
     return 0
 
 
