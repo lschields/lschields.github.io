@@ -196,6 +196,21 @@ def _capture_one(captures, pattern):
     return matches[0] if matches else None
 
 
+def _capture_for_date(captures, pattern_prefix, date):
+    """Like _capture_one, but for endpoints the extension can capture once
+    per date visited in a single export (seen 2026-09-12: a second export
+    the same day picked up an extra trainingstatus/daily/<date> call for the
+    day before, alongside the one for today) - matches only the capture
+    whose URL ends in exactly this date, not just whichever came first."""
+    if not date:
+        return None
+    rx = re.compile(re.escape(pattern_prefix) + re.escape(date) + r"$")
+    for c in captures:
+        if c.get("status") == 200 and rx.search(_strip_query(c.get("url", ""))):
+            return c["data"]
+    return None
+
+
 def parse_extension_json(data):
     """Parse a garmin-connect-browser-capture-extension export.
 
@@ -213,19 +228,17 @@ def parse_extension_json(data):
     actually carries it (they're spread across ~10 different Garmin
     services) rather than treating the capture list generically.
 
-    Two known, permanent gaps versus the old format: no training-readiness
-    score/level and no recovery-time-hours - the extension doesn't currently
-    capture the endpoint(s) those come from. Left out rather than faked;
-    worth flagging if a future decision leans on either one.
+    Added 2026-09-12: training-readiness score/level and recovery-time-hours,
+    once Luke updated the extension to also capture that endpoint (the two
+    gaps flagged when this function was first built). Pulled from
+    metrics-service/metrics/trainingreadiness/<date>, which returns a list of
+    readings taken throughout the day (score/level/recovery time all shift
+    as the day's stress and sleep data update) - takes the most recent one
+    by timestamp, matching how the old export's single flat value behaved.
     """
     captures = data.get("captures", [])
 
     usersummary = _capture_one(captures, r"usersummary-service/usersummary/daily/[^/]+$")
-    hrv_daily = _capture_one(captures, r"hrv-service/hrv/daily/\d{4}-\d{2}-\d{2}/\d{4}-\d{2}-\d{2}$")
-    sleep_stats = _capture_one(captures, r"sleep-service/stats/sleep/daily/\d{4}-\d{2}-\d{2}/\d{4}-\d{2}-\d{2}$")
-    training_status = _capture_one(captures, r"trainingstatus/daily/\d{4}-\d{2}-\d{2}$")
-    training_load_balance = _capture_one(captures, r"trainingloadbalance/latest/\d{4}-\d{2}-\d{2}$")
-    running_tolerance = _capture_one(captures, r"runningtolerance/stats$")
     race_predictions = _capture_one(captures, r"racepredictions/latest/[a-f0-9-]+$")
     heart_rate_zones = _capture_one(captures, r"biometric-service/heartRateZones/$")
 
@@ -244,13 +257,38 @@ def parse_extension_json(data):
     # Target date: prefer an actual Garmin calendarDate over exported_at (a
     # UTC timestamp of when the extension ran, which rolls to the next day
     # for an evening US run - confirmed happening on the 2026-09-12 export).
+    # usersummary/racepredictions are always single-date captures, so these
+    # are safe to read before we know the date at all.
     date = None
-    for source in (usersummary, training_status, race_predictions):
+    for source in (usersummary, race_predictions):
         if source and source.get("calendarDate"):
             date = source["calendarDate"]
             break
     if not date:
         date = (data.get("exported_at") or "")[:10] or dt.date.today().isoformat()
+
+    # These endpoints can appear more than once per export for different
+    # dates (seen 2026-09-12: a second same-day export picked up
+    # trainingstatus/daily for both today and yesterday) - _capture_for_date
+    # matches only the one whose URL ends in our target date, not just
+    # whichever capture happened to come first.
+    training_status = _capture_for_date(captures, "trainingstatus/daily/", date)
+    training_readiness_list = _capture_for_date(captures, "trainingreadiness/", date)
+    training_load_balance = _capture_for_date(captures, "trainingloadbalance/latest/", date)
+
+    running_tolerance = _capture_one(captures, r"runningtolerance/stats$")
+
+    # hrv/daily and sleep/daily are always fetched as a 7-day-ish range, but
+    # the extension has captured overlapping ranges in one export before
+    # (multiple page visits) - pool every range's entries and pick today's
+    # by calendarDate rather than trusting the first range found to include it.
+    hrv_summaries = [s for rng in _captures_matching(captures, r"hrv-service/hrv/daily/\d{4}-\d{2}-\d{2}/\d{4}-\d{2}-\d{2}$")
+                      for s in (rng.get("hrvSummaries") or [])]
+    today_hrv = next((s for s in hrv_summaries if s.get("calendarDate") == date), None)
+
+    sleep_stats_entries = [s for rng in _captures_matching(captures, r"sleep-service/stats/sleep/daily/\d{4}-\d{2}-\d{2}/\d{4}-\d{2}-\d{2}$")
+                            for s in (rng.get("individualStats") or [])]
+    today_sleep = next((s for s in sleep_stats_entries if s.get("calendarDate") == date), None)
 
     # --- athlete_snapshot patch (merged onto the existing snapshot by the
     # caller, not a full replace - see merge_athlete_snapshot()) ---
@@ -284,34 +322,41 @@ def parse_extension_json(data):
             "avg_stress_level": usersummary.get("averageStressLevel"),
             "avg_waking_respiration": usersummary.get("avgWakingRespirationValue"),
         })
-    if hrv_daily and hrv_daily.get("hrvSummaries"):
-        today_hrv = next((s for s in hrv_daily["hrvSummaries"] if s.get("calendarDate") == date),
-                          hrv_daily["hrvSummaries"][-1])
+    if today_hrv:
         readiness_entry.update({
             "hrv_status": today_hrv.get("status"),
             "hrv_last_night_avg": today_hrv.get("lastNightAvg"),
             "hrv_7day_avg": today_hrv.get("weeklyAvg"),
         })
-    if sleep_stats and sleep_stats.get("individualStats"):
-        today_sleep = next((s for s in sleep_stats["individualStats"] if s.get("calendarDate") == date), None)
-        if today_sleep:
-            v = today_sleep.get("values", {})
-            total_s = v.get("totalSleepTimeInSeconds") or 0
+    if today_sleep:
+        v = today_sleep.get("values", {})
+        total_s = v.get("totalSleepTimeInSeconds") or 0
 
-            def sleep_pct(key):
-                return round(100 * v[key] / total_s, 1) if total_s and v.get(key) is not None else None
+        def sleep_pct(key):
+            return round(100 * v[key] / total_s, 1) if total_s and v.get(key) is not None else None
 
-            readiness_entry.update({
-                "sleep_score": v.get("sleepScore"),
-                "sleep_total_hours": round(total_s / 3600, 1) if total_s else None,
-                "sleep_deep_pct": sleep_pct("deepTime"),
-                "sleep_rem_pct": sleep_pct("remTime"),
-                "sleep_light_pct": sleep_pct("lightTime"),
-            })
+        readiness_entry.update({
+            "sleep_score": v.get("sleepScore"),
+            "sleep_total_hours": round(total_s / 3600, 1) if total_s else None,
+            "sleep_deep_pct": sleep_pct("deepTime"),
+            "sleep_rem_pct": sleep_pct("remTime"),
+            "sleep_light_pct": sleep_pct("lightTime"),
+        })
+    latest_readiness = None
+    if training_readiness_list:
+        latest_readiness = max(training_readiness_list, key=lambda r: r.get("timestamp") or "")
+        readiness_entry.update({
+            "training_readiness_score": latest_readiness.get("score"),
+            "training_readiness_level": (latest_readiness.get("level") or "").lower() or None,
+        })
     readiness_entry = {k: v for k, v in readiness_entry.items() if v is not None}
 
     # --- load_history entry ---
     load_entry = {"date": date}
+    if latest_readiness and latest_readiness.get("recoveryTime") is not None:
+        # Lives in load_history, not readiness_history, matching where the
+        # old simplified coach-export format already put this field.
+        load_entry["recovery_time_hours"] = round(latest_readiness["recoveryTime"] / 60, 1)
     if training_status and training_status.get("latestTrainingStatusData"):
         device_data = next(iter(training_status["latestTrainingStatusData"].values()))
         acute = device_data.get("acuteTrainingLoadDTO", {})

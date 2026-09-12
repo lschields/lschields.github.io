@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-12T01:16:35.015617Z",
+  "generated_at": "2026-09-12T01:40:16.929085Z",
   "athlete_snapshot": {
     "ftp": 230,
     "vo2max": 54,
-    "weight_kg": 72.1,
+    "weight_kg": 72.4,
     "lthr": 161,
     "zones": {
       "power": [
@@ -532,7 +532,9 @@
       "sleep_total_hours": 8.0,
       "sleep_deep_pct": 11.9,
       "sleep_rem_pct": 22.9,
-      "sleep_light_pct": 65.3
+      "sleep_light_pct": 65.3,
+      "training_readiness_score": 74,
+      "training_readiness_level": "moderate"
     }
   ],
   "load_history": [
@@ -757,7 +759,8 @@
       "training_balance_feedback": "AEROBIC_HIGH_SHORTAGE",
       "vo2max": 54,
       "lthr": 161,
-      "weight_kg": 72.1
+      "weight_kg": 72.4,
+      "recovery_time_hours": 9.4
     }
   ],
   "activities": [
