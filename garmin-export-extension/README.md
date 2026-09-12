@@ -50,7 +50,7 @@ Whatever loads while you're on these pages:
 
 | Page (Garmin Connect left nav)              | What it captures                          |
 |-----------------------------------------------|--------------------------------------------|
-| Health Stats → Heart Rate                     | Heart rate zones (sport-specific), daily HR, wellness activity summary |
+| Health Stats → Heart Rate                     | Heart rate zones (sport-specific), daily HR |
 | Health Stats → Sleep                          | Sleep data                                  |
 | Health Stats → Health Status                  | Health status summary                       |
 | Health Stats → Weight                         | Weight                                      |
@@ -61,6 +61,7 @@ Whatever loads while you're on these pages:
 | Performance Stats → Training Status           | Training status, training load balance      |
 | Performance Stats → VO2 Max                   | VO2 max                                     |
 | Performance Stats → HRV Status                | HRV                                         |
+| Performance Stats → Training Readiness        | Readiness score, recovery time              |
 | Performance Stats → HRV Stress                | HRV-derived stress                          |
 | Performance Stats → Race Predictor            | Race time predictions                       |
 | Performance Stats → Running Economy           | Running economy                             |

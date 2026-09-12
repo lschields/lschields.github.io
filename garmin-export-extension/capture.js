@@ -13,7 +13,6 @@
     /\/gc-api\/wellness-service\/wellness\/dailyHeartRate/i,
     /\/gc-api\/wellness-service\/wellness\/dailySleepData/i,
     /\/gc-api\/usersummary-service\/usersummary\/daily\//i,
-    /\/gc-api\/wellnessactivity-service\/activity\/summary/i,
     /\/gc-api\/metrics-service\/metrics\/maxmet\/latest/i,
     /\/gc-api\/metrics-service\/metrics\/trainingloadbalance\/latest/i,
     /\/gc-api\/metrics-service\/metrics\/trainingstatus\/daily/i,
@@ -45,6 +44,12 @@
     // Bonus: richer range-based sleep stats seen alongside Health Status,
     // in addition to the single-day dailySleepData above.
     /\/gc-api\/sleep-service\/stats\/sleep\/daily/i,
+    // Readiness Score AND Recovery Time both come from this one response -
+    // the Training Readiness page shows Recovery Time as one of the listed
+    // "Factors" alongside Sleep Score/HRV/Acute Load, with no separate
+    // network call of its own (confirmed: no request URL containing
+    // "recovery" fires on that page - it's a field inside this JSON body).
+    /\/gc-api\/metrics-service\/metrics\/trainingreadiness\//i,
   ];
 
   function isWanted(url) {

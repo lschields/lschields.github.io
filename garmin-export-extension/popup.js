@@ -72,6 +72,16 @@ const KNOWN = [
     hint: "Performance Stats → HRV Status",
   },
   {
+    match: /trainingreadiness\//i,
+    label: "Readiness Score",
+    hint: "Performance Stats → Training Readiness",
+  },
+  {
+    match: /trainingreadiness\//i,
+    label: "Recovery Time",
+    hint: "Performance Stats → Training Readiness",
+  },
+  {
     match: /manualstresslevel\/daily/i,
     label: "HRV Stress",
     hint: "Performance Stats → HRV Stress",
@@ -116,11 +126,6 @@ const KNOWN = [
     match: /usersummary\/daily\//i,
     label: "Daily Summary (incl. Calories)",
     hint: "any dashboard page",
-  },
-  {
-    match: /wellnessactivity\/activity\/summary/i,
-    label: "Wellness Activity Summary",
-    hint: "Health Stats → Heart Rate or Stress",
   },
   {
     match: /personal-information/i,
