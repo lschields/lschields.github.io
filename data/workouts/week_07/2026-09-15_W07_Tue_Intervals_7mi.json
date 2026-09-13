@@ -1,0 +1,255 @@
+{
+  "workoutId": null,
+  "ownerId": 585149926,
+  "workoutName": "W07 Tue Intervals 7mi",
+  "description": "INTERVALS RUN \u2014 7 miles | Effort-based (no fixed pace yet)\n\nPURPOSE: Hard, repeatable efforts near current top-end aerobic capacity - trains VO2max and running economy. Consistent effort rep-to-rep matters more than a fast first rep.\n\nFOCUS: No fixed pace target - there's no current hard-effort data to set one honestly yet (the only reference point is pre-layoff/2022 fitness). Run the effort described below and record whatever pace results - that's useful data. The Week 8 10K time trial (Sep 24) sets real target paces from here forward.\n\nNOTE: Repeatable across all 5 reps - if it's not repeatable, it's too fast. Record pace per rep.\n\nYOUR DATA: Your last 3 logged runs averaged 112-143 bpm at 8:04-10:17/mi.\n\nFEEL: Hard but repeatable - breathing hard by the end of each rep, but able to hit the next one at the same effort.",
+  "updatedDate": "2026-09-13T23:12:51.0",
+  "createdDate": "2026-09-13T23:12:51.0",
+  "sportType": {
+    "sportTypeId": 1,
+    "sportTypeKey": "running",
+    "displayOrder": 1
+  },
+  "subSportType": "GENERIC",
+  "trainingPlanId": null,
+  "author": {
+    "userProfilePk": 585149926,
+    "displayName": "",
+    "fullName": "",
+    "profileImgNameLarge": null,
+    "profileImgNameMedium": "",
+    "profileImgNameSmall": "",
+    "userPro": false,
+    "vivokidUser": false
+  },
+  "workoutSegments": [
+    {
+      "segmentOrder": 1,
+      "sportType": {
+        "sportTypeId": 1,
+        "sportTypeKey": "running",
+        "displayOrder": 1
+      },
+      "poolLengthUnit": null,
+      "poolLength": null,
+      "avgTrainingSpeed": 2.8,
+      "estimatedDurationInSecs": 3795,
+      "estimatedDistanceInMeters": 11265,
+      "estimatedDistanceUnit": {
+        "unitId": 2,
+        "unitKey": "kilometer",
+        "factor": 100000
+      },
+      "estimateType": "DISTANCE_ESTIMATED",
+      "description": null,
+      "workoutSteps": [
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 8000000000,
+          "stepOrder": 1,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "warmup",
+            "displayOrder": 1
+          },
+          "childStepId": null,
+          "description": null,
+          "endCondition": {
+            "conditionTypeId": 3,
+            "conditionTypeKey": "distance",
+            "displayOrder": 3,
+            "displayable": true
+          },
+          "endConditionValue": 402,
+          "preferredEndConditionUnit": {
+            "unitId": 5,
+            "unitKey": "mile",
+            "factor": 160934
+          },
+          "endConditionCompare": null,
+          "targetType": {
+            "workoutTargetTypeId": 1,
+            "workoutTargetTypeKey": "no.target",
+            "displayOrder": 1
+          },
+          "targetValueOne": null,
+          "targetValueTwo": null,
+          "zoneNumber": null,
+          "secondaryTargetType": null,
+          "secondaryTargetValueOne": null,
+          "secondaryTargetValueTwo": null,
+          "secondaryZoneNumber": null,
+          "targetValueUnit": null,
+          "secondaryTargetValueUnit": null,
+          "endConditionZone": null,
+          "strokeType": {
+            "strokeTypeId": 0,
+            "strokeTypeKey": null,
+            "displayOrder": 0
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "category": null,
+          "exerciseName": null,
+          "workoutProvider": null,
+          "providerExerciseSourceId": null,
+          "weightValue": null,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000
+          },
+          "drillType": null
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 8000000001,
+          "stepOrder": 2,
+          "stepType": {
+            "stepTypeId": 3,
+            "stepTypeKey": "interval",
+            "displayOrder": 3
+          },
+          "childStepId": null,
+          "description": null,
+          "endCondition": {
+            "conditionTypeId": 3,
+            "conditionTypeKey": "distance",
+            "displayOrder": 3,
+            "displayable": true
+          },
+          "endConditionValue": 10461,
+          "preferredEndConditionUnit": {
+            "unitId": 5,
+            "unitKey": "mile",
+            "factor": 160934
+          },
+          "endConditionCompare": null,
+          "targetType": {
+            "workoutTargetTypeId": 1,
+            "workoutTargetTypeKey": "no.target",
+            "displayOrder": 1
+          },
+          "targetValueOne": null,
+          "targetValueTwo": null,
+          "zoneNumber": null,
+          "secondaryTargetType": null,
+          "secondaryTargetValueOne": null,
+          "secondaryTargetValueTwo": null,
+          "secondaryZoneNumber": null,
+          "targetValueUnit": null,
+          "secondaryTargetValueUnit": null,
+          "endConditionZone": null,
+          "strokeType": {
+            "strokeTypeId": 0,
+            "strokeTypeKey": null,
+            "displayOrder": 0
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "category": null,
+          "exerciseName": null,
+          "workoutProvider": null,
+          "providerExerciseSourceId": null,
+          "weightValue": null,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000
+          },
+          "drillType": null
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 8000000002,
+          "stepOrder": 3,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "cooldown",
+            "displayOrder": 2
+          },
+          "childStepId": null,
+          "description": null,
+          "endCondition": {
+            "conditionTypeId": 3,
+            "conditionTypeKey": "distance",
+            "displayOrder": 3,
+            "displayable": true
+          },
+          "endConditionValue": 402,
+          "preferredEndConditionUnit": {
+            "unitId": 5,
+            "unitKey": "mile",
+            "factor": 160934
+          },
+          "endConditionCompare": null,
+          "targetType": {
+            "workoutTargetTypeId": 1,
+            "workoutTargetTypeKey": "no.target",
+            "displayOrder": 1
+          },
+          "targetValueOne": null,
+          "targetValueTwo": null,
+          "zoneNumber": null,
+          "secondaryTargetType": null,
+          "secondaryTargetValueOne": null,
+          "secondaryTargetValueTwo": null,
+          "secondaryZoneNumber": null,
+          "targetValueUnit": null,
+          "secondaryTargetValueUnit": null,
+          "endConditionZone": null,
+          "strokeType": {
+            "strokeTypeId": 0,
+            "strokeTypeKey": null,
+            "displayOrder": 0
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "category": null,
+          "exerciseName": null,
+          "workoutProvider": null,
+          "providerExerciseSourceId": null,
+          "weightValue": null,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000
+          },
+          "drillType": null
+        }
+      ]
+    }
+  ],
+  "poolLength": null,
+  "poolLengthUnit": null,
+  "locale": null,
+  "workoutProvider": null,
+  "workoutSourceId": null,
+  "uploadTimestamp": null,
+  "atpPlanId": null,
+  "consumer": null,
+  "consumerName": null,
+  "consumerImageURL": null,
+  "consumerWebsiteURL": null,
+  "workoutNameI18nKey": null,
+  "descriptionI18nKey": null,
+  "avgTrainingSpeed": 2.8,
+  "estimateType": "DISTANCE_ESTIMATED",
+  "estimatedDistanceUnit": {
+    "unitId": 2,
+    "unitKey": "kilometer",
+    "factor": 100000
+  },
+  "workoutThumbnailUrl": null,
+  "isSessionTransitionEnabled": null,
+  "shared": false
+}
