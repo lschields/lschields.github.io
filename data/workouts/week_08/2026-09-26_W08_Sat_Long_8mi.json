@@ -1,10 +1,10 @@
 {
   "workoutId": null,
   "ownerId": 585149926,
-  "workoutName": "W07 Sat Long 11mi",
-  "description": "LONG RUN \u2014 11 miles | Zone 2 | HR 129-142 bpm\n\nPURPOSE: Time on feet at an aerobic effort - builds fatigue resistance, capillary density, and fuel efficiency for race-day distance without digging into recovery.\n\nFOCUS: Let HR govern pace completely. If it's hot/humid you may need to run slower than usual to stay under 142 bpm - that's correct, don't chase pace targets.\n\nYOUR DATA: Your last 3 logged runs averaged 112-143 bpm at 8:04-10:17/mi.\n\nFEEL: Fully conversational. You should be able to speak in complete sentences with zero effort.",
-  "updatedDate": "2026-09-13T23:22:02.0",
-  "createdDate": "2026-09-13T23:22:02.0",
+  "workoutName": "W08 Sat Long 8mi",
+  "description": "LONG RUN \u2014 8 miles | Zone 2 | HR 129-142 bpm\n\nPURPOSE: Time on feet at an aerobic effort - builds fatigue resistance, capillary density, and fuel efficiency for race-day distance without digging into recovery.\n\nFOCUS: Let HR govern pace completely. If it's hot/humid you may need to run slower than usual to stay under 142 bpm - that's correct, don't chase pace targets.\n\nNOTE: Easy - legs will still have Thursday in them.\n\nYOUR DATA: Your last 3 logged runs averaged 112-143 bpm at 8:04-10:17/mi.\n\nFEEL: Fully conversational. You should be able to speak in complete sentences with zero effort.",
+  "updatedDate": "2026-09-13T23:22:19.0",
+  "createdDate": "2026-09-13T23:22:19.0",
   "sportType": {
     "sportTypeId": 1,
     "sportTypeKey": "running",
@@ -33,8 +33,8 @@
       "poolLengthUnit": null,
       "poolLength": null,
       "avgTrainingSpeed": 2.8,
-      "estimatedDurationInSecs": 5963,
-      "estimatedDistanceInMeters": 17703,
+      "estimatedDurationInSecs": 4337,
+      "estimatedDistanceInMeters": 12875,
       "estimatedDistanceUnit": {
         "unitId": 2,
         "unitKey": "kilometer",
@@ -121,7 +121,7 @@
             "displayOrder": 3,
             "displayable": true
           },
-          "endConditionValue": 16898,
+          "endConditionValue": 12070,
           "preferredEndConditionUnit": {
             "unitId": 5,
             "unitKey": "mile",

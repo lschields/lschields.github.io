@@ -27,6 +27,16 @@ field that turned out to be Luke's cycling zones, not running). pace.zone target
 and time-based end conditions (strides, parsed out of a session's free-text "details" like
 "4 x 20s strides") are inferred from the same schema shape but haven't been validated
 against a real import yet - sanity-check the first one of each before trusting it blind.
+
+Multi-rep interval sessions (e.g. "5 x 1mi hard, 3min jog recovery") use a real
+RepeatGroupDTO structure - see make_repeat_group() - confirmed against a real Garmin
+Connect repeat-workout export Luke provided (Run-Workout (1).json, 2026-09-13), after an
+earlier version of this generator only produced one flat undifferentiated block for these
+sessions (no per-rep splits, no recovery cue - a real gap, not just untested). Only
+sessions carrying build_plan.py's structured `intervals` field get this treatment; a
+plain-text-only intervals session (no `intervals` dict) still falls back to the old flat
+block, which is why Weeks 9+'s intervals sessions - still carrying stale goal-era fixed
+paces in their free-text `pace` field - haven't been converted yet (see project memory).
 """
 import json
 import re
@@ -48,6 +58,7 @@ STEP_TYPES = {
     "warmup": {"stepTypeId": 1, "stepTypeKey": "warmup", "displayOrder": 1},
     "cooldown": {"stepTypeId": 2, "stepTypeKey": "cooldown", "displayOrder": 2},
     "interval": {"stepTypeId": 3, "stepTypeKey": "interval", "displayOrder": 3},
+    "recovery": {"stepTypeId": 4, "stepTypeKey": "recovery", "displayOrder": 4},
 }
 
 # All target-builder functions return a 4-tuple: (target_type, targetValueOne, targetValueTwo,
@@ -130,6 +141,38 @@ def make_time_step(step_id, order, kind, seconds, target, description=None):
     step["endConditionValue"] = seconds
     step["preferredEndConditionUnit"] = None
     return step
+
+
+def make_repeat_group(step_id, order, reps, interval_step, recovery_step):
+    """Wrap a hard-rep step + a recovery step in a RepeatGroupDTO, repeated `reps`
+    times. Schema confirmed against a real Garmin Connect repeat-workout export
+    Luke provided (Run-Workout (1).json, 2026-09-13): stepId/stepOrder are flat
+    counters across the *entire* workout, including steps nested inside the
+    group - not just top-level ones. The group itself takes the first id/order
+    of the three, then its two children take the next two in sequence.
+    childStepId is a group index (not a step-id reference), shared by the group
+    step and both of its children - hardcoded to 1 here since none of our
+    sessions currently need more than one repeat block in a single workout.
+    skipLastRestStep=True (skip the final recovery jog after the last rep) and
+    smartRepeat=False both match the real export exactly - not guessed.
+    """
+    interval_step["stepId"], interval_step["stepOrder"], interval_step["childStepId"] = step_id + 1, order + 1, 1
+    recovery_step["stepId"], recovery_step["stepOrder"], recovery_step["childStepId"] = step_id + 2, order + 2, 1
+    return {
+        "type": "RepeatGroupDTO",
+        "stepId": step_id,
+        "stepOrder": order,
+        "stepType": {"stepTypeId": 6, "stepTypeKey": "repeat", "displayOrder": 6},
+        "childStepId": 1,
+        "numberOfIterations": reps,
+        "workoutSteps": [interval_step, recovery_step],
+        "endConditionValue": reps,
+        "preferredEndConditionUnit": None,
+        "endConditionCompare": None,
+        "endCondition": {"conditionTypeId": 7, "conditionTypeKey": "iterations", "displayOrder": 7, "displayable": False},
+        "skipLastRestStep": True,
+        "smartRepeat": False,
+    }
 
 
 STRIDES_RE = re.compile(r"(\d+)\s*x\s*(\d+)\s*s", re.IGNORECASE)
@@ -254,18 +297,6 @@ def build_workout(week_num, date_str, day_name, session, history):
     description = build_description(kind_label, distance_mi, zone_num, floor_bpm, ceil_bpm,
                                      session.get("details", ""), evidence)
 
-    # Structured sessions (tempo/intervals) carry their own warmup/cooldown mileage from
-    # build_plan.py - the flat 0.25mi guess below is only a cosmetic buffer for easy/long/
-    # recovery runs where the split doesn't matter. Using the guess for a tempo run would
-    # apply the HR/pace target to almost the entire distance instead of just the hard portion.
-    warmup_mi = session.get("warmup_mi")
-    if warmup_mi is None:
-        warmup_mi = 0.25 if distance_mi > 2 else 0
-    cooldown_mi = session.get("cooldown_mi")
-    if cooldown_mi is None:
-        cooldown_mi = 0.25 if distance_mi > 2 else 0
-    main_mi = distance_mi - warmup_mi - cooldown_mi
-
     # Rough duration estimate for the segment - averages recent logged pace if we have
     # it, otherwise falls back to a zone-typical pace. Purely informational; Garmin
     # recalculates actual duration live off HR, this just seeds the estimate field.
@@ -276,26 +307,65 @@ def build_workout(week_num, date_str, day_name, session, history):
         est_pace_sec = {1: 630, 2: 570}.get(session.get("hr_zone"), 570)  # 10:30 or 9:30 /mi
     est_duration_secs = round(distance_mi * est_pace_sec)
 
-    strides = parse_strides(session.get("details", ""))
-    strides_recovery_sec = 60  # not specified in plan text - standard recovery for a 20s relaxed stride
-
+    intervals = session.get("intervals")
     steps = []
     sid = 8000000000
     order = 1
-    if warmup_mi:
-        steps.append(make_step(sid, order, "warmup", warmup_mi, NO_TARGET)); sid += 1; order += 1
-    steps.append(make_step(sid, order, "interval", main_mi, main_target)); sid += 1; order += 1
-    if strides:
-        count, work_sec = strides
-        for i in range(count):
-            steps.append(make_time_step(sid, order, "interval", work_sec, NO_TARGET,
-                          description=f"Stride {i+1}/{count} - quick, relaxed pickup, not max effort"))
-            sid += 1; order += 1
-            steps.append(make_time_step(sid, order, "cooldown", strides_recovery_sec, NO_TARGET,
-                          description="Recovery - easy jog or walk"))
-            sid += 1; order += 1
-    if cooldown_mi:
-        steps.append(make_step(sid, order, "cooldown", cooldown_mi, NO_TARGET)); sid += 1; order += 1
+
+    if intervals:
+        # Structured multi-rep session (e.g. "5 x 1mi hard, 3min jog recovery") - build a
+        # real RepeatGroupDTO instead of one flat undifferentiated block. See
+        # make_repeat_group() for the schema notes/provenance.
+        iv_warmup_mi = intervals.get("warmup_mi") or 0
+        iv_cooldown_mi = intervals.get("cooldown_mi") or 0
+        rep_distance_mi = intervals["rep_distance_m"] / MILE_M
+        rep_pace = intervals.get("rep_pace")
+        rep_target = pace_target(*rep_pace) if rep_pace else NO_TARGET
+
+        if iv_warmup_mi:
+            steps.append(make_step(sid, order, "warmup", iv_warmup_mi, NO_TARGET)); sid += 1; order += 1
+
+        interval_step = make_step(0, 0, "interval", rep_distance_mi, rep_target)
+        if intervals.get("recovery_sec") is not None:
+            recovery_step = make_time_step(0, 0, "recovery", intervals["recovery_sec"], NO_TARGET)
+        else:
+            recovery_step = make_step(0, 0, "recovery", intervals["recovery_m"] / MILE_M, NO_TARGET)
+        steps.append(make_repeat_group(sid, order, intervals["reps"], interval_step, recovery_step))
+        sid += 3; order += 3
+
+        if iv_cooldown_mi:
+            steps.append(make_step(sid, order, "cooldown", iv_cooldown_mi, NO_TARGET)); sid += 1; order += 1
+
+    else:
+        # Structured sessions (tempo) carry their own warmup/cooldown mileage from
+        # build_plan.py - the flat 0.25mi guess below is only a cosmetic buffer for easy/long/
+        # recovery runs where the split doesn't matter. Using the guess for a tempo run would
+        # apply the HR/pace target to almost the entire distance instead of just the hard portion.
+        warmup_mi = session.get("warmup_mi")
+        if warmup_mi is None:
+            warmup_mi = 0.25 if distance_mi > 2 else 0
+        cooldown_mi = session.get("cooldown_mi")
+        if cooldown_mi is None:
+            cooldown_mi = 0.25 if distance_mi > 2 else 0
+        main_mi = distance_mi - warmup_mi - cooldown_mi
+
+        strides = parse_strides(session.get("details", ""))
+        strides_recovery_sec = 60  # not specified in plan text - standard recovery for a 20s relaxed stride
+
+        if warmup_mi:
+            steps.append(make_step(sid, order, "warmup", warmup_mi, NO_TARGET)); sid += 1; order += 1
+        steps.append(make_step(sid, order, "interval", main_mi, main_target)); sid += 1; order += 1
+        if strides:
+            count, work_sec = strides
+            for i in range(count):
+                steps.append(make_time_step(sid, order, "interval", work_sec, NO_TARGET,
+                              description=f"Stride {i+1}/{count} - quick, relaxed pickup, not max effort"))
+                sid += 1; order += 1
+                steps.append(make_time_step(sid, order, "cooldown", strides_recovery_sec, NO_TARGET,
+                              description="Recovery - easy jog or walk"))
+                sid += 1; order += 1
+        if cooldown_mi:
+            steps.append(make_step(sid, order, "cooldown", cooldown_mi, NO_TARGET)); sid += 1; order += 1
 
     now = dt.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.0")
     workout_name = f"W{week_num:02d} {day_name} {kind_label} {distance_mi:g}mi"

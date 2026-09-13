@@ -503,7 +503,8 @@ def light_touch(*ids, note=""):
 
 
 def run_session(kind, title, distance_mi=None, duration_min=None, pace=None,
-                 hr_zone=None, details="", note="", warmup_mi=None, cooldown_mi=None):
+                 hr_zone=None, details="", note="", warmup_mi=None, cooldown_mi=None,
+                 intervals=None):
     return {
         "type": "run",
         "kind": kind,  # recovery | easy | long | tempo | intervals | mp | race | shakeout
@@ -519,6 +520,18 @@ def run_session(kind, title, distance_mi=None, duration_min=None, pace=None,
         # uses these directly instead of guessing a flat 0.25mi on each end.
         "warmup_mi": warmup_mi,
         "cooldown_mi": cooldown_mi,
+        # Structured rep data for interval sessions, used only by
+        # build_garmin_workouts.py to build a real Garmin RepeatGroupDTO instead of one
+        # flat undifferentiated block - the `pace` field above is still what's shown on
+        # the dashboard, this is separate and only consumed by the workout-file generator.
+        # Shape: {"warmup_mi", "cooldown_mi", "reps", "rep_distance_m",
+        #         "recovery_sec" OR "recovery_m", "rep_pace": (slow_sec_per_mi, fast_sec_per_mi) or None}.
+        # Added 2026-09-13 once a real repeat-workout export confirmed the schema - see
+        # build_garmin_workouts.py's make_repeat_group(). Only populated where the rep
+        # structure is fully known and effort-based (no pace guess baked in) - Weeks 9+'s
+        # intervals sessions still carry stale goal-era fixed paces in their `pace` text
+        # (flagged elsewhere) and deliberately don't get this field yet.
+        "intervals": intervals,
     }
 
 
@@ -781,7 +794,9 @@ add_week(
         [run_session("intervals", "VO2max intervals", distance_mi=7,
                       pace="1.5mi warmup, 5 x 1mi @ hard, repeatable effort, 3min jog recovery, 1mi cooldown",
                       details="Repeatable across all 5 reps - if it's not repeatable, it's too fast. "
-                              "Record pace per rep.")],
+                              "Record pace per rep.",
+                      intervals={"warmup_mi": 1.5, "cooldown_mi": 1.0, "reps": 5,
+                                 "rep_distance_m": 1609.34, "recovery_sec": 180, "rep_pace": None})],
         [run_session("easy", "Easy run", distance_mi=6, hr_zone=2)],
         [run_session("tempo", "Tempo run", distance_mi=7, hr_zone=4,
                       warmup_mi=1.5, cooldown_mi=1.5,
@@ -809,7 +824,9 @@ add_week(
         [run_session("intervals", "Short intervals", distance_mi=5,
                       pace="1.5mi warmup, 4 x 800m @ moderately hard effort, 400m jog recovery, 1mi cooldown",
                       details="Short and controlled - two days out from Thursday's time trial, this "
-                              "isn't the place to test limits.")],
+                              "isn't the place to test limits.",
+                      intervals={"warmup_mi": 1.5, "cooldown_mi": 1.0, "reps": 4,
+                                 "rep_distance_m": 800, "recovery_m": 400, "rep_pace": None})],
         [run_session("easy", "Easy + strides", distance_mi=4, hr_zone=2,
                       details="4 x 20s strides, keep it easy two days out from the time trial.")],
         [run_session("race", "10K time trial", distance_mi=6.2,
