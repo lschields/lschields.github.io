@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T23:21:59.218890Z",
+  "generated_at": "2026-09-16T17:02:22.080105Z",
   "athlete": {
     "name": "Luke",
     "race": {
@@ -1681,7 +1681,8 @@
       "focus": "Volume and intensity both step up",
       "target_miles": 34,
       "coach_notes": [
-        "Highest load so far. If sleep or HRV dip noticeably this week, that's the signal to trim Wednesday's easy run, not skip Tuesday or Thursday."
+        "Highest load so far. If sleep or HRV dip noticeably this week, that's the signal to trim Wednesday's easy run, not skip Tuesday or Thursday.",
+        "Tuesday actually ran as Week 8's 'Short intervals' workout (4 x 800m, 5.74mi total) instead of this week's prescribed 5 x 1mi - wrong week's watch file got grabbed off the workouts page (2026-09-15). Still a real, solid effort (156-158 avg HR per rep, up to 164) - just shorter/easier than planned. Decided not to make it up: Thursday's tempo is already this week's other hard session, Saturday's Mount Mansfield hike adds its own load, and Week 8 right behind this one is deliberately tapering into the Sep 24 10K time trial - loading extra volume in now works against that. If Tuesday's activity shows short of 7mi on the dashboard, that's why - not a missed/incomplete session."
       ],
       "days": [
         {
