@@ -151,6 +151,31 @@ ATHLETE = {
         "strong, well-executed performance given time constraints and this year's setbacks, not a "
         "fixed time. The Week 8 (Sep 24) time trial still happens - it now exists purely to get real "
         "current-fitness data, not to confirm a number that's already been let go of.",
+        "GOVERNING DESIGN PRINCIPLE, added 2026-09-20 (Luke's explicit check-in): retiring the 1:28 "
+        "goal on 2026-09-11 only updated the race-day framing above (goal_time, race_strategy) - it "
+        "was never applied to the week-by-week volume/intensity progression itself, which kept "
+        "following the original 2026-08-07 build's escalate-toward-a-Peak-block shape (Weeks 9-11 "
+        "climbing to a 37mi 'highest volume of the cycle' week built around 'goal-pace work'). Luke "
+        "caught this after a Week 7 that made the mismatch obvious: the prescribed 5x1mi interval "
+        "session (Zone 5-ish effort) would very likely have been unsustainable, while the shorter "
+        "4x800m session he ran by accident instead was 'right in the sweet spot'; Friday's tempo - "
+        "his best of the cycle - still needed two ~1min breaks across 4 continuous miles; and the "
+        "week closed with a new dull ache in his lower right calf after a heavy hiking weekend. "
+        "Going forward, the sole design principle for Week 8 onward is working back into shape "
+        "gradually and sustainably, NOT progressing toward a specific fitness level by a specific "
+        "week. Concretely: (1) tempo work is built as segmented pieces (e.g. 4x1mi / 3x1.5mi / "
+        "2x2mi with short jog recovery between reps) rather than one mandatory continuous block - "
+        "consolidate into longer continuous efforts only once the segmented version is clearly "
+        "comfortable, not on a preset week number; (2) high-intensity interval work stays at shorter "
+        "rep distances (400-800m) rather than jumping to 1mi+ reps, lengthening reps only once the "
+        "shorter ones are clearly sustainable at the target effort; (3) weekly volume and intensity "
+        "get set week-by-week off actual data (HRV, RHR, running-tolerance, subjective feel, injury "
+        "status) rather than a predetermined escalation curve. Weeks 9-11's current 'Peak: goal-pace "
+        "work begins / highest volume of the cycle' framing and 34->37->30mi trajectory is explicitly "
+        "superseded by this principle and needs a real redesign pass before it arrives - not just the "
+        "pace-number substitution already flagged for Weeks 9-13's GOAL_PACE_PER_MI references below. "
+        "The Week 8 time trial, if it happens, is one data point for that redesign, not a trigger for "
+        "a predetermined volume jump the week after.",
         "Plan rebuilt 2026-08-07 around a base template Luke built (cambridge_hm_plan.html): "
         "Tue/Wed/Thu/Sat/Sun running, Mon/Fri for PT/prehab, HR-based easy/long/recovery, "
         "pace-based tempo/intervals/goal-pace work. That artifact assumed VO2max 55 / LTHR 178 / "
@@ -826,6 +851,11 @@ add_week(
         "Thursday is a 10K time trial (or an actual local 10K if one lines up) - fully rested for it, "
         "real race effort. Whatever that number is replaces the marathon result for pace-setting from "
         "here forward. Upload the file after and we'll recalibrate the Peak-block paces together.",
+        "Contingent as of 2026-09-20: Luke reported a dull ache in his lower right calf (not the "
+        "Achilles tendon itself) after this weekend's Mount Mansfield hike - noticeable walking, not "
+        "sharp. The time trial is a maximal effort and should NOT happen unless it's fully resolved by "
+        "Thursday. If it's still bothering him, push the time trial back rather than run through it - "
+        "a delayed data point costs nothing; racing on an unresolved strain risks a real injury.",
     ],
     [
         [pt_build_mon()],
@@ -856,6 +886,11 @@ add_week(
         "goal (6:43/mi), which Luke let go of for good reason (see the athlete context notes on the "
         "dashboard). Rewrite this week's paces off the Week 8 (Sep 24) time trial result before this "
         "week actually arrives - don't run these sessions with the old numbers unquestioned.",
+        "SUPERSEDED as of 2026-09-20 - this isn't just a pace-number problem. This week's whole design "
+        "('goal-pace work begins', continuous mp/tempo miles, 1mi interval reps) assumes a return to "
+        "near-peak fitness that Week 7's data doesn't support. Redesign under the governing principle "
+        "in the athlete context notes before this week arrives: segmented tempo pieces, short "
+        "(400-800m) interval reps, and volume set off actual data - not this preset trajectory.",
     ],
     [
         [pt_peak_mon()],
@@ -880,6 +915,9 @@ add_week(
     [
         "Biggest week of the plan. Saturday's long run is the closest thing to a rehearsal you'll "
         "get - practice whatever race-day fueling you're planning to use.",
+        "SUPERSEDED as of 2026-09-20 - '37mi, highest volume of the cycle' assumes the peak-fitness "
+        "trajectory the athlete context notes now explicitly rule out. Redesign per the governing "
+        "principle there before this week arrives.",
     ],
     [
         [pt_peak_mon()],
@@ -903,6 +941,8 @@ add_week(
     [
         "Last hard week. Sharpen, don't strain - there's no time left to recover a setback before "
         "taper needs to start, so if anything feels off, back off rather than grind through.",
+        "SUPERSEDED as of 2026-09-20 - same redesign flag as Weeks 9-10: this week's content assumes "
+        "the peak-fitness trajectory the athlete context notes now explicitly rule out.",
     ],
     [
         [pt_peak_mon()],
