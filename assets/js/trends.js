@@ -60,6 +60,11 @@ function todayISO() {
 function parseISO(s) { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); }
 function fmtDateShort(iso) { return parseISO(iso).toLocaleDateString(undefined, { month: "short", day: "numeric" }); }
 function localKey(dateISO, title) { return `td:${dateISO}:${title}`; }
+function addDaysISO(dateISO, n) {
+  const d = parseISO(dateISO);
+  d.setDate(d.getDate() + n);
+  return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+}
 
 function buildActivityPool(history) {
   return (history.activities || []).map(a => ({ ...a, claimed: false }));
@@ -70,6 +75,40 @@ function matchSessionToActivity(pool, dateISO) {
   return null;
 }
 
+// Same two-phase matching as app.js's buildSessionMatches (duplicated per
+// this file's self-contained-script convention, not shared) - a run session
+// done a day or two late (rain, schedule conflict) still counts as done here
+// too, so streaks/completion % don't get dinged for something that actually
+// happened. See app.js for the full reasoning/comment.
+const MATCH_FALLBACK_DAYS = 2;
+function buildSessionMatches(days, pool) {
+  const runSlots = [];
+  for (const day of days) {
+    for (const session of day.sessions) {
+      if (session.type === "run") runSlots.push({ date: day.date, session });
+    }
+  }
+  const matches = new Map();
+  for (const slot of runSlots) {
+    const exact = matchSessionToActivity(pool, slot.date);
+    if (exact) matches.set(localKey(slot.date, slot.session.title), { activity: exact, daysLate: 0 });
+  }
+  for (const slot of runSlots) {
+    const key = localKey(slot.date, slot.session.title);
+    if (matches.has(key)) continue;
+    for (let n = 1; n <= MATCH_FALLBACK_DAYS; n++) {
+      const candidateDate = addDaysISO(slot.date, n);
+      const candidate = pool.find(a => !a.claimed && a.date === candidateDate && a.sport === "running");
+      if (candidate) {
+        candidate.claimed = true;
+        matches.set(key, { activity: candidate, daysLate: n });
+        break;
+      }
+    }
+  }
+  return matches;
+}
+
 const PT_TYPES = new Set(["strength", "core", "pt"]);
 
 // Walks every day of the plan and works out a completion status for each.
@@ -77,6 +116,8 @@ const PT_TYPES = new Set(["strength", "core", "pt"]);
 function computeCompletionStats(plan, history) {
   const t = todayISO();
   const pool = buildActivityPool(history);
+  const matchDays = plan.weeks.flatMap(w => w.days).filter(d => d.date <= t);
+  const matches = buildSessionMatches(matchDays, pool);
   const days = [];
   const byType = { run: { due: 0, done: 0 }, pt: { due: 0, done: 0 } };
 
@@ -91,8 +132,8 @@ function computeCompletionStats(plan, history) {
           due++;
           let isDone = false;
           if (session.type === "run") {
-            const match = matchSessionToActivity(pool, day.date);
-            isDone = !!match || window.tdAuth.isCheckedIn(localKey(day.date, session.title));
+            const matchInfo = matches.get(localKey(day.date, session.title));
+            isDone = !!matchInfo || window.tdAuth.isCheckedIn(localKey(day.date, session.title));
             byType.run.due++;
             if (isDone) byType.run.done++;
           } else if (PT_TYPES.has(session.type)) {

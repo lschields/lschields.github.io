@@ -40,6 +40,12 @@ function daysBetween(aISO, bISO) {
   return Math.round((b - a) / 86400000);
 }
 
+function addDaysISO(dateISO, n) {
+  const d = parseISO(dateISO);
+  d.setDate(d.getDate() + n);
+  return localISO(d);
+}
+
 function localKey(dateISO, title) {
   return `td:${dateISO}:${title}`;
 }
@@ -91,6 +97,55 @@ function matchSessionToActivity(pool, dateISO) {
   const candidate = pool.find(a => !a.claimed && a.date === dateISO);
   if (candidate) { candidate.claimed = true; return candidate; }
   return null;
+}
+
+// Two-phase matching across a set of days, so a run session done a day or
+// two late (rain, schedule conflict - a recurring real pattern, not a fluke:
+// 2026-09-17's tempo got pushed to 9/18) still shows as completed with real
+// data instead of silently falling back to a manual self-report checkbox.
+//
+// Phase 1 claims every exact date === session date match FIRST, across every
+// run session in `days`, before any fallback is considered - critical so a
+// later day's own exact match can never get stolen by an earlier day's
+// fallback search (e.g. if Tue and Wed both plan runs and only Wed's actually
+// happened, Tue's fallback search must not grab Wed's activity out from
+// under it).
+//
+// Phase 2 looks forward only (never backward - you don't pre-run a session
+// you haven't reached yet) up to MATCH_FALLBACK_DAYS, and only at unclaimed
+// activities with sport "running" (never a hike/mobility session logged
+// nearby), so a shifted run still auto-matches without misattributing an
+// unrelated activity. Returns a Map keyed by localKey(date, title) ->
+// {activity, daysLate}.
+const MATCH_FALLBACK_DAYS = 2;
+
+function buildSessionMatches(days, pool) {
+  const runSlots = [];
+  for (const day of days) {
+    for (const session of day.sessions) {
+      if (session.type === "run") runSlots.push({ date: day.date, session });
+    }
+  }
+
+  const matches = new Map();
+  for (const slot of runSlots) {
+    const exact = matchSessionToActivity(pool, slot.date);
+    if (exact) matches.set(localKey(slot.date, slot.session.title), { activity: exact, daysLate: 0 });
+  }
+  for (const slot of runSlots) {
+    const key = localKey(slot.date, slot.session.title);
+    if (matches.has(key)) continue;
+    for (let n = 1; n <= MATCH_FALLBACK_DAYS; n++) {
+      const candidateDate = addDaysISO(slot.date, n);
+      const candidate = pool.find(a => !a.claimed && a.date === candidateDate && a.sport === "running");
+      if (candidate) {
+        candidate.claimed = true;
+        matches.set(key, { activity: candidate, daysLate: n });
+        break;
+      }
+    }
+  }
+  return matches;
 }
 
 // ---------------------------------------------------------------------
@@ -525,19 +580,22 @@ function sessionKindLabel(s) {
   return capitalize(s.type);
 }
 
-function renderSession(session, dateISO, pool) {
+function renderSession(session, dateISO, matchInfo) {
   const isRun = session.type === "run";
   const isRest = session.type === "rest";
   let done = false, actualHtml = "", checkClass = "", autoMatched = false;
 
   if (isRun) {
-    const match = matchSessionToActivity(pool, dateISO);
-    if (match) {
+    if (matchInfo) {
+      const match = matchInfo.activity;
       done = true;
       autoMatched = true;
       checkClass = "done auto";
+      const lateNote = matchInfo.daysLate > 0
+        ? ` &mdash; ran ${matchInfo.daysLate} day${matchInfo.daysLate === 1 ? "" : "s"} late`
+        : "";
       actualHtml = `<div class="session-actual">&#10003; Actual: ${match.distance_mi} mi @ ${match.avg_pace_per_mi || "?"}/mi
-        ${match.avg_hr ? ", HR " + match.avg_hr + " avg" : ""}${match.race ? " &mdash; " + (match.note || "") : ""}</div>`;
+        ${match.avg_hr ? ", HR " + match.avg_hr + " avg" : ""}${match.race ? " &mdash; " + (match.note || "") : ""}${lateNote}</div>`;
     } else {
       // No Garmin activity matched yet - let it be manually self-reported until
       // the weekly upload confirms it (at which point the auto-match takes over).
@@ -626,10 +684,11 @@ function renderWeekDetail(plan, history) {
   const pool = buildActivityPool(history);
   const t = todayISO();
   const actualMi = sumWeekActualMiles(w, pool);
+  const matches = buildSessionMatches(w.days, pool);
 
   const days = w.days.map(day => {
     const isToday = day.date === t;
-    const rendered = day.sessions.map(s => renderSession(s, day.date, pool));
+    const rendered = day.sessions.map(s => renderSession(s, day.date, matches.get(localKey(day.date, s.title))));
     const sessionsHtml = rendered.map(r => r.html).join("");
     const total = rendered.filter(r => r.countsTowardTotal).length;
     const done = rendered.filter(r => r.countsTowardTotal && r.done).length;
