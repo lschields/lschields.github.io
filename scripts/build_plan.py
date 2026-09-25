@@ -921,9 +921,11 @@ add_week(
         [run_session("easy", "Easy run", distance_mi=5, hr_zone=2)],
         [run_session("tempo", "Tempo run", distance_mi=7, hr_zone=None,
                       warmup_mi=1.5, cooldown_mi=1.5,
-                      pace="1.5mi warmup, 4 x 1mi @ 7:20-7:30/mi w/ 60-90s jog recovery, 1.5mi cooldown",
+                      pace="1.5mi warmup, 4 x 1mi @ 7:20-7:30/mi w/ 75s jog recovery, 1.5mi cooldown",
                       details="Segmented, not continuous - 4 pieces at threshold effort with short jog "
-                              "recovery between. Should feel controlled, not desperate.")],
+                              "recovery between. Should feel controlled, not desperate.",
+                      intervals={"warmup_mi": 1.5, "cooldown_mi": 1.5, "reps": 4,
+                                 "rep_distance_m": 1609.34, "recovery_sec": 75, "rep_pace": None})],
         [pt_peak_fri()],
         [run_session("long", "Long run", distance_mi=9, hr_zone=2,
                       details="Easy the whole way - no goal-pace finish this week while training "
