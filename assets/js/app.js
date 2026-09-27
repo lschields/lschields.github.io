@@ -329,7 +329,7 @@ function renderKPIs(plan, history) {
     rebuild: "building back safely - volume and consistency matter more than speed right now.",
     base: "building the aerobic engine everything else gets layered on top of.",
     build: "speed work is layering in - hard days should feel hard, easy days easy.",
-    peak: "the highest load of the cycle - dial in race-pace feel and prioritize recovery.",
+    peak: "rebuilding into race shape - paces come from real data (the Sep 24 time trial), not a preset escalation, so load moves week-to-week based on how recovery is actually tracking.",
     taper: "volume is dropping on purpose - trust it, don't chase fitness this late.",
   };
   const blockTip = `Week ${currentWeek.week_num} of ${plan.weeks.length}, ${currentWeek.block} phase: ${PHASE_NOTES[currentWeek.block] || ""}`;
@@ -406,7 +406,7 @@ function renderKPIs(plan, history) {
   // No gauge here per Luke's note - just the HR value, a clean one-line pace range, and a trend.
   const lthrSeries = series(loadHistory, "lthr");
   if (lthrSeries.length) {
-    const thresholdZone = (plan.athlete.pace_zones || []).find(z => z.name === "Tempo / Threshold");
+    const thresholdZone = (plan.athlete.pace_zones || []).find(z => z.name.startsWith("Tempo / Threshold"));
     const lthrLatest = lthrSeries[lthrSeries.length - 1];
     const lthrPrev = lthrSeries.length > 1 ? lthrSeries[lthrSeries.length - 2] : null;
     let lthrTip;

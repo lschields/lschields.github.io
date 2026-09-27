@@ -183,13 +183,11 @@ ATHLETE = {
         "so paces here are reconciled back to the 1:28 goal and real numbers.",
         "Plan spans 13 weeks, Aug 3 - Nov 1 2026 - Week 1 (Aug 3-9) picks up the week Luke had "
         "already started under the artifact's own schedule before this dashboard existed.",
-        "The Tempo/Threshold, Goal HM pace, and VO2max interval paces below are leftover goal-era "
-        "reference numbers, not what's currently prescribed anywhere - kept only so the paces used in "
-        "Weeks 10-13's not-yet-rewritten sessions are visible/traceable until those get updated too "
-        "(see the GOAL_PACE_PER_MI comment near the top of this file). Weeks 5-8's actual "
-        "tempo sessions target Zone 4 (Threshold, live off current LTHR) instead - a real "
-        "current-fitness number. Interval sessions stay effort-based (no fixed pace) since HR lags too "
-        "much on short reps to target live, and there's no current hard-effort pace data yet either.",
+        "The Tempo/Threshold and VO2max interval paces below were updated 2026-09-25 off the Sep 24 "
+        "10K time trial (see the next note) - they're real current-fitness numbers now, not the old "
+        "goal-era placeholders. Weeks 10-13's own session text still carries stale goal-era paces tied "
+        "to the retired GOAL_PACE_PER_MI (see that comment near the top of this file) and hasn't been "
+        "rewritten yet - only Week 9 has been redesigned off the time-trial data so far.",
         "10K time trial result, 2026-09-24: 45:01 for the isolated race-effort portion (6.21mi, "
         "excluding warmup/cooldown), avg pace 7:15/mi, avg HR 151 peaking at 156 - stayed Zone 3-4 the "
         "whole way, never touched Zone 5 (max HR 181). This is the first real current-fitness data "
@@ -218,9 +216,9 @@ ATHLETE = {
         {"name": "Easy", "pace_per_mi": "HR-based, no pace target", "hr_zone": 2},
         {"name": "Long run", "pace_per_mi": "HR-based, no pace target", "hr_zone": 2},
         {"name": "Recovery", "pace_per_mi": "HR-based, no pace target", "hr_zone": 1},
-        {"name": "Tempo / Threshold (leftover goal-era number, see context)", "pace_per_mi": "6:35-6:45", "hr_zone": None},
-        {"name": "Goal HM pace (retired 2026-09-11, see context)", "pace_per_mi": GOAL_PACE_PER_MI, "hr_zone": None},
-        {"name": "VO2max intervals (leftover goal-era number, see context)", "pace_per_mi": "6:00-6:15", "hr_zone": None},
+        {"name": "Tempo / Threshold", "pace_per_mi": "7:20-7:30", "hr_zone": None},
+        {"name": "Current 10K-TT-equivalent half pace (9/24 time trial, not a goal - see context)", "pace_per_mi": "7:30-7:40", "hr_zone": None},
+        {"name": "VO2max intervals", "pace_per_mi": "6:50-7:00", "hr_zone": None},
         {"name": "Strides", "pace_per_mi": "5:30-5:45 (relaxed, not max effort)", "hr_zone": None},
     ],
     "race_strategy": {
