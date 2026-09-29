@@ -2,9 +2,9 @@
   "workoutId": null,
   "ownerId": 585149926,
   "workoutName": "W09 Thu Tempo 7mi",
-  "description": "TEMPO RUN \u2014 7 miles | Effort-based (no fixed pace yet)\n\nPURPOSE: Sustained comfortably-hard effort - trains lactate clearance and the ability to hold a hard pace under control.\n\nFOCUS: No fixed pace target - there's no current hard-effort data to set one honestly yet (the only reference point is pre-layoff/2022 fitness). Run the effort described below and record whatever pace results - that's useful data. The Week 8 10K time trial (Sep 24) sets real target paces from here forward.\n\nNOTE: Segmented, not continuous - 4 pieces at threshold effort with short jog recovery between. Should feel controlled, not desperate.\n\nYOUR DATA: Your last 3 logged runs averaged 140-147 bpm at 7:30-8:15/mi.\n\nFEEL: Comfortably hard - sustainable for the whole segment. Short sentences, not full conversation.",
-  "updatedDate": "2026-09-25T13:11:43.0",
-  "createdDate": "2026-09-25T13:11:43.0",
+  "description": "TEMPO RUN \u2014 7 miles | Effort-based (no fixed pace yet)\n\nPURPOSE: Sustained comfortably-hard effort - trains lactate clearance and the ability to hold a hard pace under control.\n\nFOCUS: No fixed pace target - there's no current hard-effort data to set one honestly yet (the only reference point is pre-layoff/2022 fitness). Run the effort described below and record whatever pace results - that's useful data. The Week 8 10K time trial (Sep 24) sets real target paces from here forward.\n\nNOTE: Segmented, not continuous - 4 pieces at threshold effort with short jog recovery between. Should feel controlled, not desperate.\n\nYOUR DATA: Your last 3 logged runs averaged 127-143 bpm at 7:59-10:52/mi.\n\nFEEL: Comfortably hard - sustainable for the whole segment. Short sentences, not full conversation.",
+  "updatedDate": "2026-09-29T23:43:42.0",
+  "createdDate": "2026-09-29T23:43:42.0",
   "sportType": {
     "sportTypeId": 1,
     "sportTypeKey": "running",
@@ -33,7 +33,7 @@
       "poolLengthUnit": null,
       "poolLength": null,
       "avgTrainingSpeed": 2.8,
-      "estimatedDurationInSecs": 3353,
+      "estimatedDurationInSecs": 3898,
       "estimatedDistanceInMeters": 11265,
       "estimatedDistanceUnit": {
         "unitId": 2,
@@ -141,12 +141,12 @@
               },
               "endConditionCompare": null,
               "targetType": {
-                "workoutTargetTypeId": 1,
-                "workoutTargetTypeKey": "no.target",
-                "displayOrder": 1
+                "workoutTargetTypeId": 6,
+                "workoutTargetTypeKey": "pace.zone",
+                "displayOrder": 6
               },
-              "targetValueOne": null,
-              "targetValueTwo": null,
+              "targetValueOne": 3.576,
+              "targetValueTwo": 3.658,
               "zoneNumber": null,
               "secondaryTargetType": null,
               "secondaryTargetValueOne": null,

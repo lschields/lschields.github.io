@@ -906,6 +906,15 @@ add_week(
         "drops the goal-pace finish it had in the original plan and stays easy Zone 2 throughout; "
         "that finish comes back in Week 10 if the week's data (HRV, RHR, how Tuesday/Thursday feel) "
         "supports it, not automatically.",
+        "Bug fixed 2026-09-29: Tuesday's intervals ran with no pace target on the watch (the "
+        "structured `intervals` dict had rep_pace left at None, the same placeholder used in Weeks "
+        "7-8 back when there was no real pace data yet - it just never got updated once the "
+        "time-trial gave us one). Set rep_pace on both Tuesday's intervals (6:50-7:00/mi) and "
+        "Thursday's tempo (7:20-7:30/mi) so the actual number shows up on the watch going forward. "
+        "Tuesday's session still went well despite running effort-only: 5 x 1000m actually came in at "
+        "6:35-6:42/mi (faster than the 6:50-7:00 target), HR 151-153 avg, 157-158 max - stayed under "
+        "the Zone 5 floor (159) the whole time. Worth watching whether Thursday's tempo runs similarly "
+        "ahead of its target now that it'll have one to compare against.",
     ],
     [
         [pt_peak_mon()],
@@ -915,7 +924,7 @@ add_week(
                               "that those were confirmed comfortable. Repeatable across all 5 reps - "
                               "if it's not repeatable, it's too fast.",
                       intervals={"warmup_mi": 1.5, "cooldown_mi": 1.0, "reps": 5,
-                                 "rep_distance_m": 1000, "recovery_m": 400, "rep_pace": None})],
+                                 "rep_distance_m": 1000, "recovery_m": 400, "rep_pace": (420, 410)})],
         [run_session("easy", "Easy run", distance_mi=5, hr_zone=2)],
         [run_session("tempo", "Tempo run", distance_mi=7, hr_zone=None,
                       warmup_mi=1.5, cooldown_mi=1.5,
@@ -923,7 +932,7 @@ add_week(
                       details="Segmented, not continuous - 4 pieces at threshold effort with short jog "
                               "recovery between. Should feel controlled, not desperate.",
                       intervals={"warmup_mi": 1.5, "cooldown_mi": 1.5, "reps": 4,
-                                 "rep_distance_m": 1609.34, "recovery_sec": 75, "rep_pace": None})],
+                                 "rep_distance_m": 1609.34, "recovery_sec": 75, "rep_pace": (450, 440)})],
         [pt_peak_fri()],
         [run_session("long", "Long run", distance_mi=9, hr_zone=2,
                       details="Easy the whole way - no goal-pace finish this week while training "

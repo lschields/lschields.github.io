@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T20:56:09.483588Z",
+  "generated_at": "2026-09-29T23:43:42.839040Z",
   "athlete": {
     "name": "Luke",
     "race": {
@@ -2175,7 +2175,8 @@
         "REDESIGNED 2026-09-25 off the Sep 24 10K time trial (45:01, 7:15/mi - see athlete context notes for the full result and half-marathon-equivalent estimate). Replaces both the STALE 1:28-goal-era paces and the SUPERSEDED preset Peak-block shape this week previously had.",
         "Paces: tempo/threshold work targets 7:20-7:30/mi (just off current 10K pace, controlled); interval work targets 6:50-7:00/mi. Both are current-fitness numbers from real data, not a race-day goal - expect them to move as training continues.",
         "Structure still follows the 2026-09-20 governing principle: tempo stays segmented (4 x 1mi here, not one continuous block) and intervals stay short of a mile (1000m here, a modest length step up from Week 8's 800m now that the 800m reps were confirmed comfortable) - lengthen further only once these are clearly sustainable, not on a preset week number.",
-        "Volume: 30.5mi, a moderate step up from Week 8's 26mi cutback - deliberately well short of the original 34mi this week carried. Post-time-trial Garmin data (9/24) showed training readiness dropped to 6/poor, recovery time at 65.5h, and running-tolerance feedback ABOVE_TOLERANCE (ACWR 1.3) - real signals that the race cost something. Saturday's long run drops the goal-pace finish it had in the original plan and stays easy Zone 2 throughout; that finish comes back in Week 10 if the week's data (HRV, RHR, how Tuesday/Thursday feel) supports it, not automatically."
+        "Volume: 30.5mi, a moderate step up from Week 8's 26mi cutback - deliberately well short of the original 34mi this week carried. Post-time-trial Garmin data (9/24) showed training readiness dropped to 6/poor, recovery time at 65.5h, and running-tolerance feedback ABOVE_TOLERANCE (ACWR 1.3) - real signals that the race cost something. Saturday's long run drops the goal-pace finish it had in the original plan and stays easy Zone 2 throughout; that finish comes back in Week 10 if the week's data (HRV, RHR, how Tuesday/Thursday feel) supports it, not automatically.",
+        "Bug fixed 2026-09-29: Tuesday's intervals ran with no pace target on the watch (the structured `intervals` dict had rep_pace left at None, the same placeholder used in Weeks 7-8 back when there was no real pace data yet - it just never got updated once the time-trial gave us one). Set rep_pace on both Tuesday's intervals (6:50-7:00/mi) and Thursday's tempo (7:20-7:30/mi) so the actual number shows up on the watch going forward. Tuesday's session still went well despite running effort-only: 5 x 1000m actually came in at 6:35-6:42/mi (faster than the 6:50-7:00 target), HR 151-153 avg, 157-158 max - stayed under the Zone 5 floor (159) the whole time. Worth watching whether Thursday's tempo runs similarly ahead of its target now that it'll have one to compare against."
       ],
       "days": [
         {
@@ -2245,7 +2246,10 @@
                 "reps": 5,
                 "rep_distance_m": 1000,
                 "recovery_m": 400,
-                "rep_pace": null
+                "rep_pace": [
+                  420,
+                  410
+                ]
               }
             }
           ]
@@ -2292,7 +2296,10 @@
                 "reps": 4,
                 "rep_distance_m": 1609.34,
                 "recovery_sec": 75,
-                "rep_pace": null
+                "rep_pace": [
+                  450,
+                  440
+                ]
               }
             }
           ]

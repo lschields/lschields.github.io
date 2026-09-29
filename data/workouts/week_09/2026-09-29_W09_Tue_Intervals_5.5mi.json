@@ -2,9 +2,9 @@
   "workoutId": null,
   "ownerId": 585149926,
   "workoutName": "W09 Tue Intervals 5.5mi",
-  "description": "INTERVALS RUN \u2014 5.5 miles | Effort-based (no fixed pace yet)\n\nPURPOSE: Hard, repeatable efforts near current top-end aerobic capacity - trains VO2max and running economy. Consistent effort rep-to-rep matters more than a fast first rep.\n\nFOCUS: No fixed pace target - there's no current hard-effort data to set one honestly yet (the only reference point is pre-layoff/2022 fitness). Run the effort described below and record whatever pace results - that's useful data. The Week 8 10K time trial (Sep 24) sets real target paces from here forward.\n\nNOTE: Modest step up from Week 8's 4x800m (1000m reps instead of 800m) now that those were confirmed comfortable. Repeatable across all 5 reps - if it's not repeatable, it's too fast.\n\nYOUR DATA: Your last 3 logged runs averaged 140-147 bpm at 7:30-8:15/mi.\n\nFEEL: Hard but repeatable - breathing hard by the end of each rep, but able to hit the next one at the same effort.",
-  "updatedDate": "2026-09-25T13:11:43.0",
-  "createdDate": "2026-09-25T13:11:43.0",
+  "description": "INTERVALS RUN \u2014 5.5 miles | Effort-based (no fixed pace yet)\n\nPURPOSE: Hard, repeatable efforts near current top-end aerobic capacity - trains VO2max and running economy. Consistent effort rep-to-rep matters more than a fast first rep.\n\nFOCUS: No fixed pace target - there's no current hard-effort data to set one honestly yet (the only reference point is pre-layoff/2022 fitness). Run the effort described below and record whatever pace results - that's useful data. The Week 8 10K time trial (Sep 24) sets real target paces from here forward.\n\nNOTE: Modest step up from Week 8's 4x800m (1000m reps instead of 800m) now that those were confirmed comfortable. Repeatable across all 5 reps - if it's not repeatable, it's too fast.\n\nYOUR DATA: Your last 3 logged runs averaged 127-147 bpm at 7:30-10:52/mi.\n\nFEEL: Hard but repeatable - breathing hard by the end of each rep, but able to hit the next one at the same effort.",
+  "updatedDate": "2026-09-29T23:43:42.0",
+  "createdDate": "2026-09-29T23:43:42.0",
   "sportType": {
     "sportTypeId": 1,
     "sportTypeKey": "running",
@@ -33,7 +33,7 @@
       "poolLengthUnit": null,
       "poolLength": null,
       "avgTrainingSpeed": 2.8,
-      "estimatedDurationInSecs": 2634,
+      "estimatedDurationInSecs": 3009,
       "estimatedDistanceInMeters": 8851,
       "estimatedDistanceUnit": {
         "unitId": 2,
@@ -141,12 +141,12 @@
               },
               "endConditionCompare": null,
               "targetType": {
-                "workoutTargetTypeId": 1,
-                "workoutTargetTypeKey": "no.target",
-                "displayOrder": 1
+                "workoutTargetTypeId": 6,
+                "workoutTargetTypeKey": "pace.zone",
+                "displayOrder": 6
               },
-              "targetValueOne": null,
-              "targetValueTwo": null,
+              "targetValueOne": 3.832,
+              "targetValueTwo": 3.925,
               "zoneNumber": null,
               "secondaryTargetType": null,
               "secondaryTargetValueOne": null,

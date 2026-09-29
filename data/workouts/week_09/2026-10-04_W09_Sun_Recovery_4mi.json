@@ -2,9 +2,9 @@
   "workoutId": null,
   "ownerId": 585149926,
   "workoutName": "W09 Sun Recovery 4mi",
-  "description": "RECOVERY RUN \u2014 4 miles | Zone 1 | HR 104-127 bpm\n\nPURPOSE: Active recovery. The point is blood flow and turnover, not training stimulus - this run should barely register as effort.\n\nFOCUS: Let HR govern pace completely. If it's hot/humid you may need to run slower than usual to stay under 127 bpm - that's correct, don't chase pace targets.\n\nYOUR DATA: Your last 3 logged runs averaged 140-147 bpm at 7:30-8:15/mi.\n\nFEEL: Fully conversational. You should be able to speak in complete sentences with zero effort.",
-  "updatedDate": "2026-09-25T13:11:43.0",
-  "createdDate": "2026-09-25T13:11:43.0",
+  "description": "RECOVERY RUN \u2014 4 miles | Zone 1 | HR 105-128 bpm\n\nPURPOSE: Active recovery. The point is blood flow and turnover, not training stimulus - this run should barely register as effort.\n\nFOCUS: Let HR govern pace completely. If it's hot/humid you may need to run slower than usual to stay under 128 bpm - that's correct, don't chase pace targets.\n\nYOUR DATA: Your last 3 logged runs averaged 127-143 bpm at 7:59-10:52/mi.\n\nFEEL: Fully conversational. You should be able to speak in complete sentences with zero effort.",
+  "updatedDate": "2026-09-29T23:43:42.0",
+  "createdDate": "2026-09-29T23:43:42.0",
   "sportType": {
     "sportTypeId": 1,
     "sportTypeKey": "running",
@@ -33,7 +33,7 @@
       "poolLengthUnit": null,
       "poolLength": null,
       "avgTrainingSpeed": 2.8,
-      "estimatedDurationInSecs": 1916,
+      "estimatedDurationInSecs": 2227,
       "estimatedDistanceInMeters": 6437,
       "estimatedDistanceUnit": {
         "unitId": 2,
