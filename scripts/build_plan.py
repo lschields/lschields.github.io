@@ -197,6 +197,17 @@ ATHLETE = {
         "9's redesign below: tempo/threshold work at 7:20-7:30/mi, short-rep interval work at "
         "6:50-7:00/mi. This is a current-fitness snapshot, not a goal - expect it to keep moving as "
         "training continues, and re-anchor off newer data (not this number) once there's more of it.",
+        "STANDING NOTE, added 2026-09-29 (Luke's explicit request - keep this in mind for future pace "
+        "targets): both quality sessions run against the time-trial-derived paces so far have come in "
+        "faster than their target while HR stayed controlled and sub-Zone-5. The 10K TT itself negative "
+        "split with HR capped at 156 (never reached his 181 max); Week 9's Tuesday intervals (run "
+        "effort-only, no watch target yet - see the bug note above) came in at 6:35-6:42/mi against a "
+        "6:50-7:00 target, HR 151-153 avg/157-158 max, still under the Zone 5 floor (159). Two data "
+        "points isn't a trend yet, but the consistent direction (faster than prescribed, HR still with "
+        "room) is worth factoring in when setting paces for Week 10 onward: current-fitness pace "
+        "anchors derived from the time trial may be slightly conservative, not just accurate. Don't "
+        "overcorrect off this alone - keep watching actual sessions (especially Thursday's tempo, which "
+        "now has a real target to compare against) before loosening any paces.",
     ],
     # Fallback values only - used if data/history.json has no Garmin Coach
     # export yet. Once a coach export has been ingested, live_hr_zones_and_lthr()
