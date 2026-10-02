@@ -208,6 +208,23 @@ ATHLETE = {
         "anchors derived from the time trial may be slightly conservative, not just accurate. Don't "
         "overcorrect off this alone - keep watching actual sessions (especially Thursday's tempo, which "
         "now has a real target to compare against) before loosening any paces.",
+        "UPDATE 2026-10-02 on the above: Week 9's Thursday tempo (actually run Friday AM - see next "
+        "note) continued the same pattern. 3 of 4 reps came in faster than the 7:20-7:30 target "
+        "(7:16-7:20/mi), the 4th landed right at 7:25. Still just a handful of sessions, still watching "
+        "before changing any Week 10+ numbers.",
+        "Morning-vs-evening HR pattern, flagged 2026-10-02: Luke is shifting to morning runs going "
+        "forward (limited daylight after work). He's noted more than once now that HR reads "
+        "noticeably lower for a given pace/effort on morning runs vs evening - confirmed again on the "
+        "Friday-AM tempo above (warmup HR only 115-127 avg; tempo reps 140-145 avg/145-150 max, well "
+        "under what the same pace produced on evening tempo sessions earlier in the cycle). This is a "
+        "real, well-documented physiological pattern (lower core body temp and resting autonomic tone "
+        "shortly after waking mean submax HR commonly reads 5-15bpm lower in the morning for identical "
+        "effort), not a fitness change or a data error - don't recalibrate HR zones or LTHR off morning "
+        "sessions alone, and don't be surprised if HR-zone-targeted easy/long/recovery runs feel "
+        "like they're running under-zone by HR even at honest effort once mornings become the norm. "
+        "If the shift to mornings sticks for a few weeks, worth a deliberate check-in on whether pace "
+        "is now the more reliable signal than HR for morning sessions specifically - not an immediate "
+        "change, just something to watch.",
     ],
     # Fallback values only - used if data/history.json has no Garmin Coach
     # export yet. Once a coach export has been ingested, live_hr_zones_and_lthr()
