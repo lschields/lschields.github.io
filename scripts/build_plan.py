@@ -998,7 +998,7 @@ W10_INTERVALS = {"warmup_mi": 1.5, "cooldown_mi": 1.0, "reps": 5, "rep_distance_
                  "recovery_m": 400, "rep_pace": (420, 410), "recovery_note": INT_RECOVERY_NOTE}
 W10_TEMPO = {"warmup_mi": 1.5, "cooldown_mi": 1.5, "reps": 4, "rep_distance_m": 1609.34,
              "recovery_sec": 75, "rep_pace": (450, 440), "recovery_note": TEMPO_RECOVERY_NOTE}
-W10_TOTAL = (interval_total_mi(W10_INTERVALS) + 7 + interval_total_mi(W10_TEMPO) + 9.5 + 4)
+W10_TOTAL = (interval_total_mi(W10_INTERVALS) + 7 + interval_total_mi(W10_TEMPO) + 3.5 + 9.5)
 add_week(
     10, "peak", "Peak - Weeks 9-11", "Steady step up - quality unchanged, extra miles on easy/long days",
     round(W10_TOTAL, 1),
@@ -1013,11 +1013,12 @@ add_week(
         "tempo). That's why Week 9 showed 31.8 actual vs 30.5 planned.",
         "Recovery between reps is ACTIVE jog, effort-based (not a pace): Garmin file now says so on "
         "each recovery step. Don't aim for Zone 1 after hard reps - HR won't get there in 75-150s.",
-        "TRAVEL: flying to Riyadh Fri Oct 9 (about +7h vs Boston), back Thu Oct 15. Sat/Sun runs "
-        "are in Riyadh on hotel treadmill (~95F outside, so treadmill/early AM is the right call). "
-        "Saturday's long run is flexible: jet-lagged + travel day before, so cap it by feel/HR and "
-        "cut to 6-7mi if you're wrecked - a shortened run there is correct, not a miss. Friday PT: "
-        "do it before you leave if you can; skip it if the flight day is too tight.",
+        "TRAVEL: departs Boston Fri Oct 9 4:30pm, lands Riyadh Sat Oct 10 3:15pm local (+7h vs Boston). "
+        "Because you land mid-afternoon after ~16h of travel, the long run MOVES to Sunday morning: "
+        "Saturday is only an optional 3.5mi easy treadmill shakeout (skip if you're fried - it's "
+        "there to loosen legs and nudge your body clock), and Sunday's 9.5mi long run replaces the "
+        "recovery run. Sunday is flexible: Zone 2 by HR/feel on the hotel treadmill, cut to 6-7mi if "
+        "jet lag wins - that's correct, not a miss. Friday PT: before you leave if time allows.",
     ],
     [
         [pt_peak_mon()],
@@ -1031,40 +1032,54 @@ add_week(
                       pace="1.5mi warmup, 4 x 1mi @ 7:20-7:30/mi w/ 75s active jog recovery, 1.5mi cooldown",
                       details="Same session as Week 9. " + TEMPO_RECOVERY_NOTE,
                       intervals=W10_TEMPO)],
-        [{**pt_peak_fri(), "note": "Flight day (Riyadh). Do this before you leave if time allows; skip if not."}],
+        [{**pt_peak_fri(), "note": "Flight day (Riyadh, 4:30pm departure). Do this before you leave if time allows; skip if not."}],
+        [run_session("shakeout", "Shakeout (optional)", distance_mi=3.5, hr_zone=2,
+                      details="Lands 3:15pm Riyadh after ~16h of travel. Easy treadmill shakeout, "
+                              "evening, only if you feel up to it - skip rather than force it.")],
         [run_session("long", "Long run", distance_mi=9.5, hr_zone=2,
-                      details="Riyadh, hotel treadmill, jet lagged. Easy Zone 2 by HR/feel - treadmill HR "
-                              "will run higher in heat/dry hotel air. Cut to 6-7mi if you're wrecked.")],
-        [run_session("recovery", "Recovery run", distance_mi=4, hr_zone=1,
-                      details="Treadmill is fine. Truly easy.")],
+                      details="Sunday morning in Riyadh, hotel treadmill, day 2 jet lag. Easy Zone 2 by "
+                              "HR/feel (treadmill HR runs higher in hotel air). Cut to 6-7mi if you're "
+                              "wrecked. Takes the place of the usual recovery run.")],
     ],
 )
 
 # ---- Week 11 (Oct 12-18) - Peak -----------------------------------------------
+# Redesigned 2026-10-04 around Riyadh travel (mileage includes recovery jogs).
+W11_INTERVALS = dict(W10_INTERVALS)
+W11_TOTAL = interval_total_mi(W11_INTERVALS) + 7 + 5 + 10 + 4
 add_week(
-    11, "peak", "Peak - Weeks 9-11", "Last real quality week, volume starts easing",
-    30,
+    11, "peak", "Peak - Weeks 9-11", "Travel week - intervals in Riyadh, tempo skipped, long run after the flight home",
+    round(W11_TOTAL, 1),
     [
-        "Last hard week. Sharpen, don't strain - there's no time left to recover a setback before "
-        "taper needs to start, so if anything feels off, back off rather than grind through.",
-        "SUPERSEDED as of 2026-09-20 - same redesign flag as Weeks 9-10: this week's content assumes "
-        "the peak-fitness trajectory the athlete context notes now explicitly rule out.",
-        "TRAVEL (flagged 2026-10-04): Luke is in Riyadh Oct 9-15 (hotel treadmill, ~95F outside, +7h). "
-        "Agreed: keep both quality sessions on the treadmill/early AM. Return-flight timing not yet "
-        "known (Thursday's tempo may collide with travel), and the week hasn't been redesigned yet - "
-        "do that with the flight times once Week 10 is done. Mileage totals must include recovery jogs.",
+        "REDESIGNED 2026-10-04 around travel: in Riyadh Mon-Thu (hotel treadmill, ~95F outside), "
+        "flight home leaves 4:20am Thu Oct 15 and lands Boston 2:40pm. No run Thursday (also your "
+        "girlfriend's birthday).",
+        "Tempo is dropped this week, not relocated: Thursday is lost to the flight, and stacking it on "
+        "Friday/Saturday right after a 4am overnight flight and +7h jet lag would put the hardest work "
+        "on the worst-recovered days, with Garmin running tolerance still flagging above tolerance. "
+        "Quality this week is Tuesday's intervals (same 5 x 1000m as Weeks 9-10). Tempo comes back in "
+        "the first taper week if you feel good - revisit then.",
+        "Treadmill pacing: 6:50-7:00/mi = 8.6-8.8 mph. Hotel treadmills are often uncalibrated, so "
+        "check effort/HR against pace and trust effort if they disagree. Active-jog recoveries as before.",
+        "Wednesday Oct 14: easy 7mi (morning), early night - you leave for the airport around 1-2am.",
+        "Friday is an easy 5mi to shake out the flight (morning, body clock will think it's afternoon), "
+        "Saturday's long run is flexible while jet lag settles - cut it if needed. Mileage includes "
+        "recovery jogs.",
     ],
     [
-        [pt_peak_mon()],
-        [run_session("intervals", "VO2max intervals", distance_mi=6,
-                      pace="1.5mi warmup, 4 x 1mi @ 6:00-6:10/mi w/ 3min jog recovery, 1mi cooldown")],
-        [run_session("easy", "Easy run", distance_mi=5, hr_zone=2)],
-        [run_session("mp", "Goal-pace run", distance_mi=7,
-                      pace=f"1.5mi warmup, 4mi @ {GOAL_PACE_PER_MI}, 1.5mi cooldown")],
-        [pt_peak_fri()],
+        [{**pt_peak_mon(), "note": "Hotel gym or bodyweight - keep it light, you land Saturday and run quality Tuesday."}],
+        [run_session("intervals", "VO2max intervals", distance_mi=interval_total_mi(W11_INTERVALS),
+                      pace="1.5mi warmup, 5 x 1000m @ 6:50-7:00/mi (8.6-8.8 mph) w/ 400m active jog recovery, 1mi cooldown",
+                      details="Hotel treadmill. Same session as Weeks 9-10. " + INT_RECOVERY_NOTE,
+                      intervals=W11_INTERVALS)],
+        [run_session("easy", "Easy run", distance_mi=7, hr_zone=2,
+                      details="Morning, hotel treadmill. Early night - flight leaves ~4:20am Thursday.")],
+        [rest_day("Travel day - 4:20am flight home, lands Boston 2:40pm. No run (girlfriend's birthday).")],
+        [run_session("easy", "Easy run", distance_mi=5, hr_zone=2,
+                      details="Shake out the flight. Morning, truly easy; cut or skip if wrecked.")],
         [run_session("long", "Long run", distance_mi=10, hr_zone=2,
-                      details=f"Easy, last 1mi @ goal pace ({GOAL_PACE_PER_MI}/mi).")],
-        [run_session("recovery", "Recovery run", distance_mi=3.5, hr_zone=1)],
+                      details="Easy Zone 2 by HR/feel. Jet lag may still be around - cut to 7-8mi if it is.")],
+        [run_session("recovery", "Recovery run", distance_mi=4, hr_zone=1)],
     ],
 )
 
