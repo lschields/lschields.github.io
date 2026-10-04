@@ -326,10 +326,11 @@ def build_workout(week_num, date_str, day_name, session, history):
             steps.append(make_step(sid, order, "warmup", iv_warmup_mi, NO_TARGET)); sid += 1; order += 1
 
         interval_step = make_step(0, 0, "interval", rep_distance_mi, rep_target)
+        rec_desc = intervals.get("recovery_note")  # active-jog guidance shown on the watch step
         if intervals.get("recovery_sec") is not None:
-            recovery_step = make_time_step(0, 0, "recovery", intervals["recovery_sec"], NO_TARGET)
+            recovery_step = make_time_step(0, 0, "recovery", intervals["recovery_sec"], NO_TARGET, description=rec_desc)
         else:
-            recovery_step = make_step(0, 0, "recovery", intervals["recovery_m"] / MILE_M, NO_TARGET)
+            recovery_step = make_step(0, 0, "recovery", intervals["recovery_m"] / MILE_M, NO_TARGET, description=rec_desc)
         steps.append(make_repeat_group(sid, order, intervals["reps"], interval_step, recovery_step))
         sid += 3; order += 3
 

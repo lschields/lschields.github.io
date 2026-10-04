@@ -562,6 +562,24 @@ def light_touch(*ids, note=""):
     return {"type": "pt", "title": "Quick touch", "exercises": ex_list(*ids), "note": note}
 
 
+JOG_RECOVERY_SEC_PER_MI = 650  # ~10:50/mi - matches logged W9 recovery jogs (tempo: 75s ~ 0.12mi)
+
+def interval_total_mi(iv):
+    """True session mileage for a structured intervals dict, INCLUDING the recovery jogs.
+    Added 2026-10-04: planned distance_mi used to count only warmup + reps + cooldown, so
+    Week 9 showed 30.5 planned vs 31.79 actual - the gap was the jog recoveries (the last
+    rep has no recovery, matching skipLastRestStep). Use this for distance_mi on any
+    session carrying an `intervals` dict so weekly targets match what the watch records."""
+    reps = iv["reps"]
+    rep_mi = iv["rep_distance_m"] / 1609.34
+    if iv.get("recovery_sec") is not None:
+        rec_mi = iv["recovery_sec"] / JOG_RECOVERY_SEC_PER_MI
+    else:
+        rec_mi = iv["recovery_m"] / 1609.34
+    total = (iv.get("warmup_mi") or 0) + reps * rep_mi + (reps - 1) * rec_mi + (iv.get("cooldown_mi") or 0)
+    return round(total * 20) / 20  # nearest 0.05mi
+
+
 def run_session(kind, title, distance_mi=None, duration_min=None, pace=None,
                  hr_zone=None, details="", note="", warmup_mi=None, cooldown_mi=None,
                  intervals=None):
@@ -915,7 +933,7 @@ add_week(
 # ---- Week 9 (Sep 28-Oct 4) - Peak -----------------------------------------------
 add_week(
     9, "peak", "Peak - Weeks 9-11", "Rebuilt off the Week 8 time trial - modest step up, not a peak jump",
-    30.5,
+    31.95,
     [
         "REDESIGNED 2026-09-25 off the Sep 24 10K time trial (45:01, 7:15/mi - see athlete context "
         "notes for the full result and half-marathon-equivalent estimate). Replaces both the STALE "
@@ -946,7 +964,7 @@ add_week(
     ],
     [
         [pt_peak_mon()],
-        [run_session("intervals", "VO2max intervals", distance_mi=5.5,
+        [run_session("intervals", "VO2max intervals", distance_mi=6.6,
                       pace="1.5mi warmup, 5 x 1000m @ 6:50-7:00/mi w/ 400m jog recovery, 1mi cooldown",
                       details="Modest step up from Week 8's 4x800m (1000m reps instead of 800m) now "
                               "that those were confirmed comfortable. Repeatable across all 5 reps - "
@@ -954,7 +972,7 @@ add_week(
                       intervals={"warmup_mi": 1.5, "cooldown_mi": 1.0, "reps": 5,
                                  "rep_distance_m": 1000, "recovery_m": 400, "rep_pace": (420, 410)})],
         [run_session("easy", "Easy run", distance_mi=5, hr_zone=2)],
-        [run_session("tempo", "Tempo run", distance_mi=7, hr_zone=None,
+        [run_session("tempo", "Tempo run", distance_mi=7.35, hr_zone=None,
                       warmup_mi=1.5, cooldown_mi=1.5,
                       pace="1.5mi warmup, 4 x 1mi @ 7:20-7:30/mi w/ 75s jog recovery, 1.5mi cooldown",
                       details="Segmented, not continuous - 4 pieces at threshold effort with short jog "
@@ -970,28 +988,55 @@ add_week(
 )
 
 # ---- Week 10 (Oct 5-11) - Peak -----------------------------------------------
+# Redesigned 2026-10-04. Mileage here INCLUDES recovery jogs (see interval_total_mi()).
+INT_RECOVERY_NOTE = ("Active jog - don't walk or stop. Easy ~10:30-11:30/mi (treadmill ~5.5-5.8 mph). "
+                     "HR should drift back to ~135-145 (top of Zone 2 / low Zone 3) by the end of each "
+                     "recovery - expect that, not Zone 1, this soon after a hard rep.")
+TEMPO_RECOVERY_NOTE = ("75s very easy jog - don't walk or stop (treadmill ~5.5 mph). HR will only dip to "
+                       "~135 in that time; that's expected.")
+W10_INTERVALS = {"warmup_mi": 1.5, "cooldown_mi": 1.0, "reps": 5, "rep_distance_m": 1000,
+                 "recovery_m": 400, "rep_pace": (420, 410), "recovery_note": INT_RECOVERY_NOTE}
+W10_TEMPO = {"warmup_mi": 1.5, "cooldown_mi": 1.5, "reps": 4, "rep_distance_m": 1609.34,
+             "recovery_sec": 75, "rep_pace": (450, 440), "recovery_note": TEMPO_RECOVERY_NOTE}
+W10_TOTAL = (interval_total_mi(W10_INTERVALS) + 7 + interval_total_mi(W10_TEMPO) + 9.5 + 4)
 add_week(
-    10, "peak", "Peak - Weeks 9-11", "Highest volume of the cycle, longest goal-pace run",
-    37,
+    10, "peak", "Peak - Weeks 9-11", "Steady step up - quality unchanged, extra miles on easy/long days",
+    round(W10_TOTAL, 1),
     [
-        "Biggest week of the plan. Saturday's long run is the closest thing to a rehearsal you'll "
-        "get - practice whatever race-day fueling you're planning to use.",
-        "SUPERSEDED as of 2026-09-20 - '37mi, highest volume of the cycle' assumes the peak-fitness "
-        "trajectory the athlete context notes now explicitly rule out. Redesign per the governing "
-        "principle there before this week arrives.",
+        "REDESIGNED 2026-10-04 with Luke: ~10% mileage step up from Week 9 (31.8mi actual) with "
+        "the quality sessions held exactly as Week 9 (same 5 x 1000m and 4 x 1mi). Extra miles go on "
+        "the easy run (Wed 7mi) and long run (Sat 9.5mi), not onto intensity. Supersedes the old "
+        "37mi / goal-pace Week 10. Calf has been symptom-free since the Sep 24 time trial; Garmin "
+        "running tolerance is still flagging ABOVE_TOLERANCE (impact load 1.4x), which is a reason "
+        "for a measured step, not a reason to cut - see athlete context.",
+        "Mileage now INCLUDES recovery jogs (they add ~1mi to the intervals day and ~0.35mi to "
+        "tempo). That's why Week 9 showed 31.8 actual vs 30.5 planned.",
+        "Recovery between reps is ACTIVE jog, effort-based (not a pace): Garmin file now says so on "
+        "each recovery step. Don't aim for Zone 1 after hard reps - HR won't get there in 75-150s.",
+        "TRAVEL: flying to Riyadh Fri Oct 9 (about +7h vs Boston), back Thu Oct 15. Sat/Sun runs "
+        "are in Riyadh on hotel treadmill (~95F outside, so treadmill/early AM is the right call). "
+        "Saturday's long run is flexible: jet-lagged + travel day before, so cap it by feel/HR and "
+        "cut to 6-7mi if you're wrecked - a shortened run there is correct, not a miss. Friday PT: "
+        "do it before you leave if you can; skip it if the flight day is too tight.",
     ],
     [
         [pt_peak_mon()],
-        [run_session("intervals", "VO2max intervals", distance_mi=7.5,
-                      pace="1.5mi warmup, 6 x 1000m @ 6:00-6:10/mi w/ 3min jog recovery, 1mi cooldown")],
-        [run_session("easy", "Easy run", distance_mi=6, hr_zone=2)],
-        [run_session("mp", "Goal-pace run", distance_mi=9,
-                      pace=f"1.5mi warmup, 6mi @ {GOAL_PACE_PER_MI}, 1.5mi cooldown")],
-        [pt_peak_fri()],
-        [run_session("long", "Long run w/ goal-pace segment", distance_mi=13,
-                      hr_zone=2, details=f"Easy, with miles 8-11 @ goal pace ({GOAL_PACE_PER_MI}/mi), "
-                      "easy cooldown. Practice race-day fueling on this one.")],
-        [run_session("recovery", "Recovery run", distance_mi=4, hr_zone=1)],
+        [run_session("intervals", "VO2max intervals", distance_mi=interval_total_mi(W10_INTERVALS),
+                      pace="1.5mi warmup, 5 x 1000m @ 6:50-7:00/mi w/ 400m active jog recovery, 1mi cooldown",
+                      details="Same session as Week 9. Repeatable across all 5 reps. " + INT_RECOVERY_NOTE,
+                      intervals=W10_INTERVALS)],
+        [run_session("easy", "Easy run", distance_mi=7, hr_zone=2)],
+        [run_session("tempo", "Tempo run", distance_mi=interval_total_mi(W10_TEMPO), hr_zone=None,
+                      warmup_mi=1.5, cooldown_mi=1.5,
+                      pace="1.5mi warmup, 4 x 1mi @ 7:20-7:30/mi w/ 75s active jog recovery, 1.5mi cooldown",
+                      details="Same session as Week 9. " + TEMPO_RECOVERY_NOTE,
+                      intervals=W10_TEMPO)],
+        [{**pt_peak_fri(), "note": "Flight day (Riyadh). Do this before you leave if time allows; skip if not."}],
+        [run_session("long", "Long run", distance_mi=9.5, hr_zone=2,
+                      details="Riyadh, hotel treadmill, jet lagged. Easy Zone 2 by HR/feel - treadmill HR "
+                              "will run higher in heat/dry hotel air. Cut to 6-7mi if you're wrecked.")],
+        [run_session("recovery", "Recovery run", distance_mi=4, hr_zone=1,
+                      details="Treadmill is fine. Truly easy.")],
     ],
 )
 
@@ -1004,6 +1049,10 @@ add_week(
         "taper needs to start, so if anything feels off, back off rather than grind through.",
         "SUPERSEDED as of 2026-09-20 - same redesign flag as Weeks 9-10: this week's content assumes "
         "the peak-fitness trajectory the athlete context notes now explicitly rule out.",
+        "TRAVEL (flagged 2026-10-04): Luke is in Riyadh Oct 9-15 (hotel treadmill, ~95F outside, +7h). "
+        "Agreed: keep both quality sessions on the treadmill/early AM. Return-flight timing not yet "
+        "known (Thursday's tempo may collide with travel), and the week hasn't been redesigned yet - "
+        "do that with the flight times once Week 10 is done. Mileage totals must include recovery jogs.",
     ],
     [
         [pt_peak_mon()],
