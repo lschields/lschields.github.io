@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-04T15:31:27.122534Z",
+  "generated_at": "2026-10-07T13:14:22.792017Z",
   "athlete_snapshot": {
     "ftp": 230,
-    "vo2max": 56,
+    "vo2max": 57,
     "weight_kg": 72.4,
     "lthr": 161,
     "zones": {
@@ -39,7 +39,7 @@
       "hr": [
         {
           "zone": 1,
-          "floor_bpm": 103
+          "floor_bpm": 102
         },
         {
           "zone": 2,
@@ -47,11 +47,11 @@
         },
         {
           "zone": 3,
-          "floor_bpm": 142
+          "floor_bpm": 141
         },
         {
           "zone": 4,
-          "floor_bpm": 150
+          "floor_bpm": 149
         },
         {
           "zone": 5,
@@ -59,7 +59,7 @@
         }
       ]
     },
-    "max_hr": 180
+    "max_hr": 179
   },
   "readiness_history": [
     {
@@ -697,6 +697,24 @@
       "sleep_light_pct": 58.4,
       "training_readiness_score": 43,
       "training_readiness_level": "low"
+    },
+    {
+      "date": "2026-10-07",
+      "resting_hr": 45,
+      "resting_hr_7day_avg": 43,
+      "body_battery_high": 95,
+      "avg_stress_level": 14,
+      "avg_waking_respiration": 25,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 68,
+      "hrv_7day_avg": 62,
+      "sleep_score": 90,
+      "sleep_total_hours": 8.0,
+      "sleep_deep_pct": 10.0,
+      "sleep_rem_pct": 21.2,
+      "sleep_light_pct": 68.8,
+      "training_readiness_score": 62,
+      "training_readiness_level": "moderate"
     }
   ],
   "load_history": [
@@ -1101,6 +1119,26 @@
       "monthly_load_anaerobic": 95.8793,
       "training_balance_feedback": "ANAEROBIC_SHORTAGE",
       "vo2max": 56,
+      "lthr": 161,
+      "weight_kg": 72.4
+    },
+    {
+      "date": "2026-10-07",
+      "recovery_time_hours": 28.4,
+      "atl": 622,
+      "ctl": 566,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive",
+      "running_tolerance_feedback": "ABOVE_TOLERANCE_EXTENDED",
+      "acute_impact_load": 63757,
+      "acute_tolerance": 43627,
+      "monthly_load_aerobic_high": 1227.9235,
+      "monthly_load_aerobic_low": 934.54736,
+      "monthly_load_anaerobic": 95.8793,
+      "training_balance_feedback": "ANAEROBIC_SHORTAGE",
+      "vo2max": 57,
       "lthr": 161,
       "weight_kg": 72.4
     }
@@ -2094,6 +2132,46 @@
       "total_ascent_m": 17,
       "total_calories": 421,
       "total_training_effect": 2.5
+    },
+    {
+      "source_file": "24633036600_ACTIVITY.fit",
+      "date": "2026-10-06",
+      "start_time": "2026-10-06T21:32:25",
+      "sport": "running",
+      "distance_mi": 6.61,
+      "duration_sec": 3169.5,
+      "avg_pace_per_mi": "8:00",
+      "avg_pace_sec_per_mi": 479.8,
+      "avg_hr": 143,
+      "max_hr": 156,
+      "avg_power": 344,
+      "avg_cadence_spm": 166,
+      "avg_vertical_oscillation_mm": 90.3,
+      "avg_stance_time_ms": 261.4,
+      "avg_stance_time_balance_pct": 49.54,
+      "total_ascent_m": 29,
+      "total_calories": 724,
+      "total_training_effect": 3.6
+    },
+    {
+      "source_file": "24638505436_ACTIVITY.fit",
+      "date": "2026-10-07",
+      "start_time": "2026-10-07T10:34:41",
+      "sport": "running",
+      "distance_mi": 7.0,
+      "duration_sec": 3439.8,
+      "avg_pace_per_mi": "8:11",
+      "avg_pace_sec_per_mi": 491.1,
+      "avg_hr": 135,
+      "max_hr": 143,
+      "avg_power": 338,
+      "avg_cadence_spm": 162,
+      "avg_vertical_oscillation_mm": 98.9,
+      "avg_stance_time_ms": 254.6,
+      "avg_stance_time_balance_pct": 49.58,
+      "total_ascent_m": 47,
+      "total_calories": 757,
+      "total_training_effect": 3.5
     }
   ],
   "races": [
@@ -2260,6 +2338,16 @@
       "pace_5k_per_mi": "6:28",
       "pace_10k_per_mi": "6:51",
       "pace_half_per_mi": "7:23"
+    },
+    {
+      "date": "2026-10-07",
+      "time_5k_sec": 1194,
+      "time_10k_sec": 2530,
+      "time_half_sec": 5741,
+      "time_marathon_sec": 12701,
+      "pace_5k_per_mi": "6:24",
+      "pace_10k_per_mi": "6:47",
+      "pace_half_per_mi": "7:18"
     }
   ]
 }
