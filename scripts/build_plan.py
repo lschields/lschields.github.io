@@ -212,6 +212,12 @@ ATHLETE = {
         "note) continued the same pattern. 3 of 4 reps came in faster than the 7:20-7:30 target "
         "(7:16-7:20/mi), the 4th landed right at 7:25. Still just a handful of sessions, still watching "
         "before changing any Week 10+ numbers.",
+        "UPDATE 2026-10-09 (acted on): Week 10's tempo (run Fri AM) came in at 7:12-7:15/mi, HR "
+        "143-145, 'almost too easy', after Tuesday's intervals landed on target (6:44-6:57). That's "
+        "the pattern held across the 10K TT, three interval days and two tempos, so Week 11 moves "
+        "the tempo band to 7:05-7:25 and widens both bands to 20s (Luke: 10s bands made the watch "
+        "alert on/off repeatedly). Garmin predictor now reads half 1:34:59 / 10K 41:53. Caveats "
+        "kept: morning HR reads low, tolerance flag is ABOVE_TOLERANCE_EXTENDED.",
         "Morning-vs-evening HR pattern, flagged 2026-10-02: Luke is shifting to morning runs going "
         "forward (limited daylight after work). He's noted more than once now that HR reads "
         "noticeably lower for a given pace/effort on morning runs vs evening - confirmed again on the "
@@ -244,9 +250,9 @@ ATHLETE = {
         {"name": "Easy", "pace_per_mi": "HR-based, no pace target", "hr_zone": 2},
         {"name": "Long run", "pace_per_mi": "HR-based, no pace target", "hr_zone": 2},
         {"name": "Recovery", "pace_per_mi": "HR-based, no pace target", "hr_zone": 1},
-        {"name": "Tempo / Threshold", "pace_per_mi": "7:20-7:30", "hr_zone": None},
-        {"name": "Current 10K-TT-equivalent half pace (9/24 time trial, not a goal - see context)", "pace_per_mi": "7:30-7:40", "hr_zone": None},
-        {"name": "VO2max intervals", "pace_per_mi": "6:50-7:00", "hr_zone": None},
+        {"name": "Tempo / Threshold", "pace_per_mi": "7:05-7:25", "hr_zone": None},
+        {"name": "Current 10K-TT-equivalent half pace (9/24 time trial, not a goal - see context)", "pace_per_mi": "7:15-7:30 (Garmin predictor 7:15 on 10/9, not a goal)", "hr_zone": None},
+        {"name": "VO2max intervals", "pace_per_mi": "6:45-7:05", "hr_zone": None},
         {"name": "Strides", "pace_per_mi": "5:30-5:45 (relaxed, not max effort)", "hr_zone": None},
     ],
     "race_strategy": {
@@ -998,27 +1004,26 @@ W10_INTERVALS = {"warmup_mi": 1.5, "cooldown_mi": 1.0, "reps": 5, "rep_distance_
                  "recovery_m": 400, "rep_pace": (420, 410), "recovery_note": INT_RECOVERY_NOTE}
 W10_TEMPO = {"warmup_mi": 1.5, "cooldown_mi": 1.5, "reps": 4, "rep_distance_m": 1609.34,
              "recovery_sec": 75, "rep_pace": (450, 440), "recovery_note": TEMPO_RECOVERY_NOTE}
-W10_TOTAL = (interval_total_mi(W10_INTERVALS) + 7 + interval_total_mi(W10_TEMPO) + 3.5 + 9.5)
+W10_TOTAL = (interval_total_mi(W10_INTERVALS) + 7 + interval_total_mi(W10_TEMPO) + 9 + 4)
 add_week(
     10, "peak", "Peak - Weeks 9-11", "Steady step up - quality unchanged, extra miles on easy/long days",
     round(W10_TOTAL, 1),
     [
         "REDESIGNED 2026-10-04 with Luke: ~10% mileage step up from Week 9 (31.8mi actual) with "
         "the quality sessions held exactly as Week 9 (same 5 x 1000m and 4 x 1mi). Extra miles go on "
-        "the easy run (Wed 7mi) and long run (Sat 9.5mi), not onto intensity. Supersedes the old "
+        "the easy run (Wed 7mi) and long run (Sat), not onto intensity. Supersedes the old "
         "37mi / goal-pace Week 10. Calf has been symptom-free since the Sep 24 time trial; Garmin "
-        "running tolerance is still flagging ABOVE_TOLERANCE (impact load 1.4x), which is a reason "
-        "for a measured step, not a reason to cut - see athlete context.",
-        "Mileage now INCLUDES recovery jogs (they add ~1mi to the intervals day and ~0.35mi to "
-        "tempo). That's why Week 9 showed 31.8 actual vs 30.5 planned.",
-        "Recovery between reps is ACTIVE jog, effort-based (not a pace): Garmin file now says so on "
-        "each recovery step. Don't aim for Zone 1 after hard reps - HR won't get there in 75-150s.",
-        "TRAVEL: departs Boston Fri Oct 9 4:30pm, lands Riyadh Sat Oct 10 3:15pm local (+7h vs Boston). "
-        "Because you land mid-afternoon after ~16h of travel, the long run MOVES to Sunday morning: "
-        "Saturday is only an optional 3.5mi easy treadmill shakeout (skip if you're fried - it's "
-        "there to loosen legs and nudge your body clock), and Sunday's 9.5mi long run replaces the "
-        "recovery run. Sunday is flexible: Zone 2 by HR/feel on the hotel treadmill, cut to 6-7mi if "
-        "jet lag wins - that's correct, not a miss. Friday PT: before you leave if time allows.",
+        "running tolerance is flagging ABOVE_TOLERANCE (impact load ~1.4x), a reason for a "
+        "measured step, not a reason to cut - see athlete context.",
+        "Mileage INCLUDES recovery jogs (~1mi on the intervals day, ~0.35mi on tempo). That's why "
+        "Week 9 showed 31.8 actual vs 30.5 planned.",
+        "Recovery between reps is ACTIVE jog, effort-based: Garmin file says so on each recovery step. "
+        "Don't aim for Zone 1 after hard reps - HR won't get there in 75-150s.",
+        "2026-10-09: Riyadh trip cancelled - Luke stays in Boston, normal weekend restored (long run "
+        "Sat, recovery Sun). Thursday's tempo was run Friday AM instead: 4 x 1mi at 7:12/7:12/7:13/7:15, "
+        "HR 143-145 avg (morning), 'almost too easy' - see Week 11 notes for the pace update. "
+        "Saturday's long run follows the tempo by a day with readiness low (47) and tolerance flagged "
+        "extended: keep it truly Zone 2 and cut to 7-8mi if flat.",
     ],
     [
         [pt_peak_mon()],
@@ -1032,53 +1037,60 @@ add_week(
                       pace="1.5mi warmup, 4 x 1mi @ 7:20-7:30/mi w/ 75s active jog recovery, 1.5mi cooldown",
                       details="Same session as Week 9. " + TEMPO_RECOVERY_NOTE,
                       intervals=W10_TEMPO)],
-        [{**pt_peak_fri(), "note": "Flight day (Riyadh, 4:30pm departure). Do this before you leave if time allows; skip if not."}],
-        [run_session("shakeout", "Shakeout (optional)", distance_mi=3.5, hr_zone=2,
-                      details="Lands 3:15pm Riyadh after ~16h of travel. Easy treadmill shakeout, "
-                              "evening, only if you feel up to it - skip rather than force it.")],
-        [run_session("long", "Long run", distance_mi=9.5, hr_zone=2,
-                      details="Sunday morning in Riyadh, hotel treadmill, day 2 jet lag. Easy Zone 2 by "
-                              "HR/feel (treadmill HR runs higher in hotel air). Cut to 6-7mi if you're "
-                              "wrecked. Takes the place of the usual recovery run.")],
+        [{**pt_peak_fri(), "note": "Tempo ran this morning - PT is optional tonight; skip if you're tired."}],
+        [run_session("long", "Long run", distance_mi=9, hr_zone=2,
+                      details="Day after the tempo with readiness low - truly easy Zone 2 by HR/feel. "
+                              "Cut to 7-8mi if you're flat. Practice race-day fueling on it.")],
+        [run_session("recovery", "Recovery run", distance_mi=4, hr_zone=1)],
     ],
 )
 
 # ---- Week 11 (Oct 12-18) - Peak -----------------------------------------------
-# Redesigned 2026-10-04 around Riyadh travel (mileage includes recovery jogs).
-W11_INTERVALS = dict(W10_INTERVALS)
-W11_TOTAL = interval_total_mi(W11_INTERVALS) + 7 + 5 + 10 + 4
+# Redesigned 2026-10-09 after the Riyadh trip was cancelled. Pace bands updated and widened
+# (see coach_notes); mileage includes recovery jogs.
+W11_INTERVALS = {"warmup_mi": 1.5, "cooldown_mi": 1.0, "reps": 5, "rep_distance_m": 1000,
+                 "recovery_m": 400, "rep_pace": (425, 405), "recovery_note": INT_RECOVERY_NOTE}   # 6:45-7:05
+W11_TEMPO = {"warmup_mi": 1.5, "cooldown_mi": 1.5, "reps": 3, "rep_distance_m": 2414,
+             "recovery_sec": 90, "rep_pace": (445, 425),                                       # 7:05-7:25
+             "recovery_note": "90s very easy jog - don't walk or stop. HR will only dip to ~135-140."}
+W11_TOTAL = interval_total_mi(W11_INTERVALS) + 7 + interval_total_mi(W11_TEMPO) + 9 + 4
 add_week(
-    11, "peak", "Peak - Weeks 9-11", "Travel week - intervals in Riyadh, tempo skipped, long run after the flight home",
+    11, "peak", "Peak - Weeks 9-11", "Last quality week - same intervals, tempo consolidates to 3 x 1.5mi, paces updated",
     round(W11_TOTAL, 1),
     [
-        "REDESIGNED 2026-10-04 around travel: in Riyadh Mon-Thu (hotel treadmill, ~95F outside), "
-        "flight home leaves 4:20am Thu Oct 15 and lands Boston 2:40pm. No run Thursday (also your "
-        "girlfriend's birthday).",
-        "Tempo is dropped this week, not relocated: Thursday is lost to the flight, and stacking it on "
-        "Friday/Saturday right after a 4am overnight flight and +7h jet lag would put the hardest work "
-        "on the worst-recovered days, with Garmin running tolerance still flagging above tolerance. "
-        "Quality this week is Tuesday's intervals (same 5 x 1000m as Weeks 9-10). Tempo comes back in "
-        "the first taper week if you feel good - revisit then.",
-        "Treadmill pacing: 6:50-7:00/mi = 8.6-8.8 mph. Hotel treadmills are often uncalibrated, so "
-        "check effort/HR against pace and trust effort if they disagree. Active-jog recoveries as before.",
-        "Wednesday Oct 14: easy 7mi (morning), early night - you leave for the airport around 1-2am.",
-        "Friday is an easy 5mi to shake out the flight (morning, body clock will think it's afternoon), "
-        "Saturday's long run is flexible while jet lag settles - cut it if needed. Mileage includes "
-        "recovery jogs.",
+        "REDESIGNED 2026-10-09: Riyadh trip cancelled, so this is a normal home week (Mon/Fri PT, "
+        "Tue/Wed/Thu/Sat/Sun running). Mileage includes recovery jogs.",
+        "PACE UPDATE: Week 10's tempo (run Fri AM) was 4 x 1mi at 7:12-7:15/mi with HR 143-145 and "
+        "felt 'almost too easy' - the fourth straight session (10K TT, 3 interval days, 2 tempos) "
+        "to come in faster than prescribed at controlled HR, so the standing calibration note is "
+        "now acted on, modestly: tempo band moves from 7:20-7:30 to 7:05-7:25 (centre 7:15), "
+        "intervals stay centred at 6:55 (they were already on target at 6:44-6:57, HR 148-153).",
+        "Bands are WIDER (20s, was 10s) at Luke's request: hovering at a band edge made the watch "
+        "alert on/off repeatedly. Tempo 7:05-7:25, intervals 6:45-7:05. Aim for the centre; the "
+        "band is just bandwidth.",
+        "Tempo consolidates from 4 x 1mi to 3 x 1.5mi (90s jog recoveries) - the segmented version "
+        "has now been comfortable twice, per the 2026-09-20 principle. Caveats: Garmin running "
+        "tolerance is ABOVE_TOLERANCE_EXTENDED (~1.4x), and morning HR reads low, so don't chase "
+        "the pace if the effort stops feeling controlled.",
+        "Garmin's race predictor now reads half-marathon 1:34:59 (7:15/mi) - useful as a ceiling "
+        "signal, not a target.",
     ],
     [
-        [{**pt_peak_mon(), "note": "Hotel gym or bodyweight - keep it light, you land Saturday and run quality Tuesday."}],
+        [pt_peak_mon()],
         [run_session("intervals", "VO2max intervals", distance_mi=interval_total_mi(W11_INTERVALS),
-                      pace="1.5mi warmup, 5 x 1000m @ 6:50-7:00/mi (8.6-8.8 mph) w/ 400m active jog recovery, 1mi cooldown",
-                      details="Hotel treadmill. Same session as Weeks 9-10. " + INT_RECOVERY_NOTE,
+                      pace="1.5mi warmup, 5 x 1000m @ 6:45-7:05/mi w/ 400m active jog recovery, 1mi cooldown",
+                      details="Same session as Weeks 9-10, wider pace band (aim for ~6:55). " + INT_RECOVERY_NOTE,
                       intervals=W11_INTERVALS)],
-        [run_session("easy", "Easy run", distance_mi=7, hr_zone=2,
-                      details="Morning, hotel treadmill. Early night - flight leaves ~4:20am Thursday.")],
-        [rest_day("Travel day - 4:20am flight home, lands Boston 2:40pm. No run (girlfriend's birthday).")],
-        [run_session("easy", "Easy run", distance_mi=5, hr_zone=2,
-                      details="Shake out the flight. Morning, truly easy; cut or skip if wrecked.")],
-        [run_session("long", "Long run", distance_mi=10, hr_zone=2,
-                      details="Easy Zone 2 by HR/feel. Jet lag may still be around - cut to 7-8mi if it is.")],
+        [run_session("easy", "Easy run", distance_mi=7, hr_zone=2)],
+        [run_session("tempo", "Tempo run", distance_mi=interval_total_mi(W11_TEMPO), hr_zone=None,
+                      warmup_mi=1.5, cooldown_mi=1.5,
+                      pace="1.5mi warmup, 3 x 1.5mi @ 7:05-7:25/mi (aim ~7:15) w/ 90s active jog recovery, 1.5mi cooldown",
+                      details="Longer pieces than Week 10 (3 x 1.5mi vs 4 x 1mi), still segmented. "
+                              "Controlled, not desperate. " + W11_TEMPO["recovery_note"],
+                      intervals=W11_TEMPO)],
+        [pt_peak_fri()],
+        [run_session("long", "Long run", distance_mi=9, hr_zone=2,
+                      details="Easy Zone 2 throughout. Last long-ish run before the taper begins.")],
         [run_session("recovery", "Recovery run", distance_mi=4, hr_zone=1)],
     ],
 )

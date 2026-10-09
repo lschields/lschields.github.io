@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-07T13:14:22.792017Z",
+  "generated_at": "2026-10-09T13:20:58.958469Z",
   "athlete_snapshot": {
     "ftp": 230,
     "vo2max": 57,
     "weight_kg": 72.4,
-    "lthr": 161,
+    "lthr": 159,
     "zones": {
       "power": [
         {
@@ -39,23 +39,23 @@
       "hr": [
         {
           "zone": 1,
-          "floor_bpm": 102
+          "floor_bpm": 100
         },
         {
           "zone": 2,
-          "floor_bpm": 129
+          "floor_bpm": 127
         },
         {
           "zone": 3,
-          "floor_bpm": 141
+          "floor_bpm": 140
         },
         {
           "zone": 4,
-          "floor_bpm": 149
+          "floor_bpm": 148
         },
         {
           "zone": 5,
-          "floor_bpm": 158
+          "floor_bpm": 156
         }
       ]
     },
@@ -715,6 +715,24 @@
       "sleep_light_pct": 68.8,
       "training_readiness_score": 62,
       "training_readiness_level": "moderate"
+    },
+    {
+      "date": "2026-10-09",
+      "resting_hr": 45,
+      "resting_hr_7day_avg": 44,
+      "body_battery_high": 66,
+      "avg_stress_level": 16,
+      "avg_waking_respiration": 26,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 56,
+      "hrv_7day_avg": 61,
+      "sleep_score": 79,
+      "sleep_total_hours": 6.5,
+      "sleep_deep_pct": 26.7,
+      "sleep_rem_pct": 22.6,
+      "sleep_light_pct": 50.6,
+      "training_readiness_score": 47,
+      "training_readiness_level": "low"
     }
   ],
   "load_history": [
@@ -1140,6 +1158,26 @@
       "training_balance_feedback": "ANAEROBIC_SHORTAGE",
       "vo2max": 57,
       "lthr": 161,
+      "weight_kg": 72.4
+    },
+    {
+      "date": "2026-10-09",
+      "recovery_time_hours": 33.1,
+      "atl": 612,
+      "ctl": 569,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive",
+      "running_tolerance_feedback": "ABOVE_TOLERANCE_EXTENDED",
+      "acute_impact_load": 61695,
+      "acute_tolerance": 43627,
+      "monthly_load_aerobic_high": 1233.9594,
+      "monthly_load_aerobic_low": 934.54736,
+      "monthly_load_anaerobic": 95.8793,
+      "training_balance_feedback": "ANAEROBIC_SHORTAGE",
+      "vo2max": 57,
+      "lthr": 159,
       "weight_kg": 72.4
     }
   ],
@@ -2172,6 +2210,26 @@
       "total_ascent_m": 47,
       "total_calories": 757,
       "total_training_effect": 3.5
+    },
+    {
+      "source_file": "24662022441_ACTIVITY.fit",
+      "date": "2026-10-09",
+      "start_time": "2026-10-09T10:42:34",
+      "sport": "running",
+      "distance_mi": 7.39,
+      "duration_sec": 3444.3,
+      "avg_pace_per_mi": "7:46",
+      "avg_pace_sec_per_mi": 466.4,
+      "avg_hr": 138,
+      "max_hr": 150,
+      "avg_power": 346,
+      "avg_cadence_spm": 166,
+      "avg_vertical_oscillation_mm": 94.5,
+      "avg_stance_time_ms": 246.8,
+      "avg_stance_time_balance_pct": 49.28,
+      "total_ascent_m": 31,
+      "total_calories": 793,
+      "total_training_effect": 3.9
     }
   ],
   "races": [
@@ -2348,6 +2406,16 @@
       "pace_5k_per_mi": "6:24",
       "pace_10k_per_mi": "6:47",
       "pace_half_per_mi": "7:18"
+    },
+    {
+      "date": "2026-10-09",
+      "time_5k_sec": 1188,
+      "time_10k_sec": 2513,
+      "time_half_sec": 5699,
+      "time_marathon_sec": 12636,
+      "pace_5k_per_mi": "6:22",
+      "pace_10k_per_mi": "6:44",
+      "pace_half_per_mi": "7:15"
     }
   ]
 }

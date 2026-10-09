@@ -1,10 +1,10 @@
 {
   "workoutId": null,
   "ownerId": 585149926,
-  "workoutName": "W11 Sat Long 10mi",
-  "description": "LONG RUN \u2014 10 miles | Zone 2 | HR 129-142 bpm\n\nPURPOSE: Time on feet at an aerobic effort - builds fatigue resistance, capillary density, and fuel efficiency for race-day distance without digging into recovery.\n\nFOCUS: Let HR govern pace completely. If it's hot/humid you may need to run slower than usual to stay under 142 bpm - that's correct, don't chase pace targets.\n\nNOTE: Easy Zone 2 by HR/feel. Jet lag may still be around - cut to 7-8mi if it is.\n\nYOUR DATA: Your last 3 logged runs averaged 121-136 bpm at 8:02-8:55/mi.\n\nFEEL: Fully conversational. You should be able to speak in complete sentences with zero effort.",
-  "updatedDate": "2026-10-04T16:00:15.0",
-  "createdDate": "2026-10-04T16:00:15.0",
+  "workoutName": "W11 Sat Long 9mi",
+  "description": "LONG RUN \u2014 9 miles | Zone 2 | HR 127-141 bpm\n\nPURPOSE: Time on feet at an aerobic effort - builds fatigue resistance, capillary density, and fuel efficiency for race-day distance without digging into recovery.\n\nFOCUS: Let HR govern pace completely. If it's hot/humid you may need to run slower than usual to stay under 141 bpm - that's correct, don't chase pace targets.\n\nNOTE: Easy Zone 2 throughout. Last long-ish run before the taper begins.\n\nYOUR DATA: Your last 3 logged runs averaged 135-143 bpm at 7:46-8:11/mi.\n\nFEEL: Fully conversational. You should be able to speak in complete sentences with zero effort.",
+  "updatedDate": "2026-10-09T13:21:45.0",
+  "createdDate": "2026-10-09T13:21:45.0",
   "sportType": {
     "sportTypeId": 1,
     "sportTypeKey": "running",
@@ -33,8 +33,8 @@
       "poolLengthUnit": null,
       "poolLength": null,
       "avgTrainingSpeed": 2.8,
-      "estimatedDurationInSecs": 5072,
-      "estimatedDistanceInMeters": 16093,
+      "estimatedDurationInSecs": 4312,
+      "estimatedDistanceInMeters": 14484,
       "estimatedDistanceUnit": {
         "unitId": 2,
         "unitKey": "kilometer",
@@ -121,7 +121,7 @@
             "displayOrder": 3,
             "displayable": true
           },
-          "endConditionValue": 15289,
+          "endConditionValue": 13679,
           "preferredEndConditionUnit": {
             "unitId": 5,
             "unitKey": "mile",

@@ -1,8 +1,8 @@
 {
   "workoutId": null,
   "ownerId": 585149926,
-  "workoutName": "W11 Tue Intervals 6.6mi",
-  "description": "INTERVALS RUN \u2014 6.6 miles | Effort-based (no fixed pace yet)\n\nPURPOSE: Hard, repeatable efforts near current top-end aerobic capacity - trains VO2max and running economy. Consistent effort rep-to-rep matters more than a fast first rep.\n\nFOCUS: No fixed pace target - there's no current hard-effort data to set one honestly yet (the only reference point is pre-layoff/2022 fitness). Run the effort described below and record whatever pace results - that's useful data. The Week 8 10K time trial (Sep 24) sets real target paces from here forward.\n\nNOTE: Same session as Weeks 9-10, wider pace band (aim for ~6:55). Active jog - don't walk or stop. Easy ~10:30-11:30/mi (treadmill ~5.5-5.8 mph). HR should drift back to ~135-145 (top of Zone 2 / low Zone 3) by the end of each recovery - expect that, not Zone 1, this soon after a hard rep.\n\nYOUR DATA: Your last 3 logged runs averaged 135-143 bpm at 7:46-8:11/mi.\n\nFEEL: Hard but repeatable - breathing hard by the end of each rep, but able to hit the next one at the same effort.",
+  "workoutName": "W11 Thu Tempo 7.8mi",
+  "description": "TEMPO RUN \u2014 7.8 miles | Effort-based (no fixed pace yet)\n\nPURPOSE: Sustained comfortably-hard effort - trains lactate clearance and the ability to hold a hard pace under control.\n\nFOCUS: No fixed pace target - there's no current hard-effort data to set one honestly yet (the only reference point is pre-layoff/2022 fitness). Run the effort described below and record whatever pace results - that's useful data. The Week 8 10K time trial (Sep 24) sets real target paces from here forward.\n\nNOTE: Longer pieces than Week 10 (3 x 1.5mi vs 4 x 1mi), still segmented. Controlled, not desperate. 90s very easy jog - don't walk or stop. HR will only dip to ~135-140.\n\nYOUR DATA: Your last 3 logged runs averaged 135-143 bpm at 7:46-8:11/mi.\n\nFEEL: Comfortably hard - sustainable for the whole segment. Short sentences, not full conversation.",
   "updatedDate": "2026-10-09T13:21:45.0",
   "createdDate": "2026-10-09T13:21:45.0",
   "sportType": {
@@ -33,8 +33,8 @@
       "poolLengthUnit": null,
       "poolLength": null,
       "avgTrainingSpeed": 2.8,
-      "estimatedDurationInSecs": 3162,
-      "estimatedDistanceInMeters": 10622,
+      "estimatedDurationInSecs": 3737,
+      "estimatedDistanceInMeters": 12553,
       "estimatedDistanceUnit": {
         "unitId": 2,
         "unitKey": "kilometer",
@@ -114,7 +114,7 @@
             "displayOrder": 6
           },
           "childStepId": 1,
-          "numberOfIterations": 5,
+          "numberOfIterations": 3,
           "workoutSteps": [
             {
               "type": "ExecutableStepDTO",
@@ -133,7 +133,7 @@
                 "displayOrder": 3,
                 "displayable": true
               },
-              "endConditionValue": 1000,
+              "endConditionValue": 2414,
               "preferredEndConditionUnit": {
                 "unitId": 5,
                 "unitKey": "mile",
@@ -145,8 +145,8 @@
                 "workoutTargetTypeKey": "pace.zone",
                 "displayOrder": 6
               },
-              "targetValueOne": 3.787,
-              "targetValueTwo": 3.974,
+              "targetValueOne": 3.616,
+              "targetValueTwo": 3.787,
               "zoneNumber": null,
               "secondaryTargetType": null,
               "secondaryTargetValueOne": null,
@@ -187,19 +187,15 @@
                 "displayOrder": 4
               },
               "childStepId": 1,
-              "description": "Active jog - don't walk or stop. Easy ~10:30-11:30/mi (treadmill ~5.5-5.8 mph). HR should drift back to ~135-145 (top of Zone 2 / low Zone 3) by the end of each recovery - expect that, not Zone 1, this soon after a hard rep.",
+              "description": "90s very easy jog - don't walk or stop. HR will only dip to ~135-140.",
               "endCondition": {
-                "conditionTypeId": 3,
-                "conditionTypeKey": "distance",
-                "displayOrder": 3,
+                "conditionTypeId": 2,
+                "conditionTypeKey": "time",
+                "displayOrder": 2,
                 "displayable": true
               },
-              "endConditionValue": 400,
-              "preferredEndConditionUnit": {
-                "unitId": 5,
-                "unitKey": "mile",
-                "factor": 160934
-              },
+              "endConditionValue": 90,
+              "preferredEndConditionUnit": null,
               "endConditionCompare": null,
               "targetType": {
                 "workoutTargetTypeId": 1,
@@ -239,7 +235,7 @@
               "drillType": null
             }
           ],
-          "endConditionValue": 5,
+          "endConditionValue": 3,
           "preferredEndConditionUnit": null,
           "endConditionCompare": null,
           "endCondition": {
@@ -268,7 +264,7 @@
             "displayOrder": 3,
             "displayable": true
           },
-          "endConditionValue": 1609,
+          "endConditionValue": 2414,
           "preferredEndConditionUnit": {
             "unitId": 5,
             "unitKey": "mile",
