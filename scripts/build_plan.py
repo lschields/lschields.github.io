@@ -252,7 +252,7 @@ ATHLETE = {
         {"name": "Recovery", "pace_per_mi": "HR-based, no pace target", "hr_zone": 1},
         {"name": "Tempo / Threshold", "pace_per_mi": "7:05-7:25", "hr_zone": None},
         {"name": "Current 10K-TT-equivalent half pace (9/24 time trial, not a goal - see context)", "pace_per_mi": "7:15-7:30 (Garmin predictor 7:15 on 10/9, not a goal)", "hr_zone": None},
-        {"name": "VO2max intervals", "pace_per_mi": "6:45-7:05", "hr_zone": None},
+        {"name": "VO2max intervals", "pace_per_mi": "6:35-6:55 (800m reps)", "hr_zone": None},
         {"name": "Strides", "pace_per_mi": "5:30-5:45 (relaxed, not max effort)", "hr_zone": None},
     ],
     "race_strategy": {
@@ -1004,7 +1004,7 @@ W10_INTERVALS = {"warmup_mi": 1.5, "cooldown_mi": 1.0, "reps": 5, "rep_distance_
                  "recovery_m": 400, "rep_pace": (420, 410), "recovery_note": INT_RECOVERY_NOTE}
 W10_TEMPO = {"warmup_mi": 1.5, "cooldown_mi": 1.5, "reps": 4, "rep_distance_m": 1609.34,
              "recovery_sec": 75, "rep_pace": (450, 440), "recovery_note": TEMPO_RECOVERY_NOTE}
-W10_TOTAL = (interval_total_mi(W10_INTERVALS) + 7 + interval_total_mi(W10_TEMPO) + 9 + 4)
+W10_TOTAL = (interval_total_mi(W10_INTERVALS) + 7 + interval_total_mi(W10_TEMPO) + 10 + 4)
 add_week(
     10, "peak", "Peak - Weeks 9-11", "Steady step up - quality unchanged, extra miles on easy/long days",
     round(W10_TOTAL, 1),
@@ -1038,9 +1038,9 @@ add_week(
                       details="Same session as Week 9. " + TEMPO_RECOVERY_NOTE,
                       intervals=W10_TEMPO)],
         [{**pt_peak_fri(), "note": "Tempo ran this morning - PT is optional tonight; skip if you're tired."}],
-        [run_session("long", "Long run", distance_mi=9, hr_zone=2,
-                      details="Day after the tempo with readiness low - truly easy Zone 2 by HR/feel. "
-                              "Cut to 7-8mi if you're flat. Practice race-day fueling on it.")],
+        [run_session("long", "Long run", distance_mi=10, hr_zone=2,
+                      details="Day after the tempo - truly easy Zone 2 by HR/feel. Longest run of the "
+                              "cycle so far; cut to 8-9mi if you're flat. Practice race-day fueling on it.")],
         [run_session("recovery", "Recovery run", distance_mi=4, hr_zone=1)],
     ],
 )
@@ -1048,12 +1048,12 @@ add_week(
 # ---- Week 11 (Oct 12-18) - Peak -----------------------------------------------
 # Redesigned 2026-10-09 after the Riyadh trip was cancelled. Pace bands updated and widened
 # (see coach_notes); mileage includes recovery jogs.
-W11_INTERVALS = {"warmup_mi": 1.5, "cooldown_mi": 1.0, "reps": 5, "rep_distance_m": 1000,
-                 "recovery_m": 400, "rep_pace": (425, 405), "recovery_note": INT_RECOVERY_NOTE}   # 6:45-7:05
+W11_INTERVALS = {"warmup_mi": 1.5, "cooldown_mi": 1.0, "reps": 6, "rep_distance_m": 800,
+                 "recovery_m": 400, "rep_pace": (415, 395), "recovery_note": INT_RECOVERY_NOTE}   # 6:35-6:55
 W11_TEMPO = {"warmup_mi": 1.5, "cooldown_mi": 1.5, "reps": 3, "rep_distance_m": 2414,
              "recovery_sec": 90, "rep_pace": (445, 425),                                       # 7:05-7:25
              "recovery_note": "90s very easy jog - don't walk or stop. HR will only dip to ~135-140."}
-W11_TOTAL = interval_total_mi(W11_INTERVALS) + 7 + interval_total_mi(W11_TEMPO) + 9 + 4
+W11_TOTAL = interval_total_mi(W11_INTERVALS) + 7 + interval_total_mi(W11_TEMPO) + 10 + 4
 add_week(
     11, "peak", "Peak - Weeks 9-11", "Last quality week - same intervals, tempo consolidates to 3 x 1.5mi, paces updated",
     round(W11_TOTAL, 1),
@@ -1064,9 +1064,11 @@ add_week(
         "felt 'almost too easy' - the fourth straight session (10K TT, 3 interval days, 2 tempos) "
         "to come in faster than prescribed at controlled HR, so the standing calibration note is "
         "now acted on, modestly: tempo band moves from 7:20-7:30 to 7:05-7:25 (centre 7:15), "
-        "intervals stay centred at 6:55 (they were already on target at 6:44-6:57, HR 148-153).",
+        "intervals move to 6 x 800m at 6:35-6:55 (centre 6:45): shorter reps, slightly faster, same "
+        "total quality (~3mi) - 1000m reps were on target at 6:44-6:57, HR 148-153, and 800s are "
+        "faster work (Week 8's ran ~6:03/mi).",
         "Bands are WIDER (20s, was 10s) at Luke's request: hovering at a band edge made the watch "
-        "alert on/off repeatedly. Tempo 7:05-7:25, intervals 6:45-7:05. Aim for the centre; the "
+        "alert on/off repeatedly. Tempo 7:05-7:25, intervals 6:35-6:55. Aim for the centre; the "
         "band is just bandwidth.",
         "Tempo consolidates from 4 x 1mi to 3 x 1.5mi (90s jog recoveries) - the segmented version "
         "has now been comfortable twice, per the 2026-09-20 principle. Caveats: Garmin running "
@@ -1078,8 +1080,9 @@ add_week(
     [
         [pt_peak_mon()],
         [run_session("intervals", "VO2max intervals", distance_mi=interval_total_mi(W11_INTERVALS),
-                      pace="1.5mi warmup, 5 x 1000m @ 6:45-7:05/mi w/ 400m active jog recovery, 1mi cooldown",
-                      details="Same session as Weeks 9-10, wider pace band (aim for ~6:55). " + INT_RECOVERY_NOTE,
+                      pace="1.5mi warmup, 6 x 800m @ 6:35-6:55/mi (aim ~6:45) w/ 400m active jog recovery, 1mi cooldown",
+                      details="Shorter, slightly faster reps than Weeks 9-10 (6 x 800m vs 5 x 1000m). "
+                              "Your Week 8 800s were ~6:03/mi at HR 154-157, so 6:45 is controlled, not all-out. " + INT_RECOVERY_NOTE,
                       intervals=W11_INTERVALS)],
         [run_session("easy", "Easy run", distance_mi=7, hr_zone=2)],
         [run_session("tempo", "Tempo run", distance_mi=interval_total_mi(W11_TEMPO), hr_zone=None,
@@ -1089,8 +1092,8 @@ add_week(
                               "Controlled, not desperate. " + W11_TEMPO["recovery_note"],
                       intervals=W11_TEMPO)],
         [pt_peak_fri()],
-        [run_session("long", "Long run", distance_mi=9, hr_zone=2,
-                      details="Easy Zone 2 throughout. Last long-ish run before the taper begins.")],
+        [run_session("long", "Long run", distance_mi=10, hr_zone=2,
+                      details="Easy Zone 2 throughout. Last full-length long run before the taper begins.")],
         [run_session("recovery", "Recovery run", distance_mi=4, hr_zone=1)],
     ],
 )

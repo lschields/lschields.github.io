@@ -2,9 +2,9 @@
   "workoutId": null,
   "ownerId": 585149926,
   "workoutName": "W10 Thu Tempo 7.35mi",
-  "description": "TEMPO RUN \u2014 7.35 miles | Effort-based (no fixed pace yet)\n\nPURPOSE: Sustained comfortably-hard effort - trains lactate clearance and the ability to hold a hard pace under control.\n\nFOCUS: No fixed pace target - there's no current hard-effort data to set one honestly yet (the only reference point is pre-layoff/2022 fitness). Run the effort described below and record whatever pace results - that's useful data. The Week 8 10K time trial (Sep 24) sets real target paces from here forward.\n\nNOTE: Same session as Week 9. 75s very easy jog - don't walk or stop (treadmill ~5.5 mph). HR will only dip to ~135 in that time; that's expected.\n\nYOUR DATA: Your last 3 logged runs averaged 121-136 bpm at 8:02-8:55/mi.\n\nFEEL: Comfortably hard - sustainable for the whole segment. Short sentences, not full conversation.",
-  "updatedDate": "2026-10-04T16:00:15.0",
-  "createdDate": "2026-10-04T16:00:15.0",
+  "description": "TEMPO RUN \u2014 7.35 miles | Effort-based (no fixed pace yet)\n\nPURPOSE: Sustained comfortably-hard effort - trains lactate clearance and the ability to hold a hard pace under control.\n\nFOCUS: No fixed pace target - there's no current hard-effort data to set one honestly yet (the only reference point is pre-layoff/2022 fitness). Run the effort described below and record whatever pace results - that's useful data. The Week 8 10K time trial (Sep 24) sets real target paces from here forward.\n\nNOTE: Same session as Week 9. 75s very easy jog - don't walk or stop (treadmill ~5.5 mph). HR will only dip to ~135 in that time; that's expected.\n\nYOUR DATA: Your last 3 logged runs averaged 121-143 bpm at 7:60-8:55/mi.\n\nFEEL: Comfortably hard - sustainable for the whole segment. Short sentences, not full conversation.",
+  "updatedDate": "2026-10-09T13:25:44.0",
+  "createdDate": "2026-10-09T13:25:44.0",
   "sportType": {
     "sportTypeId": 1,
     "sportTypeKey": "running",
@@ -33,7 +33,7 @@
       "poolLengthUnit": null,
       "poolLength": null,
       "avgTrainingSpeed": 2.8,
-      "estimatedDurationInSecs": 3728,
+      "estimatedDurationInSecs": 3690,
       "estimatedDistanceInMeters": 11829,
       "estimatedDistanceUnit": {
         "unitId": 2,

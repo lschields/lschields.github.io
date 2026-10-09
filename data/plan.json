@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T13:21:52.095373Z",
+  "generated_at": "2026-10-09T13:25:44.912875Z",
   "athlete": {
     "name": "Luke",
     "race": {
@@ -92,7 +92,7 @@
       },
       {
         "name": "VO2max intervals",
-        "pace_per_mi": "6:45-7:05",
+        "pace_per_mi": "6:35-6:55 (800m reps)",
         "hr_zone": null
       },
       {
@@ -2402,7 +2402,7 @@
       "start_date": "2026-10-05",
       "end_date": "2026-10-11",
       "focus": "Steady step up - quality unchanged, extra miles on easy/long days",
-      "target_miles": 34.0,
+      "target_miles": 35.0,
       "coach_notes": [
         "REDESIGNED 2026-10-04 with Luke: ~10% mileage step up from Week 9 (31.8mi actual) with the quality sessions held exactly as Week 9 (same 5 x 1000m and 4 x 1mi). Extra miles go on the easy run (Wed 7mi) and long run (Sat), not onto intensity. Supersedes the old 37mi / goal-pace Week 10. Calf has been symptom-free since the Sep 24 time trial; Garmin running tolerance is flagging ABOVE_TOLERANCE (impact load ~1.4x), a reason for a measured step, not a reason to cut - see athlete context.",
         "Mileage INCLUDES recovery jogs (~1mi on the intervals day, ~0.35mi on tempo). That's why Week 9 showed 31.8 actual vs 30.5 planned.",
@@ -2590,11 +2590,11 @@
               "type": "run",
               "kind": "long",
               "title": "Long run",
-              "distance_mi": 9,
+              "distance_mi": 10,
               "duration_min": null,
               "pace": null,
               "hr_zone": 2,
-              "details": "Day after the tempo with readiness low - truly easy Zone 2 by HR/feel. Cut to 7-8mi if you're flat. Practice race-day fueling on it.",
+              "details": "Day after the tempo - truly easy Zone 2 by HR/feel. Longest run of the cycle so far; cut to 8-9mi if you're flat. Practice race-day fueling on it.",
               "note": "",
               "warmup_mi": null,
               "cooldown_mi": null,
@@ -2631,11 +2631,11 @@
       "start_date": "2026-10-12",
       "end_date": "2026-10-18",
       "focus": "Last quality week - same intervals, tempo consolidates to 3 x 1.5mi, paces updated",
-      "target_miles": 34.4,
+      "target_miles": 35.5,
       "coach_notes": [
         "REDESIGNED 2026-10-09: Riyadh trip cancelled, so this is a normal home week (Mon/Fri PT, Tue/Wed/Thu/Sat/Sun running). Mileage includes recovery jogs.",
-        "PACE UPDATE: Week 10's tempo (run Fri AM) was 4 x 1mi at 7:12-7:15/mi with HR 143-145 and felt 'almost too easy' - the fourth straight session (10K TT, 3 interval days, 2 tempos) to come in faster than prescribed at controlled HR, so the standing calibration note is now acted on, modestly: tempo band moves from 7:20-7:30 to 7:05-7:25 (centre 7:15), intervals stay centred at 6:55 (they were already on target at 6:44-6:57, HR 148-153).",
-        "Bands are WIDER (20s, was 10s) at Luke's request: hovering at a band edge made the watch alert on/off repeatedly. Tempo 7:05-7:25, intervals 6:45-7:05. Aim for the centre; the band is just bandwidth.",
+        "PACE UPDATE: Week 10's tempo (run Fri AM) was 4 x 1mi at 7:12-7:15/mi with HR 143-145 and felt 'almost too easy' - the fourth straight session (10K TT, 3 interval days, 2 tempos) to come in faster than prescribed at controlled HR, so the standing calibration note is now acted on, modestly: tempo band moves from 7:20-7:30 to 7:05-7:25 (centre 7:15), intervals move to 6 x 800m at 6:35-6:55 (centre 6:45): shorter reps, slightly faster, same total quality (~3mi) - 1000m reps were on target at 6:44-6:57, HR 148-153, and 800s are faster work (Week 8's ran ~6:03/mi).",
+        "Bands are WIDER (20s, was 10s) at Luke's request: hovering at a band edge made the watch alert on/off repeatedly. Tempo 7:05-7:25, intervals 6:35-6:55. Aim for the centre; the band is just bandwidth.",
         "Tempo consolidates from 4 x 1mi to 3 x 1.5mi (90s jog recoveries) - the segmented version has now been comfortable twice, per the 2026-09-20 principle. Caveats: Garmin running tolerance is ABOVE_TOLERANCE_EXTENDED (~1.4x), and morning HR reads low, so don't chase the pace if the effort stops feeling controlled.",
         "Garmin's race predictor now reads half-marathon 1:34:59 (7:15/mi) - useful as a ceiling signal, not a target."
       ],
@@ -2693,23 +2693,23 @@
               "type": "run",
               "kind": "intervals",
               "title": "VO2max intervals",
-              "distance_mi": 6.6,
+              "distance_mi": 6.75,
               "duration_min": null,
-              "pace": "1.5mi warmup, 5 x 1000m @ 6:45-7:05/mi w/ 400m active jog recovery, 1mi cooldown",
+              "pace": "1.5mi warmup, 6 x 800m @ 6:35-6:55/mi (aim ~6:45) w/ 400m active jog recovery, 1mi cooldown",
               "hr_zone": null,
-              "details": "Same session as Weeks 9-10, wider pace band (aim for ~6:55). Active jog - don't walk or stop. Easy ~10:30-11:30/mi (treadmill ~5.5-5.8 mph). HR should drift back to ~135-145 (top of Zone 2 / low Zone 3) by the end of each recovery - expect that, not Zone 1, this soon after a hard rep.",
+              "details": "Shorter, slightly faster reps than Weeks 9-10 (6 x 800m vs 5 x 1000m). Your Week 8 800s were ~6:03/mi at HR 154-157, so 6:45 is controlled, not all-out. Active jog - don't walk or stop. Easy ~10:30-11:30/mi (treadmill ~5.5-5.8 mph). HR should drift back to ~135-145 (top of Zone 2 / low Zone 3) by the end of each recovery - expect that, not Zone 1, this soon after a hard rep.",
               "note": "",
               "warmup_mi": null,
               "cooldown_mi": null,
               "intervals": {
                 "warmup_mi": 1.5,
                 "cooldown_mi": 1.0,
-                "reps": 5,
-                "rep_distance_m": 1000,
+                "reps": 6,
+                "rep_distance_m": 800,
                 "recovery_m": 400,
                 "rep_pace": [
-                  425,
-                  405
+                  415,
+                  395
                 ],
                 "recovery_note": "Active jog - don't walk or stop. Easy ~10:30-11:30/mi (treadmill ~5.5-5.8 mph). HR should drift back to ~135-145 (top of Zone 2 / low Zone 3) by the end of each recovery - expect that, not Zone 1, this soon after a hard rep."
               }
@@ -2820,11 +2820,11 @@
               "type": "run",
               "kind": "long",
               "title": "Long run",
-              "distance_mi": 9,
+              "distance_mi": 10,
               "duration_min": null,
               "pace": null,
               "hr_zone": 2,
-              "details": "Easy Zone 2 throughout. Last long-ish run before the taper begins.",
+              "details": "Easy Zone 2 throughout. Last full-length long run before the taper begins.",
               "note": "",
               "warmup_mi": null,
               "cooldown_mi": null,
