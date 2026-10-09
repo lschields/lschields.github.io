@@ -2,9 +2,9 @@
   "workoutId": null,
   "ownerId": 585149926,
   "workoutName": "W11 Tue Intervals 6.75mi",
-  "description": "INTERVALS RUN \u2014 6.75 miles | Effort-based (no fixed pace yet)\n\nPURPOSE: Hard, repeatable efforts near current top-end aerobic capacity - trains VO2max and running economy. Consistent effort rep-to-rep matters more than a fast first rep.\n\nFOCUS: No fixed pace target - there's no current hard-effort data to set one honestly yet (the only reference point is pre-layoff/2022 fitness). Run the effort described below and record whatever pace results - that's useful data. The Week 8 10K time trial (Sep 24) sets real target paces from here forward.\n\nNOTE: Shorter, slightly faster reps than Weeks 9-10 (6 x 800m vs 5 x 1000m). Your Week 8 800s were ~6:03/mi at HR 154-157, so 6:45 is controlled, not all-out. Active jog - don't walk or stop. Easy ~10:30-11:30/mi (treadmill ~5.5-5.8 mph). HR should drift back to ~135-145 (top of Zone 2 / low Zone 3) by the end of each recovery - expect that, not Zone 1, this soon after a hard rep.\n\nYOUR DATA: Your last 3 logged runs averaged 135-143 bpm at 7:46-8:11/mi.\n\nFEEL: Hard but repeatable - breathing hard by the end of each rep, but able to hit the next one at the same effort.",
-  "updatedDate": "2026-10-09T13:25:44.0",
-  "createdDate": "2026-10-09T13:25:44.0",
+  "description": "INTERVALS RUN \u2014 6.75 miles | Effort-based (no fixed pace yet)\n\nPURPOSE: Hard, repeatable efforts near current top-end aerobic capacity - trains VO2max and running economy. Consistent effort rep-to-rep matters more than a fast first rep.\n\nFOCUS: No fixed pace target - there's no current hard-effort data to set one honestly yet (the only reference point is pre-layoff/2022 fitness). Run the effort described below and record whatever pace results - that's useful data. The Week 8 10K time trial (Sep 24) sets real target paces from here forward.\n\nNOTE: Shorter, slightly faster reps than Weeks 9-10 (6 x 800m vs 5 x 1000m). Your Week 8 800s were ~6:01-6:12/mi at HR 154-157, so 6:30 is controlled, not all-out. Do NOT go out fast on rep 1; if reps 5-6 fade by more than ~10s, it was too fast. Active jog - don't walk or stop. Easy ~10:30-11:30/mi (treadmill ~5.5-5.8 mph). HR should drift back to ~135-145 (top of Zone 2 / low Zone 3) by the end of each recovery - expect that, not Zone 1, this soon after a hard rep.\n\nYOUR DATA: Your last 3 logged runs averaged 135-143 bpm at 7:46-8:11/mi.\n\nFEEL: Hard but repeatable - breathing hard by the end of each rep, but able to hit the next one at the same effort.",
+  "updatedDate": "2026-10-09T13:29:29.0",
+  "createdDate": "2026-10-09T13:29:29.0",
   "sportType": {
     "sportTypeId": 1,
     "sportTypeKey": "running",
@@ -145,8 +145,8 @@
                 "workoutTargetTypeKey": "pace.zone",
                 "displayOrder": 6
               },
-              "targetValueOne": 3.878,
-              "targetValueTwo": 4.074,
+              "targetValueOne": 4.023,
+              "targetValueTwo": 4.235,
               "zoneNumber": null,
               "secondaryTargetType": null,
               "secondaryTargetValueOne": null,

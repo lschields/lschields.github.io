@@ -252,7 +252,7 @@ ATHLETE = {
         {"name": "Recovery", "pace_per_mi": "HR-based, no pace target", "hr_zone": 1},
         {"name": "Tempo / Threshold", "pace_per_mi": "7:05-7:25", "hr_zone": None},
         {"name": "Current 10K-TT-equivalent half pace (9/24 time trial, not a goal - see context)", "pace_per_mi": "7:15-7:30 (Garmin predictor 7:15 on 10/9, not a goal)", "hr_zone": None},
-        {"name": "VO2max intervals", "pace_per_mi": "6:35-6:55 (800m reps)", "hr_zone": None},
+        {"name": "VO2max intervals", "pace_per_mi": "6:20-6:40 (800m reps)", "hr_zone": None},
         {"name": "Strides", "pace_per_mi": "5:30-5:45 (relaxed, not max effort)", "hr_zone": None},
     ],
     "race_strategy": {
@@ -1049,7 +1049,7 @@ add_week(
 # Redesigned 2026-10-09 after the Riyadh trip was cancelled. Pace bands updated and widened
 # (see coach_notes); mileage includes recovery jogs.
 W11_INTERVALS = {"warmup_mi": 1.5, "cooldown_mi": 1.0, "reps": 6, "rep_distance_m": 800,
-                 "recovery_m": 400, "rep_pace": (415, 395), "recovery_note": INT_RECOVERY_NOTE}   # 6:35-6:55
+                 "recovery_m": 400, "rep_pace": (400, 380), "recovery_note": INT_RECOVERY_NOTE}   # 6:20-6:40
 W11_TEMPO = {"warmup_mi": 1.5, "cooldown_mi": 1.5, "reps": 3, "rep_distance_m": 2414,
              "recovery_sec": 90, "rep_pace": (445, 425),                                       # 7:05-7:25
              "recovery_note": "90s very easy jog - don't walk or stop. HR will only dip to ~135-140."}
@@ -1064,11 +1064,11 @@ add_week(
         "felt 'almost too easy' - the fourth straight session (10K TT, 3 interval days, 2 tempos) "
         "to come in faster than prescribed at controlled HR, so the standing calibration note is "
         "now acted on, modestly: tempo band moves from 7:20-7:30 to 7:05-7:25 (centre 7:15), "
-        "intervals move to 6 x 800m at 6:35-6:55 (centre 6:45): shorter reps, slightly faster, same "
+        "intervals move to 6 x 800m at 6:20-6:40 (centre 6:30): shorter reps, slightly faster, same "
         "total quality (~3mi) - 1000m reps were on target at 6:44-6:57, HR 148-153, and 800s are "
         "faster work (Week 8's ran ~6:03/mi).",
         "Bands are WIDER (20s, was 10s) at Luke's request: hovering at a band edge made the watch "
-        "alert on/off repeatedly. Tempo 7:05-7:25, intervals 6:35-6:55. Aim for the centre; the "
+        "alert on/off repeatedly. Tempo 7:05-7:25, intervals 6:20-6:40 (800m reps). Aim for the centre; the "
         "band is just bandwidth.",
         "Tempo consolidates from 4 x 1mi to 3 x 1.5mi (90s jog recoveries) - the segmented version "
         "has now been comfortable twice, per the 2026-09-20 principle. Caveats: Garmin running "
@@ -1080,9 +1080,9 @@ add_week(
     [
         [pt_peak_mon()],
         [run_session("intervals", "VO2max intervals", distance_mi=interval_total_mi(W11_INTERVALS),
-                      pace="1.5mi warmup, 6 x 800m @ 6:35-6:55/mi (aim ~6:45) w/ 400m active jog recovery, 1mi cooldown",
+                      pace="1.5mi warmup, 6 x 800m @ 6:20-6:40/mi (aim ~6:30) w/ 400m active jog recovery, 1mi cooldown",
                       details="Shorter, slightly faster reps than Weeks 9-10 (6 x 800m vs 5 x 1000m). "
-                              "Your Week 8 800s were ~6:03/mi at HR 154-157, so 6:45 is controlled, not all-out. " + INT_RECOVERY_NOTE,
+                              "Your Week 8 800s were ~6:01-6:12/mi at HR 154-157, so 6:30 is controlled, not all-out. Do NOT go out fast on rep 1; if reps 5-6 fade by more than ~10s, it was too fast. " + INT_RECOVERY_NOTE,
                       intervals=W11_INTERVALS)],
         [run_session("easy", "Easy run", distance_mi=7, hr_zone=2)],
         [run_session("tempo", "Tempo run", distance_mi=interval_total_mi(W11_TEMPO), hr_zone=None,
