@@ -105,13 +105,8 @@ def live_hr_zones_and_lthr():
 
 RACE_DATE = dt.date(2026, 11, 1)  # Cambridge Half Marathon, Sunday
 
-# PLACEHOLDER - retired as an actual goal 2026-09-11 (see context[] below for why), but
-# Weeks 9-13 (Peak/Taper/Race week - see further down this file) still reference this exact
-# value for their goal-pace sessions and race-day splits, since real current-fitness data
-# doesn't exist yet to replace it with. MUST be revisited once the Week 8 (Sep 24) time trial
-# gives real pace data, before Peak phase (starts Sep 28) locks in - don't let this go stale
-# and silently keep training Luke toward a number he's explicitly decided to let go of.
-GOAL_PACE_PER_MI = "6:43"
+# No fixed goal pace: the 1:28 goal was retired 2026-09-11 and GOAL_PACE_PER_MI was removed
+# 2026-10-13 once Weeks 12-13 were rewritten off current-fitness data (see context[] below).
 
 ATHLETE = {
     "name": "Luke",
@@ -173,7 +168,7 @@ ATHLETE = {
         "status) rather than a predetermined escalation curve. Weeks 9-11's current 'Peak: goal-pace "
         "work begins / highest volume of the cycle' framing and 34->37->30mi trajectory is explicitly "
         "superseded by this principle and needs a real redesign pass before it arrives - not just the "
-        "pace-number substitution already flagged for Weeks 9-13's GOAL_PACE_PER_MI references below. "
+        "pace-number substitution (since done - see below). "
         "The Week 8 time trial, if it happens, is one data point for that redesign, not a trigger for "
         "a predetermined volume jump the week after.",
         "Plan rebuilt 2026-08-07 around a base template Luke built (cambridge_hm_plan.html): "
@@ -185,9 +180,9 @@ ATHLETE = {
         "already started under the artifact's own schedule before this dashboard existed.",
         "The Tempo/Threshold and VO2max interval paces below were updated 2026-09-25 off the Sep 24 "
         "10K time trial (see the next note) - they're real current-fitness numbers now, not the old "
-        "goal-era placeholders. Weeks 10-13's own session text still carries stale goal-era paces tied "
-        "to the retired GOAL_PACE_PER_MI (see that comment near the top of this file) and hasn't been "
-        "rewritten yet - only Week 9 has been redesigned off the time-trial data so far.",
+        "goal-era placeholders. As of 2026-10-13 Weeks 9-13 have all been redesigned off current-"
+        "fitness data (Weeks 12-13 are a draft taper, re-tuned off Week 11's results); the old "
+        "goal-pace constant is gone and no session references the retired 1:28 goal.",
         "10K time trial result, 2026-09-24: 45:01 for the isolated race-effort portion (6.21mi, "
         "excluding warmup/cooldown), avg pace 7:15/mi, avg HR 151 peaking at 156 - stayed Zone 3-4 the "
         "whole way, never touched Zone 5 (max HR 181). This is the first real current-fitness data "
@@ -1099,23 +1094,42 @@ add_week(
 )
 
 # ---- Week 12 (Oct 19-25) - Taper -----------------------------------------------
+# Rewritten 2026-10-13 (no more 1:28 goal pace). Quality kept but shortened; mileage includes recovery jogs.
+W12_INTERVALS = {"warmup_mi": 1.5, "cooldown_mi": 1.0, "reps": 4, "rep_distance_m": 800,
+                 "recovery_m": 400, "rep_pace": (400, 380), "recovery_note": INT_RECOVERY_NOTE}   # 6:20-6:40
+W12_TEMPO = {"warmup_mi": 1.5, "cooldown_mi": 1.5, "reps": 2, "rep_distance_m": 2414,
+             "recovery_sec": 90, "rep_pace": (445, 425),                                          # 7:05-7:25
+             "recovery_note": "90s very easy jog - don't walk or stop."}
+W12_TOTAL = interval_total_mi(W12_INTERVALS) + 5 + interval_total_mi(W12_TEMPO) + 8 + 3.5
 add_week(
-    12, "taper", "Taper - Weeks 12-13", "Volume drops, keep short touches of goal pace",
-    22,
+    12, "taper", "Taper - Weeks 12-13", "Volume drops ~20%, quality gets shorter - arrive fresh, not fitter",
+    round(W12_TOTAL, 1),
     [
         "Taper starts now. The fitness is already there - this block is about arriving on Nov 1 "
-        "rested, not squeezing out more gains. Trust the volume drop.",
+        "rested, not squeezing out more gains. Trust the volume drop (~28mi vs ~35 in Weeks 10-11).",
+        "REWRITTEN 2026-10-13: no fixed goal pace any more. Quality stays but shrinks: Tuesday "
+        "4 x 800m (one fewer rep than Week 11's 6) at 6:20-6:40/mi; Thursday 2 x 1.5mi tempo at "
+        "7:05-7:25/mi. Both keep the same active-jog recoveries.",
+        "Race-day estimate from current fitness (Garmin predictor ~1:34-1:35, 10K-TT extrapolation "
+        "~1:39, last year here 1:36:31): roughly 1:35-1:39, centre ~1:37. A forecast, not a target.",
+        "This is a draft - it gets re-tuned off Week 11's Thursday tempo and Saturday long run. If "
+        "either goes flat, trim volume here further rather than adding anything.",
     ],
     [
         [pt_taper()],
-        [run_session("intervals", "Short sharpener", distance_mi=5,
-                      pace="1.5mi warmup, 3 x 1mi @ 6:05-6:15/mi w/ 3min jog recovery, 1mi cooldown")],
-        [run_session("easy", "Easy run", distance_mi=4.5, hr_zone=2)],
-        [run_session("mp", "Goal-pace touch", distance_mi=5,
-                      pace=f"1mi warmup, 2mi @ {GOAL_PACE_PER_MI}, 1mi cooldown",
-                      details="Short and sharp - this is about confidence, not fitness.")],
+        [run_session("intervals", "Short sharpener", distance_mi=interval_total_mi(W12_INTERVALS),
+                      pace="1.5mi warmup, 4 x 800m @ 6:20-6:40/mi (aim ~6:30) w/ 400m active jog recovery, 1mi cooldown",
+                      details="Sharpen, don't strain - stop at 4 even if you feel great. " + INT_RECOVERY_NOTE,
+                      intervals=W12_INTERVALS)],
+        [run_session("easy", "Easy run", distance_mi=5, hr_zone=2)],
+        [run_session("tempo", "Tempo run", distance_mi=interval_total_mi(W12_TEMPO), hr_zone=None,
+                      warmup_mi=1.5, cooldown_mi=1.5,
+                      pace="1.5mi warmup, 2 x 1.5mi @ 7:05-7:25/mi (aim ~7:15) w/ 90s active jog recovery, 1.5mi cooldown",
+                      details="Short and controlled - this is about confidence, not fitness. " + W12_TEMPO["recovery_note"],
+                      intervals=W12_TEMPO)],
         [pt_taper()],
-        [run_session("long", "Long run (reduced)", distance_mi=8, hr_zone=2)],
+        [run_session("long", "Long run (reduced)", distance_mi=8, hr_zone=2,
+                      details="Last long run of the cycle. Easy Zone 2; practice race-morning fueling.")],
         [run_session("recovery", "Recovery run", distance_mi=3.5, hr_zone=1)],
     ],
 )
@@ -1123,30 +1137,31 @@ add_week(
 # ---- Week 13 (Oct 26-Nov 1) - Race week -----------------------------------------
 add_week(
     13, "taper", "Taper - Weeks 12-13", "Race week",
-    12.1,
+    round(4 + 3 + 4 + 2, 1),
     [
         "Race week - Mon and Fri are full rest now, not PT days. Everything here is about staying "
         "loose and well-rested. Sleep and easy carb-forward eating matter more this week than any "
         "workout does.",
+        "REWRITTEN 2026-10-13: the 1:28 goal is gone. Race by effort, not a fixed pace. Plan: first "
+        "1-2 miles in the 7:30s (Zone 2-3), settle at about 7:15-7:25 through mile 10, then push only "
+        "if it feels good. Current-fitness estimate ~1:35-1:39 (centre ~1:37) - a forecast, not a target. "
+        "Stay below the effort where your stomach starts to complain (it did near Zone 5 on hard reps), "
+        "and keep to the fueling plan: familiar breakfast, gels around mile 4 and 8-9, sips only.",
         "Course is flat and fast with cold, clear conditions typical on race morning - dress in a "
-        "layer you can throw away at the start. STALE as of 2026-09-11: the 1:28 goal referenced here "
-        "and in this week's shakeout/race sessions has been retired (see athlete context) - rewrite "
-        "this week's pace text once real current-fitness data exists. Race plan is otherwise still "
-        "right: go out conservative through mile 2, settle into a controlled effort by mile 3, hold "
-        "through mile 12, then empty the tank.",
+        "layer you can throw away at the start.",
     ],
     [
         [rest_day()],
         [run_session("easy", "Easy + strides", distance_mi=4, hr_zone=2, details="4 x 20s strides.")],
         [run_session("easy", "Easy run", distance_mi=3, hr_zone=2)],
-        [run_session("shakeout", "Confidence run", distance_mi=4,
-                      pace=f"2mi easy, 2mi @ {GOAL_PACE_PER_MI}",
-                      details="Feel the goal pace one more time. Should feel easy.")],
+        [run_session("mp", "Confidence run", distance_mi=4,
+                      pace="2mi easy, 2mi @ 7:15-7:25/mi (race effort)",
+                      details="A short touch of race effort - should feel easy and smooth.")],
         [rest_day(note="Carb-load dinner, early to bed, nothing new to eat.")],
         [run_session("shakeout", "Shakeout", distance_mi=2, pace="Very easy, 4 loose strides",
                       details="Lay out kit, pin bib, bed by 9:30pm.")],
         [run_session("race", "CAMBRIDGE HALF MARATHON", distance_mi=13.10938,
-                      pace=f"Goal {GOAL_PACE_PER_MI}/mi (1:28:00)",
+                      pace="Effort-based: 7:30s for mile 1-2, settle ~7:15-7:25 (est. finish 1:35-1:39)",
                       details="Wake 4:30am, familiar breakfast by 5:00, arrive by 6:00, warm up 1.5mi, "
                       "corral by 6:45. You've done the work - trust the pacing plan and go get it.")],
     ],

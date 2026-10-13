@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T13:29:29.890221Z",
+  "generated_at": "2026-10-13T13:31:17.894339Z",
   "athlete": {
     "name": "Luke",
     "race": {
@@ -21,10 +21,10 @@
       "3-4 week layoff after Grandma's for illness + sore Achilles, followed by a self-directed return to running through July that's visible in the logged activities (easy paces, 9:00-9:48/mi, HR 128-149).",
       "Half marathon PR: 1:30. Ran this exact Cambridge course in 11/2025 in 1:35.",
       "1:28 goal retired 2026-09-11, by Luke's own call, not a training failure. Evidence: the 2026-08-30 tempo session put him in an accidental Zone 5 effort (from a since-fixed HR-zone bug); Garmin's Race Predictor (2026-09-03) read 8:00/mi half-marathon pace (1:44:53); the 2026-09-10 tempo session (zones correctly applied this time) still capped out at 153bpm despite maximal perceived effort and had to be stopped twice for GI discomfort - the third distinct GI episode this cycle (Grandma's Marathon, 2026-08-27, now this). Racing for a strong, well-executed performance given time constraints and this year's setbacks, not a fixed time. The Week 8 (Sep 24) time trial still happens - it now exists purely to get real current-fitness data, not to confirm a number that's already been let go of.",
-      "GOVERNING DESIGN PRINCIPLE, added 2026-09-20 (Luke's explicit check-in): retiring the 1:28 goal on 2026-09-11 only updated the race-day framing above (goal_time, race_strategy) - it was never applied to the week-by-week volume/intensity progression itself, which kept following the original 2026-08-07 build's escalate-toward-a-Peak-block shape (Weeks 9-11 climbing to a 37mi 'highest volume of the cycle' week built around 'goal-pace work'). Luke caught this after a Week 7 that made the mismatch obvious: the prescribed 5x1mi interval session (Zone 5-ish effort) would very likely have been unsustainable, while the shorter 4x800m session he ran by accident instead was 'right in the sweet spot'; Friday's tempo - his best of the cycle - still needed two ~1min breaks across 4 continuous miles; and the week closed with a new dull ache in his lower right calf after a heavy hiking weekend. Going forward, the sole design principle for Week 8 onward is working back into shape gradually and sustainably, NOT progressing toward a specific fitness level by a specific week. Concretely: (1) tempo work is built as segmented pieces (e.g. 4x1mi / 3x1.5mi / 2x2mi with short jog recovery between reps) rather than one mandatory continuous block - consolidate into longer continuous efforts only once the segmented version is clearly comfortable, not on a preset week number; (2) high-intensity interval work stays at shorter rep distances (400-800m) rather than jumping to 1mi+ reps, lengthening reps only once the shorter ones are clearly sustainable at the target effort; (3) weekly volume and intensity get set week-by-week off actual data (HRV, RHR, running-tolerance, subjective feel, injury status) rather than a predetermined escalation curve. Weeks 9-11's current 'Peak: goal-pace work begins / highest volume of the cycle' framing and 34->37->30mi trajectory is explicitly superseded by this principle and needs a real redesign pass before it arrives - not just the pace-number substitution already flagged for Weeks 9-13's GOAL_PACE_PER_MI references below. The Week 8 time trial, if it happens, is one data point for that redesign, not a trigger for a predetermined volume jump the week after.",
+      "GOVERNING DESIGN PRINCIPLE, added 2026-09-20 (Luke's explicit check-in): retiring the 1:28 goal on 2026-09-11 only updated the race-day framing above (goal_time, race_strategy) - it was never applied to the week-by-week volume/intensity progression itself, which kept following the original 2026-08-07 build's escalate-toward-a-Peak-block shape (Weeks 9-11 climbing to a 37mi 'highest volume of the cycle' week built around 'goal-pace work'). Luke caught this after a Week 7 that made the mismatch obvious: the prescribed 5x1mi interval session (Zone 5-ish effort) would very likely have been unsustainable, while the shorter 4x800m session he ran by accident instead was 'right in the sweet spot'; Friday's tempo - his best of the cycle - still needed two ~1min breaks across 4 continuous miles; and the week closed with a new dull ache in his lower right calf after a heavy hiking weekend. Going forward, the sole design principle for Week 8 onward is working back into shape gradually and sustainably, NOT progressing toward a specific fitness level by a specific week. Concretely: (1) tempo work is built as segmented pieces (e.g. 4x1mi / 3x1.5mi / 2x2mi with short jog recovery between reps) rather than one mandatory continuous block - consolidate into longer continuous efforts only once the segmented version is clearly comfortable, not on a preset week number; (2) high-intensity interval work stays at shorter rep distances (400-800m) rather than jumping to 1mi+ reps, lengthening reps only once the shorter ones are clearly sustainable at the target effort; (3) weekly volume and intensity get set week-by-week off actual data (HRV, RHR, running-tolerance, subjective feel, injury status) rather than a predetermined escalation curve. Weeks 9-11's current 'Peak: goal-pace work begins / highest volume of the cycle' framing and 34->37->30mi trajectory is explicitly superseded by this principle and needs a real redesign pass before it arrives - not just the pace-number substitution (since done - see below). The Week 8 time trial, if it happens, is one data point for that redesign, not a trigger for a predetermined volume jump the week after.",
       "Plan rebuilt 2026-08-07 around a base template Luke built (cambridge_hm_plan.html): Tue/Wed/Thu/Sat/Sun running, Mon/Fri for PT/prehab, HR-based easy/long/recovery, pace-based tempo/intervals/goal-pace work. That artifact assumed VO2max 55 / LTHR 178 / a 1:25 goal - none of which match verified Garmin data (VO2max 53, LTHR 169 as of 8/7), so paces here are reconciled back to the 1:28 goal and real numbers.",
       "Plan spans 13 weeks, Aug 3 - Nov 1 2026 - Week 1 (Aug 3-9) picks up the week Luke had already started under the artifact's own schedule before this dashboard existed.",
-      "The Tempo/Threshold and VO2max interval paces below were updated 2026-09-25 off the Sep 24 10K time trial (see the next note) - they're real current-fitness numbers now, not the old goal-era placeholders. Weeks 10-13's own session text still carries stale goal-era paces tied to the retired GOAL_PACE_PER_MI (see that comment near the top of this file) and hasn't been rewritten yet - only Week 9 has been redesigned off the time-trial data so far.",
+      "The Tempo/Threshold and VO2max interval paces below were updated 2026-09-25 off the Sep 24 10K time trial (see the next note) - they're real current-fitness numbers now, not the old goal-era placeholders. As of 2026-10-13 Weeks 9-13 have all been redesigned off current-fitness data (Weeks 12-13 are a draft taper, re-tuned off Week 11's results); the old goal-pace constant is gone and no session references the retired 1:28 goal.",
       "10K time trial result, 2026-09-24: 45:01 for the isolated race-effort portion (6.21mi, excluding warmup/cooldown), avg pace 7:15/mi, avg HR 151 peaking at 156 - stayed Zone 3-4 the whole way, never touched Zone 5 (max HR 181). This is the first real current-fitness data point of the cycle. A Riegel extrapolation puts the current half-marathon equivalent at roughly 1:39:20 (~7:34/mi); Garmin's own updated predictor (same day) reads 1:38:33 (7:31/mi), 10K 43:41 (7:02/mi) - both land in the same 1:38-1:40 range. Used as the pace anchor for Week 9's redesign below: tempo/threshold work at 7:20-7:30/mi, short-rep interval work at 6:50-7:00/mi. This is a current-fitness snapshot, not a goal - expect it to keep moving as training continues, and re-anchor off newer data (not this number) once there's more of it.",
       "STANDING NOTE, added 2026-09-29 (Luke's explicit request - keep this in mind for future pace targets): both quality sessions run against the time-trial-derived paces so far have come in faster than their target while HR stayed controlled and sub-Zone-5. The 10K TT itself negative split with HR capped at 156 (never reached his 181 max); Week 9's Tuesday intervals (run effort-only, no watch target yet - see the bug note above) came in at 6:35-6:42/mi against a 6:50-7:00 target, HR 151-153 avg/157-158 max, still under the Zone 5 floor (159). Two data points isn't a trend yet, but the consistent direction (faster than prescribed, HR still with room) is worth factoring in when setting paces for Week 10 onward: current-fitness pace anchors derived from the time trial may be slightly conservative, not just accurate. Don't overcorrect off this alone - keep watching actual sessions (especially Thursday's tempo, which now has a real target to compare against) before loosening any paces.",
       "UPDATE 2026-10-02 on the above: Week 9's Thursday tempo (actually run Friday AM - see next note) continued the same pattern. 3 of 4 reps came in faster than the 7:20-7:30 target (7:16-7:20/mi), the 4th landed right at 7:25. Still just a handful of sessions, still watching before changing any Week 10+ numbers.",
@@ -2860,10 +2860,13 @@
       "block_label": "Taper - Weeks 12-13",
       "start_date": "2026-10-19",
       "end_date": "2026-10-25",
-      "focus": "Volume drops, keep short touches of goal pace",
-      "target_miles": 22,
+      "focus": "Volume drops ~20%, quality gets shorter - arrive fresh, not fitter",
+      "target_miles": 27.9,
       "coach_notes": [
-        "Taper starts now. The fitness is already there - this block is about arriving on Nov 1 rested, not squeezing out more gains. Trust the volume drop."
+        "Taper starts now. The fitness is already there - this block is about arriving on Nov 1 rested, not squeezing out more gains. Trust the volume drop (~28mi vs ~35 in Weeks 10-11).",
+        "REWRITTEN 2026-10-13: no fixed goal pace any more. Quality stays but shrinks: Tuesday 4 x 800m (one fewer rep than Week 11's 6) at 6:20-6:40/mi; Thursday 2 x 1.5mi tempo at 7:05-7:25/mi. Both keep the same active-jog recoveries.",
+        "Race-day estimate from current fitness (Garmin predictor ~1:34-1:35, 10K-TT extrapolation ~1:39, last year here 1:36:31): roughly 1:35-1:39, centre ~1:37. A forecast, not a target.",
+        "This is a draft - it gets re-tuned off Week 11's Thursday tempo and Saturday long run. If either goes flat, trim volume here further rather than adding anything."
       ],
       "days": [
         {
@@ -2919,15 +2922,26 @@
               "type": "run",
               "kind": "intervals",
               "title": "Short sharpener",
-              "distance_mi": 5,
+              "distance_mi": 5.25,
               "duration_min": null,
-              "pace": "1.5mi warmup, 3 x 1mi @ 6:05-6:15/mi w/ 3min jog recovery, 1mi cooldown",
+              "pace": "1.5mi warmup, 4 x 800m @ 6:20-6:40/mi (aim ~6:30) w/ 400m active jog recovery, 1mi cooldown",
               "hr_zone": null,
-              "details": "",
+              "details": "Sharpen, don't strain - stop at 4 even if you feel great. Active jog - don't walk or stop. Easy ~10:30-11:30/mi (treadmill ~5.5-5.8 mph). HR should drift back to ~135-145 (top of Zone 2 / low Zone 3) by the end of each recovery - expect that, not Zone 1, this soon after a hard rep.",
               "note": "",
               "warmup_mi": null,
               "cooldown_mi": null,
-              "intervals": null
+              "intervals": {
+                "warmup_mi": 1.5,
+                "cooldown_mi": 1.0,
+                "reps": 4,
+                "rep_distance_m": 800,
+                "recovery_m": 400,
+                "rep_pace": [
+                  400,
+                  380
+                ],
+                "recovery_note": "Active jog - don't walk or stop. Easy ~10:30-11:30/mi (treadmill ~5.5-5.8 mph). HR should drift back to ~135-145 (top of Zone 2 / low Zone 3) by the end of each recovery - expect that, not Zone 1, this soon after a hard rep."
+              }
             }
           ]
         },
@@ -2939,7 +2953,7 @@
               "type": "run",
               "kind": "easy",
               "title": "Easy run",
-              "distance_mi": 4.5,
+              "distance_mi": 5,
               "duration_min": null,
               "pace": null,
               "hr_zone": 2,
@@ -2957,17 +2971,28 @@
           "sessions": [
             {
               "type": "run",
-              "kind": "mp",
-              "title": "Goal-pace touch",
-              "distance_mi": 5,
+              "kind": "tempo",
+              "title": "Tempo run",
+              "distance_mi": 6.15,
               "duration_min": null,
-              "pace": "1mi warmup, 2mi @ 6:43, 1mi cooldown",
+              "pace": "1.5mi warmup, 2 x 1.5mi @ 7:05-7:25/mi (aim ~7:15) w/ 90s active jog recovery, 1.5mi cooldown",
               "hr_zone": null,
-              "details": "Short and sharp - this is about confidence, not fitness.",
+              "details": "Short and controlled - this is about confidence, not fitness. 90s very easy jog - don't walk or stop.",
               "note": "",
-              "warmup_mi": null,
-              "cooldown_mi": null,
-              "intervals": null
+              "warmup_mi": 1.5,
+              "cooldown_mi": 1.5,
+              "intervals": {
+                "warmup_mi": 1.5,
+                "cooldown_mi": 1.5,
+                "reps": 2,
+                "rep_distance_m": 2414,
+                "recovery_sec": 90,
+                "rep_pace": [
+                  445,
+                  425
+                ],
+                "recovery_note": "90s very easy jog - don't walk or stop."
+              }
             }
           ]
         },
@@ -3028,7 +3053,7 @@
               "duration_min": null,
               "pace": null,
               "hr_zone": 2,
-              "details": "",
+              "details": "Last long run of the cycle. Easy Zone 2; practice race-morning fueling.",
               "note": "",
               "warmup_mi": null,
               "cooldown_mi": null,
@@ -3065,10 +3090,11 @@
       "start_date": "2026-10-26",
       "end_date": "2026-11-01",
       "focus": "Race week",
-      "target_miles": 12.1,
+      "target_miles": 13,
       "coach_notes": [
         "Race week - Mon and Fri are full rest now, not PT days. Everything here is about staying loose and well-rested. Sleep and easy carb-forward eating matter more this week than any workout does.",
-        "Course is flat and fast with cold, clear conditions typical on race morning - dress in a layer you can throw away at the start. STALE as of 2026-09-11: the 1:28 goal referenced here and in this week's shakeout/race sessions has been retired (see athlete context) - rewrite this week's pace text once real current-fitness data exists. Race plan is otherwise still right: go out conservative through mile 2, settle into a controlled effort by mile 3, hold through mile 12, then empty the tank."
+        "REWRITTEN 2026-10-13: the 1:28 goal is gone. Race by effort, not a fixed pace. Plan: first 1-2 miles in the 7:30s (Zone 2-3), settle at about 7:15-7:25 through mile 10, then push only if it feels good. Current-fitness estimate ~1:35-1:39 (centre ~1:37) - a forecast, not a target. Stay below the effort where your stomach starts to complain (it did near Zone 5 on hard reps), and keep to the fueling plan: familiar breakfast, gels around mile 4 and 8-9, sips only.",
+        "Course is flat and fast with cold, clear conditions typical on race morning - dress in a layer you can throw away at the start."
       ],
       "days": [
         {
@@ -3128,13 +3154,13 @@
           "sessions": [
             {
               "type": "run",
-              "kind": "shakeout",
+              "kind": "mp",
               "title": "Confidence run",
               "distance_mi": 4,
               "duration_min": null,
-              "pace": "2mi easy, 2mi @ 6:43",
+              "pace": "2mi easy, 2mi @ 7:15-7:25/mi (race effort)",
               "hr_zone": null,
-              "details": "Feel the goal pace one more time. Should feel easy.",
+              "details": "A short touch of race effort - should feel easy and smooth.",
               "note": "",
               "warmup_mi": null,
               "cooldown_mi": null,
@@ -3183,7 +3209,7 @@
               "title": "CAMBRIDGE HALF MARATHON",
               "distance_mi": 13.10938,
               "duration_min": null,
-              "pace": "Goal 6:43/mi (1:28:00)",
+              "pace": "Effort-based: 7:30s for mile 1-2, settle ~7:15-7:25 (est. finish 1:35-1:39)",
               "hr_zone": null,
               "details": "Wake 4:30am, familiar breakfast by 5:00, arrive by 6:00, warm up 1.5mi, corral by 6:45. You've done the work - trust the pacing plan and go get it.",
               "note": "",
