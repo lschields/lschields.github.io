@@ -1048,7 +1048,7 @@ W11_INTERVALS = {"warmup_mi": 1.5, "cooldown_mi": 1.0, "reps": 6, "rep_distance_
 W11_TEMPO = {"warmup_mi": 1.5, "cooldown_mi": 1.5, "reps": 3, "rep_distance_m": 2414,
              "recovery_sec": 90, "rep_pace": (445, 425),                                       # 7:05-7:25
              "recovery_note": "90s very easy jog - don't walk or stop. HR will only dip to ~135-140."}
-W11_TOTAL = interval_total_mi(W11_INTERVALS) + 7 + interval_total_mi(W11_TEMPO) + 10 + 4
+W11_TOTAL = interval_total_mi(W11_INTERVALS) + 7 + interval_total_mi(W11_TEMPO) + 9 + 4
 add_week(
     11, "peak", "Peak - Weeks 9-11", "Last quality week - same intervals, tempo consolidates to 3 x 1.5mi, paces updated",
     round(W11_TOTAL, 1),
@@ -1071,6 +1071,11 @@ add_week(
         "the pace if the effort stops feeling controlled.",
         "Garmin's race predictor now reads half-marathon 1:34:59 (7:15/mi) - useful as a ceiling "
         "signal, not a target.",
+        "UPDATE 2026-10-15: Thursday's tempo ran 3 x 1.5mi at 7:08/7:04/7:08 (the fast edge of the "
+        "7:05-7:25 band) at HR 142-147, felt comfortable, no GI issues; Garmin LT pace improved "
+        "(~6:54 -> ~6:48/mi, LTHR steady at 159) and the half predictor reads 1:33:00. But Wed was "
+        "tiring and Thu's readiness is 33 (HRV 49, body battery 56, short sleep, tolerance ratio ~1.57x "
+        "extended) - so Saturday's long run is trimmed 10 -> 9, flexible down to 8.",
     ],
     [
         [pt_peak_mon()],
@@ -1087,8 +1092,10 @@ add_week(
                               "Controlled, not desperate. " + W11_TEMPO["recovery_note"],
                       intervals=W11_TEMPO)],
         [pt_peak_fri()],
-        [run_session("long", "Long run", distance_mi=10, hr_zone=2,
-                      details="Easy Zone 2 throughout. Last full-length long run before the taper begins.")],
+        [run_session("long", "Long run", distance_mi=9, hr_zone=2,
+                      details="Trimmed from 10 on 10/15 (readiness 33, HRV 49, body battery 56 after a "
+                              "short-sleep week, per the 'cut it up front if flat' rule). Easy Zone 2; "
+                              "drop to 8 if you're still flat after sleeping Thu/Fri nights.")],
         [run_session("recovery", "Recovery run", distance_mi=4, hr_zone=1)],
     ],
 )
