@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T14:27:34.404550Z",
+  "generated_at": "2026-10-15T14:30:59.297057Z",
   "athlete": {
     "name": "Luke",
     "race": {
@@ -2631,14 +2631,14 @@
       "start_date": "2026-10-12",
       "end_date": "2026-10-18",
       "focus": "Last quality week - same intervals, tempo consolidates to 3 x 1.5mi, paces updated",
-      "target_miles": 34.5,
+      "target_miles": 35.5,
       "coach_notes": [
         "REDESIGNED 2026-10-09: Riyadh trip cancelled, so this is a normal home week (Mon/Fri PT, Tue/Wed/Thu/Sat/Sun running). Mileage includes recovery jogs.",
         "PACE UPDATE: Week 10's tempo (run Fri AM) was 4 x 1mi at 7:12-7:15/mi with HR 143-145 and felt 'almost too easy' - the fourth straight session (10K TT, 3 interval days, 2 tempos) to come in faster than prescribed at controlled HR, so the standing calibration note is now acted on, modestly: tempo band moves from 7:20-7:30 to 7:05-7:25 (centre 7:15), intervals move to 6 x 800m at 6:20-6:40 (centre 6:30): shorter reps, slightly faster, same total quality (~3mi) - 1000m reps were on target at 6:44-6:57, HR 148-153, and 800s are faster work (Week 8's ran ~6:03/mi).",
         "Bands are WIDER (20s, was 10s) at Luke's request: hovering at a band edge made the watch alert on/off repeatedly. Tempo 7:05-7:25, intervals 6:20-6:40 (800m reps). Aim for the centre; the band is just bandwidth.",
         "Tempo consolidates from 4 x 1mi to 3 x 1.5mi (90s jog recoveries) - the segmented version has now been comfortable twice, per the 2026-09-20 principle. Caveats: Garmin running tolerance is ABOVE_TOLERANCE_EXTENDED (~1.4x), and morning HR reads low, so don't chase the pace if the effort stops feeling controlled.",
         "Garmin's race predictor now reads half-marathon 1:34:59 (7:15/mi) - useful as a ceiling signal, not a target.",
-        "UPDATE 2026-10-15: Thursday's tempo ran 3 x 1.5mi at 7:08/7:04/7:08 (the fast edge of the 7:05-7:25 band) at HR 142-147, felt comfortable, no GI issues; Garmin LT pace improved (~6:54 -> ~6:48/mi, LTHR steady at 159) and the half predictor reads 1:33:00. But Wed was tiring and Thu's readiness is 33 (HRV 49, body battery 56, short sleep, tolerance ratio ~1.57x extended) - so Saturday's long run is trimmed 10 -> 9, flexible down to 8."
+        "UPDATE 2026-10-15: Thursday's tempo ran 3 x 1.5mi at 7:08/7:04/7:08 (the fast edge of the 7:05-7:25 band) at HR 142-147, felt comfortable, no GI issues; Garmin LT pace improved (~6:54 -> ~6:48/mi, LTHR steady at 159) and the half predictor reads 1:33:00. But Wed was tiring and Thu's readiness is 33 (HRV 49, body battery 56, short sleep, tolerance ratio ~1.57x extended) - so Saturday's long run stays 10 but with explicit cut rules (readiness check, decide at mile 6, floor of 8)."
       ],
       "days": [
         {
@@ -2821,11 +2821,11 @@
               "type": "run",
               "kind": "long",
               "title": "Long run",
-              "distance_mi": 9,
+              "distance_mi": 10,
               "duration_min": null,
               "pace": null,
               "hr_zone": 2,
-              "details": "Trimmed from 10 on 10/15 (readiness 33, HRV 49, body battery 56 after a short-sleep week, per the 'cut it up front if flat' rule). Easy Zone 2; drop to 8 if you're still flat after sleeping Thu/Fri nights.",
+              "details": "Back to 10 (10/15, at Luke's request) - last long run before the taper, flexible down to 8-9. Pre-run check: if readiness is under ~40 or legs feel heavy in mile 1, plan 8-9. Decide at mile 6 (HR creeping above ~145 or pace fading = stop at 8-9). Zone 2 the whole way; rehearse race fueling.",
               "note": "",
               "warmup_mi": null,
               "cooldown_mi": null,
