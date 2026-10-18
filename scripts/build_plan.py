@@ -213,6 +213,11 @@ ATHLETE = {
         "the tempo band to 7:05-7:25 and widens both bands to 20s (Luke: 10s bands made the watch "
         "alert on/off repeatedly). Garmin predictor now reads half 1:34:59 / 10K 41:53. Caveats "
         "kept: morning HR reads low, tolerance flag is ABOVE_TOLERANCE_EXTENDED.",
+        "RACE ESTIMATE, updated 2026-10-18: ~1:34-1:38 (centre ~1:36, ~7:20/mi) for Cambridge on "
+        "Sun Nov 1. Basis: 10K TT 45:01 (9/24), then tempo at 7:04-7:08 comfortably (10/15), Garmin LT "
+        "pace ~6:54 -> ~6:48/mi with LTHR steady at 159, predictor 1:33:00, Cambridge 2025 1:36:31. "
+        "Risks: longest run ~9.5mi, stomach near Zone 5 effort, short sleep (readiness 33-44). "
+        "Not a goal - race by effort.",
         "Morning-vs-evening HR pattern, flagged 2026-10-02: Luke is shifting to morning runs going "
         "forward (limited daylight after work). He's noted more than once now that HR reads "
         "noticeably lower for a given pace/effort on morning runs vs evening - confirmed again on the "
@@ -1118,10 +1123,14 @@ add_week(
         "REWRITTEN 2026-10-13: no fixed goal pace any more. Quality stays but shrinks: Tuesday "
         "4 x 800m (one fewer rep than Week 11's 6) at 6:20-6:40/mi; Thursday 2 x 1.5mi tempo at "
         "7:05-7:25/mi. Both keep the same active-jog recoveries.",
-        "Race-day estimate from current fitness (Garmin predictor ~1:34-1:35, 10K-TT extrapolation "
-        "~1:39, last year here 1:36:31): roughly 1:35-1:39, centre ~1:37. A forecast, not a target.",
-        "This is a draft - it gets re-tuned off Week 11's Thursday tempo and Saturday long run. If "
-        "either goes flat, trim volume here further rather than adding anything.",
+        "Race-day estimate, updated 2026-10-18 from Week 11: roughly 1:34-1:38, centre ~1:36 "
+        "(~7:20/mi). Evidence: tempo 3 x 1.5mi at 7:04-7:08 at HR 142-147 and comfortable, Garmin "
+        "LT pace improved (~6:54 -> ~6:48/mi), predictor ~1:33:00, last year here 1:36:31. Held back "
+        "from the predictor because the longest run is ~9.5mi, the stomach acts up near Zone 5, and "
+        "sleep has been short. A forecast, not a target.",
+        "Week 11 closed 2026-10-18 at 34.67mi (35.5 planned): 6 x 800m at ~6:30, tempo at the fast "
+        "edge of the band, long run 9.51mi at steady HR 134-139 with no late fade. Taper is a go as "
+        "drafted. Biggest lever now is sleep (readiness 33-44, 6-6.7h nights) - protect it.",
     ],
     [
         [pt_taper()],
@@ -1152,7 +1161,7 @@ add_week(
         "workout does.",
         "REWRITTEN 2026-10-13: the 1:28 goal is gone. Race by effort, not a fixed pace. Plan: first "
         "1-2 miles in the 7:30s (Zone 2-3), settle at about 7:15-7:25 through mile 10, then push only "
-        "if it feels good. Current-fitness estimate ~1:35-1:39 (centre ~1:37) - a forecast, not a target. "
+        "if it feels good. Current-fitness estimate ~1:34-1:38 (centre ~1:36, ~7:20/mi) - a forecast, not a target. "
         "Stay below the effort where your stomach starts to complain (it did near Zone 5 on hard reps), "
         "and keep to the fueling plan: familiar breakfast, gels around mile 4 and 8-9, sips only.",
         "Course is flat and fast with cold, clear conditions typical on race morning - dress in a "
@@ -1169,7 +1178,7 @@ add_week(
         [run_session("shakeout", "Shakeout", distance_mi=2, pace="Very easy, 4 loose strides",
                       details="Lay out kit, pin bib, bed by 9:30pm.")],
         [run_session("race", "CAMBRIDGE HALF MARATHON", distance_mi=13.10938,
-                      pace="Effort-based: 7:30s for mile 1-2, settle ~7:15-7:25 (est. finish 1:35-1:39)",
+                      pace="Effort-based: 7:30s for mile 1-2, settle ~7:15-7:25 (est. finish 1:34-1:38)",
                       details="Wake 4:30am, familiar breakfast by 5:00, arrive by 6:00, warm up 1.5mi, "
                       "corral by 6:45. You've done the work - trust the pacing plan and go get it.")],
     ],

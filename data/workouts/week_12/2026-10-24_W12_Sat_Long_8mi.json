@@ -2,9 +2,9 @@
   "workoutId": null,
   "ownerId": 585149926,
   "workoutName": "W12 Sat Long 8mi",
-  "description": "LONG RUN \u2014 8 miles | Zone 2 | HR 127-141 bpm\n\nPURPOSE: Time on feet at an aerobic effort - builds fatigue resistance, capillary density, and fuel efficiency for race-day distance without digging into recovery.\n\nFOCUS: Let HR govern pace completely. If it's hot/humid you may need to run slower than usual to stay under 141 bpm - that's correct, don't chase pace targets.\n\nNOTE: Last long run of the cycle. Easy Zone 2; practice race-morning fueling.\n\nYOUR DATA: Your last 3 logged runs averaged 122-137 bpm at 7:54-9:08/mi.\n\nFEEL: Fully conversational. You should be able to speak in complete sentences with zero effort.",
-  "updatedDate": "2026-10-13T13:31:17.0",
-  "createdDate": "2026-10-13T13:31:17.0",
+  "description": "LONG RUN \u2014 8 miles | Zone 2 | HR 127-141 bpm\n\nPURPOSE: Time on feet at an aerobic effort - builds fatigue resistance, capillary density, and fuel efficiency for race-day distance without digging into recovery.\n\nFOCUS: Let HR govern pace completely. If it's hot/humid you may need to run slower than usual to stay under 141 bpm - that's correct, don't chase pace targets.\n\nNOTE: Last long run of the cycle. Easy Zone 2; practice race-morning fueling.\n\nYOUR DATA: Your last 3 logged runs averaged 123-138 bpm at 7:36-8:56/mi.\n\nFEEL: Fully conversational. You should be able to speak in complete sentences with zero effort.",
+  "updatedDate": "2026-10-18T23:50:19.0",
+  "createdDate": "2026-10-18T23:50:19.0",
   "sportType": {
     "sportTypeId": 1,
     "sportTypeKey": "running",
@@ -33,7 +33,7 @@
       "poolLengthUnit": null,
       "poolLength": null,
       "avgTrainingSpeed": 2.8,
-      "estimatedDurationInSecs": 4046,
+      "estimatedDurationInSecs": 4014,
       "estimatedDistanceInMeters": 12875,
       "estimatedDistanceUnit": {
         "unitId": 2,

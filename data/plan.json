@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T14:30:59.297057Z",
+  "generated_at": "2026-10-18T23:50:19.839320Z",
   "athlete": {
     "name": "Luke",
     "race": {
@@ -29,6 +29,7 @@
       "STANDING NOTE, added 2026-09-29 (Luke's explicit request - keep this in mind for future pace targets): both quality sessions run against the time-trial-derived paces so far have come in faster than their target while HR stayed controlled and sub-Zone-5. The 10K TT itself negative split with HR capped at 156 (never reached his 181 max); Week 9's Tuesday intervals (run effort-only, no watch target yet - see the bug note above) came in at 6:35-6:42/mi against a 6:50-7:00 target, HR 151-153 avg/157-158 max, still under the Zone 5 floor (159). Two data points isn't a trend yet, but the consistent direction (faster than prescribed, HR still with room) is worth factoring in when setting paces for Week 10 onward: current-fitness pace anchors derived from the time trial may be slightly conservative, not just accurate. Don't overcorrect off this alone - keep watching actual sessions (especially Thursday's tempo, which now has a real target to compare against) before loosening any paces.",
       "UPDATE 2026-10-02 on the above: Week 9's Thursday tempo (actually run Friday AM - see next note) continued the same pattern. 3 of 4 reps came in faster than the 7:20-7:30 target (7:16-7:20/mi), the 4th landed right at 7:25. Still just a handful of sessions, still watching before changing any Week 10+ numbers.",
       "UPDATE 2026-10-09 (acted on): Week 10's tempo (run Fri AM) came in at 7:12-7:15/mi, HR 143-145, 'almost too easy', after Tuesday's intervals landed on target (6:44-6:57). That's the pattern held across the 10K TT, three interval days and two tempos, so Week 11 moves the tempo band to 7:05-7:25 and widens both bands to 20s (Luke: 10s bands made the watch alert on/off repeatedly). Garmin predictor now reads half 1:34:59 / 10K 41:53. Caveats kept: morning HR reads low, tolerance flag is ABOVE_TOLERANCE_EXTENDED.",
+      "RACE ESTIMATE, updated 2026-10-18: ~1:34-1:38 (centre ~1:36, ~7:20/mi) for Cambridge on Sun Nov 1. Basis: 10K TT 45:01 (9/24), then tempo at 7:04-7:08 comfortably (10/15), Garmin LT pace ~6:54 -> ~6:48/mi with LTHR steady at 159, predictor 1:33:00, Cambridge 2025 1:36:31. Risks: longest run ~9.5mi, stomach near Zone 5 effort, short sleep (readiness 33-44). Not a goal - race by effort.",
       "Morning-vs-evening HR pattern, flagged 2026-10-02: Luke is shifting to morning runs going forward (limited daylight after work). He's noted more than once now that HR reads noticeably lower for a given pace/effort on morning runs vs evening - confirmed again on the Friday-AM tempo above (warmup HR only 115-127 avg; tempo reps 140-145 avg/145-150 max, well under what the same pace produced on evening tempo sessions earlier in the cycle). This is a real, well-documented physiological pattern (lower core body temp and resting autonomic tone shortly after waking mean submax HR commonly reads 5-15bpm lower in the morning for identical effort), not a fitness change or a data error - don't recalibrate HR zones or LTHR off morning sessions alone, and don't be surprised if HR-zone-targeted easy/long/recovery runs feel like they're running under-zone by HR even at honest effort once mornings become the norm. If the shift to mornings sticks for a few weeks, worth a deliberate check-in on whether pace is now the more reliable signal than HR for morning sessions specifically - not an immediate change, just something to watch."
     ],
     "hr_zones": [
@@ -2866,8 +2867,8 @@
       "coach_notes": [
         "Taper starts now. The fitness is already there - this block is about arriving on Nov 1 rested, not squeezing out more gains. Trust the volume drop (~28mi vs ~35 in Weeks 10-11).",
         "REWRITTEN 2026-10-13: no fixed goal pace any more. Quality stays but shrinks: Tuesday 4 x 800m (one fewer rep than Week 11's 6) at 6:20-6:40/mi; Thursday 2 x 1.5mi tempo at 7:05-7:25/mi. Both keep the same active-jog recoveries.",
-        "Race-day estimate from current fitness (Garmin predictor ~1:34-1:35, 10K-TT extrapolation ~1:39, last year here 1:36:31): roughly 1:35-1:39, centre ~1:37. A forecast, not a target.",
-        "This is a draft - it gets re-tuned off Week 11's Thursday tempo and Saturday long run. If either goes flat, trim volume here further rather than adding anything."
+        "Race-day estimate, updated 2026-10-18 from Week 11: roughly 1:34-1:38, centre ~1:36 (~7:20/mi). Evidence: tempo 3 x 1.5mi at 7:04-7:08 at HR 142-147 and comfortable, Garmin LT pace improved (~6:54 -> ~6:48/mi), predictor ~1:33:00, last year here 1:36:31. Held back from the predictor because the longest run is ~9.5mi, the stomach acts up near Zone 5, and sleep has been short. A forecast, not a target.",
+        "Week 11 closed 2026-10-18 at 34.67mi (35.5 planned): 6 x 800m at ~6:30, tempo at the fast edge of the band, long run 9.51mi at steady HR 134-139 with no late fade. Taper is a go as drafted. Biggest lever now is sleep (readiness 33-44, 6-6.7h nights) - protect it."
       ],
       "days": [
         {
@@ -3094,7 +3095,7 @@
       "target_miles": 13,
       "coach_notes": [
         "Race week - Mon and Fri are full rest now, not PT days. Everything here is about staying loose and well-rested. Sleep and easy carb-forward eating matter more this week than any workout does.",
-        "REWRITTEN 2026-10-13: the 1:28 goal is gone. Race by effort, not a fixed pace. Plan: first 1-2 miles in the 7:30s (Zone 2-3), settle at about 7:15-7:25 through mile 10, then push only if it feels good. Current-fitness estimate ~1:35-1:39 (centre ~1:37) - a forecast, not a target. Stay below the effort where your stomach starts to complain (it did near Zone 5 on hard reps), and keep to the fueling plan: familiar breakfast, gels around mile 4 and 8-9, sips only.",
+        "REWRITTEN 2026-10-13: the 1:28 goal is gone. Race by effort, not a fixed pace. Plan: first 1-2 miles in the 7:30s (Zone 2-3), settle at about 7:15-7:25 through mile 10, then push only if it feels good. Current-fitness estimate ~1:34-1:38 (centre ~1:36, ~7:20/mi) - a forecast, not a target. Stay below the effort where your stomach starts to complain (it did near Zone 5 on hard reps), and keep to the fueling plan: familiar breakfast, gels around mile 4 and 8-9, sips only.",
         "Course is flat and fast with cold, clear conditions typical on race morning - dress in a layer you can throw away at the start."
       ],
       "days": [
@@ -3210,7 +3211,7 @@
               "title": "CAMBRIDGE HALF MARATHON",
               "distance_mi": 13.10938,
               "duration_min": null,
-              "pace": "Effort-based: 7:30s for mile 1-2, settle ~7:15-7:25 (est. finish 1:35-1:39)",
+              "pace": "Effort-based: 7:30s for mile 1-2, settle ~7:15-7:25 (est. finish 1:34-1:38)",
               "hr_zone": null,
               "details": "Wake 4:30am, familiar breakfast by 5:00, arrive by 6:00, warm up 1.5mi, corral by 6:45. You've done the work - trust the pacing plan and go get it.",
               "note": "",

@@ -2,9 +2,9 @@
   "workoutId": null,
   "ownerId": 585149926,
   "workoutName": "W13 Sun Race 13.1094mi",
-  "description": "RACE RUN \u2014 13.10938 miles | Effort-based (no fixed pace yet)\n\nPURPOSE: Controlled hard effort.\n\nFOCUS: No fixed pace target - there's no current hard-effort data to set one honestly yet (the only reference point is pre-layoff/2022 fitness). Run the effort described below and record whatever pace results - that's useful data. The Week 8 10K time trial (Sep 24) sets real target paces from here forward.\n\nNOTE: Wake 4:30am, familiar breakfast by 5:00, arrive by 6:00, warm up 1.5mi, corral by 6:45. You've done the work - trust the pacing plan and go get it.\n\nYOUR DATA: Your last 3 logged runs averaged 122-137 bpm at 7:54-9:08/mi.\n\nFEEL: Controlled hard effort.",
-  "updatedDate": "2026-10-13T13:31:17.0",
-  "createdDate": "2026-10-13T13:31:17.0",
+  "description": "RACE RUN \u2014 13.10938 miles | Effort-based (no fixed pace yet)\n\nPURPOSE: Controlled hard effort.\n\nFOCUS: No fixed pace target - there's no current hard-effort data to set one honestly yet (the only reference point is pre-layoff/2022 fitness). Run the effort described below and record whatever pace results - that's useful data. The Week 8 10K time trial (Sep 24) sets real target paces from here forward.\n\nNOTE: Wake 4:30am, familiar breakfast by 5:00, arrive by 6:00, warm up 1.5mi, corral by 6:45. You've done the work - trust the pacing plan and go get it.\n\nYOUR DATA: Your last 3 logged runs averaged 123-138 bpm at 7:36-8:56/mi.\n\nFEEL: Controlled hard effort.",
+  "updatedDate": "2026-10-18T23:50:19.0",
+  "createdDate": "2026-10-18T23:50:19.0",
   "sportType": {
     "sportTypeId": 1,
     "sportTypeKey": "running",
@@ -33,7 +33,7 @@
       "poolLengthUnit": null,
       "poolLength": null,
       "avgTrainingSpeed": 2.8,
-      "estimatedDurationInSecs": 6630,
+      "estimatedDurationInSecs": 6578,
       "estimatedDistanceInMeters": 21097,
       "estimatedDistanceUnit": {
         "unitId": 2,

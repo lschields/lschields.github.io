@@ -2,9 +2,9 @@
   "workoutId": null,
   "ownerId": 585149926,
   "workoutName": "W12 Tue Intervals 5.25mi",
-  "description": "INTERVALS RUN \u2014 5.25 miles | Effort-based (no fixed pace yet)\n\nPURPOSE: Hard, repeatable efforts near current top-end aerobic capacity - trains VO2max and running economy. Consistent effort rep-to-rep matters more than a fast first rep.\n\nFOCUS: No fixed pace target - there's no current hard-effort data to set one honestly yet (the only reference point is pre-layoff/2022 fitness). Run the effort described below and record whatever pace results - that's useful data. The Week 8 10K time trial (Sep 24) sets real target paces from here forward.\n\nNOTE: Sharpen, don't strain - stop at 4 even if you feel great. Active jog - don't walk or stop. Easy ~10:30-11:30/mi (treadmill ~5.5-5.8 mph). HR should drift back to ~135-145 (top of Zone 2 / low Zone 3) by the end of each recovery - expect that, not Zone 1, this soon after a hard rep.\n\nYOUR DATA: Your last 3 logged runs averaged 122-137 bpm at 7:54-9:08/mi.\n\nFEEL: Hard but repeatable - breathing hard by the end of each rep, but able to hit the next one at the same effort.",
-  "updatedDate": "2026-10-13T13:31:17.0",
-  "createdDate": "2026-10-13T13:31:17.0",
+  "description": "INTERVALS RUN \u2014 5.25 miles | Effort-based (no fixed pace yet)\n\nPURPOSE: Hard, repeatable efforts near current top-end aerobic capacity - trains VO2max and running economy. Consistent effort rep-to-rep matters more than a fast first rep.\n\nFOCUS: No fixed pace target - there's no current hard-effort data to set one honestly yet (the only reference point is pre-layoff/2022 fitness). Run the effort described below and record whatever pace results - that's useful data. The Week 8 10K time trial (Sep 24) sets real target paces from here forward.\n\nNOTE: Sharpen, don't strain - stop at 4 even if you feel great. Active jog - don't walk or stop. Easy ~10:30-11:30/mi (treadmill ~5.5-5.8 mph). HR should drift back to ~135-145 (top of Zone 2 / low Zone 3) by the end of each recovery - expect that, not Zone 1, this soon after a hard rep.\n\nYOUR DATA: Your last 3 logged runs averaged 123-138 bpm at 7:36-8:56/mi.\n\nFEEL: Hard but repeatable - breathing hard by the end of each rep, but able to hit the next one at the same effort.",
+  "updatedDate": "2026-10-18T23:50:19.0",
+  "createdDate": "2026-10-18T23:50:19.0",
   "sportType": {
     "sportTypeId": 1,
     "sportTypeKey": "running",
@@ -33,7 +33,7 @@
       "poolLengthUnit": null,
       "poolLength": null,
       "avgTrainingSpeed": 2.8,
-      "estimatedDurationInSecs": 2655,
+      "estimatedDurationInSecs": 2634,
       "estimatedDistanceInMeters": 8449,
       "estimatedDistanceUnit": {
         "unitId": 2,
