@@ -262,7 +262,11 @@ function kpiTooltip(text) {
 const TOOLTIP_HOSTS = ".kpi-card[data-tooltip], .chart-legend-item-hoverable[data-tooltip]";
 function initKPITooltips() {
   document.addEventListener("click", (e) => {
-    const host = e.target.closest(TOOLTIP_HOSTS);
+    let host = e.target.closest(TOOLTIP_HOSTS);
+    // On mouse devices the tooltip already shows on hover and a click is used
+    // to spotlight the line, so don't also pin the tooltip open.
+    if (host && host.classList.contains("chart-legend-item-focusable") &&
+        window.matchMedia && window.matchMedia("(hover: hover)").matches) host = null;
     document.querySelectorAll(".tooltip-open").forEach(c => {
       if (c !== host) c.classList.remove("tooltip-open");
     });
@@ -855,13 +859,14 @@ function makeChart(canvasId, config) {
 // `tooltip`, if present, makes that chip hoverable/tappable with a
 // recent-readings summary (see seriesTooltip() below), reusing the same
 // data-tooltip CSS pattern as the KPI cards.
-function renderChartLegend(containerId, items) {
+function renderChartLegend(containerId, items, chartId) {
   const el = document.getElementById(containerId);
   if (!el) return;
   el.innerHTML = items.map(item => {
     const tt = item.tooltip ? kpiTooltip(item.tooltip) : { attr: "", icon: "" };
+    const focusAttr = chartId ? ` data-focus-chart="${chartId}" data-series="${escapeAttr(item.label)}"` : "";
     return `
-    <span class="chart-legend-item${tt.attr ? " chart-legend-item-hoverable" : ""}" ${tt.attr}>
+    <span class="chart-legend-item${tt.attr ? " chart-legend-item-hoverable" : ""}${chartId ? " chart-legend-item-focusable" : ""}" ${tt.attr}${focusAttr}>
       <span class="chart-legend-dot" style="background:${item.color}"></span>${item.label}${tt.icon}
     </span>`;
   }).join("");
@@ -894,6 +899,46 @@ function seriesTooltip(label, points, opts = {}) {
 
   const extra = opts.extra ? opts.extra(recent[recent.length - 1].value) : "";
   return `${label} - last ${recent.length} reading${recent.length === 1 ? "" : "s"}: ${readingsStr}. ${capitalize(trendPhrase)}.${extra ? " " + extra : ""}`;
+}
+
+// Click a legend chip to spotlight that line: it keeps its colour and the
+// other lines fade to a grey. Click it again (or another chip) to change/clear.
+// Focus survives range/mode/theme re-renders because applyChartFocus() runs
+// after every makeChart() for these charts.
+const chartFocus = {};
+
+function applyChartFocus(chartId, legendId) {
+  const chart = chartInstances[chartId];
+  const focus = chartFocus[chartId] || null;
+  if (chart) {
+    const grey = hexToRgba(cssVar("--text-dim"), 0.3);
+    chart.data.datasets.forEach(ds => {
+      if (ds._color === undefined) ds._color = ds.borderColor;
+      const isFocus = !focus || ds.label === focus;
+      ds.borderColor = isFocus ? ds._color : grey;
+      ds.borderWidth = focus && isFocus ? 3 : 2;
+      ds.order = focus && isFocus ? 0 : 1;
+    });
+    chart.update("none");
+  }
+  const legend = document.getElementById(legendId);
+  if (legend) {
+    legend.querySelectorAll(".chart-legend-item-focusable").forEach(item => {
+      item.classList.toggle("is-focused", !!focus && item.dataset.series === focus);
+      item.classList.toggle("is-faded", !!focus && item.dataset.series !== focus);
+    });
+  }
+}
+
+function initChartFocus() {
+  document.addEventListener("click", e => {
+    const item = e.target.closest(".chart-legend-item-focusable");
+    if (!item) return;
+    const chartId = item.dataset.focusChart;
+    const series = item.dataset.series;
+    chartFocus[chartId] = chartFocus[chartId] === series ? null : series;
+    applyChartFocus(chartId, item.parentElement.id);
+  });
 }
 
 // Selected x-axis window (days back from today) for the two trend charts.
@@ -1040,7 +1085,7 @@ function renderCharts(plan, history) {
   renderChartLegend("chart-hrv-legend", [
     { label: "HRV", color: c1, tooltip: seriesTooltip("HRV", hrvPoints, { unit: " ms", flatThreshold: 2 }) },
     { label: "Resting HR", color: c3, tooltip: seriesTooltip("Resting HR", rhrPoints, { unit: " bpm", flatThreshold: 1 }) },
-  ]);
+  ], "chart-hrv");
   makeChart("chart-hrv", {
     type: "line",
     data: {
@@ -1056,6 +1101,7 @@ function renderCharts(plan, history) {
     },
     options: dualAxisChartOptions({ suffix: " ms" }, { suffix: " bpm" }),
   });
+  applyChartFocus("chart-hrv", "chart-hrv-legend");
 
   const load = withinRange(applyChartMode(
     (history.load_history || []).slice().sort((a, b) => a.date.localeCompare(b.date)),
@@ -1080,7 +1126,7 @@ function renderCharts(plan, history) {
     { label: "ATL (fatigue)", color: c4, tooltip: seriesTooltip("ATL (fatigue)", atlPoints, { decimals: 1, flatThreshold: 1 }) },
     { label: "CTL (fitness)", color: c1, tooltip: seriesTooltip("CTL (fitness)", ctlPoints, { decimals: 1, flatThreshold: 1 }) },
     { label: "ACWR", color: c3, tooltip: seriesTooltip("ACWR", acwrPoints, { decimals: 2, flatThreshold: 0.05, extra: acwrExtra }) },
-  ]);
+  ], "chart-load");
   makeChart("chart-load", {
     type: "line",
     data: {
@@ -1096,6 +1142,7 @@ function renderCharts(plan, history) {
     },
     options: dualAxisChartOptions({}, {}),
   });
+  applyChartFocus("chart-load", "chart-load-legend");
 }
 
 // `yFormat`/`y1Format` optionally add a unit suffix to axis tick labels
@@ -1371,6 +1418,7 @@ async function init() {
   watchStickyHeader();
   initKPITooltips();
   initChartRangeButtons();
+  initChartFocus();
 
   // Only a failure here (the actual data the whole page depends on) is
   // serious enough to replace the KPI strip with an error message - nothing

@@ -1029,6 +1029,9 @@ table.simple td.strong { color: var(--text); font-weight: 600; }
    rebuilt every render from the live data (see seriesTooltip() in app.js),
    so it's never stale copy. */
 .chart-legend-item-hoverable { cursor: help; }
+.chart-legend-item-focusable { cursor: pointer; transition: opacity 0.15s; }
+.chart-legend-item-focusable.is-faded { opacity: 0.4; }
+.chart-legend-item-focusable.is-focused { font-weight: 600; }
 .chart-legend-item-hoverable .kpi-info-icon { position: static; margin-left: 1px; }
 .chart-legend-item-hoverable[data-tooltip]::after {
   content: attr(data-tooltip);
