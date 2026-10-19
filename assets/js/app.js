@@ -896,6 +896,41 @@ function seriesTooltip(label, points, opts = {}) {
   return `${label} - last ${recent.length} reading${recent.length === 1 ? "" : "s"}: ${readingsStr}. ${capitalize(trendPhrase)}.${extra ? " " + extra : ""}`;
 }
 
+// Selected x-axis window (days back from today) for the two trend charts.
+// Persisted per device; default 8 weeks.
+const CHART_RANGE_DEFAULT = 56;
+const chartRange = { hrv: CHART_RANGE_DEFAULT, load: CHART_RANGE_DEFAULT };
+try {
+  ["hrv", "load"].forEach(k => {
+    const v = parseInt(localStorage.getItem("td:chartRange:" + k), 10);
+    if ([28, 56, 182, 365].includes(v)) chartRange[k] = v;
+  });
+} catch (e) { /* storage unavailable - keep defaults */ }
+
+function withinRange(rows, days) {
+  const cutoff = new Date(state.today);
+  cutoff.setDate(cutoff.getDate() - days);
+  const cut = localISO(cutoff);
+  return rows.filter(r => r.date >= cut);
+}
+
+function initChartRangeButtons() {
+  document.querySelectorAll(".chart-range").forEach(group => {
+    const key = group.dataset.chart;
+    const sync = () => group.querySelectorAll("button").forEach(b =>
+      b.classList.toggle("active", parseInt(b.dataset.range, 10) === chartRange[key]));
+    sync();
+    group.addEventListener("click", e => {
+      const b = e.target.closest("button[data-range]");
+      if (!b) return;
+      chartRange[key] = parseInt(b.dataset.range, 10);
+      try { localStorage.setItem("td:chartRange:" + key, String(chartRange[key])); } catch (err) {}
+      sync();
+      if (state.plan && state.history) renderCharts(state.plan, state.history);
+    });
+  });
+}
+
 function renderCharts(plan, history) {
   // Chart.js loads from a CDN via a <script> tag - if that request is slow,
   // blocked (ad/tracker blockers sometimes flag third-party CDN domains),
@@ -951,7 +986,7 @@ function renderCharts(plan, history) {
     options: chartOptions({ suffix: " mi" }),
   });
 
-  const readiness = (history.readiness_history || []).slice().sort((a, b) => a.date.localeCompare(b.date));
+  const readiness = withinRange((history.readiness_history || []).slice().sort((a, b) => a.date.localeCompare(b.date)), chartRange.hrv);
   const hrvPoints = readiness.map(r => ({ date: r.date, value: r.hrv ?? r.hrv_last_night_avg ?? null }));
   const rhrPoints = readiness.map(r => ({ date: r.date, value: r.resting_hr ?? null }));
   renderChartLegend("chart-hrv-legend", [
@@ -974,7 +1009,7 @@ function renderCharts(plan, history) {
     options: dualAxisChartOptions({ suffix: " ms" }, { suffix: " bpm" }),
   });
 
-  const load = (history.load_history || []).slice().sort((a, b) => a.date.localeCompare(b.date));
+  const load = withinRange((history.load_history || []).slice().sort((a, b) => a.date.localeCompare(b.date)), chartRange.load);
   const atlPoints = load.map(l => ({ date: l.date, value: l.atl ?? null }));
   const ctlPoints = load.map(l => ({ date: l.date, value: l.ctl ?? null }));
   const acwrPoints = load.map(l => ({ date: l.date, value: l.acwr ?? null }));
@@ -1285,6 +1320,7 @@ async function init() {
   initThemeToggle();
   watchStickyHeader();
   initKPITooltips();
+  initChartRangeButtons();
 
   // Only a failure here (the actual data the whole page depends on) is
   // serious enough to replace the KPI strip with an error message - nothing

@@ -970,6 +970,28 @@ table.simple td.strong { color: var(--text); font-weight: 600; }
    space and looked cramped) - a simple row of colored dot + label chips
    sitting between the panel description and the chart itself. Built in JS
    (renderCharts()) since the dataset colors and labels already live there. */
+.chart-range {
+  display: inline-flex;
+  gap: 4px;
+  margin-bottom: 10px;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+.chart-range button {
+  font: inherit;
+  font-size: 12px;
+  padding: 4px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+}
+.chart-range button.active {
+  background: var(--accent);
+  color: #fff;
+}
 .chart-legend {
   display: flex;
   flex-wrap: wrap;
