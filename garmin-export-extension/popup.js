@@ -163,9 +163,11 @@ function render(captures) {
   const list = document.getElementById("list");
   list.innerHTML = "";
 
+  let capturedCount = 0;
   KNOWN.forEach((k) => {
     const foundUrl = urls.find((u) => k.match.test(u));
     const li = document.createElement("li");
+    if (foundUrl) capturedCount++;
     li.className = foundUrl ? "got" : "missing";
     const sub = foundUrl ? "captured " + timeAgo(captures[foundUrl].capturedAt) : "visit: " + k.hint;
     li.innerHTML =
@@ -178,7 +180,13 @@ function render(captures) {
   });
 
   const countEl = document.getElementById("count");
-  countEl.textContent = urls.length + " response" + (urls.length === 1 ? "" : "s") + " captured total";
+  // Numerator = rows above that are green; denominator = every row in KNOWN.
+  // Resets to 0 when captured data is cleared. Raw response count (which can
+  // exceed the row count, since one row may match several calls) stays as a
+  // secondary figure.
+  countEl.textContent =
+    capturedCount + "/" + KNOWN.length + " captured  (" + urls.length +
+    " response" + (urls.length === 1 ? "" : "s") + " stored)";
 
   document.getElementById("exportBtn").disabled = urls.length === 0;
 }
