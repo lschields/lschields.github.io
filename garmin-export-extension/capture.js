@@ -50,6 +50,11 @@
     // network call of its own (confirmed: no request URL containing
     // "recovery" fires on that page - it's a field inside this JSON body).
     /\/gc-api\/metrics-service\/metrics\/trainingreadiness\//i,
+    // Training Status page's "4 Weeks" view: one call returns a whole range
+    // of daily load values (ATL/CTL/ACWR), unlike trainingstatus/daily which
+    // is a single date. Used to backfill days between uploads.
+    /\/gc-api\/metrics-service\/metrics\/trainingstatus\/weekly/i,
+    /\/gc-api\/metrics-service\/metrics\/maxmet\/daily/i,
   ];
 
   function isWanted(url) {

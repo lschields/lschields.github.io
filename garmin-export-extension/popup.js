@@ -62,6 +62,11 @@ const KNOWN = [
     hint: "Performance Stats → Training Status",
   },
   {
+    match: /trainingstatus\/weekly/i,
+    label: "Training Load History (4 Weeks)",
+    hint: "Training Status → click \"4 Weeks\"",
+  },
+  {
     match: /heataltitudeacclimation\/latest/i,
     label: "Heat / Altitude Acclimation",
     hint: "Performance Stats → Training Status",

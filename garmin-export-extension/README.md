@@ -59,6 +59,7 @@ Whatever loads while you're on these pages:
 | Health Stats → Stress                         | All-day stress                              |
 | Health Stats → Body Battery                   | Body Battery                                |
 | Performance Stats → Training Status           | Training status, training load balance      |
+| Performance Stats → Training Status → 4 Weeks | Daily load history (ATL/CTL/ACWR) for backfilling gaps |
 | Performance Stats → VO2 Max                   | VO2 max                                     |
 | Performance Stats → HRV Status                | HRV                                         |
 | Performance Stats → Training Readiness        | Readiness score, recovery time              |
