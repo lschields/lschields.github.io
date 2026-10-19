@@ -464,6 +464,52 @@ def backfill_range_days(data, history):
     return added
 
 
+def backfill_load_days(data, history):
+    """Fill daily ATL/CTL/ACWR from trainingstatus/weekly range captures.
+
+    That endpoint (fetched when the Training Status page's 4 Weeks / 6 Months
+    / 1 Year toggle is used) returns one entry per day. Unlike the HRV
+    backfill this OVERWRITES atl/ctl/acwr/acwr_status on days that already
+    have them: a day's number captured at upload time is a same-day snapshot
+    that Garmin later revises (9 of 33 overlapping days differed, e.g. ATL
+    395 vs 378 on 2026-08-16), and the range values are the settled ones, so
+    using them everywhere keeps the chart series consistent. Other fields on
+    existing entries are untouched; new days get only the load fields plus
+    training status.
+    """
+    n_new = n_upd = 0
+    for rng in _captures_matching(data.get("captures", []), r"trainingstatus/weekly/"):
+        for dev in (rng.get("reportData") or {}).values():
+            for e in dev:
+                d = e.get("calendarDate")
+                a = e.get("acuteTrainingLoadDTO") or {}
+                if not d or a.get("dailyTrainingLoadAcute") is None:
+                    continue
+                phrase = e.get("trainingStatusFeedbackPhrase") or ""
+                fields = {
+                    "atl": a.get("dailyTrainingLoadAcute"),
+                    "ctl": a.get("dailyTrainingLoadChronic"),
+                    "acwr": a.get("dailyAcuteChronicWorkloadRatio"),
+                    "acwr_status": a.get("acwrStatus"),
+                    "training_status_detail": phrase or None,
+                    "training_status": re.sub(r"_\d+$", "", phrase).lower() or None,
+                }
+                fields = {k: v for k, v in fields.items() if v is not None}
+                existing = next((r for r in history["load_history"] if r["date"] == d), None)
+                if existing is None:
+                    history["load_history"].append({"date": d, **fields})
+                    n_new += 1
+                else:
+                    for k in ("atl", "ctl", "acwr", "acwr_status"):
+                        if k in fields:
+                            existing[k] = fields[k]
+                    for k in ("training_status_detail", "training_status"):
+                        if k in fields:
+                            existing.setdefault(k, fields[k])
+                    n_upd += 1
+    return n_new, n_upd
+
+
 def merge_athlete_snapshot(history, patch):
     """Shallow-merge new athlete fields onto the existing snapshot instead of
     replacing it outright, so a source that only reports running fitness
@@ -612,12 +658,14 @@ def main(argv):
                 upsert_by_date(history["readiness_history"], readiness_entry)
                 upsert_by_date(history["load_history"], load_entry)
                 backfilled = backfill_range_days(raw, history)
+                load_new, load_upd = backfill_load_days(raw, history)
                 if race_prediction_entry:
                     upsert_by_date(history.setdefault("race_predictions", []), race_prediction_entry)
 
                 print(f"  -> readiness/load snapshot for {readiness_entry['date']}"
                       + (", race predictions updated" if race_prediction_entry else "")
-                      + (f", {backfilled} earlier days backfilled" if backfilled else ""))
+                      + (f", {backfilled} earlier days backfilled" if backfilled else "")
+                      + (f", load history: {load_new} days added, {load_upd} refreshed" if load_new or load_upd else ""))
                 archive_raw(path, readiness_entry["date"])
 
             else:

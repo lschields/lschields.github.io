@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T00:32:45.603068Z",
+  "generated_at": "2026-10-19T00:48:48.010042Z",
   "athlete_snapshot": {
     "ftp": 230,
     "vo2max": 57,
@@ -1057,26 +1057,912 @@
   ],
   "load_history": [
     {
-      "date": "2026-08-06",
+      "date": "2026-05-01",
+      "atl": 409,
+      "ctl": 401,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-02",
+      "atl": 349,
+      "ctl": 387,
+      "acwr": 0.9,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-03",
+      "atl": 280,
+      "ctl": 375,
+      "acwr": 0.7,
+      "acwr_status": "LOW",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-04",
+      "atl": 220,
+      "ctl": 360,
+      "acwr": 0.6,
+      "acwr_status": "LOW",
+      "training_status_detail": "PEAKING_1",
+      "training_status": "peaking"
+    },
+    {
+      "date": "2026-05-05",
+      "atl": 262,
+      "ctl": 365,
+      "acwr": 0.7,
+      "acwr_status": "LOW",
+      "training_status_detail": "PEAKING_1",
+      "training_status": "peaking"
+    },
+    {
+      "date": "2026-05-06",
+      "atl": 209,
+      "ctl": 348,
+      "acwr": 0.6,
+      "acwr_status": "LOW",
+      "training_status_detail": "PEAKING_1",
+      "training_status": "peaking"
+    },
+    {
+      "date": "2026-05-07",
+      "atl": 376,
+      "ctl": 369,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-08",
+      "atl": 308,
+      "ctl": 355,
+      "acwr": 0.8,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-09",
+      "atl": 501,
+      "ctl": 382,
+      "acwr": 1.3,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-10",
+      "atl": 484,
+      "ctl": 379,
+      "acwr": 1.2,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-11",
+      "atl": 416,
+      "ctl": 365,
+      "acwr": 1.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-12",
+      "atl": 600,
+      "ctl": 395,
+      "acwr": 1.5,
+      "acwr_status": "HIGH",
+      "training_status_detail": "PRODUCTIVE_9",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-13",
+      "atl": 611,
+      "ctl": 402,
+      "acwr": 1.5,
+      "acwr_status": "HIGH",
+      "training_status_detail": "PRODUCTIVE_9",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-14",
+      "atl": 725,
+      "ctl": 429,
+      "acwr": 1.6,
+      "acwr_status": "HIGH",
+      "training_status_detail": "PRODUCTIVE_9",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-15",
+      "atl": 608,
+      "ctl": 422,
+      "acwr": 1.4,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_9",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-16",
+      "atl": 501,
+      "ctl": 412,
+      "acwr": 1.2,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-17",
+      "atl": 484,
+      "ctl": 419,
+      "acwr": 1.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-18",
+      "atl": 398,
+      "ctl": 411,
+      "acwr": 0.9,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-19",
+      "atl": 367,
+      "ctl": 414,
+      "acwr": 0.8,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "MAINTAINING_2",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-05-20",
+      "atl": 290,
+      "ctl": 401,
+      "acwr": 0.7,
+      "acwr_status": "LOW",
+      "training_status_detail": "MAINTAINING_2",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-05-21",
+      "atl": 218,
+      "ctl": 391,
+      "acwr": 0.5,
+      "acwr_status": "LOW",
+      "training_status_detail": "RECOVERY_2",
+      "training_status": "recovery"
+    },
+    {
+      "date": "2026-05-22",
+      "atl": 413,
+      "ctl": 429,
+      "acwr": 0.9,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-23",
+      "atl": 340,
+      "ctl": 416,
+      "acwr": 0.8,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-24",
+      "atl": 340,
+      "ctl": 415,
+      "acwr": 0.8,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_5",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-25",
+      "atl": 291,
+      "ctl": 399,
+      "acwr": 0.7,
+      "acwr_status": "LOW",
+      "training_status_detail": "PRODUCTIVE_5",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-05-26",
+      "atl": 414,
+      "ctl": 414,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "MAINTAINING_2",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-05-27",
+      "atl": 473,
+      "ctl": 423,
+      "acwr": 1.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "MAINTAINING_2",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-05-28",
+      "atl": 403,
+      "ctl": 408,
+      "acwr": 0.9,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "MAINTAINING_2",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-05-29",
+      "atl": 333,
+      "ctl": 394,
+      "acwr": 0.8,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "MAINTAINING_2",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-05-30",
+      "atl": 393,
+      "ctl": 401,
+      "acwr": 0.9,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "MAINTAINING_2",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-05-31",
+      "atl": 631,
+      "ctl": 445,
+      "acwr": 1.4,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_2",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-06-01",
+      "atl": 525,
+      "ctl": 436,
+      "acwr": 1.2,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_2",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-06-02",
+      "atl": 537,
+      "ctl": 439,
+      "acwr": 1.2,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "MAINTAINING_2",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-06-03",
+      "atl": 555,
+      "ctl": 446,
+      "acwr": 1.2,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "MAINTAINING_2",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-06-04",
+      "atl": 612,
+      "ctl": 462,
+      "acwr": 1.3,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_2",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-06-05",
+      "atl": 504,
+      "ctl": 452,
+      "acwr": 1.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_2",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-06-06",
+      "atl": 628,
+      "ctl": 479,
+      "acwr": 1.3,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_2",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-06-07",
+      "atl": 528,
+      "ctl": 467,
+      "acwr": 1.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "STRAINED_4",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-06-08",
+      "atl": 428,
+      "ctl": 454,
+      "acwr": 0.9,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "STRAINED_4",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-06-09",
+      "atl": 504,
+      "ctl": 473,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "STRAINED_4",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-06-10",
+      "atl": 398,
+      "ctl": 461,
+      "acwr": 0.8,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "MAINTAINING_2",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-06-11",
+      "atl": 324,
+      "ctl": 443,
+      "acwr": 0.7,
+      "acwr_status": "LOW",
+      "training_status_detail": "PRODUCTIVE_5",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-06-12",
+      "atl": 250,
+      "ctl": 428,
+      "acwr": 0.5,
+      "acwr_status": "LOW",
+      "training_status_detail": "PEAKING_1",
+      "training_status": "peaking"
+    },
+    {
+      "date": "2026-06-13",
+      "atl": 354,
+      "ctl": 441,
+      "acwr": 0.8,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "MAINTAINING_2",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-06-14",
+      "atl": 327,
+      "ctl": 433,
+      "acwr": 0.7,
+      "acwr_status": "LOW",
+      "training_status_detail": "MAINTAINING_2",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-06-15",
+      "atl": 266,
+      "ctl": 416,
+      "acwr": 0.6,
+      "acwr_status": "LOW",
+      "training_status_detail": "RECOVERY_2",
+      "training_status": "recovery"
+    },
+    {
+      "date": "2026-06-16",
+      "atl": 206,
+      "ctl": 398,
+      "acwr": 0.5,
+      "acwr_status": "LOW",
+      "training_status_detail": "RECOVERY_2",
+      "training_status": "recovery"
+    },
+    {
+      "date": "2026-06-17",
+      "atl": 284,
+      "ctl": 401,
+      "acwr": 0.7,
+      "acwr_status": "LOW",
+      "training_status_detail": "RECOVERY_2",
+      "training_status": "recovery"
+    },
+    {
+      "date": "2026-06-18",
+      "atl": 325,
+      "ctl": 401,
+      "acwr": 0.8,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "MAINTAINING_2",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-06-19",
+      "atl": 265,
+      "ctl": 387,
+      "acwr": 0.6,
+      "acwr_status": "LOW",
+      "training_status_detail": "MAINTAINING_2",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-06-20",
+      "atl": 695,
+      "ctl": 455,
+      "acwr": 1.5,
+      "acwr_status": "HIGH",
+      "training_status_detail": "PRODUCTIVE_8",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-06-21",
+      "atl": 606,
+      "ctl": 441,
+      "acwr": 1.3,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "STRAINED_5",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-06-22",
+      "atl": 516,
+      "ctl": 429,
+      "acwr": 1.2,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "STRAINED_4",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-06-23",
+      "atl": 427,
+      "ctl": 417,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "STRAINED_4",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-06-24",
+      "atl": 366,
+      "ctl": 404,
+      "acwr": 0.9,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "STRAINED_4",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-06-25",
+      "atl": 297,
+      "ctl": 388,
+      "acwr": 0.7,
+      "acwr_status": "LOW",
+      "training_status_detail": "STRAINED_4",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-06-26",
+      "atl": 228,
+      "ctl": 373,
+      "acwr": 0.6,
+      "acwr_status": "LOW",
+      "training_status_detail": "STRAINED_3",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-06-27",
+      "atl": 159,
+      "ctl": 360,
+      "acwr": 0.4,
+      "acwr_status": "LOW",
+      "training_status_detail": "STRAINED_3",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-06-28",
+      "atl": 101,
+      "ctl": 345,
+      "acwr": 0.2,
+      "acwr_status": "LOW",
+      "training_status_detail": "STRAINED_3",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-06-29",
+      "atl": 53,
+      "ctl": 330,
+      "acwr": 0.1,
+      "acwr_status": "LOW",
+      "training_status_detail": "RECOVERY_2",
+      "training_status": "recovery"
+    },
+    {
+      "date": "2026-06-30",
+      "atl": 5,
+      "ctl": 314,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "DETRAINING",
+      "training_status": "detraining"
+    },
+    {
+      "date": "2026-07-01",
+      "atl": 3,
+      "ctl": 291,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "DETRAINING",
+      "training_status": "detraining"
+    },
+    {
+      "date": "2026-07-02",
+      "atl": 2,
+      "ctl": 270,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "DETRAINING",
+      "training_status": "detraining"
+    },
+    {
+      "date": "2026-07-03",
+      "atl": 1,
+      "ctl": 249,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "DETRAINING",
+      "training_status": "detraining"
+    },
+    {
+      "date": "2026-07-04",
+      "atl": 0,
+      "ctl": 228,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "DETRAINING",
+      "training_status": "detraining"
+    },
+    {
+      "date": "2026-07-05",
+      "atl": 0,
+      "ctl": 219,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "DETRAINING",
+      "training_status": "detraining"
+    },
+    {
+      "date": "2026-07-06",
+      "atl": 0,
+      "ctl": 219,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "DETRAINING",
+      "training_status": "detraining"
+    },
+    {
+      "date": "2026-07-07",
+      "atl": 0,
+      "ctl": 219,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "DETRAINING",
+      "training_status": "detraining"
+    },
+    {
+      "date": "2026-07-08",
+      "atl": 0,
+      "ctl": 219,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "DETRAINING",
+      "training_status": "detraining"
+    },
+    {
+      "date": "2026-07-09",
+      "atl": 0,
+      "ctl": 219,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "DETRAINING",
+      "training_status": "detraining"
+    },
+    {
+      "date": "2026-07-10",
+      "atl": 0,
+      "ctl": 219,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "DETRAINING",
+      "training_status": "detraining"
+    },
+    {
+      "date": "2026-07-11",
+      "atl": 15,
+      "ctl": 219,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "RECOVERY_1",
+      "training_status": "recovery"
+    },
+    {
+      "date": "2026-07-12",
+      "atl": 14,
+      "ctl": 219,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "RECOVERY_1",
+      "training_status": "recovery"
+    },
+    {
+      "date": "2026-07-13",
+      "atl": 20,
+      "ctl": 219,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "RECOVERY_1",
+      "training_status": "recovery"
+    },
+    {
+      "date": "2026-07-14",
+      "atl": 153,
+      "ctl": 219,
+      "acwr": 0.6,
+      "acwr_status": "LOW",
+      "training_status_detail": "STRAINED_3",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-07-15",
+      "atl": 137,
+      "ctl": 219,
+      "acwr": 0.6,
+      "acwr_status": "LOW",
+      "training_status_detail": "STRAINED_3",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-07-16",
+      "atl": 121,
+      "ctl": 219,
+      "acwr": 0.5,
+      "acwr_status": "LOW",
+      "training_status_detail": "STRAINED_3",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-07-17",
+      "atl": 105,
+      "ctl": 100,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "STRAINED_4",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-07-18",
+      "atl": 89,
+      "ctl": 100,
+      "acwr": 0.8,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "STRAINED_4",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-07-19",
+      "atl": 74,
+      "ctl": 100,
+      "acwr": 0.7,
+      "acwr_status": "LOW",
+      "training_status_detail": "STRAINED_4",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-07-20",
+      "atl": 72,
+      "ctl": 219,
+      "acwr": 0.3,
+      "acwr_status": "LOW",
+      "training_status_detail": "STRAINED_3",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-07-21",
+      "atl": 55,
+      "ctl": 219,
+      "acwr": 0.2,
+      "acwr_status": "LOW",
+      "training_status_detail": "RECOVERY_1",
+      "training_status": "recovery"
+    },
+    {
+      "date": "2026-07-22",
+      "atl": 39,
+      "ctl": 219,
+      "acwr": 0.1,
+      "acwr_status": "LOW",
+      "training_status_detail": "RECOVERY_1",
+      "training_status": "recovery"
+    },
+    {
+      "date": "2026-07-23",
+      "atl": 24,
+      "ctl": 219,
+      "acwr": 0.1,
+      "acwr_status": "LOW",
+      "training_status_detail": "RECOVERY_1",
+      "training_status": "recovery"
+    },
+    {
+      "date": "2026-07-24",
+      "atl": 9,
+      "ctl": 219,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "RECOVERY_1",
+      "training_status": "recovery"
+    },
+    {
+      "date": "2026-07-25",
+      "atl": 7,
+      "ctl": 219,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "RECOVERY_1",
+      "training_status": "recovery"
+    },
+    {
+      "date": "2026-07-26",
+      "atl": 18,
+      "ctl": 219,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "RECOVERY_1",
+      "training_status": "recovery"
+    },
+    {
+      "date": "2026-07-27",
+      "atl": 15,
+      "ctl": 219,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "RECOVERY_1",
+      "training_status": "recovery"
+    },
+    {
+      "date": "2026-07-28",
+      "atl": 12,
+      "ctl": 219,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "RECOVERY_1",
+      "training_status": "recovery"
+    },
+    {
+      "date": "2026-07-29",
+      "atl": 10,
+      "ctl": 219,
+      "acwr": 0,
+      "acwr_status": "LOW",
+      "training_status_detail": "STRAINED_3",
+      "training_status": "strained"
+    },
+    {
+      "date": "2026-07-30",
+      "atl": 83,
+      "ctl": 219,
+      "acwr": 0.3,
+      "acwr_status": "LOW",
+      "training_status_detail": "PEAKING_2",
+      "training_status": "peaking"
+    },
+    {
+      "date": "2026-07-31",
+      "atl": 74,
+      "ctl": 219,
+      "acwr": 0.3,
+      "acwr_status": "LOW",
+      "training_status_detail": "PEAKING_1",
+      "training_status": "peaking"
+    },
+    {
+      "date": "2026-08-01",
+      "atl": 197,
+      "ctl": 219,
+      "acwr": 0.8,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "MAINTAINING_5",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-08-02",
+      "atl": 268,
+      "ctl": 219,
+      "acwr": 1.2,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "MAINTAINING_5",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-08-03",
+      "atl": 236,
+      "ctl": 219,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "MAINTAINING_5",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-08-04",
+      "atl": 290,
+      "ctl": 219,
+      "acwr": 1.3,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "UNPRODUCTIVE_3",
+      "training_status": "unproductive"
+    },
+    {
+      "date": "2026-08-05",
       "atl": 335,
       "ctl": 219,
       "acwr": 1.5,
-      "training_status": "unproductive",
-      "recovery_time_hours": 30.1,
-      "vo2max": 53,
-      "lthr": 169,
-      "weight_kg": 72.1
+      "acwr_status": "HIGH",
+      "training_status_detail": "UNPRODUCTIVE_3",
+      "training_status": "unproductive"
     },
     {
-      "date": "2026-08-07",
+      "date": "2026-08-06",
       "atl": 288,
       "ctl": 219,
       "acwr": 1.3,
       "training_status": "unproductive",
+      "recovery_time_hours": 30.1,
+      "vo2max": 53,
+      "lthr": 169,
+      "weight_kg": 72.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "UNPRODUCTIVE_3"
+    },
+    {
+      "date": "2026-08-07",
+      "atl": 241,
+      "ctl": 219,
+      "acwr": 1.1,
+      "training_status": "unproductive",
       "recovery_time_hours": 17.7,
       "vo2max": 53,
       "lthr": 169,
-      "weight_kg": 72.1
+      "weight_kg": 72.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "UNPRODUCTIVE_3"
+    },
+    {
+      "date": "2026-08-08",
+      "atl": 302,
+      "ctl": 219,
+      "acwr": 1.3,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "UNPRODUCTIVE_3",
+      "training_status": "unproductive"
     },
     {
       "date": "2026-08-09",
@@ -1087,7 +1973,27 @@
       "recovery_time_hours": 21.3,
       "vo2max": 53,
       "lthr": 168,
-      "weight_kg": 72.1
+      "weight_kg": 72.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "UNPRODUCTIVE_3"
+    },
+    {
+      "date": "2026-08-10",
+      "atl": 194,
+      "ctl": 219,
+      "acwr": 0.8,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "UNPRODUCTIVE_3",
+      "training_status": "unproductive"
+    },
+    {
+      "date": "2026-08-11",
+      "atl": 252,
+      "ctl": 219,
+      "acwr": 1.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "UNPRODUCTIVE_3",
+      "training_status": "unproductive"
     },
     {
       "date": "2026-08-12",
@@ -1098,7 +2004,27 @@
       "recovery_time_hours": 28.8,
       "vo2max": 53,
       "lthr": 165,
-      "weight_kg": 72.1
+      "weight_kg": 72.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "UNPRODUCTIVE_3"
+    },
+    {
+      "date": "2026-08-13",
+      "atl": 359,
+      "ctl": 219,
+      "acwr": 1.6,
+      "acwr_status": "HIGH",
+      "training_status_detail": "UNPRODUCTIVE_3",
+      "training_status": "unproductive"
+    },
+    {
+      "date": "2026-08-14",
+      "atl": 300,
+      "ctl": 219,
+      "acwr": 1.3,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "UNPRODUCTIVE_3",
+      "training_status": "unproductive"
     },
     {
       "date": "2026-08-15",
@@ -1109,29 +2035,62 @@
       "recovery_time_hours": 33.1,
       "vo2max": 54,
       "lthr": 165,
-      "weight_kg": 72.1
+      "weight_kg": 72.1,
+      "acwr_status": "HIGH",
+      "training_status_detail": "PRODUCTIVE_6"
     },
     {
       "date": "2026-08-16",
-      "atl": 378,
-      "ctl": 235,
+      "atl": 395,
+      "ctl": 238,
       "acwr": 1.6,
       "training_status": "productive",
       "recovery_time_hours": 18.6,
       "vo2max": 54,
       "lthr": 165,
-      "weight_kg": 72.1
+      "weight_kg": 72.1,
+      "acwr_status": "HIGH",
+      "training_status_detail": "PRODUCTIVE_6"
+    },
+    {
+      "date": "2026-08-17",
+      "atl": 340,
+      "ctl": 237,
+      "acwr": 1.4,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_6",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-08-18",
+      "atl": 397,
+      "ctl": 257,
+      "acwr": 1.5,
+      "acwr_status": "HIGH",
+      "training_status_detail": "PRODUCTIVE_6",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-08-19",
+      "atl": 479,
+      "ctl": 282,
+      "acwr": 1.6,
+      "acwr_status": "HIGH",
+      "training_status_detail": "PRODUCTIVE_6",
+      "training_status": "productive"
     },
     {
       "date": "2026-08-20",
-      "atl": 479,
-      "ctl": 282,
+      "atl": 507,
+      "ctl": 301,
       "acwr": 1.6,
       "training_status": "productive",
       "recovery_time_hours": 26.8,
       "vo2max": 54,
       "lthr": 165,
-      "weight_kg": 72.1
+      "weight_kg": 72.1,
+      "acwr_status": "HIGH",
+      "training_status_detail": "PRODUCTIVE_6"
     },
     {
       "date": "2026-08-21",
@@ -1142,7 +2101,18 @@
       "recovery_time_hours": 13.2,
       "vo2max": 54,
       "lthr": 163,
-      "weight_kg": 72.1
+      "weight_kg": 72.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_6"
+    },
+    {
+      "date": "2026-08-22",
+      "atl": 489,
+      "ctl": 328,
+      "acwr": 1.4,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_2",
+      "training_status": "productive"
     },
     {
       "date": "2026-08-23",
@@ -1153,29 +2123,71 @@
       "recovery_time_hours": 5.6,
       "vo2max": 54,
       "lthr": 163,
-      "weight_kg": 72.1
+      "weight_kg": 72.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_2"
+    },
+    {
+      "date": "2026-08-24",
+      "atl": 346,
+      "ctl": 325,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "MAINTAINING_2",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-08-25",
+      "atl": 443,
+      "ctl": 352,
+      "acwr": 1.2,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "MAINTAINING_2",
+      "training_status": "maintaining"
+    },
+    {
+      "date": "2026-08-26",
+      "atl": 497,
+      "ctl": 371,
+      "acwr": 1.3,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_2",
+      "training_status": "productive"
     },
     {
       "date": "2026-08-27",
-      "atl": 497,
-      "ctl": 371,
+      "atl": 539,
+      "ctl": 389,
       "acwr": 1.3,
       "training_status": "productive",
       "recovery_time_hours": 48,
       "vo2max": 54,
       "lthr": 163,
-      "weight_kg": 72.1
+      "weight_kg": 72.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3"
+    },
+    {
+      "date": "2026-08-28",
+      "atl": 442,
+      "ctl": 385,
+      "acwr": 1.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
     },
     {
       "date": "2026-08-29",
-      "atl": 538,
-      "ctl": 411,
+      "atl": 548,
+      "ctl": 413,
       "acwr": 1.3,
       "training_status": "productive",
       "recovery_time_hours": 35.2,
       "vo2max": 54,
       "lthr": 163,
-      "weight_kg": 72.1
+      "weight_kg": 72.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3"
     },
     {
       "date": "2026-08-30",
@@ -1186,7 +2198,27 @@
       "recovery_time_hours": 21.3,
       "vo2max": 54,
       "lthr": 163,
-      "weight_kg": 72.1
+      "weight_kg": 72.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3"
+    },
+    {
+      "date": "2026-08-31",
+      "atl": 436,
+      "ctl": 408,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-09-01",
+      "atl": 494,
+      "ctl": 425,
+      "acwr": 1.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
     },
     {
       "date": "2026-09-02",
@@ -1197,7 +2229,9 @@
       "recovery_time_hours": 23.3,
       "vo2max": 54,
       "lthr": 163,
-      "weight_kg": 72.1
+      "weight_kg": 72.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3"
     },
     {
       "date": "2026-09-03",
@@ -1208,7 +2242,36 @@
       "recovery_time_hours": 26.4,
       "vo2max": 54,
       "lthr": 163,
-      "weight_kg": 72.1
+      "weight_kg": 72.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3"
+    },
+    {
+      "date": "2026-09-04",
+      "atl": 486,
+      "ctl": 449,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-09-05",
+      "atl": 454,
+      "ctl": 450,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-09-06",
+      "atl": 406,
+      "ctl": 446,
+      "acwr": 0.9,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
     },
     {
       "date": "2026-09-07",
@@ -1219,7 +2282,18 @@
       "recovery_time_hours": 31.5,
       "vo2max": 54,
       "lthr": 161,
-      "weight_kg": 72.1
+      "weight_kg": 72.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3"
+    },
+    {
+      "date": "2026-09-08",
+      "atl": 499,
+      "ctl": 470,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
     },
     {
       "date": "2026-09-09",
@@ -1281,6 +2355,15 @@
       "recovery_time_hours": 9.4
     },
     {
+      "date": "2026-09-12",
+      "atl": 560,
+      "ctl": 501,
+      "acwr": 1.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
       "date": "2026-09-13",
       "recovery_time_hours": 3.9,
       "atl": 497,
@@ -1301,11 +2384,29 @@
       "weight_kg": 72.4
     },
     {
+      "date": "2026-09-14",
+      "atl": 413,
+      "ctl": 478,
+      "acwr": 0.8,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-09-15",
+      "atl": 566,
+      "ctl": 505,
+      "acwr": 1.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
       "date": "2026-09-16",
       "recovery_time_hours": 14.2,
-      "atl": 464,
-      "ctl": 491,
-      "acwr": 0.9,
+      "atl": 593,
+      "ctl": 514,
+      "acwr": 1.1,
       "acwr_status": "OPTIMAL",
       "training_status_detail": "PRODUCTIVE_3",
       "training_status": "productive",
@@ -1319,6 +2420,33 @@
       "vo2max": 55,
       "lthr": 161,
       "weight_kg": 72.4
+    },
+    {
+      "date": "2026-09-17",
+      "atl": 485,
+      "ctl": 502,
+      "acwr": 0.9,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-09-18",
+      "atl": 608,
+      "ctl": 527,
+      "acwr": 1.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-09-19",
+      "atl": 543,
+      "ctl": 520,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
     },
     {
       "date": "2026-09-20",
@@ -1341,6 +2469,15 @@
       "weight_kg": 72.4
     },
     {
+      "date": "2026-09-21",
+      "atl": 371,
+      "ctl": 488,
+      "acwr": 0.7,
+      "acwr_status": "LOW",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
       "date": "2026-09-22",
       "recovery_time_hours": 26.4,
       "atl": 501,
@@ -1359,6 +2496,15 @@
       "vo2max": 55,
       "lthr": 161,
       "weight_kg": 72.4
+    },
+    {
+      "date": "2026-09-23",
+      "atl": 574,
+      "ctl": 520,
+      "acwr": 1.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
     },
     {
       "date": "2026-09-24",
@@ -1381,6 +2527,24 @@
       "weight_kg": 72.4
     },
     {
+      "date": "2026-09-25",
+      "atl": 619,
+      "ctl": 542,
+      "acwr": 1.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-09-26",
+      "atl": 663,
+      "ctl": 552,
+      "acwr": 1.2,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
       "date": "2026-09-27",
       "recovery_time_hours": 14.0,
       "atl": 601,
@@ -1399,6 +2563,15 @@
       "vo2max": 55,
       "lthr": 161,
       "weight_kg": 72.4
+    },
+    {
+      "date": "2026-09-28",
+      "atl": 496,
+      "ctl": 530,
+      "acwr": 0.9,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
     },
     {
       "date": "2026-09-29",
@@ -1421,6 +2594,24 @@
       "weight_kg": 72.4
     },
     {
+      "date": "2026-09-30",
+      "atl": 601,
+      "ctl": 547,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-10-01",
+      "atl": 487,
+      "ctl": 533,
+      "acwr": 0.9,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
       "date": "2026-10-02",
       "recovery_time_hours": 28.8,
       "atl": 550,
@@ -1439,6 +2630,15 @@
       "vo2max": 56,
       "lthr": 161,
       "weight_kg": 72.4
+    },
+    {
+      "date": "2026-10-03",
+      "atl": 618,
+      "ctl": 568,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
     },
     {
       "date": "2026-10-04",
@@ -1461,6 +2661,24 @@
       "weight_kg": 72.4
     },
     {
+      "date": "2026-10-05",
+      "atl": 482,
+      "ctl": 545,
+      "acwr": 0.8,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-10-06",
+      "atl": 563,
+      "ctl": 557,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
       "date": "2026-10-07",
       "recovery_time_hours": 28.4,
       "atl": 622,
@@ -1479,6 +2697,15 @@
       "vo2max": 57,
       "lthr": 161,
       "weight_kg": 72.4
+    },
+    {
+      "date": "2026-10-08",
+      "atl": 517,
+      "ctl": 549,
+      "acwr": 0.9,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
     },
     {
       "date": "2026-10-09",
@@ -1501,11 +2728,20 @@
       "weight_kg": 72.4
     },
     {
+      "date": "2026-10-10",
+      "atl": 683,
+      "ctl": 584,
+      "acwr": 1.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
       "date": "2026-10-11",
       "recovery_time_hours": 20.4,
-      "atl": 634,
-      "ctl": 577,
-      "acwr": 1,
+      "atl": 644,
+      "ctl": 579,
+      "acwr": 1.1,
       "acwr_status": "OPTIMAL",
       "training_status_detail": "PRODUCTIVE_3",
       "training_status": "productive",
@@ -1521,10 +2757,19 @@
       "weight_kg": 72.4
     },
     {
+      "date": "2026-10-12",
+      "atl": 524,
+      "ctl": 563,
+      "acwr": 0.9,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
       "date": "2026-10-13",
       "recovery_time_hours": 26.4,
-      "atl": 592,
-      "ctl": 575,
+      "atl": 599,
+      "ctl": 577,
       "acwr": 1,
       "acwr_status": "OPTIMAL",
       "training_status_detail": "PRODUCTIVE_3",
@@ -1539,6 +2784,15 @@
       "vo2max": 57,
       "lthr": 159,
       "weight_kg": 72.4
+    },
+    {
+      "date": "2026-10-14",
+      "atl": 643,
+      "ctl": 584,
+      "acwr": 1.1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
     },
     {
       "date": "2026-10-15",
@@ -1559,6 +2813,24 @@
       "vo2max": 57,
       "lthr": 159,
       "weight_kg": 72.4
+    },
+    {
+      "date": "2026-10-16",
+      "atl": 602,
+      "ctl": 588,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
+    },
+    {
+      "date": "2026-10-17",
+      "atl": 659,
+      "ctl": 601,
+      "acwr": 1,
+      "acwr_status": "OPTIMAL",
+      "training_status_detail": "PRODUCTIVE_3",
+      "training_status": "productive"
     },
     {
       "date": "2026-10-18",
