@@ -42,6 +42,8 @@
   --chart-2: #4ecf9a; /* green */
   --chart-3: #e8b64a; /* amber */
   --chart-4: #f2705c; /* red/coral */
+  --bar-planned: #a83232; /* dark red */
+  --bar-actual: #2a7a4b; /* dark green */
 
   --tag-long-bg: #f3efe6;
   --tag-long-text: #2a2621;
@@ -87,6 +89,8 @@
   --chart-2: #1f6b4d; /* green */
   --chart-3: #8a6520; /* amber */
   --chart-4: #a83e2e; /* red/coral */
+  --bar-planned: #8f2424; /* dark red */
+  --bar-actual: #1b5e3b; /* dark green */
 
   --tag-long-bg: #12151c;
   --tag-long-text: #f0e9e5;

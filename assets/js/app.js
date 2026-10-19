@@ -920,6 +920,8 @@ function renderCharts(plan, history) {
   const c2 = cssVar("--chart-2"); // green
   const c3 = cssVar("--chart-3"); // amber
   const c4 = cssVar("--chart-4"); // red/coral
+  const barPlanned = cssVar("--bar-planned"); // dark red (mileage chart)
+  const barActual = cssVar("--bar-actual"); // dark green (mileage chart)
 
   const pool = buildActivityPool(history);
   const labels = plan.weeks.map(w => "W" + w.week_num);
@@ -934,16 +936,16 @@ function renderCharts(plan, history) {
   });
 
   renderChartLegend("chart-mileage-legend", [
-    { label: "Planned", color: hexToRgba(c1, 0.55) },
-    { label: "Actual", color: c2 },
+    { label: "Planned", color: barPlanned },
+    { label: "Actual", color: barActual },
   ]);
   makeChart("chart-mileage", {
     type: "bar",
     data: {
       labels,
       datasets: [
-        { label: "Planned", data: planned, backgroundColor: hexToRgba(c1, 0.35), borderRadius: 3, categoryPercentage: 0.7, barPercentage: 0.85 },
-        { label: "Actual", data: actual, backgroundColor: hexToRgba(c2, 0.8), borderRadius: 3, categoryPercentage: 0.7, barPercentage: 0.85 },
+        { label: "Planned", data: planned, backgroundColor: hexToRgba(barPlanned, 0.85), borderRadius: 3, categoryPercentage: 0.7, barPercentage: 0.85 },
+        { label: "Actual", data: actual, backgroundColor: barActual, borderRadius: 3, categoryPercentage: 0.7, barPercentage: 0.85 },
       ],
     },
     options: chartOptions({ suffix: " mi" }),
