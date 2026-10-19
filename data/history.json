@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T23:48:36.510846Z",
+  "generated_at": "2026-10-19T00:32:45.603068Z",
   "athlete_snapshot": {
     "ftp": 230,
     "vo2max": 57,
@@ -244,17 +244,26 @@
     {
       "date": "2026-08-17",
       "hrv": 55,
-      "resting_hr": 46
+      "resting_hr": 46,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 55,
+      "hrv_7day_avg": 57
     },
     {
       "date": "2026-08-18",
       "hrv": 69,
-      "resting_hr": 44
+      "resting_hr": 44,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 69,
+      "hrv_7day_avg": 60
     },
     {
       "date": "2026-08-19",
       "hrv": 56,
-      "resting_hr": 45
+      "resting_hr": 45,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 56,
+      "hrv_7day_avg": 58
     },
     {
       "date": "2026-08-20",
@@ -297,7 +306,10 @@
     {
       "date": "2026-08-22",
       "hrv": 60,
-      "resting_hr": 45
+      "resting_hr": 45,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 60,
+      "hrv_7day_avg": 62
     },
     {
       "date": "2026-08-23",
@@ -321,17 +333,26 @@
     {
       "date": "2026-08-24",
       "hrv": 45,
-      "resting_hr": 42
+      "resting_hr": 42,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 45,
+      "hrv_7day_avg": 59
     },
     {
       "date": "2026-08-25",
       "hrv": 73,
-      "resting_hr": 42
+      "resting_hr": 42,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 73,
+      "hrv_7day_avg": 60
     },
     {
       "date": "2026-08-26",
       "hrv": 61,
-      "resting_hr": 44
+      "resting_hr": 44,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 61,
+      "hrv_7day_avg": 60
     },
     {
       "date": "2026-08-27",
@@ -355,7 +376,10 @@
     {
       "date": "2026-08-28",
       "hrv": 69,
-      "resting_hr": 44
+      "resting_hr": 44,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 69,
+      "hrv_7day_avg": 61
     },
     {
       "date": "2026-08-29",
@@ -398,12 +422,18 @@
     {
       "date": "2026-08-31",
       "hrv": 59,
-      "resting_hr": 43
+      "resting_hr": 43,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 59,
+      "hrv_7day_avg": 65
     },
     {
       "date": "2026-09-01",
       "hrv": 68,
-      "resting_hr": 43
+      "resting_hr": 43,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 68,
+      "hrv_7day_avg": 65
     },
     {
       "date": "2026-09-02",
@@ -446,17 +476,32 @@
     {
       "date": "2026-09-04",
       "hrv": 63,
-      "resting_hr": 45
+      "resting_hr": 45,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 63,
+      "hrv_7day_avg": 64,
+      "sleep_score": 81,
+      "sleep_total_hours": 7.0
     },
     {
       "date": "2026-09-05",
       "hrv": 55,
-      "resting_hr": 44
+      "resting_hr": 44,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 55,
+      "hrv_7day_avg": 62,
+      "sleep_score": 68,
+      "sleep_total_hours": 5.9
     },
     {
       "date": "2026-09-06",
       "hrv": 58,
-      "resting_hr": 44
+      "resting_hr": 44,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 58,
+      "hrv_7day_avg": 61,
+      "sleep_score": 68,
+      "sleep_total_hours": 6.2
     },
     {
       "date": "2026-09-07",
@@ -480,7 +525,12 @@
     {
       "date": "2026-09-08",
       "hrv": 63,
-      "resting_hr": 44
+      "resting_hr": 44,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 63,
+      "hrv_7day_avg": 60,
+      "sleep_score": 80,
+      "sleep_total_hours": 6.8
     },
     {
       "date": "2026-09-09",
@@ -537,6 +587,15 @@
       "training_readiness_level": "moderate"
     },
     {
+      "date": "2026-09-12",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 54,
+      "hrv_7day_avg": 62,
+      "resting_hr": 45,
+      "sleep_score": 79,
+      "sleep_total_hours": 6.7
+    },
+    {
       "date": "2026-09-13",
       "resting_hr": 41,
       "resting_hr_7day_avg": 44,
@@ -553,6 +612,24 @@
       "sleep_light_pct": 58.4,
       "training_readiness_score": 75,
       "training_readiness_level": "high"
+    },
+    {
+      "date": "2026-09-14",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 61,
+      "hrv_7day_avg": 62,
+      "resting_hr": 42,
+      "sleep_score": 66,
+      "sleep_total_hours": 6.5
+    },
+    {
+      "date": "2026-09-15",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 58,
+      "hrv_7day_avg": 62,
+      "resting_hr": 42,
+      "sleep_score": 83,
+      "sleep_total_hours": 7.0
     },
     {
       "date": "2026-09-16",
@@ -573,6 +650,33 @@
       "training_readiness_level": "moderate"
     },
     {
+      "date": "2026-09-17",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 71,
+      "hrv_7day_avg": 63,
+      "resting_hr": 43,
+      "sleep_score": 76,
+      "sleep_total_hours": 6.2
+    },
+    {
+      "date": "2026-09-18",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 58,
+      "hrv_7day_avg": 61,
+      "resting_hr": 44,
+      "sleep_score": 82,
+      "sleep_total_hours": 6.5
+    },
+    {
+      "date": "2026-09-19",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 46,
+      "hrv_7day_avg": 60,
+      "resting_hr": 46,
+      "sleep_score": 33,
+      "sleep_total_hours": 3.9
+    },
+    {
       "date": "2026-09-20",
       "resting_hr": 47,
       "resting_hr_7day_avg": 44,
@@ -589,6 +693,15 @@
       "sleep_light_pct": 60.4,
       "training_readiness_score": 50,
       "training_readiness_level": "moderate"
+    },
+    {
+      "date": "2026-09-21",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 67,
+      "hrv_7day_avg": 58,
+      "resting_hr": 43,
+      "sleep_score": 91,
+      "sleep_total_hours": 7.8
     },
     {
       "date": "2026-09-22",
@@ -609,6 +722,15 @@
       "training_readiness_level": "moderate"
     },
     {
+      "date": "2026-09-23",
+      "resting_hr": 45,
+      "sleep_score": 75,
+      "sleep_total_hours": 8.1,
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 68,
+      "hrv_7day_avg": 59
+    },
+    {
       "date": "2026-09-24",
       "resting_hr": 44,
       "resting_hr_7day_avg": 44,
@@ -625,6 +747,24 @@
       "sleep_light_pct": 53.4,
       "training_readiness_score": 6,
       "training_readiness_level": "poor"
+    },
+    {
+      "date": "2026-09-25",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 61,
+      "hrv_7day_avg": 58,
+      "resting_hr": 45,
+      "sleep_score": 83,
+      "sleep_total_hours": 7.1
+    },
+    {
+      "date": "2026-09-26",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 64,
+      "hrv_7day_avg": 61,
+      "resting_hr": 44,
+      "sleep_score": 71,
+      "sleep_total_hours": 6.3
     },
     {
       "date": "2026-09-27",
@@ -645,6 +785,15 @@
       "training_readiness_level": "moderate"
     },
     {
+      "date": "2026-09-28",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 60,
+      "hrv_7day_avg": 62,
+      "resting_hr": 45,
+      "sleep_score": 81,
+      "sleep_total_hours": 7.3
+    },
+    {
       "date": "2026-09-29",
       "resting_hr": 43,
       "resting_hr_7day_avg": 44,
@@ -661,6 +810,24 @@
       "sleep_light_pct": 61.6,
       "training_readiness_score": 61,
       "training_readiness_level": "moderate"
+    },
+    {
+      "date": "2026-09-30",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 79,
+      "hrv_7day_avg": 65,
+      "resting_hr": 40,
+      "sleep_score": 83,
+      "sleep_total_hours": 7.6
+    },
+    {
+      "date": "2026-10-01",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 57,
+      "hrv_7day_avg": 65,
+      "resting_hr": 45,
+      "sleep_score": 66,
+      "sleep_total_hours": 5.7
     },
     {
       "date": "2026-10-02",
@@ -681,6 +848,15 @@
       "training_readiness_level": "low"
     },
     {
+      "date": "2026-10-03",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 57,
+      "hrv_7day_avg": 65,
+      "resting_hr": 43,
+      "sleep_score": 59,
+      "sleep_total_hours": 6.9
+    },
+    {
       "date": "2026-10-04",
       "resting_hr": 42,
       "resting_hr_7day_avg": 43,
@@ -697,6 +873,24 @@
       "sleep_light_pct": 58.4,
       "training_readiness_score": 43,
       "training_readiness_level": "low"
+    },
+    {
+      "date": "2026-10-05",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 56,
+      "hrv_7day_avg": 65,
+      "resting_hr": 44,
+      "sleep_score": 80,
+      "sleep_total_hours": 6.8
+    },
+    {
+      "date": "2026-10-06",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 56,
+      "hrv_7day_avg": 63,
+      "resting_hr": 43,
+      "sleep_score": 82,
+      "sleep_total_hours": 7.2
     },
     {
       "date": "2026-10-07",
@@ -717,6 +911,15 @@
       "training_readiness_level": "moderate"
     },
     {
+      "date": "2026-10-08",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 59,
+      "hrv_7day_avg": 62,
+      "resting_hr": 43,
+      "sleep_score": 80,
+      "sleep_total_hours": 7.7
+    },
+    {
       "date": "2026-10-09",
       "resting_hr": 45,
       "resting_hr_7day_avg": 44,
@@ -733,6 +936,15 @@
       "sleep_light_pct": 50.6,
       "training_readiness_score": 47,
       "training_readiness_level": "low"
+    },
+    {
+      "date": "2026-10-10",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 68,
+      "hrv_7day_avg": 62,
+      "resting_hr": 40,
+      "sleep_score": 85,
+      "sleep_total_hours": 7.6
     },
     {
       "date": "2026-10-11",
@@ -753,6 +965,15 @@
       "training_readiness_level": "moderate"
     },
     {
+      "date": "2026-10-12",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 68,
+      "hrv_7day_avg": 62,
+      "resting_hr": 44,
+      "sleep_score": 95,
+      "sleep_total_hours": 8.2
+    },
+    {
       "date": "2026-10-13",
       "resting_hr": 41,
       "resting_hr_7day_avg": 43,
@@ -771,6 +992,15 @@
       "training_readiness_level": "moderate"
     },
     {
+      "date": "2026-10-14",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 58,
+      "hrv_7day_avg": 61,
+      "resting_hr": 44,
+      "sleep_score": 78,
+      "sleep_total_hours": 6.9
+    },
+    {
       "date": "2026-10-15",
       "resting_hr": 46,
       "resting_hr_7day_avg": 44,
@@ -787,6 +1017,24 @@
       "sleep_light_pct": 60.2,
       "training_readiness_score": 33,
       "training_readiness_level": "low"
+    },
+    {
+      "date": "2026-10-16",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 71,
+      "hrv_7day_avg": 62,
+      "resting_hr": 38,
+      "sleep_score": 76,
+      "sleep_total_hours": 6.5
+    },
+    {
+      "date": "2026-10-17",
+      "hrv_status": "BALANCED",
+      "hrv_last_night_avg": 54,
+      "hrv_7day_avg": 60,
+      "resting_hr": 45,
+      "sleep_score": 68,
+      "sleep_total_hours": 6.6
     },
     {
       "date": "2026-10-18",

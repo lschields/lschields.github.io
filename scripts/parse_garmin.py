@@ -414,6 +414,56 @@ def parse_extension_json(data):
     return athlete, readiness_entry, load_entry, race_prediction_entry
 
 
+def backfill_range_days(data, history):
+    """Fill in earlier days from the 7-day ranges inside an extension export.
+
+    The HRV and sleep-stats endpoints each return ~7 daily entries, but
+    parse_extension_json() only keeps the one matching the export date, so
+    the HRV/RHR chart had a point only every time a file was uploaded.
+    This adds the other days in each range as readiness_history entries.
+    Never overwrites: values already present (from a real per-day export)
+    win, only missing fields/days are added. Sleep-stats restingHeartRate
+    matched usersummary's resting_hr on all 73 overlapping days checked.
+    """
+    captures = data.get("captures", [])
+    by_date = {}
+
+    def entry(d):
+        return by_date.setdefault(d, {})
+
+    for rng in _captures_matching(captures, r"hrv-service/hrv/daily/\d{4}-\d{2}-\d{2}/\d{4}-\d{2}-\d{2}$"):
+        for sm in rng.get("hrvSummaries") or []:
+            d = sm.get("calendarDate")
+            if d:
+                entry(d).update({"hrv_status": sm.get("status"),
+                                 "hrv_last_night_avg": sm.get("lastNightAvg"),
+                                 "hrv_7day_avg": sm.get("weeklyAvg")})
+    for rng in _captures_matching(captures, r"sleep-service/stats/sleep/daily/\d{4}-\d{2}-\d{2}/\d{4}-\d{2}-\d{2}$"):
+        for st in rng.get("individualStats") or []:
+            d = st.get("calendarDate")
+            v = st.get("values") or {}
+            if not d:
+                continue
+            total_s = v.get("totalSleepTimeInSeconds") or 0
+            entry(d).update({
+                "resting_hr": v.get("restingHeartRate"),
+                "sleep_score": v.get("sleepScore"),
+                "sleep_total_hours": round(total_s / 3600, 1) if total_s else None,
+            })
+
+    added = 0
+    for d, fields in by_date.items():
+        fields = {k: val for k, val in fields.items() if val is not None}
+        existing = next((r for r in history["readiness_history"] if r["date"] == d), None)
+        if existing is None:
+            history["readiness_history"].append({"date": d, **fields})
+            added += 1
+        else:
+            for k, val in fields.items():
+                existing.setdefault(k, val)
+    return added
+
+
 def merge_athlete_snapshot(history, patch):
     """Shallow-merge new athlete fields onto the existing snapshot instead of
     replacing it outright, so a source that only reports running fitness
@@ -561,11 +611,13 @@ def main(argv):
                 merge_athlete_snapshot(history, athlete)
                 upsert_by_date(history["readiness_history"], readiness_entry)
                 upsert_by_date(history["load_history"], load_entry)
+                backfilled = backfill_range_days(raw, history)
                 if race_prediction_entry:
                     upsert_by_date(history.setdefault("race_predictions", []), race_prediction_entry)
 
                 print(f"  -> readiness/load snapshot for {readiness_entry['date']}"
-                      + (", race predictions updated" if race_prediction_entry else ""))
+                      + (", race predictions updated" if race_prediction_entry else "")
+                      + (f", {backfilled} earlier days backfilled" if backfilled else ""))
                 archive_raw(path, readiness_entry["date"])
 
             else:
