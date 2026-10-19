@@ -907,6 +907,38 @@ try {
   });
 } catch (e) { /* storage unavailable - keep defaults */ }
 
+// "actual" = raw daily values; "trend" = trailing 7-calendar-day average
+// (mean of whatever readings exist in the 7 days ending on that date).
+const chartMode = { hrv: "actual", load: "actual" };
+try {
+  ["hrv", "load"].forEach(k => {
+    const v = localStorage.getItem("td:chartMode:" + k);
+    if (v === "actual" || v === "trend") chartMode[k] = v;
+  });
+} catch (e) { /* keep defaults */ }
+
+// Returns a copy of `rows` (sorted ascending, each with .date) where, in
+// trend mode, every key in `keys` is replaced by its trailing 7-day mean.
+// Run on the FULL history before windowing so points near the left edge of
+// a short range still average over days that are outside the visible window.
+function applyChartMode(rows, keys, mode) {
+  if (mode !== "trend") return rows;
+  const DAY = 86400000;
+  const t = rows.map(r => parseISO(r.date).getTime());
+  return rows.map((r, i) => {
+    const out = { ...r };
+    keys.forEach(k => {
+      let sum = 0, n = 0;
+      for (let j = i; j >= 0 && t[i] - t[j] < 7 * DAY; j--) {
+        const v = rows[j][k];
+        if (v != null) { sum += v; n++; }
+      }
+      out[k] = n ? sum / n : null;
+    });
+    return out;
+  });
+}
+
 function withinRange(rows, days) {
   const cutoff = new Date(state.today);
   cutoff.setDate(cutoff.getDate() - days);
@@ -915,6 +947,20 @@ function withinRange(rows, days) {
 }
 
 function initChartRangeButtons() {
+  document.querySelectorAll(".chart-mode").forEach(group => {
+    const key = group.dataset.chart;
+    const sync = () => group.querySelectorAll("button").forEach(b =>
+      b.classList.toggle("active", b.dataset.mode === chartMode[key]));
+    sync();
+    group.addEventListener("click", e => {
+      const b = e.target.closest("button[data-mode]");
+      if (!b) return;
+      chartMode[key] = b.dataset.mode;
+      try { localStorage.setItem("td:chartMode:" + key, chartMode[key]); } catch (err) {}
+      sync();
+      if (state.plan && state.history) renderCharts(state.plan, state.history);
+    });
+  });
   document.querySelectorAll(".chart-range").forEach(group => {
     const key = group.dataset.chart;
     const sync = () => group.querySelectorAll("button").forEach(b =>
@@ -986,7 +1032,9 @@ function renderCharts(plan, history) {
     options: chartOptions({ suffix: " mi" }),
   });
 
-  const readiness = withinRange((history.readiness_history || []).slice().sort((a, b) => a.date.localeCompare(b.date)), chartRange.hrv);
+  const readiness = withinRange(applyChartMode(
+    (history.readiness_history || []).slice().sort((a, b) => a.date.localeCompare(b.date)),
+    ["hrv", "hrv_last_night_avg", "resting_hr"], chartMode.hrv), chartRange.hrv);
   const hrvPoints = readiness.map(r => ({ date: r.date, value: r.hrv ?? r.hrv_last_night_avg ?? null }));
   const rhrPoints = readiness.map(r => ({ date: r.date, value: r.resting_hr ?? null }));
   renderChartLegend("chart-hrv-legend", [
@@ -1009,7 +1057,9 @@ function renderCharts(plan, history) {
     options: dualAxisChartOptions({ suffix: " ms" }, { suffix: " bpm" }),
   });
 
-  const load = withinRange((history.load_history || []).slice().sort((a, b) => a.date.localeCompare(b.date)), chartRange.load);
+  const load = withinRange(applyChartMode(
+    (history.load_history || []).slice().sort((a, b) => a.date.localeCompare(b.date)),
+    ["atl", "ctl", "acwr"], chartMode.load), chartRange.load);
   const atlPoints = load.map(l => ({ date: l.date, value: l.atl ?? null }));
   const ctlPoints = load.map(l => ({ date: l.date, value: l.ctl ?? null }));
   const acwrPoints = load.map(l => ({ date: l.date, value: l.acwr ?? null }));

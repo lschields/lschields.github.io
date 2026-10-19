@@ -93,11 +93,17 @@
       <h2>HRV &amp; resting heart rate</h2>
       <p class="panel-sub">Daily readings from Garmin Coach data. Watch the trend, not the daily noise.</p>
     </div>
+    <div class="chart-controls">
+    <div class="chart-mode" data-chart="hrv" role="group" aria-label="Value type">
+      <button type="button" data-mode="actual">Actual values</button>
+      <button type="button" data-mode="trend">7-day trend</button>
+    </div>
     <div class="chart-range" data-chart="hrv" role="group" aria-label="Time range">
       <button type="button" data-range="28">4 weeks</button>
       <button type="button" data-range="56">8 weeks</button>
       <button type="button" data-range="182">6 months</button>
       <button type="button" data-range="365">1 year</button>
+    </div>
     </div>
     <div class="chart-legend" id="chart-hrv-legend"></div>
     <canvas id="chart-hrv" height="90"></canvas>
@@ -109,11 +115,17 @@
       <h2>Training load (ATL / CTL / ACWR)</h2>
       <p class="panel-sub">Acute vs. chronic training load. ACWR above ~1.3 is when injury risk climbs.</p>
     </div>
+    <div class="chart-controls">
+    <div class="chart-mode" data-chart="load" role="group" aria-label="Value type">
+      <button type="button" data-mode="actual">Actual values</button>
+      <button type="button" data-mode="trend">7-day trend</button>
+    </div>
     <div class="chart-range" data-chart="load" role="group" aria-label="Time range">
       <button type="button" data-range="28">4 weeks</button>
       <button type="button" data-range="56">8 weeks</button>
       <button type="button" data-range="182">6 months</button>
       <button type="button" data-range="365">1 year</button>
+    </div>
     </div>
     <div class="chart-legend" id="chart-load-legend"></div>
     <canvas id="chart-load" height="90"></canvas>
