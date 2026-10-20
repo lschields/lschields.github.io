@@ -1128,6 +1128,12 @@ add_week(
         "LT pace improved (~6:54 -> ~6:48/mi), predictor ~1:33:00, last year here 1:36:31. Held back "
         "from the predictor because the longest run is ~9.5mi, the stomach acts up near Zone 5, and "
         "sleep has been short. A forecast, not a target.",
+        "ACHILLES CHECK-IN 2026-10-20: Luke felt his right Achilles at ~2/10 during Tuesday's intervals "
+        "(first run in Adidas Adios Pro 4 race shoes), gone within an hour. Mild and not unexpected after "
+        "a hard session in stiff, high-stack shoes, but it's his history spot, so: do the PT activation "
+        "work, check first-steps morning stiffness Wed/Thu, wear regular trainers for the rest of Week 12 "
+        "(race shoes only for the Oct 29 confidence run if it's completely quiet), and back off easy "
+        "runs if it climbs above ~3/10, lingers, or turns sharp/swollen - see a physio/doctor if so.",
         "Week 11 closed 2026-10-18 at 34.67mi (35.5 planned): 6 x 800m at ~6:30, tempo at the fast "
         "edge of the band, long run 9.51mi at steady HR 134-139 with no late fade. Taper is a go as "
         "drafted. Biggest lever now is sleep (readiness 33-44, 6-6.7h nights) - protect it.",
